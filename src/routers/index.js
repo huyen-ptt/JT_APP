@@ -21,7 +21,12 @@ import Currency from '@/pages/Currency.vue';
 import Cart from '@/pages/Cart.vue';
 import Checkout from '@/pages/Checkout.vue';
 import CheckoutSuccess from '@/pages/CheckoutSuccess.vue';
-
+import Introduce from '@/pages/Introduce.vue';
+import Contact from '@/pages/Contact.vue';
+import Faqs from '@/pages/Faqs.vue';
+import BecomePartner from '@/pages/Become-a-partner.vue';
+import MyOrder from '@/pages/MyOrder.vue';
+import OrderDetail from '@/pages/OrderDetail.vue';
 
 
 
@@ -133,8 +138,38 @@ const routes = [
     },
     {
         path: "/checkoutsuccess",
-        name: "CheckoutSuccess",
+        name: "CheckoutSuccess",  
         component: CheckoutSuccess,
+    },
+    {
+        path: "/introduce",
+        name: "Introduce",  
+        component: Introduce,
+    },
+    {
+        path: "/contact",
+        name: "Contact",  
+        component: Contact,
+    },
+    {
+        path: "/faqs",
+        name: "Faqs",  
+        component: Faqs,
+    },
+    {
+        path: "/becomeapartner",
+        name: "BecomePartner",  
+        component: BecomePartner,
+    },
+    {
+        path: "/myorder",
+        name: "MyOrder",  
+        component: MyOrder,
+    },
+    {
+        path: "/orderdetail",
+        name: "OrderDetail",  
+        component: OrderDetail,
     },
   
 ];

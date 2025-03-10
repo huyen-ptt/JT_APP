@@ -26,11 +26,7 @@
 
 </template>
 <style scoped>
-/* 
-.forgot-password-container {
-     margin: 0 auto;
-    padding: 20px;
-} */
+
 .form-container {
     background-color: white;
     border-radius: 10px;
