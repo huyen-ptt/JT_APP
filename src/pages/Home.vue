@@ -24,39 +24,13 @@
             </div>
          </div>
 
-         <div class="service-icons mt-3">
-            <div class="service-item">
+         <div class="service-icons mt-3" v-if="services.length > 0">
+            <div class="service-item" v-for="(s, index) in first4Services" :key="index">
                <div class="icon-circle combo-icon">
-                  <img class="icon-services" src="../assets/images/Group.png" />
-
+                  <img class="icon-services" :src="helper.getImageCMS(s.icon)" />
                </div>
-               <span class="service-text">Combo</span>
+               <span class="service-text">{{s.title}}</span>
             </div>
-
-            <div class="service-item">
-               <div class="icon-circle ticket-icon">
-                  <img class="icon-services" src="../assets/images/ticket.png" />
-
-               </div>
-               <span class="service-text">Ticket</span>
-            </div>
-
-            <div class="service-item">
-               <div class="icon-circle plan-icon">
-                  <img class="icon-services" src="../assets/images/Plan.png" />
-
-               </div>
-               <span class="service-text">Plan</span>
-            </div>
-
-            <div class="service-item">
-               <div class="icon-circle sim-icon">
-                  <img class="icon-services" src="../assets/images/Sim.png" />
-
-               </div>
-               <span class="service-text">Travel SIM</span>
-            </div>
-
             <div class="service-item" @click="visibleBottom = true">
                <div class="icon-circle all-icon">
                   <img class="icon-services" src="../assets/images/Frame.png" />
@@ -676,7 +650,7 @@
    </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
 // Import TabView và TabPanel từ PrimeVue
 import Drawer from 'primevue/drawer';
 import TabView from 'primevue/tabview';
@@ -684,8 +658,14 @@ import TabPanel from 'primevue/tabpanel';
 const visibleBottom = ref(false);
 import { RouterLink, useRouter } from 'vue-router'
 
+import {useHome} from '@/composables/home.js'
+import { useHelper } from "@/composables/helper";
+
 const searchTerm = ref('')
 const router = useRouter()
+
+const homeComposable = useHome();
+const helper = useHelper();
 
 const handleSearch = () => {
    // Chuyển hướng đến trang /search với query parameter
@@ -694,6 +674,25 @@ const handleSearch = () => {
       query: searchTerm.value ? { q: searchTerm.value } : {}
    })
 }
+
+const services = ref([])
+const first4Services = ref([])
+onBeforeMount(async () => {
+   //Tuong duong ham created
+   // Goi cac ham `Future`
+   //Lay ra cac services tu API
+   services.value = await homeComposable.getZonesByTypeDichVu();
+   first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0,4)
+
+})
+
+onMounted(async () => {
+   
+   
+})
+
+
+
 </script>
 <style scoped>
 .tour-card {

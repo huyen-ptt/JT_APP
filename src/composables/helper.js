@@ -1,8 +1,7 @@
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 
 export const useHelper = () => {
-  const runtimeConfig = useRuntimeConfig();
-  const uri = runtimeConfig.public.apiBaseUrl;
+  const uri = import.meta.env.VITE_IMAGE_BASE_URL;
   const _cultureCode = 'vi-VN';
 
   // const getImageCMS = (url) => {
@@ -11,7 +10,7 @@ export const useHelper = () => {
   const getImageCMS = (url) => {
     // Đảm bảo rằng ảnh có định dạng `.webp`
     const webpUrl = url.replace(/\.[^/.]+$/, ".webp");
-    return `${runtimeConfig.public.imageBaseUrl}${webpUrl}`;
+    return `${import.meta.env.VITE_IMAGE_BASE_URL}${webpUrl}`;
   }
   // const getImageThumbCMS = (url) => {
   //   return `${runtimeConfig.public.imageBaseUrlThumbnail}${url}`
@@ -19,7 +18,7 @@ export const useHelper = () => {
   const getImageThumbCMS = (url) => {
     // Đảm bảo rằng ảnh có định dạng `.webp`
     const webpUrl = url.replace(/\.[^/.]+$/, ".webp");
-  return `${runtimeConfig.public.imageBaseUrl}${webpUrl}`;
+  return `${import.meta.env.VITE_IMAGE_BASE_URL}${webpUrl}`;
   }
   const getCultureByCode = (cultures, code, isHtml) => {
     const finded = cultures.find(r => r.title == code)

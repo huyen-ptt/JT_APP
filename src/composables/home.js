@@ -1,23 +1,25 @@
+import axios from "axios";
+import { useI18n } from 'vue-i18n';
+
 export const useHome = () => {
-  const runtimeConfig = useRuntimeConfig();
-  const uri = runtimeConfig.public.apiBaseUrl;
+  const uri = import.meta.env.VITE_API_URI;
   let _cultureCode = '';
 
   const { locale } = useI18n();
   const currentLanguage = locale.value;
-  switch(currentLanguage){
+  switch (currentLanguage) {
     case 'en':
       _cultureCode = 'en-US';
       break;
     case 'vi':
       _cultureCode = 'vi-VN';
       break;
-      case 'zh':
+    case 'zh':
       _cultureCode = 'zh-CN';
       break;
-      case 'ko':
-        _cultureCode = 'ko-KR';
-        break;
+    case 'ko':
+      _cultureCode = 'ko-KR';
+      break;
   }
 
   const getBannerCodes = async () => {
@@ -139,7 +141,7 @@ export const useHome = () => {
 
         }
         //footer_mb
-     
+
         let FOOTER_MB = null;
         const _footer_mb = response.data.value.find(r => r.bannerAdsCode == "FOOTER_MB")
         if (_footer_mb != null) {
@@ -184,21 +186,13 @@ export const useHome = () => {
 
   const getZonesByTypeDichVu = async () => {
     let type = 1;
-    if(_cultureCode){
+    if (_cultureCode) {
       const url = `${uri}/api/Zones/GetZoneByType`;
       const data = { type: type, cultureCode: _cultureCode };
       try {
-        const response = await useFetch(url, {
-          method: 'post',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        })
-        if (response.data.value) {
-
-          let _response = response.data.value.filter(r => r.parentId > 0 && r.level == 1);
-          
+        const response = await axios.post(url, data)
+        if (response.data) {
+          let _response = response.data.filter(r => r.parentId > 0 && r.level == 1);
           return _response;
         }
       } catch (err) {
@@ -206,11 +200,11 @@ export const useHome = () => {
         throw err;  // Rethrow to let handling be done by `useAsyncData`
       }
     }
-    
+
   }
   const getZonesByTypeDiemDen = async () => {
     let type = 5;
-    if(_cultureCode){
+    if (_cultureCode) {
       const url = `${uri}/api/Zones/GetZoneByType`;
       const data = { type: type, cultureCode: _cultureCode };
       try {
@@ -224,9 +218,9 @@ export const useHome = () => {
         if (response.data.value) {
           let _response = response.data.value.filter(r => r.parentId > 0);
           _response.forEach(element => {
-            if(element.mapCroods){
+            if (element.mapCroods) {
               let splited = element.mapCroods.split(',');
-              if(splited.length == 3){
+              if (splited.length == 3) {
                 element.xPosition = parseFloat(splited[0])
                 element.yPosition = parseFloat(splited[1])
                 element.radius = parseFloat(splited[2])
@@ -241,11 +235,11 @@ export const useHome = () => {
         throw err;  // Rethrow to let handling be done by `useAsyncData`
       }
     }
-    
+
   }
   const getZonesByTypeKhuyenMai = async () => {
     let type = 8;
-    if(_cultureCode){
+    if (_cultureCode) {
       const url = `${uri}/api/Zones/GetZoneByType`;
       const data = { type: type, cultureCode: _cultureCode };
       try {
@@ -259,9 +253,9 @@ export const useHome = () => {
         if (response.data.value) {
           let _response = response.data.value.filter(r => r.parentId > 0);
           _response.forEach(element => {
-            if(element.mapCroods){
+            if (element.mapCroods) {
               let splited = element.mapCroods.split(',');
-              if(splited.length == 3){
+              if (splited.length == 3) {
                 element.xPosition = parseFloat(splited[0])
                 element.yPosition = parseFloat(splited[1])
                 element.radius = parseFloat(splited[2])
@@ -276,10 +270,10 @@ export const useHome = () => {
         throw err;  // Rethrow to let handling be done by `useAsyncData`
       }
     }
-    
+
   }
   const getProductsInRegion = async () => {
-    if(_cultureCode){
+    if (_cultureCode) {
       const url = `${uri}/api/PageHome/GetProductsInRegion`;
       const data = { cultureCode: _cultureCode };
       try {
@@ -291,7 +285,7 @@ export const useHome = () => {
           }
         })
         if (response.data.value) {
-          
+
           return response.data.value.filter(r => r.region.parentId > 0);
         }
       } catch (err) {
@@ -299,19 +293,19 @@ export const useHome = () => {
         throw err;  // Rethrow to let handling be done by `useAsyncData`
       }
     }
-    
+
   }
-  const getProductsLastSeen = async() => {
+  const getProductsLastSeen = async () => {
     const url = `${uri}/api/PageHome/GetProductLastSeen`;
     const seenStore = useSeenStore();
     const currentSeen = computed(() => seenStore.seen);
     // console.log(currentSeen.value);
-    if(currentSeen.value){
+    if (currentSeen.value) {
       const data = {
-        ids : currentSeen.value,
+        ids: currentSeen.value,
         languageCode: _cultureCode
       }
-      try{
+      try {
         const response = await useFetch(url, {
           method: 'post',
           body: JSON.stringify(data),
@@ -332,10 +326,10 @@ export const useHome = () => {
 
   const getBlogsHomePage = async () => {
     let data = {
-      cultureCode : _cultureCode
+      cultureCode: _cultureCode
     }
     const url = `${uri}/api/PageHome/GetBlogsHomePage`;
-    try{
+    try {
       const response = await useFetch(url, {
         method: 'post',
         body: JSON.stringify(data),
@@ -351,7 +345,7 @@ export const useHome = () => {
 
     }
   }
-  
+
 
   return { getBannerCodes, getZonesByTypeDichVu, getZonesByTypeDiemDen, getProductsInRegion, getProductsLastSeen, getBlogsHomePage, getZonesByTypeKhuyenMai }
 }
