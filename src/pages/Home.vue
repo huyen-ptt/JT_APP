@@ -2,7 +2,8 @@
    <div class="header-bg">
       <div class="container bao-h">
          <div class="header-container">
-            <div class="search-h d-flex justify-content-between align-items-baseline">
+            <!-- <div>{{ $t('welcome') }}</div> -->
+            <div class="search-h d-flex justify-content-between align-items-baseline gap-1">
                <!-- Logo JOY TIME -->
                <div class="logo-container">
                   <img src="../assets/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
@@ -16,7 +17,7 @@
                </div>
 
                <!-- Icons on the right -->
-               <div class="icons-container">
+               <div class="icons-container d-flex ">
                   <img class="icon-cart " src="../assets/images/shopping-cart.png" />
                   <img class="icon-cart " src="../assets/images/Icon.png" />
                </div>
@@ -56,7 +57,7 @@
                <span class="service-text">Travel SIM</span>
             </div>
 
-            <div class="service-item">
+            <div class="service-item" @click="visibleBottom = true">
                <div class="icon-circle all-icon">
                   <img class="icon-services" src="../assets/images/Frame.png" />
 
