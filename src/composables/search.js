@@ -1,28 +1,33 @@
+import axios from "axios";
+import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router'
+import { useSeenStore } from '@/stores/seenStore';
+import { computed } from 'vue';
 export const useSearch = () => {
-  const runtimeConfig = useRuntimeConfig();
-  const uri = runtimeConfig.public.apiBaseUrl;
+  const uri = import.meta.env.VITE_API_URI;
+
   let _cultureCode = '';
 
   const { locale } = useI18n();
   const currentLanguage = locale.value;
 
-  switch(currentLanguage){
+  switch (currentLanguage) {
     case 'en':
       _cultureCode = 'en-US';
       break;
     case 'vi':
       _cultureCode = 'vi-VN';
       break;
-      case 'zh':
+    case 'zh':
       _cultureCode = 'zh-CN';
       break;
-      case 'ko':
-        _cultureCode = 'ko-KR';
-        break;
+    case 'ko':
+      _cultureCode = 'ko-KR';
+      break;
   }
 
   const route = useRoute();
-  
+
   const _first = computed(() => route.query.service);
   const _second = computed(() => route.query.destination);
   const _keyword = computed(() => route.query.keyword);
@@ -36,16 +41,11 @@ export const useSearch = () => {
       cultureCode: _cultureCode
     }
     try {
-      const response = await useFetch(url, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      if (response.data.value) {
+      const response = await axios.post(url, data)
+
+      if (response.data) {
         let zoneList = []
-        let $response = response.data.value
+        let $response = response.data
         if ($response) {
           let parentDiemDen = $response.find(r => r.type == 5 && (r.parentId == 0 || !r.parentId)) // 5 la type diem den
           let parentDanhMuc = $response.find(r => r.type == 1 && (r.parentId == 0 || !r.parentId)) // 1 la type dich vu
@@ -68,7 +68,7 @@ export const useSearch = () => {
               zoneParentType: parentDanhMuc.type,
               zoneChilds: childDanhMuc
             }
-            
+
             _temp.zoneChilds.forEach(t => {
               let childLevel1 = $response.filter(r => r.type == 1 && r.parentId == t.id);
               t.subZone = childLevel1;
@@ -85,7 +85,7 @@ export const useSearch = () => {
             }
             zoneList.push(_temp);
           }
-          
+
           let selectedSearchItem = [];
           let selectedGoogleMapCrood = { lat: 21.0285, lng: 105.8542 }
           let selectedGoogleMapZoom = 7;
@@ -97,7 +97,7 @@ export const useSearch = () => {
                   selectedSearchItem.push(v)
                   // //console.log(v)
                 }
-                
+
               })
             }
 
@@ -106,25 +106,25 @@ export const useSearch = () => {
           zoneList.forEach((parent) => {
             if (parent.zoneChilds) {
               parent.zoneChilds.forEach(v => {
-                if(_first.value == v.url || _second.value == v.url){
-                  if(v.googleMapCrood){
+                if (_first.value == v.url || _second.value == v.url) {
+                  if (v.googleMapCrood) {
                     let googleMapCroodSplited = v.googleMapCrood.split('-');
-                    if(googleMapCroodSplited.length == 2){
-                      selectedGoogleMapCrood = {lat: parseFloat(googleMapCroodSplited[0]), lng: parseFloat(googleMapCroodSplited[1])};
-  
+                    if (googleMapCroodSplited.length == 2) {
+                      selectedGoogleMapCrood = { lat: parseFloat(googleMapCroodSplited[0]), lng: parseFloat(googleMapCroodSplited[1]) };
+
                       selectedGoogleMapZoom = 12;
                     }
-                    
+
                   }
                 }
-                
+
               })
             }
 
           })
 
           console.log(selectedGoogleMapCrood, selectedGoogleMapZoom)
-          return { ssrZoneList: zoneList, ssrSelectedSearchItem: selectedSearchItem, ssrSelectedGoogleMapCrood: selectedGoogleMapCrood, ssrSelectedGoogleMapZoom : selectedGoogleMapZoom }
+          return { ssrZoneList: zoneList, ssrSelectedSearchItem: selectedSearchItem, ssrSelectedGoogleMapCrood: selectedGoogleMapCrood, ssrSelectedGoogleMapZoom: selectedGoogleMapZoom }
 
         }
       }
@@ -136,7 +136,7 @@ export const useSearch = () => {
 
   const getFilterdProducts = async (selectedZones) => {
     //Che chao cai nay
-    
+
     const url = `${uri}/api/PageSearch/GetProductByKeywords`;
 
     if (selectedZones.length == 0) {
@@ -144,7 +144,7 @@ export const useSearch = () => {
       selectedZones.push(_second.value);
     }
     let keywords = [];
-    if(_keyword.value){
+    if (_keyword.value) {
       keywords.push(_keyword.value)
     }
 
@@ -154,24 +154,17 @@ export const useSearch = () => {
       cultureCode: _cultureCode,
       pageIndex: 1,
       pageSize: 12,
-      startPrice : 0,
+      startPrice: 0,
       endPrice: 20000000,
       sortBy: "TOP_VIEW"
     }
     try {
       // const data = { id: id, cultureCode: _cultureCode }
       //console.log(selectedZones)
-      const response = await useFetch(url, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        },
-
-      })
-      if (response.data.value) {
+      const response = await axios.post(url, data)
+      if (response.data) {
         // console.log(response.data.value)
-        return response.data.value
+        return response.data
       }
     } catch (err) {
       console.error('Error fetching banners:', err);

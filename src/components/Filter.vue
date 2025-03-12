@@ -10,50 +10,29 @@
         </div>
         <div class="filter-sidebar">
             <!-- Destination Section -->
-            <div class="filter-section">
-                <h3 class="section-title">Destination</h3>
+            <div class="filter-section" v-if="destinationSearch">
+                <h3 class="section-title">{{ destinationSearch.zoneParentName }}</h3>
                 <div class="button-grid" id="destinations">
                     <button class="filter-button selected" data-name="Ha Noi">Ha Noi</button>
-                    <button class="filter-button" data-name="Hue">Hue</button>
-                    <button class="filter-button" data-name="Ho Chi Minh">Ho Chi Minh</button>
-                    <button class="filter-button" data-name="Hoi An">Hoi An</button>
-                    <button class="filter-button" data-name="Phu Yen">Phu Yen</button>
-                    <button class="filter-button" data-name="Sa Pa">Sa Pa</button>
-                    <button class="filter-button" data-name="Da Lat">Da Lat</button>
-                    <button class="filter-button" data-name="Da Nang">Da Nang</button>
-                    <button class="filter-button" data-name="Phu Quoc">Phu Quoc</button>
-                    <button class="filter-button" data-name="Ninh Binh">Ninh Binh</button>
-                    <button class="filter-button" data-name="Hai Phong">Hai Phong</button>
-                    <button class="filter-button" data-name="Vung Tau">Vung Tau</button>
-                    <button class="filter-button" data-name="Nha Trang">Nha Trang</button>
-                    <button class="filter-button" data-name="Quang Binh">Quang Binh</button>
-                    <button class="filter-button" data-name="Hoa Binh">Hoa Binh</button>
-                    <button class="filter-button" data-name="Quy Nhon">Quy Nhon</button>
-                    <button class="filter-button" data-name="Phan Thiet">Phan Thiet</button>
-                    <button class="filter-button" data-name="Bac Kan">Bac Kan</button>
-                    <button class="filter-button" data-name="Son La">Son La</button>
-                    <button class="filter-button" data-name="Ha Giang">Ha Giang</button>
+                    <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index" class="filter-button"
+                        :data-name="s.name">{{ s.name }}</button>
                 </div>
             </div>
 
             <!-- Service Section -->
-            <div class="filter-section">
-                <h3 class="section-title">Service</h3>
+            <div class="filter-section" v-if="serviceSearch">
+                <h3 class="section-title">{{ serviceSearch.
+                    zoneParentName }}</h3>
                 <div class="button-grid" id="services">
-                    <button class="filter-button" data-name="Tour & Sightseeing">Tour & Sightseeing</button>
-                    <button class="filter-button" data-name="Ticket">Ticket</button>
-                    <button class="filter-button" data-name="Combo">Combo</button>
+
 
                     <button class="filter-button selected" data-name="Travel SIM">Travel SIM</button>
-                    <button class="filter-button" data-name="Transportation">Transportation</button>
-                    <button class="filter-button" data-name="Souvenir">Souvenir</button>
-                    <button class="filter-button" data-name="Food & Beverage">Food & Beverage</button>
-                    <button class="filter-button" data-name="Fast Track">Fast Track</button>
-                    <button class="filter-button" data-name="Spa">Spa</button>
+                    <button class="filter-button" v-for="(d, key) in serviceSearch.zoneChilds" :key="index" :data-name="d
+                        .name">{{ d.name }}</button>
                 </div>
             </div>
             <div class="budget-slider-container">
-                <h3 class="section-title budge">Budget</h3>
+                <h3 class="section-title budge">{{ $t('budget') }}</h3>
                 <div class="slider-container">
                     <Slider v-model="budgetRange" range class="budget-slider" :min="0" :max="20000000" />
                     <div class="slider-labels">
@@ -65,19 +44,34 @@
         </div>
         <div class="bottom-menu menu-search">
             <router-link to="/product" class="btn-search"> <button class="search-button btn-search" id="search">
-                Apply Filters
+                    Apply Filters
                 </button></router-link>
         </div>
     </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Slider from 'primevue/slider';
+import { useSearch } from "@/composables/search";
+const searchComposable = useSearch();
+const searchZone = ref([])
+const destinationSearch = ref(null)
+const serviceSearch = ref(null)
+
 
 const budgetRange = ref([0, 20000000]);
 
 const formatCurrency = (value) => {
     return new Intl.NumberFormat('vi-VN').format(value) + 'đ';
 };
+
+onMounted(async () => {
+
+    searchZone.value = await searchComposable.getSearchableZone()
+    destinationSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 5);
+    serviceSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 1);
+
+    console.log(destinationSearch.value, serviceSearch.value)
+})
 </script>
 <style></style>

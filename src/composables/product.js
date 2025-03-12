@@ -1,7 +1,14 @@
+import axios from "axios";
+import { ref } from "vue"
+import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
+// const seenStore = useSeenStore();
+
+
 export const useProduct = () => {
   const route = useRoute();
-  const runtimeConfig = useRuntimeConfig();
-  const uri = runtimeConfig.public.apiBaseUrl;
+  const uri = import.meta.env.VITE_API_URI;
   let _cultureCode = '';
 
   const { locale } = useI18n();
@@ -32,20 +39,12 @@ export const useProduct = () => {
     const data = { id: parseInt(id.value), cultureCode: _cultureCode };
     console.log(data)
     try {
-      const response = await useFetch(url, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      if (response.data.value) {
+      const response = await axios.post(url, data)
 
-
-
+      if (response.data) {
         const seenStore = useSeenStore();
 
-        let detail = response.data.value;
+        let detail = response.data;
         // console.log(detail);
         seenStore.onAddSeen(detail.id);
         let images = detail.avatarArray.split(',');
@@ -74,5 +73,19 @@ export const useProduct = () => {
     }
   }
 
-  return { getProductDetail }
+  const onLoadLastSeen = async (data) => {
+    const url = `${uri}/api/PageHome/GetProductLastSeen`
+    try {
+      const respone = await axios.post(url, data)
+      if (respone.data) {
+        return respone.data
+      } else {
+        console.log(err)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  return { getProductDetail, onLoadLastSeen }
 }
