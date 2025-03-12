@@ -12,21 +12,20 @@
         </div>
 
         <div class="d-flex align-items-center thanh-loc">
-            <div class="khac"  @click="visibleRight  = true">
+            <div class="khac" @click="onRedirectSearch()">
                 <div class="filter">
                     <img class="" src="../assets/images/Body.png" />
-
-                    <span class="filter-counter-product">3</span>
+                    <span class="filter-counter-product">{{ listOfSearchTag.length }}</span>
                 </div>
             </div>
             <div class="filters-container-product">
 
-                <div class="filter-badge-product">
-                    <span class="filter-text-product">Ha Noi</span>
-                    <i class="fas fa-times remove-filter-product"></i>
+                <div class="filter-badge-product" v-for="l in listOfSearchTag">
+                    <span class="filter-text-product">{{ l.name }}</span>
+                    <i class="fas fa-times remove-filter-product" @click="onRemoveSearchTag(l)"></i>
                 </div>
 
-                <div class="filter-badge-product">
+                <!-- <div class="filter-badge-product">
                     <span class="filter-text-product">Travel SIM</span>
                     <i class="fas fa-times remove-filter-product"></i>
                 </div>
@@ -42,7 +41,7 @@
                 <div class="filter-badge-product">
                     <span class="filter-text-product">0 - 8,500,000đ</span>
                     <i class="fas fa-times remove-filter-product"></i>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -56,256 +55,66 @@
 
     </div>
     <div class="recently-carousel prodcut-sp">
-        <div class="tour-card">
-            <img src="../assets/images/6.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="../assets/images/7.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span class="dia-diem">Ha Noi</span>
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span class="dia-diem">Ha Noi</span>
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span class="dia-diem">Ha Noi</span>
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="../assets/images/6.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span class="dia-diem">Ha Noi</span>
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="../assets/images/7.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span class="dia-diem">Ha Noi</span>
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span class="dia-diem">Ha Noi</span>
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
-            <div class="tour-content">
-                <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                <div class="tour-location tour-price">
-                    <div>
-                        <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span class="dia-diem">Ha Noi</span>
-                        <span class="tour-booked">40 Booked</span>
-                    </div>
-                    <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                </div>
-                <div class="tour-price">
-                    <div>
-                        <span class="price-text">From</span>
-                        <span class="price-value">~ USD 34</span>
-                    </div>
-
-                </div>
-                <div class="bieu-tuong">
-
-                    <div class="flight-icon">
-                        <img src="../assets/images/airplane.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ProductSearch v-for="p in listOfProducts" :product="p"></ProductSearch>
+        
     </div>
-    <Drawer v-model:visible="visibleRight " class="filter-modal">
-        <Filter/>
+    <Drawer v-model:visible="visibleRight" class="filter-modal">
+        <Filter />
     </Drawer>
 
 </template>
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import Drawer from 'primevue/drawer';
 import Select from 'primevue/select';
 import Filter from '../components/Filter.vue';
+import { useSearchStore } from '../stores/searchStore';
+import { useSearch } from '../composables/search';
+import ProductSearch from '../components/ProductSearch.vue';
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
+const searchComposable = useSearch();
+
+const searchStore = useSearchStore();
+
+const currentSearch = computed(() => searchStore.search);
+
+const listOfSearchTag = ref([])
+
+const listOfProducts = ref([])
+const pageIndex = ref(1);
+
+const onRemoveSearchTag = async (searchTag) => {
+    searchStore.onRemoveSearchItem(searchTag);
+    await onLoadListOfSearchTag();
+}
+
+const onLoadListOfSearchTag = async () => {
+    listOfSearchTag.value = [];
+    currentSearch.value.searchItems.forEach(r => {
+        listOfSearchTag.value.push(r);
+    })
+    //Goi luon lay du lieu
+    await onLoadListOfProducts();
+}
+
+const onLoadListOfProducts = async () => {
+    const response = await searchComposable.onSearchProducts(pageIndex.value);
+    listOfProducts.value = response.products
+    console.log(listOfProducts.value);
+}
+
+const onRedirectSearch = () => {
+    router.push('/search')
+}
+
+onMounted(async () => {
+    await onLoadListOfSearchTag();
+})
+
+
+
 const selectedCity = ref();
 const cities = ref([
     { name: 'Top view' },
@@ -313,7 +122,10 @@ const cities = ref([
     { name: 'Top booking' },
     { name: 'Price low to high' },
 ]);
-const visibleRight  = ref(false);
+const visibleRight = ref(false);
+
+
+
 </script>
 <style scoped>
 .prodcut-sp {
@@ -326,19 +138,22 @@ const visibleRight  = ref(false);
     width: unset;
     padding: 0;
 }
+
 .tour-image {
     width: 100%;
     height: 120px;
     object-fit: cover;
     border-radius: 8px;
 }
+
 .tour-title {
     font-size: 12px;
     font-weight: 600;
     color: #03294C;
     margin-bottom: 4px;
 }
-.card{
+
+.card {
     margin-bottom: 0;
 }
 </style>

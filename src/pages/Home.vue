@@ -57,124 +57,24 @@
             </div>
          </div>
 
-         <div class="recently-container" v-for="(t, index) in topTrends" :key="index">
+         <div class="recently-container">
             <div class="recently-header">
-               <h2 class="promo-title">{{ t.region.name }}</h2>
+               <h2 class="promo-title">Top Trends</h2>
                <a href="#" class="view-all">View All</a>
 
             </div>
             <div class="mt-4">
                <ul class="nav nav-tabs" id="tourTabs" role="tablist">
-                  <li class="nav-item" role="presentation">
-                     <button class="nav-link tab-sp active" id="tab1-tab" data-bs-toggle="tab" data-bs-target="#tab1"
-                        type="button" role="tab">Hà Nội</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                     <button class="nav-link tab-sp" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2"
-                        type="button" role="tab">Hồ Chí Minh</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                     <button class="nav-link tab-sp" id="tab3-tab" data-bs-toggle="tab" data-bs-target="#tab3"
-                        type="button" role="tab">Đà Nẵng</button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                     <button class="nav-link tab-sp" id="tab4-tab" data-bs-toggle="tab" data-bs-target="#tab4"
-                        type="button" role="tab">Phú Quốc</button>
+                  <li class="nav-item" role="presentation" v-for="r in listRegions">
+                     <button class="nav-link tab-sp " :class="r.isActive == true ? 'active' : ''"
+                        @click="onClickRegion(r)" type="button" role="tab">{{ r.name }}</button>
                   </li>
                </ul>
                <div class="tab-content mt-3" id="tourTabsContent">
                   <div class="tab-pane fade show active" id="tab1" role="tabpanel">
                      <div class="recently-carousel">
-                        <RouterLink to="/detail-product" class="tour-card">
-                           <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
-                           <div class="tour-content">
-                              <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                              <div class="tour-location tour-price">
-                                 <div>
-                                    <i class="fas fa-map-marker-alt location-dot"></i>
-                                    <span class="dia-diem">Ha Noi</span>
-                                    <span class="tour-booked">40 Booked</span>
-                                 </div>
-                                 <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <span class="rating-value">4.5</span>
-                                 </div>
-                              </div>
-                              <div class="tour-price">
-                                 <div>
-                                    <span class="price-text">From</span>
-                                    <span class="price-value">~ USD 34</span>
-                                 </div>
-
-                              </div>
-                              <div class="bieu-tuong">
-
-                                 <div class="flight-icon">
-                                    <img src="../assets/images/airplane.png" />
-                                 </div>
-                              </div>
-                           </div>
-                        </RouterLink>
-                        <div class="tour-card">
-                           <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
-                           <div class="tour-content">
-                              <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                              <div class="tour-location tour-price">
-                                 <div>
-                                    <i class="fas fa-map-marker-alt location-dot"></i>
-                                    <span class="dia-diem">Ha Noi</span>
-                                    <span class="tour-booked">40 Booked</span>
-                                 </div>
-                                 <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <span class="rating-value">4.5</span>
-                                 </div>
-                              </div>
-                              <div class="tour-price">
-                                 <div>
-                                    <span class="price-text">From</span>
-                                    <span class="price-value">~ USD 34</span>
-                                 </div>
-
-                              </div>
-                              <div class="bieu-tuong">
-
-                                 <div class="flight-icon">
-                                    <img src="../assets/images/airplane.png" />
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="tour-card">
-                           <img src="../assets/images/6.png" alt="Inter Sweet Love" class="tour-image">
-                           <div class="tour-content">
-                              <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                              <div class="tour-location tour-price">
-                                 <div>
-                                    <i class="fas fa-map-marker-alt location-dot"></i>
-                                    <span class="dia-diem">Ha Noi</span>
-                                    <span class="tour-booked">40 Booked</span>
-                                 </div>
-                                 <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <span class="rating-value">4.5</span>
-                                 </div>
-                              </div>
-                              <div class="tour-price">
-                                 <div>
-                                    <span class="price-text">From</span>
-                                    <span class="price-value">~ USD 34</span>
-                                 </div>
-
-                              </div>
-                              <div class="bieu-tuong">
-
-                                 <div class="flight-icon">
-                                    <img src="../assets/images/airplane.png" />
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                        <ProductSearch v-for="p in listProductInRegion" :product="p"></ProductSearch>
+                        <!-- <ProductSearch></ProductSearch> -->
                      </div>
                   </div>
                   <div class="tab-pane fade" id="tab2" role="tabpanel">
@@ -622,6 +522,7 @@ const seenStore = useSeenStore();
 import { useHome } from '@/composables/home.js'
 import { useProduct } from '@/composables/product.js'
 import { useHelper } from "@/composables/helper";
+import ProductSearch from "../components/ProductSearch.vue";
 
 const searchTerm = ref('')
 const router = useRouter()
@@ -652,6 +553,25 @@ const currentSeen = ref([])
 
 const diemDen = ref([])
 
+const listRegions = ref([])
+const listProductInRegion = ref([])
+
+
+
+const onClickRegion = async (region) => {
+   //1: Loai bo tat ca true
+   listRegions.value.forEach(r => {
+      r.isActive = false;
+   })
+   //2: Gan hien tai  = true
+   region.isActive = true;
+   let regionId = region.id;
+
+   listProductInRegion.value = await homeComposable.getListProductInRegion(regionId);
+
+
+}
+
 onBeforeMount(async () => {
    //Tuong duong ham created
    // Goi cac ham `Future`
@@ -666,7 +586,30 @@ onBeforeMount(async () => {
    currentSeen.value = await productComposable.onLoadLastSeen(currentSeenArray.value);
    blogs.value = await homeComposable.getBlogsHomePage();
 
-   console.log(promotions.value)
+   listRegions.value = await homeComposable.getListOrRegions();
+
+
+
+   //Lay ra region dau tien de load san pham ban dau
+   if (listRegions.value.length > 0) {
+      for (let i = 0; i < listRegions.value.length; i++) {
+         if (i == 0) {
+            listRegions.value[i].isActive = true;
+         }
+         else {
+            listRegions.value[i].isActive = false;
+         }
+      }
+      console.log(listRegions.value);
+
+
+      let _firstRegionId = listRegions.value[0].id;
+      if (_firstRegionId > 0) {
+         listProductInRegion.value = await homeComposable.getListProductInRegion(_firstRegionId);
+      }
+   }
+
+
 
 })
 

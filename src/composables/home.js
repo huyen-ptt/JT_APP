@@ -322,6 +322,37 @@ export const useHome = () => {
     }
   }
 
+  const getListOrRegions = async () => {
+    let data = {
+      parentId : 2431,
+      cultureCode: _cultureCode
+    }
+    const url = `${uri}/api/AppHomes/GetListOfRegions`
+    try {
+      const response = await axios.post(url, data);
+      if(response){
+        return response.data;
+      }
+    } catch (error) {
+      
+    }
+  }
+  const getListProductInRegion = async (regionId) => {
+    let data = {
+      regionId: regionId,
+      cultureCode: _cultureCode
+    }
 
-  return { getBannerCodes, getZonesByTypeDichVu, getZonesByTypeDiemDen, getProductsInRegion, getProductsLastSeen, getBlogsHomePage, getZonesByTypeKhuyenMai }
+    const url = `${uri}/api/AppHomes/GetListProductInRegion`
+    try {
+      const response = await axios.post(url, data);
+      if(response){
+        return response.data;
+      }
+    } catch (error) {
+      
+    }
+  }
+
+  return { getBannerCodes, getZonesByTypeDichVu, getZonesByTypeDiemDen, getProductsInRegion, getProductsLastSeen, getBlogsHomePage, getZonesByTypeKhuyenMai, getListOrRegions, getListProductInRegion }
 }

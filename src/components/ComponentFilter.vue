@@ -4,9 +4,9 @@
         <div class="filter-section" v-if="destinationSearch">
             <h3 class="section-title">{{ destinationSearch.zoneParentName }}</h3>
             <div class="button-grid" id="destinations">
-                <button class="filter-button selected" data-name="Ha Noi">Ha Noi</button>
-                <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index" class="filter-button"
-                    :data-name="s.name">{{ s.name }}</button>
+                
+                <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index" class="filter-button" :class="s.isActive ? 'selected': ''"
+                    :data-name="s.name" @click="onClickSearchItem(s)">{{ s.name }}</button>
             </div>
         </div>
 
@@ -17,9 +17,9 @@
             <div class="button-grid" id="services">
 
 
-                <button class="filter-button selected" data-name="Travel SIM">Travel SIM</button>
-                <button class="filter-button" v-for="(d, key) in serviceSearch.zoneChilds" :key="index" :data-name="d
-                    .name">{{ d.name }}</button>
+                
+                <button class="filter-button" v-for="(d, key) in serviceSearch.zoneChilds" :key="index" :data-name="d 
+                    .name" :class="d.isActive ? 'selected': ''" @click="onClickSearchItem(d)">{{ d.name }}</button>
             </div>
         </div>
         <div class="budget-slider-container">
@@ -35,9 +35,17 @@
     </div>
 </template>
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Slider from 'primevue/slider';
 import { useSearch } from "@/composables/search";
+
+import { useSearchStore } from '../stores/searchStore';
+
+const searchStore = useSearchStore();
+const currentSearch = computed(() => searchStore.search);
+
+
+
 const searchComposable = useSearch();
 const searchZone = ref([])
 const destinationSearch = ref(null)
@@ -50,12 +58,45 @@ const formatCurrency = (value) => {
     return new Intl.NumberFormat('vi-VN').format(value) + 'đ';
 };
 
+const onClickSearchItem = async (searchItem) => {
+    if(searchItem.isActive == false){
+        searchItem.isActive = true;
+        searchStore.onAddSearchItem(searchItem);
+    }else{
+        searchItem.isActive = false;
+        searchStore.onRemoveSearchItem(searchItem);
+    }
+}
+
 onMounted(async () => {
 
-    searchZone.value = await searchComposable.getSearchableZone()
-    destinationSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 5);
-    serviceSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 1);
-
-    console.log(destinationSearch.value, serviceSearch.value)
+    searchZone.value = await searchComposable.getSearchableZone();
+    if (searchZone.value) {
+        destinationSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 5);
+        destinationSearch.value.zoneChilds.forEach(r => {
+            r.isActive = false;
+        })
+        
+        serviceSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 1);
+        serviceSearch.value.zoneChilds.forEach(r => {
+            r.isActive = false;
+        })
+        
+        if (currentSearch.value) {
+            currentSearch.value.searchItems.forEach(c => {
+                console.log(c)
+                destinationSearch.value.zoneChilds.forEach(s => {
+                    if (c.id === s.id) {
+                        s.isActive = true;
+                    }
+                })
+                serviceSearch.value.zoneChilds.forEach(s => {
+                    if (c.id === s.id) {
+                        s.isActive = true;
+                    }
+                })
+            })
+        }
+    }
 })
 </script>

@@ -3,6 +3,9 @@ import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router'
 import { useSeenStore } from '@/stores/seenStore';
 import { computed } from 'vue';
+
+import { useSearchStore } from "../stores/searchStore";
+
 export const useSearch = () => {
   const uri = import.meta.env.VITE_API_URI;
 
@@ -10,6 +13,9 @@ export const useSearch = () => {
 
   const { locale } = useI18n();
   const currentLanguage = locale.value;
+  const searchStore = useSearchStore();
+  const currentSreach = computed(() => searchStore.search);
+
 
   switch (currentLanguage) {
     case 'en':
@@ -173,5 +179,44 @@ export const useSearch = () => {
 
   }
 
-  return { getSearchableZone, getFilterdProducts }
+  const onSearchProducts = async (pageIndex, pageSort) => {
+    const url = `${uri}/api/PageSearch/GetProductByKeywords`;
+    
+    let keywords = [];
+    if(currentSreach.value.keyword){
+      keywords.push(currentSreach.value.keyword)
+    }
+    let searchItems = [];
+    if(currentSreach.value.searchItems.length > 0){
+      currentSreach.value.searchItems.forEach(r => {
+        searchItems.push(r.url);
+      })
+    }
+
+
+    const data = {
+      keywords: keywords,
+      selectedZones: searchItems,
+      cultureCode: _cultureCode,
+      pageIndex: pageIndex,
+      pageSize: 12,
+      startPrice: currentSreach.value.startBudget,
+      endPrice: currentSreach.value.endBudget,
+      sortBy: currentSreach.value.sortBy
+    }
+    try {
+      // const data = { id: id, cultureCode: _cultureCode }
+      //console.log(selectedZones)
+      const response = await axios.post(url, data)
+      if (response) {
+        // console.log(response.data.value)
+        return response.data
+      }
+    } catch (err) {
+      console.error('Error fetching banners:', err);
+      throw err;  // Rethrow to let handling be done by `useAsyncData`
+    }
+  }
+
+  return { getSearchableZone, getFilterdProducts, onSearchProducts }
 }
