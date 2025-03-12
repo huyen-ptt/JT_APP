@@ -61,14 +61,9 @@
 import { computed, onMounted, ref } from 'vue';
 import Slider from 'primevue/slider';
 import { useSearch } from "@/composables/search";
-
 import { useSearchStore } from '../stores/searchStore';
-
 const searchStore = useSearchStore();
 const currentSearch = computed(() => searchStore.search);
-
-
-
 const searchComposable = useSearch();
 const searchZone = ref([])
 const destinationSearch = ref(null)
