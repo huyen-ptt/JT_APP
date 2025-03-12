@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useI18n } from 'vue-i18n';
+import { useSeenStore } from '@/stores/seenStore'; 
+import { computed } from 'vue';
 
 export const useHome = () => {
   const uri = import.meta.env.VITE_API_URI;
@@ -202,21 +204,17 @@ export const useHome = () => {
     }
 
   }
+
   const getZonesByTypeDiemDen = async () => {
     let type = 5;
     if (_cultureCode) {
       const url = `${uri}/api/Zones/GetZoneByType`;
       const data = { type: type, cultureCode: _cultureCode };
       try {
-        const response = await useFetch(url, {
-          method: 'post',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        })
-        if (response.data.value) {
-          let _response = response.data.value.filter(r => r.parentId > 0);
+        const response = await axios.post(url, data)
+
+        if (response.data) {
+          let _response = response.data.filter(r => r.parentId > 0);
           _response.forEach(element => {
             if (element.mapCroods) {
               let splited = element.mapCroods.split(',');
@@ -243,15 +241,9 @@ export const useHome = () => {
       const url = `${uri}/api/Zones/GetZoneByType`;
       const data = { type: type, cultureCode: _cultureCode };
       try {
-        const response = await useFetch(url, {
-          method: 'post',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        })
-        if (response.data.value) {
-          let _response = response.data.value.filter(r => r.parentId > 0);
+        const response = await axios.post(url, data)
+        if (response.data) {
+          let _response = response.data.filter(r => r.parentId > 0);
           _response.forEach(element => {
             if (element.mapCroods) {
               let splited = element.mapCroods.split(',');
@@ -277,16 +269,10 @@ export const useHome = () => {
       const url = `${uri}/api/PageHome/GetProductsInRegion`;
       const data = { cultureCode: _cultureCode };
       try {
-        const response = await useFetch(url, {
-          method: 'post',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        })
-        if (response.data.value) {
+        const response = await axios.post(url, data)
+        if (response.data) {
 
-          return response.data.value.filter(r => r.region.parentId > 0);
+          return response.data.filter(r => r.region.parentId > 0);
         }
       } catch (err) {
         console.error('Error fetching banners:', err);
@@ -306,16 +292,11 @@ export const useHome = () => {
         languageCode: _cultureCode
       }
       try {
-        const response = await useFetch(url, {
-          method: 'post',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        })
-        if (response.data.value) {
+        const response = await axios.post(url, data)
+
+        if (response.data) {
           // console.log(response.data.value);
-          return response.data.value;
+          return response.data;
         }
       } catch (err) {
 
@@ -330,16 +311,11 @@ export const useHome = () => {
     }
     const url = `${uri}/api/PageHome/GetBlogsHomePage`;
     try {
-      const response = await useFetch(url, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      if (response.data.value) {
+      const response = await axios.post(url, data)
+
+      if (response.data) {
         // console.log(response.data.value);
-        return response.data.value;
+        return response.data;
       }
     } catch (err) {
 

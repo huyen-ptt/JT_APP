@@ -28,6 +28,7 @@ body {
 
 .bao-h {
   padding-top: 20px;
+  padding-bottom: 100px;
 }
 
 .search-input {
@@ -748,8 +749,14 @@ input::placeholder {
   font-weight: 700;
   color: #03294C;
   margin: 0;
-  padding: 20px 28px 0;
+  padding: 20px 28px;
 }
+/* .card-destination:nth-child(1) {
+  height: 150px;
+}
+.card-destination:nth-child(4) {
+  height: 150px;
+} */
 
 .bao-sr .col {
   display: flex;
