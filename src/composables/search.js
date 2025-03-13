@@ -162,7 +162,7 @@ export const useSearch = () => {
       pageSize: 12,
       startPrice: 0,
       endPrice: 20000000,
-      sortBy: "TOP_VIEW"
+      sortBy: "TOP_BOOKING"
     }
     try {
       // const data = { id: id, cultureCode: _cultureCode }

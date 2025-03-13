@@ -1,4 +1,4 @@
-<template>
+  <template>
     <div class="tour-card" v-if="product">
         <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
         <div class="tour-content">
@@ -15,7 +15,7 @@
             <div class="tour-price">
                 <div>
                     <span class="price-text">From</span>
-                    <span class="price-value">VND {{ product.price }}</span>
+                    <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true }) }}</span>
                     <span class="price-as-currency"></span>
                 </div>
 
