@@ -1,7 +1,14 @@
+
+import { useRoute } from 'vue-router'
+import axios from "axios";
+import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
+
+
 export const useBlogDetail = () => {
   const route = useRoute();
-  const runtimeConfig = useRuntimeConfig();
-  const uri = runtimeConfig.public.apiBaseUrl;
+ 
+  const uri = import.meta.env.VITE_API_URI;
   let _cultureCode = '';
 
   const { locale } = useI18n();
@@ -30,25 +37,19 @@ export const useBlogDetail = () => {
   const getBlogInfomationDetail = async () => {
     const url = `${uri}/api/PageArticles/GetBlogDetailById`;
     const data = { id: parseInt(id.value), cultureCode: _cultureCode };
-    console.log(data)
+    
     try {
-      const response = await useFetch(url, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      if (response.data.value) {
-        let detail = response.data.value;
+      const response = await axios.post(url,data);
+      if (response.data) {
+        let detail = response.data;
         return detail;
       }
-      await navigateTo(localePath('/blogs'));
+      // await navigateTo(localePath('/blogs'));
       return null;
 
     } catch (err) {
-      console.error('Error fetching banners:', err);
-      await navigateTo(localePath('/blogs'));
+      // console.error('Error fetching banners:', err);
+      // await navigateTo(localePath('/blogs'));
       return null;
     }
   }

@@ -17,14 +17,14 @@
 
                         <div class="news-card-blogg" v-for="(b, index) in AllNewestBlog" :key="index">
                             <div class="news-image-blogg">
-                                <img :src="helper.getImageCMS(b.avatar)" alt="Da Nang ancient town" />
+                                <img :src="helper.getImageCMS(b.avatar)" />
                             </div>
                             <div class="news-content-blogg">
                                 <h3 class="news-title-blogg">{{ b.title }}</h3>
                                 <p class="news-description-blogg" v-html="b.description"></p>
                                 <div class="news-meta-blogg">
                                     <span class="news-date-blogg">{{ helper.formatISODate(b.createdDate) }}</span>
-                                    <RouterLink  class="news-link-blogg">
+                                    <RouterLink  class="news-link-blogg" :to="`/blog-detail/${b.id}`">
                                         <!-- :to="`/blog-detail/${b.id}-${b.url}.html`" -->
                                         {{ $t('VIEW_DETAIL') }}
                                         <div class="arrow-l">

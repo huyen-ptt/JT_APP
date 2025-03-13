@@ -12,53 +12,27 @@
         <div class="">
             <div class="">
                 <!-- Carousel/Slider -->
-                <div id="promotionCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div id="promotionCarousel" class="carousel slide" data-bs-ride="carousel" v-if="blogDetail">
                     <div class="carousel-inner">
                         <!-- Slide 1 -->
                         <div class="bg-white p-3">
                             <div class="">
                                 <div class="promotion-image">
-                                    <img src="../assets/images/10.jpg" alt="Winter Deal 20% Off"
+                                    <img :src="helper.getImageCMS(blogDetail.avatar)" alt="Winter Deal 20% Off"
                                         class="img-fluid rounded-4">
                                 </div>
                                 <div class="promotion-details">
                                     <div>
                                         <div>
-                                            <h5 class="promotion-title-lon">Winter Voucher - The Biggest winter deal at
-                                                Joytime</h5>
-                                            <p>Nguyen Huu Huan Street is more than just a thoroughfare; it's a living
-                                                chronicle of Hanoi's dynamic past. From its colonial-era designation as
-                                                Rue Paul Bert to its present name honoring a national hero, each title
-                                                it has borne tells a story of the city's resilience and transformation.
-                                                Join us as we delve into the captivating history behind the former names
-                                                of this iconic street, uncovering the layers of cultural and political
-                                                shifts that have shaped its identity.</p>
+                                            <h5 class="promotion-title-lon">{{ blogDetail.title }}</h5>
+                                            <p v-html="blogDetail.description"></p>
                                         </div>
 
                                     </div>
                                 </div>
-                                <div class="promotion-image">
-                                    <img src="../assets/images/8.png" alt="Winter Deal 20% Off"
-                                        class="img-fluid rounded-4">
-                                    <div class="text-center">Nguyen Huu Huan Street is a living chronicle of Hanoi’s
-                                        dynamic past</div>
+                                <div class="blog-table-of-content" v-html="blogDetail.indexing"></div>
+                                <div class="blog-content-detail" v-html="blogDetail.body">
 
-                                </div>
-                                <div class="promotion-details">
-                                    <div>
-                                        <div>
-                                            <h5 class="promotion-title-lon">Winter Voucher - The Biggest winter deal at
-                                                Joytime</h5>
-                                            <p>Nguyen Huu Huan Street is more than just a thoroughfare; it's a living
-                                                chronicle of Hanoi's dynamic past. From its colonial-era designation as
-                                                Rue Paul Bert to its present name honoring a national hero, each title
-                                                it has borne tells a story of the city's resilience and transformation.
-                                                Join us as we delve into the captivating history behind the former names
-                                                of this iconic street, uncovering the layers of cultural and political
-                                                shifts that have shaped its identity.</p>
-                                        </div>
-
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -72,10 +46,10 @@
             </div>
             <div class="detail-blog p-3">
                 <div class="recently-header">
-               <h2 class="promo-title">Related Blog</h2>
-               <a href="#" class="view-all">View All</a>
+                    <h2 class="promo-title">Related Blog</h2>
+                    <a href="#" class="view-all">View All</a>
 
-            </div>
+                </div>
                 <div class="news-card-blogg">
                     <div class="news-image-blogg">
                         <img src="../assets/images/10.jpg" alt="Halong Bay" />
@@ -151,3 +125,22 @@
 
     </div>
 </template>
+<script setup>
+import { ref, onMounted, onBeforeMount, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useBlogDetail } from '../composables/blogDetail';
+import { useHelper } from '../composables/helper';
+
+
+const helper = useHelper();
+const blogDetailComposable = useBlogDetail();
+const blogDetail = ref(null);
+
+onMounted(async () => {
+    blogDetail.value = await blogDetailComposable.getBlogInfomationDetail();
+    console.log(blogDetail.value);
+})
+
+
+
+</script>
