@@ -4,9 +4,10 @@
         <div class="filter-section" v-if="destinationSearch">
             <h3 class="section-title">{{ destinationSearch.zoneParentName }}</h3>
             <div class="button-grid" id="destinations">
-                
-                <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index" class="filter-button" :class="s.isActive ? 'selected': ''"
-                    :data-name="s.name" @click="onClickSearchItem(s)">{{ s.name }}</button>
+
+                <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index" class="filter-button"
+                    :class="s.isActive ? 'selected' : ''" :data-name="s.name" @click="onClickSearchItem(s)">{{ s.name
+                    }}</button>
             </div>
         </div>
 
@@ -17,9 +18,9 @@
             <div class="button-grid" id="services">
 
 
-                
-                <button class="filter-button" v-for="(d, key) in serviceSearch.zoneChilds" :key="index" :data-name="d 
-                    .name" :class="d.isActive ? 'selected': ''" @click="onClickSearchItem(d)">{{ d.name }}</button>
+
+                <button class="filter-button" v-for="(d, key) in serviceSearch.zoneChilds" :key="index" :data-name="d
+                    .name" :class="d.isActive ? 'selected' : ''" @click="onClickSearchItem(d)">{{ d.name }}</button>
             </div>
         </div>
         <div class="budget-slider-container">
@@ -59,10 +60,10 @@ const formatCurrency = (value) => {
 };
 
 const onClickSearchItem = async (searchItem) => {
-    if(searchItem.isActive == false){
+    if (searchItem.isActive == false) {
         searchItem.isActive = true;
         searchStore.onAddSearchItem(searchItem);
-    }else{
+    } else {
         searchItem.isActive = false;
         searchStore.onRemoveSearchItem(searchItem);
     }
@@ -76,12 +77,12 @@ onMounted(async () => {
         destinationSearch.value.zoneChilds.forEach(r => {
             r.isActive = false;
         })
-        
+
         serviceSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 1);
         serviceSearch.value.zoneChilds.forEach(r => {
             r.isActive = false;
         })
-        
+
         if (currentSearch.value) {
             currentSearch.value.searchItems.forEach(c => {
                 console.log(c)

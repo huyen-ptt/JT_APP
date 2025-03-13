@@ -11,7 +11,7 @@ export const useSearchStore = defineStore(
             startBudget: 0,
             endBudget: 20000000,
             searchItems: [],
-            sortBy: "TOP_VIEW"
+            sortBy: "TOP_BOOKING" 
         });
         const onAddSearchItem = (searchItem) => {
             search.value.searchItems.push(searchItem);
@@ -29,7 +29,10 @@ export const useSearchStore = defineStore(
                 searchItems: []
             }
         }
-        return { search, onAddSearchItem, onRemoveSearchItem, onClearSearchItem };
+        const onChangeSortBy = (sortBy) => {
+            search.value.sortBy = sortBy;
+        }
+        return { search, onAddSearchItem, onRemoveSearchItem, onClearSearchItem, onChangeSortBy };
     },
     {
         persist: {

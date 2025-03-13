@@ -1,4 +1,5 @@
 // import { format } from 'date-fns';
+import { format } from 'date-fns';
 
 export const useHelper = () => {
   const uri = import.meta.env.VITE_IMAGE_BASE_URL;
@@ -42,7 +43,7 @@ export const useHelper = () => {
   }
   const formatISODate = (date) => {
     if(date){
-      return format(new Date(date), 'dd/MM/yyyy HH:mm:ss');
+      return format(new Date(date), 'dd/MM/yyyy');
     }
     
   }

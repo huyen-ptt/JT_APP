@@ -1783,9 +1783,13 @@ input::placeholder {
 
 }
 
+.custom-tab-list .p-tablist-active-bar {
+  display: none;
+}
 .custom-tab-list .p-tablist-tab-list {
   position: relative;
   display: flex;
+  gap: 10px;
   justify-content: center !important;
   background: unset;
   border-style: solid;

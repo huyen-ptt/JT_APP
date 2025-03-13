@@ -1,3 +1,8 @@
+import axios from "axios";
+import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
+
 export const useArticles = () => {
   const route = useRoute();
   const apiUrl = import.meta.env.VITE_API_URI
@@ -34,15 +39,11 @@ export const useArticles = () => {
       const url = `${uri}/api/Zones/GetZoneByType`;
       const data = { type: type, cultureCode: _cultureCode };
       try {
-        const response = await useFetch(url, {
-          method: 'post',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-          }
-        })
-        if (response.data.value) {
-          let _response = response.data.value.filter(r => r.parentId > 0);
+        // console.log(url)
+        const response = await axios.post(url, data)
+        
+        if (response.data) {
+          let _response = response.data.filter(r => r.parentId > 0);
 
           let _lv1 = _response.filter(r => r.level == 1);
           _lv1.forEach(element => {
@@ -86,16 +87,10 @@ export const useArticles = () => {
     };
     // //console.log(data)
     try {
-      const response = await useFetch(url, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      if (response.data.value) {
-        // console.log(response.data.value)
-        return response.data.value;
+      const response = await axios.post(url, data)
+      if (response.data) {
+        // console.log(response.data)
+        return response.data;
       }
     } catch (err) {
       console.error('Error fetching banners:', err);
@@ -114,26 +109,20 @@ export const useArticles = () => {
       type: type,
       pageIndex: pageIndex,
       pageSize: 5,
-      zoneUrl : ""
+      zoneUrl: ""
     };
     // //console.log(data)
     try {
-      const response = await useFetch(url, {
-        method: 'post',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      if (response.data.value) {
+      const response = await axios.post(url, data)
+      if (response.data) {
         // console.log(response.data.value)
         let _response = [];
-        _response.push(response.data.value.firstItem)
+        _response.push(response.data.firstItem)
 
-        response.data.value.nextThreeItem.forEach(v => {
+        response.data.nextThreeItem.forEach(v => {
           _response.push(v)
         })
-        response.data.value.lastItems.forEach(v => {
+        response.data.lastItems.forEach(v => {
           _response.push(v)
         })
         // let _resposne = [... response.data.value.firstItem, response.data.value.lastItem]

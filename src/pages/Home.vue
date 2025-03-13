@@ -338,157 +338,7 @@
                </div>
             </div>
          </div> -->
-         <div class="bottom-menu">
-            <div class="menu-item">
-               <div class="menu-icon">
-                  <i class="fas fa-home"></i>
-               </div>
-               <span class="menu-text">Home</span>
-            </div>
-
-            <RouterLink to="/promotion" class="menu-item">
-               <div class="menu-icon">
-                  <img src="../assets/images/gift.png" />
-               </div>
-               <span class="menu-text">Promotion</span>
-            </RouterLink>
-
-            <div class="menu-item" @click="visibleBottom = true">
-               <div class="menu-icon">
-                  <img src="../assets/images/element-plus.png" />
-
-               </div>
-               <span class="menu-text">Service</span>
-            </div>
-
-            <div class="menu-item">
-               <div class="menu-icon">
-                  <img src="../assets/images/document-text.png" />
-
-               </div>
-               <span class="menu-text">Blog</span>
-            </div>
-
-            <div class="menu-item">
-               <div class="menu-icon">
-                  <img src="../assets/images/user-square.png" />
-
-               </div>
-               <span class="menu-text">Account</span>
-            </div>
-
-            <div class="indicator"></div>
-         </div>
-         <Drawer v-model:visible="visibleBottom" header="Bottom Drawer" position="bottom" style="height: auto">
-            <div class="footer-services">
-               <div class="services-grid">
-                  <h2 class="se-title">Service</h2>
-
-                  <div class="container-fluid">
-                     <div class="bao-sr">
-                        <div class="row">
-                           <div class="col-3 service-item" style="width: 25%;" v-for="(s, index) in services"
-                              :key="index">
-                              <div class="service-icon">
-                                 <img :src="helper.getImageCMS(s.icon)" alt="Combo">
-                              </div>
-                              <div class="service-name">{{ s.title }}</div>
-                           </div>
-                        </div>
-
-                        <!-- <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/ticket.png" alt="Ticket">
-                              </div>
-                              <div class="service-name">Ticket</div>
-                           </div>
-                        </div>
-
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/Sim.png" alt="Travel SIM">
-                              </div>
-                              <div class="service-name">Travel SIM</div>
-                           </div>
-                        </div>
-
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/Plan.png" alt="Plan">
-                              </div>
-                              <div class="service-name">Plan</div>
-                           </div>
-                        </div> -->
-                     </div>
-
-                     <!-- <div class="row row-cols-4 g-0 bao-sr">
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/s2.png" alt="Transportation">
-                              </div>
-                              <div class="service-name">Transportation</div>
-                           </div>
-                        </div>
-
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/s3.png" alt="Souvenir">
-                              </div>
-                              <div class="service-name">Souvenir</div>
-                           </div>
-                        </div>
-
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/s4.png" alt="Food">
-                              </div>
-                              <div class="service-name">Food</div>
-                           </div>
-                        </div>
-
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/s5.png" alt="Tour">
-                              </div>
-                              <div class="service-name">Tour</div>
-                           </div>
-                        </div>
-                     </div>
-
-                     <div class="row row-cols-4 g-0 bao-sr">
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/s6.png" alt="Fast Track">
-                              </div>
-                              <div class="service-name">Fast Track</div>
-                           </div>
-                        </div>
-
-                        <div class="col">
-                           <div class="service-item">
-                              <div class="service-icon">
-                                 <img src="../assets/images/s7.png" alt="Spa">
-                              </div>
-                              <div class="service-name">Spa</div>
-                           </div>
-                        </div>
-
-
-
-
-                     </div> -->
-                  </div>
-               </div>
-            </div>
-         </Drawer>
+         <Footer></Footer>
 
          <div class="floating-icons">
             <!-- Robot Icon -->
@@ -498,6 +348,7 @@
                </div>
             </div>
 
+            
             <!-- Map Icon with connector dot -->
             <div class="icon-container">
                <div class="floating-icon icon-robot  ban-do">
@@ -511,6 +362,8 @@
 </template>
 <script setup>
 import { ref, onBeforeMount, onMounted, computed } from "vue";
+import Footer from "@/components/Footer.vue";
+
 // Import TabView và TabPanel từ PrimeVue
 import Drawer from 'primevue/drawer';
 import { useSeenStore } from "../stores/seenStore";
@@ -587,7 +440,7 @@ onBeforeMount(async () => {
    blogs.value = await homeComposable.getBlogsHomePage();
 
    listRegions.value = await homeComposable.getListOrRegions();
-
+   console.log(listProductInRegion.value)
 
 
    //Lay ra region dau tien de load san pham ban dau
@@ -614,16 +467,11 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
-
-
 })
-
-
-
 </script>
 <style scoped>
 .search-container {
-   padding: 15px 46px 15px 28px;
+   padding: 15px 23px 15px 28px;
    margin-bottom: 0px;
 }
 
