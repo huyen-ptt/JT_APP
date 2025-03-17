@@ -1,75 +1,100 @@
 <template>
     <div class="bottom-menu">
-        <div class="menu-item">
+        <RouterLink to="/" class="menu-item">
             <div class="menu-icon">
-                <i class="fas fa-home"></i>
+                <img class="home-icon" src="../assets/images/home-2.png" />
             </div>
             <span class="menu-text">{{ $t('home') }}</span>
-        </div>
+        </RouterLink>
 
         <RouterLink to="/promotion" class="menu-item">
             <div class="menu-icon">
-                <img src="../assets/images/gift.png" />
+                <img class="promotion-icon" src="../assets/images/gift.png" />
             </div>
             <span class="menu-text">{{ $t('promotion') }}</span>
         </RouterLink>
 
-        <div class="menu-item" @click="visibleBottom = true">
+        <div class="menu-item" @click="modalStore.open()">
             <div class="menu-icon">
                 <img src="../assets/images/element-plus.png" />
             </div>
             <span class="menu-text">{{ $t('service') }}</span>
         </div>
 
-        <div class="menu-item">
+        <RouterLink to="/blog" class="menu-item">
             <div class="menu-icon">
-                <img src="../assets/images/document-text1.png" />
+                <img class="blog-icon" src="../assets/images/document-text1.png" />
             </div>
             <span class="menu-text">{{ $t('blog') }}</span>
-        </div>
+        </RouterLink>
 
-        <div class="menu-item">
+        <RouterLink to="/account" class="menu-item">
             <div class="menu-icon">
-                <img src="../assets/images/user-square.png" />
+                <img class="account-icon" src="../assets/images/user-square.png" />
             </div>
             <span class="menu-text">{{ $t('account') }}</span>
-        </div>
+        </RouterLink>
 
         <div class="indicator"></div>
     </div>
-    <Drawer v-model:visible="visibleBottom" header="Bottom Drawer" position="bottom" style="height: auto">
+    <Drawer v-model:visible="modalStore.visibleBottom" header="Bottom Drawer" position="bottom" style="height: auto">
         <div class="footer-services">
             <div class="services-grid">
-                <h2 class="se-title">Service</h2>
-
+                <h2 class="se-title">{{ $t('service') }}</h2>
                 <div class="container-fluid">
                     <div class="bao-sr">
                         <div class="row">
-                            <div class="col-3 service-item" style="width: 25%;" v-for="(s, index) in services"
-                                :key="index">
-                                <div class="service-icon">
-                                    <img :src="helper.getImageCMS(s.icon)" alt="Combo">
-                                </div>
-                                <div class="service-name">{{ s.title }}</div>
-                            </div>
+                            <ServiceFooter></ServiceFooter>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
+
     </Drawer>
 </template>
 <script setup>
-import { useHome } from '@/composables/home.js'
-import { onBeforeMount, ref } from "vue";
-import { useHelper } from "@/composables/helper";
-const helper = useHelper();
-const homeComposable = useHome();
+import { ref } from "vue";
 import Drawer from 'primevue/drawer';
-const visibleBottom = ref(false);
-const services = ref([])
-onBeforeMount(async () => {
-    services.value = await homeComposable.getZonesByTypeDichVu();
+import ServiceFooter from "./ServiceFooter.vue";
+import { useModalStore } from '@/stores/modalStore';
+const modalStore = useModalStore();
 
-})
 </script>
+<style scoped>
+.promotion-icon {
+    content: url('../assets/images/gift.png');
+}
+
+.router-link-exact-active .promotion-icon {
+    content: url('../assets/images/gift-active.png');
+}
+
+.home-icon {
+    content: url('../assets/images/home-2.png');
+
+}
+
+.router-link-exact-active .home-icon {
+    content: url('../assets/images/home.png');
+}
+
+.blog-icon {
+    content: url('../assets/images/document-text1.png');
+
+}
+
+.router-link-exact-active .blog-icon {
+    content: url('../assets/images/document-active.png');
+}
+
+.account-icon {
+    content: url('../assets/images/user-square.png');
+
+}
+
+.router-link-exact-active .account-icon {
+    content: url('../assets/images/user-square-active.png');
+}
+</style>

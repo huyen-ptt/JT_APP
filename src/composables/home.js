@@ -2,8 +2,10 @@ import axios from "axios";
 import { useI18n } from 'vue-i18n';
 import { useSeenStore } from '@/stores/seenStore'; 
 import { computed } from 'vue';
+import { useRoute } from 'vue-router'
 
 export const useHome = () => {
+  const route = useRoute();
   const uri = import.meta.env.VITE_API_URI;
   let _cultureCode = '';
 
@@ -353,6 +355,10 @@ export const useHome = () => {
       
     }
   }
+
+  // const id = computed(() => route.params.id);
+
+  
 
   return { getBannerCodes, getZonesByTypeDichVu, getZonesByTypeDiemDen, getProductsInRegion, getProductsLastSeen, getBlogsHomePage, getZonesByTypeKhuyenMai, getListOrRegions, getListProductInRegion }
 }

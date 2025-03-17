@@ -27,7 +27,13 @@ export const useHelper = () => {
         if (isHtml) {
           return finded.description;
         } else {
-          return finded.description.replace(/<\/?[^>]+(>|$)/g, "");
+          if (finded && typeof finded.description === 'string') {
+            return finded.description.replace(/<\/?[^>]+(>|$)/g, "");
+          } else {
+            // Handle the case where finded or finded.description is undefined or not a string
+            // For example, return an empty string or a default message
+            return "";
+          }
         }
       }
 

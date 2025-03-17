@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="bottom-menu menu-search">
-            <router-link to="/product" class="btn-search"> <button class="search-button btn-search" id="search">
+            <router-link to="/list-results" class="btn-search"> <button class="search-button btn-search" id="search">
                     Apply Filters
                 </button></router-link>
         </div>

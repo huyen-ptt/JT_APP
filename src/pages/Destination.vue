@@ -18,7 +18,7 @@
 
         <!-- Weather Section -->
         <div class="weather-section mt-3 mb-3 rounded-4">
-            <div class="d-flex gap-3 text-center">
+            <div class="d-flex gap-3 text-center recently-carousel">
                 <div class="du-bao">
                     <div class="weather-icon">
                         <img src="../assets/images/Partly-cloudy.png" />
@@ -47,6 +47,20 @@
                     <div class="temperature">26°C</div>
                     <div class="time-small">12:00</div>
                 </div>
+                <div class="du-bao">
+                    <div class="weather-icon">
+                        <img src="../assets/images/Partly-cloudy.png" />
+                    </div>
+                    <div class="temperature">27°C</div>
+                    <div class="time-small">07:00</div>
+                </div>
+                <div class="du-bao">
+                    <div class="weather-icon">
+                        <img src="../assets/images/Partly-cloudy.png" />
+                    </div>
+                    <div class="temperature">18°C</div>
+                    <div class="time-small">10:00</div>
+                </div>
 
             </div>
 
@@ -55,54 +69,21 @@
 
         <!-- Services Section -->
         <div class="mt-3">
-            <div class="title">Service</div>
-
+            <div class="title">{{ $t('service') }}</div>
             <div class="service-icons">
-                <div class="service-item">
-                    <div class="icon-circle combo-icon">
-                        <img class="icon-services" src="../assets/images/Group.png" />
-
+                <div class="service-item" v-for="(s, index) in services" :key="index">
+                    <div class="service-icon">
+                        <img :src="helper.getImageCMS(s.icon)" alt="Combo">
                     </div>
-                    <span class="service-text">Combo</span>
+                    <div class="service-name">{{ s.title }}</div>
                 </div>
 
-                <div class="service-item">
-                    <div class="icon-circle ticket-icon">
-                        <img class="icon-services" src="../assets/images/ticket.png" />
-
-                    </div>
-                    <span class="service-text">Ticket</span>
-                </div>
-
-                <div class="service-item">
-                    <div class="icon-circle plan-icon">
-                        <img class="icon-services" src="../assets/images/Plan.png" />
-
-                    </div>
-                    <span class="service-text">Plan</span>
-                </div>
-
-                <div class="service-item">
-                    <div class="icon-circle sim-icon">
-                        <img class="icon-services" src="../assets/images/Sim.png" />
-
-                    </div>
-                    <span class="service-text">Travel SIM</span>
-                </div>
-
-                <div class="service-item">
-                    <div class="icon-circle all-icon">
-                        <img class="icon-services" src="../assets/images/Frame.png" />
-
-                    </div>
-                    <span class="service-text">All</span>
-                </div>
             </div>
         </div>
 
         <!-- Tips Section -->
-        <div class="tips-section rounded-4"> 
-            <div class="mb-3 title">Tips</div>
+        <div class="tips-section rounded-4">
+            <div class="mb-3 title">{{ $t('tips') }}</div>
             <div class="small text-muted">
                 Sai Gon, also known as Ho Chi Minh City, is a vibrant and diverse destination for travellers. The city
                 is renowned for its blend of French colonial architecture and modern skyscrapers, creating a unique
@@ -119,3 +100,52 @@
     </div>
 
 </template>
+<script setup>
+import { ref, onBeforeMount } from "vue";
+import { useHome } from "../composables/home";
+import { useHelper } from "@/composables/helper";
+const helper = useHelper();
+const homeComposable = useHome();
+const services = ref([])
+
+const destination = ref([])
+onBeforeMount(async () => {
+    // destination.value = await homeComposable.onOpenDestinationModal();
+    services.value = await homeComposable.getZonesByTypeDichVu();
+
+    console.log(destination.value, 'destination.value')
+
+})
+
+
+</script>
+<style scoped>
+.service-icons {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    padding-bottom: 10px;
+    scrollbar-width: none !important;
+}
+
+.service-icons::-webkit-scrollbar {
+    height: 6px;
+}
+
+.service-icon img {
+    width: 29px;
+    height: 23px;
+}
+
+.service-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    width: 130px;
+}
+
+</style>

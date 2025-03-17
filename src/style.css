@@ -183,6 +183,17 @@ input::placeholder {
   padding: 20px 0;
 }
 
+.bottom-menu .router-link-exact-active .menu-text{
+  color: #446EDE;
+  font-weight: 700;
+}
+.bottom-menu .router-link-exact-active .fa-home{
+  color: #446EDE;
+}
+.custom-paragraph img{
+  width: 100%;
+  max-width: 100% !important;
+}
 .recently-header {
   display: flex;
   justify-content: space-between;
@@ -751,6 +762,7 @@ input::placeholder {
   margin: 0;
   padding: 20px 28px;
 }
+
 /* .card-destination:nth-child(1) {
   height: 150px;
 }
@@ -784,7 +796,7 @@ input::placeholder {
 }
 
 .service-icon img {
-  width: 26px;
+  width: 32px;
   height: 26px;
 }
 
@@ -1762,6 +1774,20 @@ input::placeholder {
   font-weight: 400;
 }
 
+.mb-promotion .swiper-button-prev {
+  display: none;
+}
+
+.mb-promotion .swiper-button-next {
+  display: none;
+}
+
+.mb-promotion .promo-img {
+  /* width: 600px; */
+  height: 200px;
+  object-fit: cover;
+}
+
 .news-link-blogg {
   color: #446EDE;
   font-size: 12px;
@@ -1786,6 +1812,7 @@ input::placeholder {
 .custom-tab-list .p-tablist-active-bar {
   display: none;
 }
+
 .custom-tab-list .p-tablist-tab-list {
   position: relative;
   display: flex;
@@ -1819,6 +1846,10 @@ input::placeholder {
 
 .detail-blog {
   background-color: #F5F7FA;
+}
+
+.none-line {
+  text-decoration: none;
 }
 
 .app-container-booking {
@@ -3416,9 +3447,11 @@ input::placeholder {
   justify-content: space-between;
   align-items: center;
 }
-.my-r{
+
+.my-r {
   padding-bottom: 100px;
 }
+
 .detail-label-order-detail {
   color: #4a5568;
   font-size: 14px;

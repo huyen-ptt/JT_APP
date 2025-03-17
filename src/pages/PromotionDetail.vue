@@ -68,19 +68,19 @@
         </div>
         <div class="bottom-menu menu-search">
             <router-link class="btn-search"> <button class="search-button btn-search" id="search">
-                Collect
+                    Collect
                 </button></router-link>
         </div>
     </div>
 
 </template>
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import Drawer from 'primevue/drawer';
 const visibleBottom = ref(false);
 import { RouterLink, useRouter } from 'vue-router'
-
 import ProductSearch from "../components/ProductSearch.vue";
+
 
 </script>
 <style scoped>
@@ -105,12 +105,11 @@ import ProductSearch from "../components/ProductSearch.vue";
 .promotion-bao {
     padding-bottom: 70px;
 }
+
 .menu-search {
     padding: 16px 20px;
     align-items: center;
     border-radius: 15px 15px 0 0;
 
 }
-        
-      
 </style>
