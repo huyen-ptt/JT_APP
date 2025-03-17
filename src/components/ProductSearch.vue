@@ -1,5 +1,5 @@
   <template>
-    <div class="tour-card" v-if="product">
+    <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-if="product">
         <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
         <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
@@ -9,7 +9,7 @@
                 </div>
                 <div class="rating">
                     <i class="fas fa-star"></i>
-                    <span class="rating-value">{{ product.rate }}</span>
+                    <span class="rating-value">{{ parseFloat(product.rate).toFixed(1) }}</span>
                 </div>
             </div>
             <div class="tour-price">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </RouterLink>
 
 </template>
 <script setup>

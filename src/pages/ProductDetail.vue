@@ -1,11 +1,11 @@
 <template>
-    <div class="product-containerr">
+    <div class="product-containerr" v-if="productDetail">
         <!-- Main image -->
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <!-- Slide 1 -->
                 <div class="carousel-item active">
-                    <img src="../assets/images/10.jpg" alt="Fansipan Temple Complex" class="d-block w-100"
+                    <img :src="helper.getImageCMS(productDetail.avatar)" class="d-block w-100"
                         style="height: 280px; object-fit: cover;">
                     <div class="position-absolute start-0 translate-middle-y p-3 icon">
                         <button class="back-button-product">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="carousel-item">
+                <!-- <div class="carousel-item">
                     <img src="../assets/images/img11.jpg" alt="Fansipan Temple Complex" class="d-block w-100"
                         style="height: 280px; object-fit: cover;">
                     <div class="position-absolute start-0 translate-middle-y p-3 icon">
@@ -28,7 +28,7 @@
                     <div class="position-absolute end-0 translate-middle-y p-3 icon">
                         <img height="30" src="../assets/images/shopping-cart-w.png" />
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Controls -->
@@ -44,14 +44,15 @@
 
         <!-- Title section -->
         <div class="p-3">
-            <div class=" title-detail">Sunworld Fansipan Ticket</div>
+            <div class=" title-detail">{{ productDetail.title }}</div>
             <div class="d-flex align-items-center mt-1 dia-chi-product justify-content-between">
                 <div> <i class="fas fa-map-marker-alt location-dot"></i>
-                    <span>Sapa Town | 40 Booked</span>
+                    <span>{{ productDetail.location }} | {{ productDetail.totalSale }} {{ $t('BOOKED') }}
+                    </span>
                 </div>
                 <div class="rating">
                     <i class="fas fa-star"></i>
-                    <span class="rating-value">4.5</span>
+                    <span class="rating-value">{{ productDetail.rateAVG.toFixed(2) }}</span>
                 </div>
 
             </div>
@@ -63,20 +64,20 @@
                     <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                         data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
                         aria-selected="true">
-                        Product detail
+                        {{ $t('PRODUCT_DETAIL') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
                         data-bs-target="#description" type="button" role="tab" aria-controls="description"
                         aria-selected="false">
-                        Description
+                        {{ $t('DESCRIPTION') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
                         data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
-                        Term and conditions
+                        {{ $t('TERM_AND_CONDITIONS') }}
                     </button>
                 </li>
             </ul>
@@ -84,43 +85,21 @@
             <div className="tab-content custom-tab-content" id="productTabsContent">
                 <div className="tab-pane fade show active p-3" id="product-detail" role="tabpanel"
                     aria-labelledby="product-detail-tab">
-                    <p className="mb-3 custom-paragraph">
-                        Conquer the highest peak in Vietnam effortlessly on an unforgettable cable car journey.
-                    </p>
-                    <p className="mb-3 custom-paragraph">
-                        Enjoy the breathtaking scenery of Sapa's terraced rice fields and the pristine natural landscape
-                        of
-                        Fansipan.
-                    </p>
-                    <p className="mb-3 custom-paragraph">
-                        Admire the majestic scenery of numerous temples and different spiritual landmarks from the main
-                        peak. Pay
-                        homage to the Spiritual Cultural Complex with its 12 impressive architectural structures.
-                    </p>
-                    <p className="mb-3 custom-paragraph">
-                        Especially, the Great Amitabha Buddha statue holds the record for being located at the highest
-                        altitude in
-                        Asia, where the sacred Buddha relics are preserved.
-                    </p>
+                    <p className="mb-3 custom-paragraph" v-html="productDetail.content"></p>
+
+
                 </div>
                 <div className="tab-pane fade p-3" id="description" role="tabpanel" aria-labelledby="description-tab">
-                    <p className="mb-3 custom-paragraph">
-                        Admire the majestic scenery of numerous temples and different spiritual landmarks from the main
-                        peak. Pay
-                        homage to the Spiritual Cultural Complex with its 12 impressive architectural structures.
+                    <p className="mb-3 custom-paragraph" v-html="productDetail.description">
+
                     </p>
-                    <p className="mb-3 custom-paragraph">
-                        Especially, the Great Amitabha Buddha statue holds the record for being located at the highest
-                        altitude in
-                        Asia, where the sacred Buddha relics are preserved.
-                    </p>
+
                 </div>
                 <div className="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab">
 
-                    <p className="mb-3 custom-paragraph">
-                        Especially, the Great Amitabha Buddha statue holds the record for being located at the highest
-                        altitude in
-                        Asia, where the sacred Buddha relics are preserved.
+                    <p className="mb-3 custom-paragraph" v-for="n in productDetail.policies" :key="n.tieuDe"
+                        v-html="n.noiDung">
+
                     </p>
                 </div>
             </div>
@@ -128,16 +107,14 @@
         <!-- Ha Noi Station -->
         <div class="border-top p-3">
             <div class="-flex justify-content-between align-items-center">
-                <h2 class="title-map">Ha Noi Station</h2>
+                <h2 class="title-map">{{ productDetail.location }}</h2>
                 <!-- <i class="fas fa-chevron-down" style="font-size: 20px;"></i> -->
             </div>
             <div>
                 <div class="position-relative h-100">
                     <div className="position-relative mt-3" style="height: 300px;">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14895.650269277523!2d105.84962223989592!3d21.042252458940154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abb158a2305d%3A0x5c357d21c785ea3d!2zTG9uZyBCacOqbiwgSGFub2ksIFZpZXRuYW0!5e0!3m2!1sen!2sus!4v1709644048409!5m2!1sen!2sus"
-                            width="100%" height="100%" allowFullScreen={false} loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe :src="productDetail.locationIframe" width="100%" height="100%" allowFullScreen={false}
+                            loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
 
@@ -158,25 +135,26 @@
                     </div>
                 </div>
                 <a href="#" class="text-primary text-decoration-none view-all">
-                    View All
+                    {{ $t('VIEW_All') }}
                 </a>
             </div>
 
             <div class="review-container">
                 <!-- Review Quote -->
-                <div class="nd-rv">
+                <div class="nd-rv" v-for="r in productDetail.reviews" :key="r">
                     <div class="mb-4 border-bottom">
                         <div class="position-relative d-flex pb-3">
-                            <img width="20" height="20" src="../assets/images/dau.png" />
                             <div>
-                                <p class="ms-4 mb-1 text-rv" style="font-size: 14px;">
-                                    There are many exciting options for our journey, and the interface is user-friendly
-                                    and
-                                    easy
-                                    to...
-                                </p>
-                                <a href="#" class="ms-4 read-more-pr" style="font-size: 14px;">
-                                    Read more
+                                <img class="rounded-circle" width="20" src="../assets/images/phay.png" />
+
+
+                            </div>
+                            <div>
+                                <p class="ms-4 mb-1 text-rv" style="font-size: 14px;"
+                                    v-html="r.isExpanded ? r.content : (r.content?.slice(0, 50) + '...')"></p>
+                                <a v-if="r.content?.length > 100" href="#" class="ms-4 read-more-pr"
+                                    style="font-size: 14px;" @click.prevent="toggleReadMore(r)">
+                                    {{ r.isExpanded ? $t('READ_LESS') : $t('READ_MORE') }}
                                 </a>
                             </div>
                         </div>
@@ -184,62 +162,27 @@
 
                     <!-- User Profile -->
                     <div class="d-flex align-items-center gap-2 mb-4">
-                        <img src="../assets/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
-                            height="40" />
+                        <!-- <img src="../assets/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
+                            height="40" /> -->
+                        <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
+                        <img class="rounded-circle" width="40" height="40" v-else src="../assets/images/icon-user.png" />
                         <div>
-                            <p class="mb-0 name-rv">Tanaka Yuki</p>
+                            <p class="mb-0 name-rv">{{ r.userName }}</p>
                             <div class="d-flex text-warning bao-sao">
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
+                                <i class="fas fa-star" v-for="i in r.startNumber" style="font-size: 14px;"></i>
+
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="nd-rv">
-                    <div class="mb-4 border-bottom">
-                        <div class="position-relative d-flex pb-3">
-                            <img width="20" height="20" src="../assets/images/dau.png" />
-                            <div>
-                                <p class="ms-4 mb-1 text-rv" style="font-size: 14px;">
-                                    There are many exciting options for our journey, and the interface is user-friendly
-                                    and
-                                    easy
-                                    to...
-                                </p>
-                                <a href="#" class="ms-4 read-more-pr" style="font-size: 14px;">
-                                    Read more
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- User Profile -->
-                    <div class="d-flex align-items-center gap-2 mb-4">
-                        <img src="../assets/images/8.png" alt="Tanaka Yuki" class="rounded-circle" width="40"
-                            height="40" />
-                        <div>
-                            <p class="mb-0 name-rv">Tanaka Yuki</p>
-                            <div class="d-flex text-warning bao-sao">
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                                <i class="fas fa-star" style="font-size: 14px;"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
 
         </div>
         <div class="recently-container p-4">
             <div class="recently-header">
-                <h2 class="promo-title">You might also like</h2>
+                <h2 class="promo-title"> {{ $t('YOU_MIGHT_ALSO_LIKE') }}</h2>
 
             </div>
 
@@ -350,9 +293,9 @@
             <div class="d-flex">
                 <div class="gio-hang-pr">
                     <img src="../assets/images/shopping-cart.png" />
-                </div> 
+                </div>
                 <router-link to="/booking"> <button class="search-button" id="search">
-                        Buy Now
+                        {{ $t('BUY_NOW') }}
                     </button></router-link>
             </div>
         </div>
@@ -360,6 +303,21 @@
     </div>
 
 </template>
+<script setup>
+import { ref, onBeforeMount } from "vue";
+import { useProduct } from "../composables/product";
+import { useHelper } from "../composables/helper";
+const productComposable = useProduct();
+const helper = useHelper();
+const productDetail = ref([])
+onBeforeMount(async () => {
+    productDetail.value = await productComposable.getProductDetail();
+    console.log(productDetail.value, "productDetail.value")
+})
+const toggleReadMore = (review) => {
+    review.isExpanded = !review.isExpanded; // Đảo trạng thái mở rộng
+};
+</script>
 <style scoped>
 .custom-tabs {
     border-bottom: none;
@@ -420,15 +378,16 @@ iframe {
     margin-right: 20px;
     /* Add space between reviews */
 }
+
 .tour-card {
-   flex: 0 0 auto;
-   width: 230px;
-   padding: 0;
-   position: relative;
-   border: 1px solid #EDF1F7;
-   border-radius: 12px;
-   overflow: hidden;
-   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-   background-color: white;
+    flex: 0 0 auto;
+    width: 230px;
+    padding: 0;
+    position: relative;
+    border: 1px solid #EDF1F7;
+    border-radius: 12px;
+    overflow: hidden;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    background-color: white;
 }
 </style>

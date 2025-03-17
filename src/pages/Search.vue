@@ -49,8 +49,8 @@
         </div>
 
         <div class="bottom-menu menu-search">
-            <a class="clear-button" id="clear-all">{{ $t('clear_all') }}</a>
-            <router-link to="/product"> <button class="search-button" id="search">
+            <a @click="clearAllSelected" class="clear-button" id="clear-all">{{ $t('clear_all') }}</a>
+            <router-link to="/list-results"> <button class="search-button" id="search">
                     <i class="fas fa-search search-icon1"></i>
                     {{ $t('search') }}
                 </button></router-link>
@@ -117,5 +117,14 @@ onMounted(async () => {
         }
     }
 })
+const clearAllSelected = () => {
+    if (destinationSearch.value) {
+        destinationSearch.value.zoneChilds.forEach(s => s.isActive = false);
+    }
+    if (serviceSearch.value) {
+        serviceSearch.value.zoneChilds.forEach(s => s.isActive = false);
+    }
+    searchStore.onClearSearchItem();
+}
 </script>
 <style></style>

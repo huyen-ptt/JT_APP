@@ -52,7 +52,7 @@ export const useBlogDetail = () => {
       // await navigateTo(localePath('/blogs'));
       return null;
     }
-  }
+  } 
   const getBlogParentZone = async (parentChoosen) => {
     let type = 2; // 2 la zone bai viet
     if (_cultureCode) {

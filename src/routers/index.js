@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from '@/pages/Home.vue';
 import Search from '@/pages/Search.vue';
-import Product from '@/pages/Product.vue';
+import ListResults from '@/pages/ListResults.vue';
 import ProductDetail from '@/pages/ProductDetail.vue';
 import ListSearch from '@/pages/ListSearch.vue';
 import Destination from '@/pages/Destination.vue';
@@ -42,12 +42,12 @@ const routes = [
         component: Search,
     },
     {
-        path: "/product",
-        name: "Product",
-        component: Product,
+        path: "/list-results",
+        name: "ListResults",
+        component: ListResults,
     },
     {
-        path: "/detail-product",
+        path: "/detail-product/:id",
         name: "ProductDetail",
         component: ProductDetail,
     },
@@ -57,7 +57,7 @@ const routes = [
         component: ListSearch,
     },
     {
-        path: "/destination",
+        path: "/destination/:id",
         name: "Destination",
         component: Destination,
     },
@@ -107,7 +107,7 @@ const routes = [
         component: SuccessPword,
     },
     {
-        path: "/successpw",
+        path: "/account",
         name: "Account",
         component: Account,
     },

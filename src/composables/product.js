@@ -40,13 +40,11 @@ export const useProduct = () => {
     console.log(data)
     try {
       const response = await axios.post(url, data)
-
+ 
       if (response.data) {
-        const seenStore = useSeenStore();
 
         let detail = response.data;
         // console.log(detail);
-        seenStore.onAddSeen(detail.id);
         let images = detail.avatarArray.split(',');
         if (images.length > 0) {
           detail.gallary = JSON.parse(JSON.stringify(images))
