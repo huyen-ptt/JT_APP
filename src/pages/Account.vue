@@ -6,12 +6,9 @@
             <button class="back-button-product">
                 <i class="fas fa-arrow-left"></i>
             </button>
-            <h1 class="page-title-product">Setting</h1>
-            <button class="cart-button-product">
-
-            </button>
+            <h1 class="page-title-product">{{ $t('SETTING_ACCOUNT') }}</h1>
+            <button class="cart-button-product"></button>
         </div>
-
 
         <!-- Profile Section -->
         <div class="px-3 mt-3 infomation-profile">
@@ -27,53 +24,48 @@
 
             <!-- Order Section -->
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6 class="m-0 promo-title">My order</h6>
-                <small class="news-link-blogg">View history</small>
+                <h6 class="m-0 promo-title">{{ $t('MY_ORDER_ACCOUNT') }}</h6>
+                <small class="news-link-blogg">{{ $t('VIEW_HISTORY_ACCOUNT') }}</small>
             </div>
 
             <div class="order-card">
-
                 <div class="order-icons">
                     <div class="order-icon">
                         <div class="icon-circle">
                             <img src="../assets/images/Layer_1.png">
-
                         </div>
-                        <span class="service-text">New</span>
+                        <span class="service-text">{{ $t('NEW_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon">
                         <div class="icon-circle">
                             <img src="../assets/images/Vector.png">
-
                         </div>
-                        <span class="service-text">Ready</span>
+                        <span class="service-text">{{ $t('READY_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon">
                         <div class="icon-circle">
                             <img src="../assets/images/user.png">
-
                         </div>
-                        <span class="service-text">Used</span>
+                        <span class="service-text">{{ $t('USED_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon">
                         <div class="icon-circle">
                             <img src="../assets/images/pendding.png">
-
                         </div>
-                        <span class="service-text">Pending</span>
+                        <span class="service-text">{{ $t('PENDING_ACCOUNT') }}</span>
                     </div>
                 </div>
             </div>
 
             <!-- Settings Section -->
-            <h6 class="promo-title pb-3">Setting</h6>
+            <h6 class="promo-title pb-3">{{ $t('SETTING_ACCOUNT') }}</h6>
             <div class="settings-card">
                 <div class="settings-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/password-check.png" />
                         </div>
-                        <span class="title145">Update password</span>
+                        <span class="title145">{{ $t('UPDATE_PASSWORD_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div>
@@ -81,9 +73,8 @@
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/language-circle.png" />
-
                         </div>
-                        <span class="title145">Languages</span>
+                        <span class="title145">{{ $t('LANGUAGES_ACCOUNT') }}</span>
                     </div>
                     <div class="d-flex align-items-center">
                         <span class="see-detail-booking me-2">English</span>
@@ -94,9 +85,8 @@
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/money-send.png" />
-
                         </div>
-                        <span class="title145">Currency</span>
+                        <span class="title145">{{ $t('CURRENCY_ACCOUNT') }}</span>
                     </div>
                     <div class="d-flex align-items-center">
                         <span class="see-detail-booking me-2">USD</span>
@@ -106,15 +96,14 @@
             </div>
 
             <!-- About us Section -->
-            <h6 class="promo-title pb-3">About us</h6>
+            <h6 class="promo-title pb-3">{{ $t('ABOUT_US_ACCOUNT') }}</h6>
             <div class="about-card">
                 <div class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/book.png" />
-
                         </div>
-                        <span class="title145">Introduce</span>
+                        <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div>
@@ -122,19 +111,17 @@
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/call-calling.png" />
-
                         </div>
-                        <span class="title145">Contact Us</span>
+                        <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div>
                 <div class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/message-question.png" />
-
+                            <img src="../assets/images/re.png" />
                         </div>
-                        <span class="title145">FAQs</span>
+                        <span class="title145">{{ $t('FAQS_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div>
@@ -143,21 +130,20 @@
                         <div class="icon-circle me-3">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </div>
-                        <span @click="visible = true" class="title145">Logout</span>
+                        <span @click="visible = true" class="title145">{{ $t('LOGOUT_ACCOUNT') }}</span>
                         <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }" class="modal-logout1">
                             <div class="logout-dialog-logoutt">
                                 <div class="text-center back-icon-logoutt">
-                                   <img src="../assets/images/logout.png">
+                                    <img src="../assets/images/logout.png">
                                 </div>
-
-                                <h2 class="promotion-title-lon text-center">Log out</h2>
-                                <p class="dia-chi-product text-center pb-3">Are you sure you want to sign out?</p>
-
+                                <h2 class="promotion-title-lon text-center">{{ $t('LOGOUT_ACCOUNT') }}</h2>
+                                <p class="dia-chi-product text-center pb-3">{{ $t('CONFIRM_SIGN_OUT_ACCOUNT') }}</p>
                                 <div class="buttons-container-logoutt">
-                                    <button class="btn btn-cancel-logoutt"  @click="visible = false">Cancel</button>
-                                    <button class="btn btn-logout-logoutt"> Logout</button>
+                                    <button class="btn btn-cancel-logoutt" @click="visible = false">{{
+                                        $t('CANCEL_ACCOUNT') }}</button>
+                                    <button class="btn btn-logout-logoutt">{{ $t('LOG_OUT_ACCOUNT') }}</button>
                                 </div>
-                            </div> 
+                            </div>
                         </Dialog>
                     </div>
                     <i class="fas fa-chevron-right "></i>
@@ -166,6 +152,8 @@
         </div>
         <Footer></Footer>
     </div>
+
+
 </template>
 <script setup>
 import { ref } from "vue";

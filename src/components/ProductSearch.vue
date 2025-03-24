@@ -1,11 +1,11 @@
   <template>
     <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-if="product">
-        <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
+        <img :src="helper.getImageCMS(product.avatar)"  class="tour-image">
         <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
             <div class="tour-location tour-price">
                 <div>
-                    <span class="tour-booked">{{ product.viewCount }} Booked</span>
+                    <span class="tour-booked">{{ product.viewCount }} {{ $t('BOOKED') }}</span>
                 </div>
                 <div class="rating">
                     <i class="fas fa-star"></i>
@@ -14,7 +14,7 @@
             </div>
             <div class="tour-price">
                 <div>
-                    <span class="price-text">From</span>
+                    <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                     <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true }) }}</span>
                     <span class="price-as-currency"></span>
                 </div>

@@ -5,10 +5,10 @@
         <div class="nd-checkout">
             <div class="form-container">
                 <img class="d-flex icon-success pb-4" src="../assets/images/searchh.png" />
-                <div class="icon-success text-center title-sl">No results matched</div>
-                <div class=" icon-success text-center dia-chi-product  pb-4">There is no item on this page, you can try to<br> research at another page</div>
+                <div class="icon-success text-center title-sl">{{ $t('NO_RESULTS') }}</div>
+                <div class=" icon-success text-center dia-chi-product  pb-4">{{ $t('NO_ITEMS') }}<br> {{ $t('TRY_ANOTHER_PAGE') }}</div>
 
-                <button type="submit" class="w-100 btn btn-lg btn-login">Explore</button>
+                <button type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</button>
 
 
             </div>
