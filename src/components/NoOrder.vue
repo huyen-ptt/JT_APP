@@ -5,10 +5,11 @@
         <div class="nd-checkout">
             <div class="form-container">
                 <img class="d-flex icon-success pb-4" src="../assets/images/order1.png" />
-                <div class="icon-success text-center title-sl">No orders yet!</div>
-                <div class=" icon-success text-center dia-chi-product  pb-4">Shop now and enjoy our best deals with great<br> discounts applied automatically to your items!</div>
+                <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
+                <div class=" icon-success text-center dia-chi-product  pb-4">{{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}</div>
 
-                <button type="submit" class="w-100 btn btn-lg btn-login">Explore</button>
+                <button type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</button>
+
 
 
             </div>
