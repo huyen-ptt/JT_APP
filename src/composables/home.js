@@ -356,7 +356,9 @@ export const useHome = () => {
     }
   }
 
-  // const id = computed(() => route.params.id);
+  
+
+  
 
   
 
