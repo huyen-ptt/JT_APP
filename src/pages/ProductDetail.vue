@@ -59,7 +59,7 @@
                 </div>
                 <div class="rating">
                     <i class="fas fa-star"></i>
-                    <span class="rating-value">{{ productDetail.rateAVG.toFixed(2) }}</span>
+                    <span class="rating-value">{{ productDetail.rateAVG?.toFixed(2) }}</span>
                 </div>
 
             </div>
@@ -132,7 +132,7 @@
             <!-- Rating Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex align-items-center gap-4">
-                    <h2 class="display-6 fw-bold mb-0 so-review">{{ productDetail.rateAVG.toFixed(1) }}</h2>
+                    <h2 class="display-6 fw-bold mb-0 so-review">{{ productDetail.rateAVG?.toFixed(1) }}</h2>
                     <div class="d-flex text-warning">
                         <i v-for="n in Math.floor(productDetail.rateAVG)" :key="n" class="fas fa-star"
                             style="font-size: 24px;"></i>
@@ -302,11 +302,11 @@
                 <div class="gio-hang-pr">
                     <img src="../assets/images/shopping-cart.png" />
                 </div>
-                <router-link> <button label="Show" @click="visible = true" class="search-button" id="search">
+                <a> <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
                         {{ $t('BUY_NOW') }}
-                    </button></router-link>
-                <Dialog v-model:visible="visible" modal maximizable class="modal-order" :style="{ width: '50vw' }"
-                    :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
+                    </button></a>
+                <Dialog v-model:visible="visibleDrawerPackageList" modal maximizable class="modal-order"
+                    :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
                     <div id="app" class="app-container">
                         <!-- Header -->
                         <div class="d-flex justify-content-between align-items-center p-3">
@@ -319,27 +319,26 @@
                         <!-- Main Content -->
                         <div class="content-wrapper-booking p-3">
                             <!-- Ticket cards with accordion -->
-                            <div v-for="(ticket, index) in productDetail.productChilds" :key="index"
-                                class="ticket-card-booking p-4 mb-3">
-                                <div class="news-title-blogg mb-2">{{ ticket.title }}</div>
+                            <div v-for="(p, index) in payItems" :key="index" class="ticket-card-booking p-4 mb-3">
+                                <div class="news-title-blogg mb-2">{{ p.currentPackage.title }}</div>
                                 <div class="see-detail-booking mb-2" @click="visibleBottom = true">
                                     See detail <i class="fa-solid fa-chevron-down"></i>
                                     <Drawer v-model:visible="visibleBottom" header="Detail" position="bottom"
                                         style="height: auto" class="bo-goc so-luong-mua">
                                         <div class="container detail-see pb-4">
                                             <div class="tour-card-see-detail">
-                                                <h2 class="tour-title-see-detail">{{ ticket.title }}</h2>
+                                                <h2 class="tour-title-see-detail">{{ p.currentPackage.title }}</h2>
 
                                                 <div class="price-text-see-detail pb-3">
                                                     <span class="me-1">From</span> <span
                                                         class="price-value-booking"><span class="me-1">USD</span>{{
-                                                            (ticket.price / currentfCurrency.exchange)
+                                                            (p.currentPackage.price / currentfCurrency.exchange)
                                                                 .toFixed(1)
                                                                 .toLocaleString("en-US")
                                                         }}</span>
                                                 </div>
 
-                                                <p class="dia-chi-product" v-html="ticket.description">
+                                                <p class="dia-chi-product" v-html="p.currentPackage.description">
 
                                                 </p>
 
@@ -355,250 +354,154 @@
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center  pb-3 border-bottom">
                                     <div class="price-booking">
-                                        From <span class="price-value-booking"> {{ ticket.price.toLocaleString()
-                                            }}</span>
+                                        From <span class="price-value-booking"> {{
+                                            p.currentPackage.price.toLocaleString()
+                                        }}</span>
                                         <div class="packages-count-booking">~ USD {{
-                                            (ticket.price / currentfCurrency.exchange)
+                                            (p.currentPackage.price / currentfCurrency.exchange)
                                                 .toFixed(1)
                                                 .toLocaleString("en-US")
                                         }}</div>
 
                                     </div>
-                                    <button class="book-btn-booking"
-                                        @click="toggleBookingAccordion(ticket)">Book</button>
+                                    <button class="book-btn-booking" @click="onClickBookPackage(p)">Book</button>
                                 </div>
 
                                 <!-- Accordion content - appears when expanded -->
-                                <div v-if="ticket.isActive" class="booking-accordion-content mt-3">
-                                    <!-- Date Selection Card -->
-                                    <div class="date-card-booking">
-                                        <div class="date-card-title-booking">Select Date</div>
-                                        <div class="calendar-nav-container-booking">
-                                            <button class="calendar-nav-booking" @click="prevMonth">
-                                                <i class="fas fa-chevron-left"></i>
-                                            </button>
-                                            <div class="calendar-month-header-booking">{{ currentMonth }}/{{ currentYear
-                                            }}</div>
-                                            <button class="calendar-nav-booking" @click="nextMonth">
-                                                <i class="fas fa-chevron-right"></i>
-                                            </button>
-                                        </div>
-
-                                        <div class="calendar-grid-booking">
-                                            <div class="calendar-day-header-booking"
-                                                v-for="day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']"
-                                                :key="day">
-                                                {{ day }}
-                                            </div>
-                                            <div v-for="n in firstDayOfMonth" :key="'empty-' + n"></div>
-                                            <div v-for="day in daysInMonth" :key="day" class="calendar-day-booking"
-                                                :class="{ selected: isSelectedDate(day, index), disabled: isDisabledDate(day) }"
-                                                @click="selectDate(day, index)">
-                                                {{ day }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Option Selection - Đã chuyển thành dropdown -->
-                                    <!-- <div class="section-item-booking">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="section-title-booking">Option</div>
+                                <div v-if="p.isActive" class="booking-accordion-content mt-3">
+                                    <Accordion :value="p.currentAccordionStep">
+                                        <AccordionPanel :value="0">
                                             <div>
-                                                <a href="#" class="add-btn-booking"
-                                                    @click.prevent="toggleOptionDropdown(index)"
-                                                    v-if="!ticket.selectedOption">
-                                                    Add Option
-                                                </a>
-                                                <div v-else class="selected-option-display"
-                                                    @click="toggleOptionDropdown(index)">
-                                                    {{ ticket.selectedOption === 'over-week' ? 'Over the week' :
-                                                        'Weekends and holidays'
-                                                    }}
-                                                    <i class="fas fa-chevron-down ml-2"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div v-if="ticket.showOptionDropdown" class="option-dropdown-booking mt-2">
-                                            <div class="option-btn-container-booking">
-                                                <button class="option-btn-booking"
-                                                    :class="{ 'selected': tempSelectedOption === 'over-week' }"
-                                                    @click="selectTempOption('over-week')">
-                                                    Over the week
-                                                </button>
-                                                <button class="option-btn-booking"
-                                                    :class="{ 'selected': tempSelectedOption === 'weekends' }"
-                                                    @click="selectTempOption('weekends')">
-                                                    Weekends and holidays
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="section-item-booking">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="section-title-booking">Guest</div>
-                                            <a href="#" class="add-btn-booking"
-                                                @click.prevent="toggleGuestDropdown(index)">
-                                                Add Guest
-                                            </a>
-                                        </div>
-                                        <div v-if="ticket.guestSelected" class="selected-guest-display mt-2"
-                                            @click="toggleGuestDropdown(index)">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <div v-if="ticket.guests.adult > 0">Adult: {{ ticket.guests.adult }}
+                                                <AccordionHeader class="" style="width: 89%; color: #03294C;">
+                                                    <div class="date-card-title-booking">
+                                                        <span v-if="!p.currentSelectedDate">{{ $t('Selected_Date')
+                                                            }}</span>
+                                                        <span v-else>{{ $t('Selected_Date') }}: {{
+                                                            p.currentSelectedDate
+                                                            }}</span>
                                                     </div>
-                                                    <div v-if="ticket.guests.child > 0">Child: {{ ticket.guests.child }}
+                                                </AccordionHeader>
+                                                <AccordionContent>
+                                                    <div class="calendar-nav-container-booking">
+                                                        <button class="calendar-nav-booking" @click="prevMonth(p)">
+                                                            <i class="fas fa-chevron-left"></i>
+                                                        </button>
+                                                        <div class="calendar-month-header-booking">{{ currentMonth
+                                                        }}/{{ currentYear
+                                                            }}</div>
+                                                        <button class="calendar-nav-booking" @click="nextMonth(p)">
+                                                            <i class="fas fa-chevron-right"></i>
+                                                        </button>
                                                     </div>
-                                                </div>
-                                                <i class="fas fa-chevron-down"></i>
-                                            </div>
-                                        </div>
 
-                                        <div v-if="ticket.showGuestDropdown" class="guest-dropdown-booking mt-2">
-                                            <div>
-                                                <div class="guest-item-booking border-bottom">
-                                                    <div class="">
-
-                                                        <div
-                                                            class="price-item-so-luong d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="price-label-so-luong">Adult</div>
-                                                                <div class="price-amount-so-luong">VND 320,000</div>
-                                                                <div class="price-text">~USD 41.2/Unit</div>
-                                                            </div>
-                                                            <div class="quantity-controls-so-luong">
-                                                                <button class="quantity-btn-so-luong"
-                                                                    @click="updateQuantity('adult', -1)"
-                                                                    :disabled="adultQuantity === 0">−</button>
-                                                                <span class="quantity-display-so-luong">{{ adultQuantity
-                                                                }}</span>
-                                                                <button class="quantity-btn-so-luong"
-                                                                    @click="updateQuantity('adult', 1)">+</button>
-                                                            </div>
+                                                    <div class="calendar-grid-booking">
+                                                        <div class="calendar-day-header-booking"
+                                                            v-for="day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']"
+                                                            :key="day">
+                                                            {{ day }}
                                                         </div>
-
-                                                        <div
-                                                            class="price-item-so-luong d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="price-label-so-luong">Child</div>
-                                                                <div class="price-amount-so-luong">VND 320,000</div>
-                                                                <div class="price-text">~USD 27.2/Unit</div>
-                                                            </div>
-                                                            <div class="quantity-controls-so-luong">
-                                                                <button class="quantity-btn-so-luong"
-                                                                    @click="updateQuantity('child', -1)"
-                                                                    :disabled="childQuantity === 0">−</button>
-                                                                <span class="quantity-display-so-luong">{{ childQuantity
-                                                                }}</span>
-                                                                <button class="quantity-btn-so-luong"
-                                                                    @click="updateQuantity('child', 1)">+</button>
-                                                            </div>
-
+                                                        <div v-for="(d, index) in p.calendar.items" :key="d"
+                                                            class="calendar-day-booking"
+                                                            :class="{ canClick: d.canClick, dateActive: d.isActive }"
+                                                            @click="onChoosenDate(p, index)">
+                                                            <span v-if="d.day == -1">
+                                                            </span>
+                                                            <span v-else>{{ d.day }}</span>
+                                                            <!-- {{ day.day }} -->
                                                         </div>
-
                                                     </div>
-                                                </div>
+                                                </AccordionContent>
                                             </div>
-
-                                        </div>
-                                    </div> -->
-
-                                    <Accordion value="0">
-
-                                        <AccordionPanel value="1">
+                                        </AccordionPanel>
+                                        <AccordionPanel :value="1">
                                             <div>
-                                                <AccordionHeader class="" style="width: 89%;">
+                                                <AccordionHeader class="" style="width: 89%; color: #03294C;">
                                                     Option
                                                 </AccordionHeader>
-                                                <AccordionContent  v-for="option in currentProductOptions" :key="option">
+                                                <AccordionContent v-for="option in p.currentListOptions" :key="option">
                                                     <div class="section-title-booking pb-2">{{ option.zoneParent.name }}
                                                     </div>
                                                     <div class="option-btn-booking1" v-for="child in option.zoneChilds"
-                                                        :key="child">
+                                                        :key="child" @click="onSelectedOptionItem(p, child)"
+                                                        :class="{ optionActive: child.isActive, optionDisable: child.isDisable }">
                                                         {{ child.name }}
                                                     </div>
                                                 </AccordionContent>
                                             </div>
                                         </AccordionPanel>
-                                        <!-- <AccordionPanel value="2">
-                                            <div  v-for="option in currentProductOptions" :key="option">
-                                                <AccordionHeader>
-                                                    <div class="section-title-booking">Guest
-                                                    </div>
-                                                </AccordionHeader>
-                                                <AccordionContent>
-                                                    <div class="guest-dropdown-booking mt-2">
-                                                        <div>
-                                                            <div v-for="child in option.combinations" :key="child"
-                                                                class="guest-item-booking border-bottom">
-                                                                <div class="">
-                                                                    <div
-                                                                        class="price-item-so-luong d-flex justify-content-between align-items-center">
-                                                                        <div v-if="child.priceEachNguoiLon">
-                                                                            <div class="price-label-so-luong">Adult
-                                                                            </div>
-                                                                            <div class="price-amount-so-luong">VND {{
-                                                                                child.priceEachNguoiLon.toLocaleString()
-                                                                                }}
-                                                                            </div>
-                                                                            <div class="price-text">~USD {{
-                                                                                (child.priceEachNguoiLon /
-                                                                                    currentfCurrency.exchange)
-                                                                                    .toFixed(1)
-                                                                                    .toLocaleString("en-US")
-                                                                                }}
-                                                                            </div>
+                                        <AccordionPanel :value="2">
+                                            <AccordionHeader>
+                                                <div class="section-title-booking">Guest
+                                                </div>
+                                            </AccordionHeader>
+                                            <AccordionContent>
+                                                <div class="guest-dropdown-booking mt-2">
+                                                    <div>
+                                                        <div class="guest-item-booking border-bottom">
+                                                            <div class="">
+                                                                <div
+                                                                    class="price-item-so-luong d-flex justify-content-between align-items-center">
+                                                                    <div v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
+                                                                        <div class="price-label-so-luong">Adult
                                                                         </div>
-
-                                                                        <div class="quantity-controls-so-luong">
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="decreaseNguoiLon(child)">−</button>
-                                                                            <span class="quantity-display-so-luong">{{
-                                                                                child.minimumNguoiLon }}</span>
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="increaseNguoiLon(child)">+</button>
+                                                                        <div class="price-amount-so-luong">VND {{
+                                                                            p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
+                                                                        }}
+                                                                        </div>
+                                                                        <div class="price-text">~USD {{
+                                                                            (p.selectedPriceByDate?.priceEachNguoiLon /
+                                                                                currentfCurrency.exchange)
+                                                                                .toFixed(1)
+                                                                                .toLocaleString("en-US")
+                                                                        }}
                                                                         </div>
                                                                     </div>
 
+                                                                    <div class="quantity-controls-so-luong">
+                                                                        <button class="quantity-btn-so-luong"
+                                                                            @click="decreaseNguoiLon(child)">−</button>
+                                                                        <span class="quantity-display-so-luong">{{
+                                                                            p.minimumNguoiLon }}</span>
+                                                                        <button class="quantity-btn-so-luong"
+                                                                            @click="increaseNguoiLon(child)">+</button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="">
-                                                                    <div
-                                                                        class="price-item-so-luong d-flex justify-content-between align-items-center">
-                                                                        <div v-if="child.priceEachTreEm">
-                                                                            <div class="price-label-so-luong">Child
-                                                                            </div>
-                                                                            <div class="price-amount-so-luong">VND {{
-                                                                                child.priceEachTreEm.toLocaleString() }}
-                                                                            </div>
-                                                                            <div class="price-text">~USD {{
-                                                                                (child.priceEachTreEm /
-                                                                                    currentfCurrency.exchange)
-                                                                                    .toFixed(1)
-                                                                                    .toLocaleString("en-US")
-                                                                                }}
-                                                                            </div>
-                                                                        </div>
 
-                                                                        <div class="quantity-controls-so-luong">
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="decreaseQuantity(child)">−</button>
-                                                                            <span class="quantity-display-so-luong">{{
-                                                                                child.minimumTreEm }}</span>
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="increaseQuantity(child)">+</button>
+                                                            </div>
+                                                            <div class="">
+                                                                <div
+                                                                    class="price-item-so-luong d-flex justify-content-between align-items-center" v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
+                                                                    <div >
+                                                                        <div class="price-label-so-luong">Child
+                                                                        </div>
+                                                                        <div class="price-amount-so-luong">VND {{
+                                                                            p.selectedPriceByDate?.priceEachTreEm.toLocaleString() }}
+                                                                        </div>
+                                                                        <div class="price-text">~USD {{
+                                                                            (p.priceEachTreEm /
+                                                                                currentfCurrency.exchange)
+                                                                                .toFixed(1)
+                                                                                .toLocaleString("en-US")
+                                                                        }}
                                                                         </div>
                                                                     </div>
 
+                                                                    <div class="quantity-controls-so-luong">
+                                                                        <button class="quantity-btn-so-luong"
+                                                                            @click="decreaseQuantity()">−</button>
+                                                                        <span class="quantity-display-so-luong">{{
+                                                                            p.selectedPriceByDate?.minimumTreEm }}</span>
+                                                                        <button class="quantity-btn-so-luong"
+                                                                            @click="increaseQuantity()">+</button>
+                                                                    </div>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </AccordionContent>
-                                            </div>
-                                        </AccordionPanel> -->
+                                                </div>
+                                            </AccordionContent>
+                                        </AccordionPanel>
                                     </Accordion>
 
                                 </div>
@@ -623,7 +526,7 @@
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow">Buy Now ({{ selectedCount
-                                    }})</button>
+                                        }})</button>
                                 </div>
                             </div>
                         </div>
@@ -668,6 +571,20 @@ const visibleBottom = ref(false);
 const adultQuantity = ref(4);
 const childQuantity = ref(0);
 // const visibleBottom = ref(false);
+
+
+// region Logic
+
+
+
+
+
+
+
+
+// endRegion
+
+
 
 // Function to update quantities
 const updateQuantity = (type, change) => {
@@ -783,60 +700,313 @@ const totalPrice = computed(() => {
 });
 
 
-const toggleBookingAccordion = async (ticket) => {
 
-    ticket.isActive = !ticket.isActive;
-    console.log(ticket, 'tk')
-    await onLoadOption(ticket.productId);
+// #Region Logic
+
+
+
+const payItems = ref([]);
+
+const currentBook = ref({
+    currentPackage: null,
+    currentListOptions: [],
+    currentAvalibleCombination: [],
+    currentSelectedCombination: [],
+    isValidated: false,
+    isActive: false,
+    currentSelectedDate: null,
+    calendar: {
+        firstDayOfMonth: 1,
+        daysInMonth: 31,
+        currentMonth: 3,
+        currentYear: 2025,
+        items: []
+    },
+    currentAccordionStep: 0,
+    currentAvalibeSessionSelected: [],
+    currentChoosenOptions: [],
+    priceSelectedOptionByDate: [],
+    selectedPriceByDate: null,
+    combinations: [],
+    minimunNguoiLon : 1,
+    minimumTreEm : 0
+
+});
+
+const visibleDrawerPackageList = ref(false);
+const onClickBuyNowParent = () => {
+    visibleDrawerPackageList.value = true;
+    //Tao danh sach cac package
+    if (productDetail.value) {
+        productDetail.value.productChilds.forEach(r => {
+            let payItem = JSON.parse(JSON.stringify(currentBook.value));
+            payItem.currentPackage = r;
+            payItems.value.push(payItem);
+        })
+    }
+}
+
+
+
+//Ham xu ly khi bam nut book
+const onClickBookPackage = async (p) => {
+    p.isActive = !p.isActive;
+    //Load option
+    onLoadCelendar(p);
+    await onLoadPackage(p);
+    //Load lich
 
 };
-let currentConvertedZoneList = ref([]);
-let currentCombinations = ref([]);
-let avalibleCombinations = ref([]);
-let currentProductOptions = ref([]);
-const onLoadOption = async (id) => {
-    const response = await optionComposable.onLoadPriceOption(id);
+
+
+
+// Ham load lich
+
+const onLoadCelendar = (p) => {
+    let month = p.calendar.currentMonth
+    let year = p.calendar.currentYear
+    if (month && year) {
+        const daysInMonth = new Date(year, month, 0).getDate();
+        const firstDay = new Date(year, month - 1, 1).getDay(); // Ngày đầu tiên của tháng
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Đặt giờ của ngày hôm nay về 0 để so sánh ngày chính xác
+        const result = [];
+
+        // Xác định số ô trống cần thêm vào đầu tháng
+        const emptyCells = firstDay === 0 ? 6 : firstDay - 1; // Chuyển sang định dạng VN (thứ hai là 1, chủ nhật là 7)
+
+        // Thêm ngày trống từ tháng trước
+        for (let i = 0; i < emptyCells; i++) {
+            result.push({
+                dayOfWeek: i + 1,
+                day: -1,
+                isPast: true,
+                price: 0,
+                isActive: false,
+                canClick: false,
+            });
+        }
+
+        // Thêm ngày của tháng hiện tại
+        // Định dạng ngày theo YYYY-MM-DD
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            const date = new Date(year, month - 1, i);
+            const dayOfWeek = (firstDay + i - 1) % 7; // Tính thứ cho ngày hiện tại
+            date.setHours(0, 0, 0, 0); // Đặt giờ của ngày so sánh về 0
+            const isPast = date < today; // Kiểm tra ngày có phải là quá khứ, chỗ này đang coi ngày hoomn nay cũng là quá khứ, sửa lại giúp tôi chỗ này cho lấy cả ngày hôm nay
+            const formattedDate = `${year}-${String(month).padStart(2, "0")}-${String(
+                i
+            ).padStart(2, "0")}T00:00:00`;
+            result.push({
+                dayOfWeek: dayOfWeek === 0 ? 7 : dayOfWeek, // Đảm bảo Chủ Nhật là 7
+                day: i,
+                isPast: isPast,
+                price: 0,
+                isActive: false,
+                canClick: true,
+                formattedDate: formattedDate,
+                priceEachNguoiLon: 0,
+                priceEachTreEm: 0,
+                priceEachNguoiGia: 0,
+            });
+        }
+        p.calendar.items = result;
+    }
+}
+
+// Ham xu ly khi chon 1 ngay 
+const onChoosenDate = async (p, index) => {
+    if (p.calendar.items[index].canClick) {
+        p.calendar.items.forEach(r => { r.isActive = false });
+
+        p.calendar.items[index].isActive = true;
+        p.currentSelectedDate = p.calendar.items[index].formattedDate;
+
+        p.currentAccordionStep = 1;
+
+    }
+
+    await onLoadPriceForPayItem(p);
+
+
+}
+
+// ham load ra cac option cua package
+const onLoadPackage = async (p) => {
+    const response = await optionComposable.onLoadPriceOption(p.currentPackage.productId);
     if (response && response.data) {
         const options = response.data;
+        p.currentListOptions = response.data;
+        
+
         if (options.length > 0) {
             const _first = options[0];
             if (_first && _first.combinations) {
                 _first.combinations.forEach((v) => {
                     let _zoneList = v.zoneList.split(",").map(Number);
-                    avalibleCombinations.value.push(_zoneList);
+                    p.currentAvalibleCombination.push(_zoneList);
                 });
+                p.combinations = _first.combinations;
             }
+            
         }
-
-        currentProductOptions.value = options.map(r => ({
-            ...r,
-            isSelected: false,
-            isFirstLoad: true
-        }));
-
-        if (currentProductOptions.value.length > 0) {
-            const _first = currentProductOptions.value[0];
-            const combinations = _first.combinations || [];
-
-            currentConvertedZoneList.value = combinations.map(element => {
-                element.convertedZoneList = element.zoneList.split(",").map(Number);
-                return element.convertedZoneList;
-            });
-
-            currentCombinations.value = combinations;
-        }
-
-        currentProductOptions.value.forEach((element) => {
-            if (element.zoneChilds) {
-                element.zoneChilds.forEach((c) => {
-                    c.bgDisable = false;
-                });
-            }
-        });
-        // console.log(currentProductOptions.value, 'jsdf')
-
+        
+        p.currentListOptions.forEach(r => {
+            r.zoneChilds.forEach(z => {
+                z.isActive = false;
+                z.isDisable = false;
+            })
+        })
+        console.log(p);
     }
 }
+
+const onLoadPriceForPayItem = async (p) => {
+    let checker = true;
+    //1. Phai chon ngay phu hop
+    if (!p.currentSelectedDate) checker = false;
+    //2. Phai chon duoc 1 option phu hop
+    let arrTemp = [];
+
+    p.currentChoosenOptions.forEach(choose => {
+        if (arrTemp.indexOf(choose.id) < 0) {
+            arrTemp.push(choose.id)
+        }
+    })
+
+    let checkHaiMangBangNhau = false;
+    p.currentAvalibleCombination.forEach(avalible => {
+        if (areArraysEqual(avalible, arrTemp)) {
+            checkHaiMangBangNhau = true;
+            arrTemp = avalible;
+        }
+    })
+    if (checkHaiMangBangNhau == false) checker = false;
+    //Kiem tra neu checker la dung thi load du lieu 
+    if (checker) {
+        //Goi API de get gia
+        //Sap xep arrTemp theo thu tu tu nho den lon
+        // arrTemp= arrTemp.sort((a, b) => a - b);
+        let data = {
+            id: p.currentPackage.productId,
+            month: p.calendar.currentMonth,
+            year: p.calendar.currentYear,
+            combination: arrTemp.join(','),
+        }
+
+        const response = await productComposable.getProductOptionsPriceByDate(data);
+        if (response) {
+            p.priceSelectedOptionByDate = response.data;
+
+            p.priceSelectedOptionByDate.forEach(r => {
+                if (r.date == p.currentSelectedDate) {
+                    p.selectedPriceByDate = r;
+                    p.currentAccordionStep = 2;
+
+                    // Tinh minimum nguoi lon va tre em
+                    
+                    p.combinations.forEach(r => {
+                        if(r.zoneList == arrTemp.join(',')){
+                            p.minimumNguoiLon = r.minimumNguoiLon;
+                            p.minimumTreEm = r.minimumTreEm;   
+                        }
+                    })
+                }
+            })
+        }
+    }
+
+}
+
+//Ham xu ly an vao mot optionItem
+const onSelectedOptionItem = async (p, item) => {
+    if (item.isActive == false) {
+        if (item.isDisable == true) {
+            p.currentListOptions.forEach(option => {
+                option.zoneChilds.forEach(zone => {
+                    zone.isActive = false;
+                })
+            })
+            p.currentAvalibeSessionSelected = [];
+            p.currentChoosenOptions = [];
+
+        }
+        p.currentChoosenOptions.push(item);
+        item.isActive = true;
+        onGetOptionAvalibleInCombinationInSession(p);
+        onDisableOptionNotIncludeInAvalableArray(p);
+
+        //Kiem tra xem cai currentOptionSelected no 
+    }
+    await onLoadPriceForPayItem(p)
+}
+
+// Sub: Ham xu ly merge option theo lua chon phu hop
+const onGetOptionAvalibleInCombinationInSession = (p, item) => {
+
+    // if (p.currentAvalibeSessionSelected.length <= 0) {
+    //     let set = new Set();
+    //     p.currentAvalibleCombination.forEach(avalible => {
+    //         if (avalible.includes(item.id)) {
+    //             avalible.forEach(id => set.add(id));
+    //         }
+    //     });
+    //     p.currentAvalibeSessionSelected = Array.from(set);
+    // }
+    let set = new Set();
+
+    // Lap qua cac phan tu cua 
+    p.currentAvalibleCombination.forEach(avalible => {
+        //Kiem tra tat ca cac phan tu cua temparr co nam trong mang avalible hay khong
+        if (p.currentChoosenOptions.every(item => avalible.includes(item.id))) {
+            avalible.forEach(element => {
+                set.add(element)
+            });
+        }
+    });
+
+    p.currentAvalibeSessionSelected = Array.from(set);
+
+
+}
+
+//Sub: Ham xu ly khi kiem tra xem cac option khac co nam trong danh sach duoc cho khong
+const onDisableOptionNotIncludeInAvalableArray = (p) => {
+    p.currentListOptions.forEach(option => {
+        option.zoneChilds.forEach(zone => {
+            if (p.currentAvalibeSessionSelected.indexOf(zone.id) < 0) {
+                zone.isDisable = true;
+            }
+            else {
+                zone.isDisable = false;
+            }
+        })
+    })
+}
+
+//Sub: hàm so sánh 2 mảng bằng nhau
+const areArraysEqual = (a, b) => {
+    if (a.length !== b.length) return false;
+
+    const setA = new Set(a);
+    const setB = new Set(b);
+
+    if (setA.size !== setB.size) return false;
+
+    return [...setA].every(item => setB.has(item));
+}
+
+// Ham xu ly khi chon 1 selectedDate
+
+// Ham validate du thong tin de goi database
+
+
+
+
+
+
+// #endregion
 // Thêm hàm mới để xử lý dropdown Option
 const toggleOptionDropdown = (index) => {
     // Đóng tất cả các dropdown khác
@@ -913,14 +1083,14 @@ const prevMonth = () => {
     updateCalendar();
 };
 
-const updateCalendar = () => {
+const updateCalendar = (p) => {
     // Get days in month
-    daysInMonth.value = new Date(currentYear.value, currentMonth.value, 0).getDate();
+    p.calendar.daysInMonth.value = new Date(p.calendar.currentYear, p.calendar.currentMonth, 0).getDate();
 
     // Get first day of month (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-    let firstDay = new Date(currentYear.value, currentMonth.value - 1, 1).getDay();
+    let firstDay = new Date(p.calendar.currentYear, p.calendar.currentMonth - 1, 1).getDay();
     // Adjust for Monday as first day of week
-    firstDayOfMonth.value = firstDay === 0 ? 6 : firstDay - 1;
+    p.calendar.firstDayOfMonth = firstDay === 0 ? 6 : firstDay - 1;
 };
 
 const isSelectedDate = (day, ticketIndex) => {
@@ -962,14 +1132,20 @@ const buyNow = () => {
     alert('Checkout with ' + selectedCount.value + ' packages for USD ' + totalPrice.value);
 };
 
+const onSelectedZoneChild = (child) => {
+    console.log(child)
+}
+
 // Lifecycle hook
-onMounted(() => {
-    updateCalendar();
+onMounted(async () => {
+    // updateCalendar();
+
 });
 onBeforeMount(async () => {
     productDetail.value = await productComposable.getProductDetail();
-    console.log(productDetail.value, "productDetail.value");
-    await onLoadOption();
+
+    // console.log(productDetail.value, "productDetail.value");
+    // await onLoadPackage();
 })
 const toggleReadMore = (review) => {
     review.isExpanded = !review.isExpanded; // Đảo trạng thái mở rộng
@@ -1046,5 +1222,19 @@ iframe {
     overflow: hidden;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     background-color: white;
+}
+
+.dateActive {
+    background-color: #03294C !important;
+    color: white;
+}
+
+.optionActive {
+    background-color: #03294C !important;
+    color: white;
+}
+
+.optionDisable {
+    background-color: #ddd;
 }
 </style>

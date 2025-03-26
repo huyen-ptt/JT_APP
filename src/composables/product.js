@@ -85,5 +85,13 @@ export const useProduct = () => {
     }
   }
 
-  return { getProductDetail, onLoadLastSeen }
+  const getProductOptionsPriceByDate = async (data) => {
+    const url = `${uri}/api/PageProduct/GetProductOptionsPriceByDate`
+    const respone = await axios.post(url, data);
+    if(respone){
+      return respone;
+    }
+  }
+
+  return { getProductDetail, onLoadLastSeen, getProductOptionsPriceByDate }
 }
