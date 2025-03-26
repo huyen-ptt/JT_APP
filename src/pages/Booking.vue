@@ -339,10 +339,6 @@ const totalPrice = computed(() => {
     return total.toFixed(2);
 });
 
-// Methods
-const toggleDetail = (index) => {
-    tickets.value[index].detailExpanded = !tickets.value[index].detailExpanded;
-};
 
 const toggleBookingAccordion = (index) => {
     // Close any previously opened accordion
@@ -478,37 +474,6 @@ const selectTempOption = (option) => {
     tempSelectedOption.value = option;
 };
 
-// Cập nhật lại hàm confirmOptionSelection
-const confirmOptionSelection = () => {
-    if (tempSelectedOption.value && activeTicketIndex.value !== null) {
-        tickets.value[activeTicketIndex.value].selectedOption = tempSelectedOption.value;
-        // Đóng dropdown thay vì đóng modal
-        tickets.value[activeTicketIndex.value].showOptionDropdown = false;
-    }
-};
-
-const incrementGuest = (type) => {
-    tempGuests.value[type]++;
-};
-
-const decrementGuest = (type) => {
-    if (tempGuests.value[type] > 0) {
-        tempGuests.value[type]--;
-    }
-};
-
-// Cập nhật lại hàm confirmGuestSelection
-const confirmGuestSelection = () => {
-    if (activeTicketIndex.value !== null && (tempGuests.value.adult > 0 || tempGuests.value.child > 0)) {
-        tickets.value[activeTicketIndex.value].guests = {
-            adult: tempGuests.value.adult,
-            child: tempGuests.value.child
-        };
-        tickets.value[activeTicketIndex.value].guestSelected = true;
-        // Đóng dropdown thay vì đóng modal
-        tickets.value[activeTicketIndex.value].showGuestDropdown = false;
-    }
-};
 
 const buyNow = () => {
     // Implement checkout functionality

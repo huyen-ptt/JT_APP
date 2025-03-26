@@ -1,12 +1,12 @@
 <template>
     <div class="container forgot-password-container">
         <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product">
+            <button class="back-button-product" @click="$router.go(-1)">
                 <i class="fas fa-arrow-left"></i>
             </button>
             <h1 class="page-title-product">Forgot Password</h1>
             <button class="cart-button-product">
-
+&nbsp;
             </button>
         </div>
 

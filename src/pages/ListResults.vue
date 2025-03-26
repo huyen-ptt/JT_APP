@@ -1,7 +1,7 @@
 <template>
     <div class="search-header-product">
         <div class="top-bar-product">
-            <button class="back-button-product">
+            <button class="back-button-product" @click="$router.go(-1)">
                 <i class="fas fa-arrow-left"></i>
             </button>
             <h1 class="page-title-product">Product</h1>

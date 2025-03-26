@@ -1,17 +1,18 @@
 <template>
     <div class="container bg-white pb-3" v-if="currentDestinationSelected">
         <!-- Header -->
-        <div class="pb-4 pt-4 d-flex row border-bottom">
-            <a href="#" class="text-dark me-3 col-3">
+        <div class="pb-4 pt-4 d-flex justify-content-between align-items-center border-bottom">
+            <a href="#" class="text-dark col-4 text-start" @click="$router.go(-1)">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
-            <h5 class="mb-0 col-6 title">{{ currentDestinationSelected?.name }}</h5>
-            <div class="col-3"></div>
+            <h5 class="mb-0 col-4 text-center title">{{ currentDestinationSelected?.name }}</h5>
+            <div class="col-4 text-end">&nbsp;</div>
         </div>
 
         <!-- Main Image Slider -->
         <div class="pt-3">
-            <img :src="helper.getImageCMS(currentDestinationSelected?.avatar)" class="d-block w-100 img-des" alt="Ho Chi Minh City Night Scene">
+            <img  :src="helper.getImageCMS(currentDestinationSelected?.avatar)" class="d-block w-100 img-des"
+                alt="Ho Chi Minh City Night Scene">
         </div>
 
 
@@ -21,12 +22,12 @@
             <div class="d-flex gap-3 text-center recently-carousel">
                 <div class="du-bao" v-for="db in currentDestinationSelected?.weatherData.weekWeatherData">
                     <div class="weather-icon">
-                        <img :src="db.icon" />
+                        <img width="50" :src="db.icon" />
                     </div>
-                    <div class="temperature">{{db.max}}°C</div>
+                    <div class="temperature">{{ db.max }}°C</div>
                     <div class="time-small">{{ db.time }}</div>
                 </div>
-                
+
 
             </div>
 
