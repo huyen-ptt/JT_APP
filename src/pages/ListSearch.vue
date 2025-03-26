@@ -4,7 +4,7 @@
         <div class="search-header d-flex align-items-center">
             <!-- Nút mũi tên quay lại -->
 
-            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-arrow-left"  @click="$router.go(-1)"></i>
             <div class="input-group">
                 <input class="search-list form-control" v-model="searchTerm" type="text" placeholder="Place to go..."
                     aria-label="Search" />

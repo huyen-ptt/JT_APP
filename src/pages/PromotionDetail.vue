@@ -2,12 +2,12 @@
     <div class="promotion-bao">
         <!-- <h1 class="text-center fw-bold pb-4 bg-white title pt-4">Winter Voucher</h1> -->
         <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product">
+            <button class="back-button-product" @click="$router.go(-1)">
                 <i class="fas fa-arrow-left"></i>
             </button>
             <h1 class="page-title-product">Winter Voucher</h1>
             <button class="cart-button-product">
-
+&nbsp;
             </button>
         </div>
         <div class="container">
