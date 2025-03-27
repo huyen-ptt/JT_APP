@@ -441,7 +441,8 @@
                                                             <div class="">
                                                                 <div
                                                                     class="price-item-so-luong d-flex justify-content-between align-items-center">
-                                                                    <div v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
+                                                                    <div
+                                                                        v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
                                                                         <div class="price-label-so-luong">Adult
                                                                         </div>
                                                                         <div class="price-amount-so-luong">VND {{
@@ -459,26 +460,27 @@
 
                                                                     <div class="quantity-controls-so-luong">
                                                                         <button class="quantity-btn-so-luong"
-                                                                            @click="decreaseNguoiLon(child)">−</button>
+                                                                            @click="decreaseNguoiLon(p)">−</button>
                                                                         <span class="quantity-display-so-luong">{{
-                                                                            p.minimumNguoiLon }}</span>
+                                                                            p.choosenNguoiLon }}</span>
                                                                         <button class="quantity-btn-so-luong"
-                                                                            @click="increaseNguoiLon(child)">+</button>
+                                                                            @click="increaseNguoiLon(p)">+</button>
                                                                     </div>
                                                                 </div>
 
                                                             </div>
                                                             <div class="">
-                                                                <div
-                                                                    class="price-item-so-luong d-flex justify-content-between align-items-center" v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
-                                                                    <div >
+                                                                <div class="price-item-so-luong d-flex justify-content-between align-items-center"
+                                                                    v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
+                                                                    <div>
                                                                         <div class="price-label-so-luong">Child
                                                                         </div>
                                                                         <div class="price-amount-so-luong">VND {{
-                                                                            p.selectedPriceByDate?.priceEachTreEm.toLocaleString() }}
+                                                                            p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
+                                                                        }}
                                                                         </div>
                                                                         <div class="price-text">~USD {{
-                                                                            (p.priceEachTreEm /
+                                                                            (p.selectedPriceByDate?.priceEachTreEm /
                                                                                 currentfCurrency.exchange)
                                                                                 .toFixed(1)
                                                                                 .toLocaleString("en-US")
@@ -488,11 +490,11 @@
 
                                                                     <div class="quantity-controls-so-luong">
                                                                         <button class="quantity-btn-so-luong"
-                                                                            @click="decreaseQuantity()">−</button>
+                                                                            @click="decreaseTreEm(p)">−</button>
                                                                         <span class="quantity-display-so-luong">{{
-                                                                            p.selectedPriceByDate?.minimumTreEm }}</span>
+                                                                            p.choosenTreEm }}</span>
                                                                         <button class="quantity-btn-so-luong"
-                                                                            @click="increaseQuantity()">+</button>
+                                                                            @click="increaseTreEm(p)">+</button>
                                                                     </div>
                                                                 </div>
 
@@ -518,14 +520,15 @@
                                     <div class="packages-count-booking">{{ productDetail.productChilds.length }}
                                         packages</div>
                                     <div class="total-price-booking">USD {{ totalPrice }}</div>
-                                    <div class="packages-count-booking">~ USD 24</div>
+                                    <div class="packages-count-booking">~ USD {{ (totalPrice /
+                                        currentfCurrency.exchange).toFixed(1).toLocaleString("enb-US") }}</div>
 
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="cart-icon-booking">
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
-                                    <button class="buy-btn-booking px-4" @click="buyNow">Buy Now ({{ selectedCount
+                                    <button class="buy-btn-booking px-4" @click="buyNow">Buy Now ({{ countPayItems
                                         }})</button>
                                 </div>
                             </div>
@@ -600,60 +603,8 @@ const updateQuantity = (type, change) => {
         }
     }
 };
-const increaseNguoiLon = (child) => {
-    child.minimumNguoiLon++; // Tăng giá trị
-};
 
-const decreaseNguoiLon = (child) => {
-    // Kiểm tra nếu giá trị hiện tại lớn hơn 1
-    if (child.minimumNguoiLon > 1) {
-        // Giảm số lượng người lớn xuống 1
-        child.minimumNguoiLon--;
-    }
-}
-// Reactive state with ref
-const tickets = ref([
-    {
-        name: 'SunWorld Fansipan Tickets | Combo Fansipan Combo Cable Car Tickets + Lunch Buffet',
-        price: { currency: 'USD', value: 34.5 },
-        details: 'This ticket includes entrance to SunWorld Fansipan and access to all basic attractions.',
-        detailExpanded: false,
-        bookingExpanded: false,
-        selectedDate: null,
-        selectedOption: null,
-        guestSelected: false,
-        guests: { adult: 0, child: 0 },
-        // Thêm 2 thuộc tính mới cho dropdown
-        showOptionDropdown: false,
-        showGuestDropdown: false
-    },
-    {
-        name: 'SunWorld Fansipan Car Tickets + Lunch Buffet',
-        price: { currency: 'USD', value: 80.6 },
-        details: 'Premium ticket with skip-the-line access and guided tour included.',
-        detailExpanded: false,
-        bookingExpanded: false,
-        selectedDate: null,
-        selectedOption: null,
-        guestSelected: false,
-        guests: { adult: 0, child: 0 },
-        showOptionDropdown: false,
-        showGuestDropdown: false
-    },
-    {
-        name: 'Combo Cable Car Tickets + Lunch Buffet + Premium ticket',
-        price: { currency: 'VND', value: 1200000 },
-        details: null,
-        detailExpanded: false,
-        bookingExpanded: false,
-        selectedDate: null,
-        selectedOption: null,
-        guestSelected: false,
-        guests: { adult: 0, child: 0 },
-        showOptionDropdown: false,
-        showGuestDropdown: false
-    }
-]);
+
 
 // Vẫn giữ các biến này nhưng sẽ không sử dụng chúng làm modal nữa
 const showOptionModal = ref(false);
@@ -666,44 +617,9 @@ const daysInMonth = ref(31);
 const firstDayOfMonth = ref(1); // Assuming March 1st, 2025 is a Saturday (6)
 const activeTicketIndex = ref(null);
 
-// Computed properties
-const selectedCount = computed(() => {
-    return tickets.value.filter(ticket =>
-        ticket.selectedDate && ticket.selectedOption && ticket.guestSelected).length;
-});
-const increaseQuantity = (child) => {
-    child.minimumTreEm++; // Tăng giá trị
-};
-
-const decreaseQuantity = (child) => {
-    if (child.minimumTreEm > 0) {
-        child.minimumTreEm--; // Giảm giá trị nhưng không âm
-    }
-};
-const totalPrice = computed(() => {
-    let total = 0;
-    tickets.value.forEach(ticket => {
-        if (ticket.selectedDate && ticket.selectedOption && ticket.guestSelected) {
-            const basePrice = ticket.price.value;
-            const adultPrice = ticket.guests.adult * 112;
-            const childPrice = ticket.guests.child * 78;
-
-            // Convert to USD if needed
-            if (ticket.price.currency === 'VND') {
-                total += (basePrice / 24000) + adultPrice + childPrice;
-            } else {
-                total += basePrice + adultPrice + childPrice;
-            }
-        }
-    });
-    return total.toFixed(2);
-});
-
 
 
 // #Region Logic
-
-
 
 const payItems = ref([]);
 
@@ -728,8 +644,10 @@ const currentBook = ref({
     priceSelectedOptionByDate: [],
     selectedPriceByDate: null,
     combinations: [],
-    minimunNguoiLon : 1,
-    minimumTreEm : 0
+    minimunNguoiLon: 1,
+    minimumTreEm: 0,
+    choosenNguoiLon: 1,
+    choosenTreEm: 0
 
 });
 
@@ -745,8 +663,6 @@ const onClickBuyNowParent = () => {
         })
     }
 }
-
-
 
 //Ham xu ly khi bam nut book
 const onClickBookPackage = async (p) => {
@@ -838,7 +754,7 @@ const onLoadPackage = async (p) => {
     if (response && response.data) {
         const options = response.data;
         p.currentListOptions = response.data;
-        
+
 
         if (options.length > 0) {
             const _first = options[0];
@@ -849,9 +765,9 @@ const onLoadPackage = async (p) => {
                 });
                 p.combinations = _first.combinations;
             }
-            
+
         }
-        
+
         p.currentListOptions.forEach(r => {
             r.zoneChilds.forEach(z => {
                 z.isActive = false;
@@ -862,6 +778,7 @@ const onLoadPackage = async (p) => {
     }
 }
 
+// Ham load gia theo ngay
 const onLoadPriceForPayItem = async (p) => {
     let checker = true;
     //1. Phai chon ngay phu hop
@@ -905,11 +822,14 @@ const onLoadPriceForPayItem = async (p) => {
                     p.currentAccordionStep = 2;
 
                     // Tinh minimum nguoi lon va tre em
-                    
+
                     p.combinations.forEach(r => {
-                        if(r.zoneList == arrTemp.join(',')){
+                        if (r.zoneList == arrTemp.join(',')) {
                             p.minimumNguoiLon = r.minimumNguoiLon;
-                            p.minimumTreEm = r.minimumTreEm;   
+                            p.minimumTreEm = r.minimumTreEm;
+
+                            p.choosenNguoiLon = p.minimumNguoiLon;
+                            p.choosenTreEm = p.minimumTreEm;
                         }
                     })
                 }
@@ -942,6 +862,25 @@ const onSelectedOptionItem = async (p, item) => {
     await onLoadPriceForPayItem(p)
 }
 
+// Ham tang giam so luong nguoi lon tre em
+const increaseNguoiLon = (p) => {
+    p.choosenNguoiLon++;
+};
+const decreaseNguoiLon = (p) => {
+    // Kiểm tra nếu giá trị hiện tại lớn hơn 1
+    if (p.choosenNguoiLon > p.minimumNguoiLon) {
+        p.choosenNguoiLon--;
+    }
+}
+const increaseTreEm = (p) => {
+    p.choosenTreEm++;
+};
+const decreaseTreEm = (p) => {
+    // Kiểm tra nếu giá trị hiện tại lớn hơn 1
+    if (p.choosenTreEm > p.minimumTreEm) {
+        p.choosenTreEm--;
+    }
+}
 // Sub: Ham xu ly merge option theo lua chon phu hop
 const onGetOptionAvalibleInCombinationInSession = (p, item) => {
 
@@ -1001,10 +940,112 @@ const areArraysEqual = (a, b) => {
 
 // Ham validate du thong tin de goi database
 
+// Ham tinh toan Total Price
+const totalPrice = computed(() => {
+    let _t = 0;
+    payItems.value.forEach(pay => {
+        if (pay.selectedPriceByDate != null) {
+            pay.totalPrice = pay.choosenNguoiLon * pay.selectedPriceByDate?.priceEachNguoiLon + pay.choosenTreEm * pay.selectedPriceByDate?.priceEachTreEm;
+            _t += pay.totalPrice;
+        }
+    })
+    return _t;
+})
+const countPayItems = computed(() => {
+    let _c = 0;
+    payItems.value.forEach(pay => {
+        if (pay.totalPrice) {
+            _c++
+        }
+    })
+    return _c;
+})
+const payTemplate = ref({
+    avatar: "",
+    bookingName: "",
+    bookingParentName: "",
+    choosenDate: "",
+    combination: [],
+    couponType: 0,
+    couponValue: 0,
+    currentPickOption: [],
+    discountSelected: {
+        couponCode: "",
+        couponDescription: "",
+        couponPrice: 0
+    },
+    discountTickets: [],
+    dvNguoiLong: "",
+    dvTreEm: "",
+    numberOfAldut: 0,
+    numberOfChildrend: 0,
+    productBookingNoteGroups: [],
+    productChildId: 0,
+    productId: 0,
+    totalPrice: 0,
+    triggerWatch: true,
+    unit: "",
+    url: ""
 
+})
 
+const buyNow = () => {
+    console.log(payItems.value, productDetail.value)
+    // convert pay object like API
+    let pays = []
+    payItems.value.forEach(pay => {
+        if (pay.totalPrice) {
+            let data = JSON.parse(JSON.stringify(payTemplate.value));
+            data.avatar = productDetail.value.avatar;
+            data.bookingName = pay.currentPackage.title;
+            data.bookingParentName = productDetail.value.title;
+            data.choosenDate = helper.formatISODate(pay.currentSelectedDate);
+            //Tim combination phu hop
+            pay.combinations.forEach(com => {
+                if (com.zoneList == pay.selectedPriceByDate.zoneList) {
+                    data.combination = com;
+                }
+            })
+            //Tinh currentPickOption
+            data.currentPickOption = [];
+            pay.currentChoosenOptions.forEach(r => {
+                pay.currentListOptions.forEach(lo => {
+                    lo.zoneChilds.forEach(z => {
+                        // console.log(z.id, r.id);
+                        if (z.id == r.id) {
+                            let _i = {
+                                parentGroup: lo.zoneParent.url,
+                                parentGroupName: lo.zoneParent.name,
+                                pickItem: z.id,
+                                pickItemName: z.name
+                            }
+                            // console.log(_i);
+                            data.currentPickOption.push(_i);
+                        }
+                    })
+                })
+            })
 
+            if (productDetail.value.unit) {
+                data.dvNguoiLong = productDetail.value.unit;
+            } else {
+                data.dvNguoiLong = "Aldut";
+                data.dvTreEm = "Child"
+            }
+            data.numberOfAldut = pay.choosenNguoiLon;
+            data.numberOfChildrend = pay.choosenTreEm;
+            data.productBookingNoteGroups = productDetail.value.productBookingNoteGroups;
+            data.productChildId = pay.currentPackage.productId;
+            data.productId = productDetail.value.id;
+            data.url = productDetail.value.url;
 
+            pays.push(data);
+
+        }
+    })
+
+    console.log(pays);
+};
 
 // #endregion
 // Thêm hàm mới để xử lý dropdown Option
@@ -1126,11 +1167,7 @@ const selectTempOption = (option) => {
 };
 
 
-const buyNow = () => {
-    // Implement checkout functionality
-    console.log('Proceeding to checkout with', selectedCount.value, 'packages.');
-    alert('Checkout with ' + selectedCount.value + ' packages for USD ' + totalPrice.value);
-};
+
 
 const onSelectedZoneChild = (child) => {
     console.log(child)
