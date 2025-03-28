@@ -2,6 +2,9 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
+    Selected_Date: "Selected Date",
+    Option: "Option",
+    Guest: "Guest",
     become_a_partner: "Become a Partner",
     collaborate_with_us: "Collaborate with Us",
     achieve_enduring_values: "To achieve more enduring values,",
@@ -73,10 +76,17 @@ const messages = {
     LOGOUT_ACCOUNT: "Logout",
     LOG_OUT_ACCOUNT: "Log out",
     CONFIRM_SIGN_OUT_ACCOUNT: "Are you sure you want to sign out?",
-    CANCEL_ACCOUNT: "Cancel"
+    CANCEL_ACCOUNT: "Cancel",
+    Adult: "Adult",
+    Child: "Child"
 
   },
   vi: {
+    Adult: "Người lớn",
+    Child: "Trẻ em",
+    Selected_Date: "Ngày đã chọn",
+    Option: "Tùy chọn",
+    Guest: "Khách",
     become_a_partner: "Trở thành đối tác",
     collaborate_with_us: "Hợp tác cùng chúng tôi",
     achieve_enduring_values: "Để đạt được những giá trị bền vững hơn,",
@@ -157,7 +167,8 @@ const messages = {
     NO_RESULTS: "일치하는 결과가 없습니다",
     NO_ITEMS: "이 페이지에는 항목이 없습니다. 다음을 시도해 보세요.",
     TRY_ANOTHER_PAGE: "다른 페이지에서 검색",
-
+    Adult: "성인",
+    Child: "어린이",
     welcome: "우리 애플리케이션에 오신 것을 환영합니다!",
     greet: "안녕하세요, {name}!",
     clear_all: "모두 지우기",
@@ -225,10 +236,17 @@ const messages = {
     opportunities: "기회",
     comprehensive_ecosystem: "우리는 귀하의 비즈니스 성장을 돕는 다양한 솔루션을 제공하는 종합적인 여행 생태계를 제공합니다.",
     join_affiliate_program: "제휴 프로그램에 가입하세요",
-    earn_commissions: "귀하의 추천을 통해 이루어진 예약마다 매력적인 수수료를 받을 수 있습니다."
-
+    earn_commissions: "귀하의 추천을 통해 이루어진 예약마다 매력적인 수수료를 받을 수 있습니다.",
+    Selected_Date: "선택한 날짜",
+    Option: "옵션",
+    Guest: "손님",
   },
   zh: {
+    Adult: "成人",
+    Child: "儿童",
+    Selected_Date: "选择的日期",
+    Option: "选项",
+    Guest: "客人",
     become_a_partner: "成为合作伙伴",
     collaborate_with_us: "与我们合作",
     achieve_enduring_values: "为了实现更持久的价值，",

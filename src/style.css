@@ -1929,7 +1929,7 @@ input::placeholder {
 .modal-order .p-dialog-header {
   display: flex;
   justify-content: end;
-  padding: 5px 10px;
+  padding: 10px;
 }
 
 .reset-btn-booking {
@@ -2227,7 +2227,21 @@ input::placeholder {
 .option-btn-container-booking {
   padding: 16px 0;
 }
+.modal-order .p-button-icon-only{
+  background: #f7f7f7 !important;
+}
+.modal-order .p-button-icon-only svg{
+ color:#03294C ;
+}
+.reset-btn-booking {
+  position: absolute;
+  top: 21px;
+  /* right: 20px; */
+}
+.chose-option{
+  font-size: 10px;
 
+}
 .option-btn-booking {
   display: inline-block;
   padding: 12px 24px;
@@ -2242,6 +2256,7 @@ input::placeholder {
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
 .option-btn-booking1 {
   display: inline-block;
   padding: 6px 12px;
@@ -2256,6 +2271,7 @@ input::placeholder {
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
 .option-btn-booking.selected {
   background-color: #03294c;
   color: white;
@@ -2267,6 +2283,7 @@ input::placeholder {
   background-color: #edf1f7;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 }
+
 .option-btn-booking1:hover:not(.selected) {
   background-color: #03294C;
   color: white;
