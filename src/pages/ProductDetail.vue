@@ -305,8 +305,9 @@
                 <a> <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
                         {{ $t('BUY_NOW') }}
                     </button></a>
-                <Dialog v-model:visible="visibleDrawerPackageList" modal maximizable class="modal-order"
-                    :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
+                <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order" :style="{ width: '50vw' }"
+                    style="height: 100%; max-height: 100%;border-radius: 0;"
+                    :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
                     <div id="app" class="app-container">
                         <!-- Header -->
                         <div class="d-flex justify-content-between align-items-center p-3">
@@ -352,11 +353,11 @@
                                         </div>
                                     </Drawer>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center  pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center ">
                                     <div class="price-booking">
                                         From <span class="price-value-booking"> {{
                                             p.currentPackage.price.toLocaleString()
-                                        }}</span>
+                                            }}</span>
                                         <div class="packages-count-booking">~ USD {{
                                             (p.currentPackage.price / currentfCurrency.exchange)
                                                 .toFixed(1)
@@ -368,17 +369,19 @@
                                 </div>
 
                                 <!-- Accordion content - appears when expanded -->
-                                <div v-if="p.isActive" class="booking-accordion-content mt-3">
+                                <div v-if="p.isActive" class="booking-accordion-content mt-3 border-top">
                                     <Accordion :value="p.currentAccordionStep">
                                         <AccordionPanel :value="0">
                                             <div>
                                                 <AccordionHeader class="" style="width: 89%; color: #03294C;">
                                                     <div class="date-card-title-booking">
                                                         <span v-if="!p.currentSelectedDate">{{ $t('Selected_Date')
-                                                            }}</span>
-                                                        <span v-else>{{ $t('Selected_Date') }}: {{
-                                                            p.currentSelectedDate
-                                                            }}</span>
+                                                        }}</span>
+                                                        <span v-else>{{ $t('Selected_Date') }}: <br>
+                                                            <div class="chose-option">{{
+                                                                helper.formatISODate(p.currentSelectedDate)
+                                                            }}</div>
+                                                        </span>
                                                     </div>
                                                 </AccordionHeader>
                                                 <AccordionContent>
@@ -387,7 +390,7 @@
                                                             <i class="fas fa-chevron-left"></i>
                                                         </button>
                                                         <div class="calendar-month-header-booking">{{ currentMonth
-                                                        }}/{{ currentYear
+                                                            }}/{{ currentYear
                                                             }}</div>
                                                         <button class="calendar-nav-booking" @click="nextMonth(p)">
                                                             <i class="fas fa-chevron-right"></i>
@@ -416,7 +419,13 @@
                                         <AccordionPanel :value="1">
                                             <div>
                                                 <AccordionHeader class="" style="width: 89%; color: #03294C;">
-                                                    Option
+                                                    <span v-if="!p.currentChoosenOptions">{{ $t('Option')
+                                                        }}</span>
+                                                    <span v-else>{{ $t('Option') }}: <br>
+                                                        <div class="chose-option">{{p.currentChoosenOptions.map(item =>
+                                                            item.name).join(', ')}}</div>
+                                                    </span>
+
                                                 </AccordionHeader>
                                                 <AccordionContent v-for="option in p.currentListOptions" :key="option">
                                                     <div class="section-title-booking pb-2">{{ option.zoneParent.name }}
@@ -431,8 +440,23 @@
                                         </AccordionPanel>
                                         <AccordionPanel :value="2">
                                             <AccordionHeader>
-                                                <div class="section-title-booking">Guest
+                                                <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
+                                                    class="section-title-booking">{{ $t('Guest')
+                                                    }}
                                                 </div>
+                                                <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
+                                                    $t('Guest')
+                                                    }}<br>
+                                                    <div class="chose-option">{{ $t('Adult')
+                                                        }} : {{ p.choosenNguoiLon }} </div>
+                                                </div>
+                                                <div v-else="p.choosenTreEm" class="section-title-booking">{{
+                                                    $t('Guest')
+                                                    }}<br>
+                                                    <div class="chose-option">{{ $t('Adult')
+                                                        }} : {{ p.choosenTreEm }} </div>
+                                                </div>
+
                                             </AccordionHeader>
                                             <AccordionContent>
                                                 <div class="guest-dropdown-booking mt-2">
@@ -447,7 +471,7 @@
                                                                         </div>
                                                                         <div class="price-amount-so-luong">VND {{
                                                                             p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
-                                                                        }}
+                                                                            }}
                                                                         </div>
                                                                         <div class="price-text">~USD {{
                                                                             (p.selectedPriceByDate?.priceEachNguoiLon /
@@ -477,7 +501,7 @@
                                                                         </div>
                                                                         <div class="price-amount-so-luong">VND {{
                                                                             p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
-                                                                        }}
+                                                                            }}
                                                                         </div>
                                                                         <div class="price-text">~USD {{
                                                                             (p.selectedPriceByDate?.priceEachTreEm /
@@ -519,7 +543,7 @@
                                 <div>
                                     <div class="packages-count-booking">{{ productDetail.productChilds.length }}
                                         packages</div>
-                                    <div class="total-price-booking">USD {{ totalPrice }}</div>
+                                    <div class="total-price-booking">USD {{ totalPrice.toLocaleString() }}</div>
                                     <div class="packages-count-booking">~ USD {{ (totalPrice /
                                         currentfCurrency.exchange).toFixed(1).toLocaleString("enb-US") }}</div>
 
@@ -529,7 +553,7 @@
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow">Buy Now ({{ countPayItems
-                                        }})</button>
+                                    }})</button>
                                 </div>
                             </div>
                         </div>
@@ -650,7 +674,7 @@ const currentBook = ref({
     choosenTreEm: 0
 
 });
-
+console.log(currentBook.value, "currentBook")
 const visibleDrawerPackageList = ref(false);
 const onClickBuyNowParent = () => {
     visibleDrawerPackageList.value = true;
