@@ -1929,7 +1929,7 @@ input::placeholder {
 .modal-order .p-dialog-header {
   display: flex;
   justify-content: end;
-  padding: 5px 10px;
+  padding: 10px;
 }
 
 .reset-btn-booking {
@@ -2095,21 +2095,38 @@ input::placeholder {
   margin-bottom: 16px;
   position: relative;
 }
+.lichh {
+  background: #fdfdfd;
+  border-radius: 24px;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+  padding: 19px 18px 12px;
+  margin-top: 13px;
+  border: 1px solid #efefef;
+}
+.lichh .p-accordionheader {
+  background-color: unset !important;
 
+}
+.modal-lich1{
+  border-bottom: none !important;
+}
 .date-card-title-booking {
   font-weight: 700;
   font-size: 16px;
   color: #03294c;
   margin-bottom: 16px;
 }
-
+.date-card-title-booking1 {
+  font-weight: 700;
+  font-size: 16px;
+  color: #03294c;
+}
 /* Calendar Styling */
 .calendar-grid-booking {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
   text-align: center;
-  margin: 0 auto 20px;
 }
 
 .calendar-day-header-booking {
@@ -2227,7 +2244,28 @@ input::placeholder {
 .option-btn-container-booking {
   padding: 16px 0;
 }
+.modal-order .p-button-icon-only{
+  background: #f7f7f7 !important;
+}
+.modal-order .p-button-icon-only svg{
+ color:#03294C ;
+}
+.reset-btn-booking {
+  position: absolute;
+  top: 21px;
+  /* right: 20px; */
+}
+.chose-option{
+  font-size: 10px;
 
+}
+.lichh .p-accordioncontent-content{
+  background: #ffffff;
+    padding: 0;
+}
+.lich .p-accordioncontent{
+  border-radius: 24px;
+}
 .option-btn-booking {
   display: inline-block;
   padding: 12px 24px;
@@ -2242,6 +2280,7 @@ input::placeholder {
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
 .option-btn-booking1 {
   display: inline-block;
   padding: 6px 12px;
@@ -2256,6 +2295,7 @@ input::placeholder {
   margin-right: 10px;
   margin-bottom: 10px;
 }
+
 .option-btn-booking.selected {
   background-color: #03294c;
   color: white;
@@ -2267,6 +2307,7 @@ input::placeholder {
   background-color: #edf1f7;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 }
+
 .option-btn-booking1:hover:not(.selected) {
   background-color: #03294C;
   color: white;
