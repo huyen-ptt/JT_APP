@@ -213,7 +213,7 @@
                                         <p class="results-count-product">Please provide your desired service details to
                                             confirm payment for your order</p>
                                     </div> -->
-                                    <!-- <Accordion>
+                                    <Accordion>
                                         <AccordionPanel value="4">
                                             <AccordionHeader class="p-0">
                                                 <div class="service-details">
@@ -302,7 +302,7 @@
                                                 </div>
                                             </AccordionContent>
                                         </AccordionPanel>
-                                    </Accordion> -->
+                                    </Accordion>
 
                                     <!-- Order Total -->
 
