@@ -564,6 +564,8 @@ import { useCurrencyStore } from "../stores/currencyStore";
 import { usePayStore } from '../stores/payStore';
 import { useCartStore } from '../stores/cartStore';
 import axios from "axios";
+import { RouterLink, useRouter } from 'vue-router'
+
 const uri = import.meta.env.VITE_API_URI;
 
 const currencyStore = useCurrencyStore();
@@ -580,6 +582,7 @@ const optionComposable = useOptionProduct()
 const visibleBottom = ref(false);
 const adultQuantity = ref(4);
 const childQuantity = ref(0);
+const router = useRouter();
 // const visibleBottom = ref(false);
 
 
@@ -1056,9 +1059,8 @@ const buyNow = () => {
     console.log(payItems.value, productDetail.value)
     // convert pay object like API
     let pays = calculatePays();
-
-
     payStore.onAddPays(pays);
+    router.push('/checkout');
 };
 
 // #endregion
