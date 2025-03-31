@@ -2095,21 +2095,38 @@ input::placeholder {
   margin-bottom: 16px;
   position: relative;
 }
+.lichh {
+  background: #fdfdfd;
+  border-radius: 24px;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1);
+  padding: 19px 18px 12px;
+  margin-top: 13px;
+  border: 1px solid #efefef;
+}
+.lichh .p-accordionheader {
+  background-color: unset !important;
 
+}
+.modal-lich1{
+  border-bottom: none !important;
+}
 .date-card-title-booking {
   font-weight: 700;
   font-size: 16px;
   color: #03294c;
   margin-bottom: 16px;
 }
-
+.date-card-title-booking1 {
+  font-weight: 700;
+  font-size: 16px;
+  color: #03294c;
+}
 /* Calendar Styling */
 .calendar-grid-booking {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
   text-align: center;
-  margin: 0 auto 20px;
 }
 
 .calendar-day-header-booking {
@@ -2241,6 +2258,13 @@ input::placeholder {
 .chose-option{
   font-size: 10px;
 
+}
+.lichh .p-accordioncontent-content{
+  background: #ffffff;
+    padding: 0;
+}
+.lich .p-accordioncontent{
+  border-radius: 24px;
 }
 .option-btn-booking {
   display: inline-block;
