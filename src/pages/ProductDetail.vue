@@ -313,7 +313,7 @@
                         <div class="d-flex justify-content-between align-items-center p-3">
 
                             <button class="reset-btn-booking" @click="resetSelection">
-                                <i class="fas fa-redo-alt"></i> Reset Selection
+                                <i class="fas fa-redo-alt"></i> {{ $t('RESET_SELECTION')}}
                             </button>
                         </div>
 
@@ -323,7 +323,7 @@
                             <div v-for="(p, index) in payItems" :key="index" class="ticket-card-booking p-4 mb-3">
                                 <div class="news-title-blogg mb-2">{{ p.currentPackage.title }}</div>
                                 <div class="see-detail-booking mb-2" @click="visibleBottom = true">
-                                    See detail <i class="fa-solid fa-chevron-down"></i>
+                                    {{ $t('VIEW_DETAIL')}} <i class="fa-solid fa-chevron-down"></i>
                                     <Drawer v-model:visible="visibleBottom" header="Detail" position="bottom"
                                         style="height: auto" class="bo-goc so-luong-mua">
                                         <div class="container detail-see pb-4">
@@ -348,7 +348,7 @@
                                         <div class="bottom-menu menu-search bo-goc " @click="visibleBottom = false">
                                             <router-link to="" class="btn-search "> <button
                                                     class="search-button btn-search" id="search">
-                                                    OK
+                                                    {{ $t('OK')}}
                                                 </button></router-link>
                                         </div>
                                     </Drawer>
@@ -357,7 +357,7 @@
                                     <div class="price-booking">
                                         From <span class="price-value-booking"> {{
                                             p.currentPackage.price.toLocaleString()
-                                            }}</span>
+                                        }}</span>
                                         <div class="packages-count-booking">~ USD {{
                                             (p.currentPackage.price / currentfCurrency.exchange)
                                                 .toFixed(1)
@@ -365,22 +365,23 @@
                                         }}</div>
 
                                     </div>
-                                    <button class="book-btn-booking" @click="onClickBookPackage(p)">Book</button>
+                                    <button class="book-btn-booking" @click="onClickBookPackage(p)"> {{ p.isActive ? $t('CLOSE') : $t('BOOK') }}</button>
                                 </div>
 
-                                <!-- Accordion content - appears when expanded -->
+                                <!-- Accordion content - appears when expanded --> 
                                 <div v-if="p.isActive" class="booking-accordion-content mt-3 border-top">
                                     <Accordion :value="p.currentAccordionStep">
-                                        <AccordionPanel :value="0">
-                                            <div>
-                                                <AccordionHeader class="" style="width: 89%; color: #03294C;">
-                                                    <div class="date-card-title-booking">
+                                        <AccordionPanel :value="0" class="modal-lich1">
+                                            <div class="lichh">
+                                                <AccordionHeader class="mb-2"
+                                                    style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
+                                                    <div class="date-card-title-booking1">
                                                         <span v-if="!p.currentSelectedDate">{{ $t('Selected_Date')
-                                                        }}</span>
+                                                            }}</span>
                                                         <span v-else>{{ $t('Selected_Date') }}: <br>
                                                             <div class="chose-option">{{
                                                                 helper.formatISODate(p.currentSelectedDate)
-                                                            }}</div>
+                                                                }}</div>
                                                         </span>
                                                     </div>
                                                 </AccordionHeader>
@@ -390,7 +391,7 @@
                                                             <i class="fas fa-chevron-left"></i>
                                                         </button>
                                                         <div class="calendar-month-header-booking">{{ currentMonth
-                                                            }}/{{ currentYear
+                                                        }}/{{ currentYear
                                                             }}</div>
                                                         <button class="calendar-nav-booking" @click="nextMonth(p)">
                                                             <i class="fas fa-chevron-right"></i>
@@ -416,17 +417,22 @@
                                                 </AccordionContent>
                                             </div>
                                         </AccordionPanel>
-                                        <AccordionPanel :value="1">
-                                            <div>
-                                                <AccordionHeader class="" style="width: 89%; color: #03294C;">
-                                                    <span v-if="!p.currentChoosenOptions">{{ $t('Option')
-                                                        }}</span>
-                                                    <span v-else>{{ $t('Option') }}: <br>
-                                                        <div class="chose-option">{{p.currentChoosenOptions.map(item =>
-                                                            item.name).join(', ')}}</div>
-                                                    </span>
-
+                                        <AccordionPanel :value="1"  class="modal-lich1">
+                                            <div class="lichh">
+                                                <AccordionHeader class="mb-2"
+                                                    style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
+                                                    <div class="date-card-title-booking1">
+                                                        <span v-if="!p.currentChoosenOptions">{{ $t('Option') }}</span>
+                                                        <span v-else>
+                                                            {{ $t('Option') }} <br>
+                                                        </span>
+                                                        <div class="chose-option" v-if="p.currentChoosenOptions">
+                                                            {{p.currentChoosenOptions.map(item => item.name).join(', ')
+                                                            }}
+                                                        </div>
+                                                    </div>
                                                 </AccordionHeader>
+
                                                 <AccordionContent v-for="option in p.currentListOptions" :key="option">
                                                     <div class="section-title-booking pb-2">{{ option.zoneParent.name }}
                                                     </div>
@@ -438,9 +444,29 @@
                                                 </AccordionContent>
                                             </div>
                                         </AccordionPanel>
-                                        <AccordionPanel :value="2">
-                                            <AccordionHeader>
-                                                <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
+                                        <AccordionPanel :value="2" class="modal-lich1">
+                                            <div class="lichh">
+                                                <AccordionHeader class="mb-2"
+                                                style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
+                                                    <!-- <div class="date-card-title-booking1">
+                                                        <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
+                                                            class="section-title-booking">{{ $t('Guest')
+                                                            }}
+                                                        </div>
+                                                        <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
+                                                            $t('Guest')
+                                                            }}<br>
+                                                            <div class="chose-option">{{ $t('Adult')
+                                                                }} : {{ p.choosenNguoiLon }} </div>
+                                                        </div>
+                                                        <div class="section-title-booking">{{
+                                                            $t('Guest')
+                                                            }}<br>
+                                                            <div class="chose-option">{{ $t('Child')
+                                                                }} : {{ p.choosenTreEm }} </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
                                                     class="section-title-booking">{{ $t('Guest')
                                                     }}
                                                 </div>
@@ -456,10 +482,77 @@
                                                     <div class="chose-option">{{ $t('Adult')
                                                         }} : {{ p.choosenTreEm }} </div>
                                                 </div>
+                                                </AccordionHeader>
+                                                <AccordionContent>
+                                                    <!-- <div class="guest-dropdown-booking mt-2">
+                                                        <div>
+                                                            <div class="guest-item-booking border-bottom">
+                                                                <div class="">
+                                                                    <div
+                                                                        class="price-item-so-luong d-flex justify-content-between align-items-center">
+                                                                        <div
+                                                                            v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
+                                                                            <div class="price-label-so-luong">Adult
+                                                                            </div>
+                                                                            <div class="price-amount-so-luong">VND {{
+                                                                                p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
+                                                                                }}
+                                                                            </div>
+                                                                            <div class="price-text">~USD {{
+                                                                                (p.selectedPriceByDate?.priceEachNguoiLon
+                                                                                    /
+                                                                                    currentfCurrency.exchange)
+                                                                                    .toFixed(1)
+                                                                                    .toLocaleString("en-US")
+                                                                                }}
+                                                                            </div>
+                                                                        </div>
 
-                                            </AccordionHeader>
-                                            <AccordionContent>
-                                                <div class="guest-dropdown-booking mt-2">
+                                                                        <div class="quantity-controls-so-luong">
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="decreaseNguoiLon(p)">−</button>
+                                                                            <span class="quantity-display-so-luong">{{
+                                                                                p.choosenNguoiLon }}</span>
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="increaseNguoiLon(p)">+</button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="">
+                                                                    <div class="price-item-so-luong d-flex justify-content-between align-items-center"
+                                                                        v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
+                                                                        <div>
+                                                                            <div class="price-label-so-luong">Child
+                                                                            </div>
+                                                                            <div class="price-amount-so-luong">VND {{
+                                                                                p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
+                                                                                }}
+                                                                            </div>
+                                                                            <div class="price-text">~USD {{
+                                                                                (p.selectedPriceByDate?.priceEachTreEm /
+                                                                                    currentfCurrency.exchange)
+                                                                                    .toFixed(1)
+                                                                                    .toLocaleString("en-US")
+                                                                                }}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="quantity-controls-so-luong">
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="decreaseTreEm(p)">−</button>
+                                                                            <span class="quantity-display-so-luong">{{
+                                                                                p.choosenTreEm }}</span>
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="increaseTreEm(p)">+</button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="guest-dropdown-booking mt-2">
                                                     <div>
                                                         <div class="guest-item-booking border-bottom">
                                                             <div class="">
@@ -526,8 +619,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </AccordionContent>
+                                                </AccordionContent>
+                                            </div>
                                         </AccordionPanel>
+                                        
                                     </Accordion>
 
                                 </div>
@@ -542,7 +637,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="packages-count-booking">{{ productDetail.productChilds.length }}
-                                        packages</div>
+                                        {{ $t('PACKAGES')}}</div>
                                     <div class="total-price-booking">USD {{ totalPrice.toLocaleString() }}</div>
                                     <div class="packages-count-booking">~ USD {{ (totalPrice /
                                         currentfCurrency.exchange).toFixed(1).toLocaleString("enb-US") }}</div>
@@ -552,8 +647,8 @@
                                     <div class="cart-icon-booking">
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
-                                    <button class="buy-btn-booking px-4" @click="buyNow">Buy Now ({{ countPayItems
-                                    }})</button>
+                                    <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW')}} ({{ countPayItems
+                                        }})</button>
                                 </div>
                             </div>
                         </div>
