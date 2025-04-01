@@ -1114,8 +1114,7 @@ const payTemplate = ref({
     totalPrice: 0,
     triggerWatch: true,
     unit: "",
-    url: ""
-
+    url: "",
 })
 
 const calculatePays = () => {
@@ -1162,6 +1161,12 @@ const calculatePays = () => {
             data.numberOfAldut = pay.choosenNguoiLon;
             data.numberOfChildrend = pay.choosenTreEm;
             data.productBookingNoteGroups = productDetail.value.productBookingNoteGroups;
+            data.productBookingNoteGroups.forEach(b => {
+                b.isValidNote = true,
+                b.noteList.forEach(n => {
+                    n.triggerValid = false;
+                })
+            })
             data.productChildId = pay.currentPackage.productId;
             data.productId = productDetail.value.id;
             data.url = productDetail.value.url;
@@ -1173,6 +1178,7 @@ const calculatePays = () => {
 
     return pays;
 }
+
 
 const buyNow = () => {
     console.log(payItems.value, productDetail.value)
