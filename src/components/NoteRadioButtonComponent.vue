@@ -4,7 +4,7 @@
             {{ info.zoneName }}<span class="required-mark" v-if="info.bookingNoteRequired">*</span>
         </label>
         <div class="radio-group">
-            <label class="radio-button" v-for="item in info.noteOptionItems">
+            <label class="radio-button radio-check" v-for="item in info.noteOptionItems">
                 <input type="radio" name="locationType" :value="item.value" :checked='item.noteValue === item.value'
                 @change="info.noteValue = item.value">
                 {{ item.label }}
@@ -36,3 +36,16 @@ const validate = () => {
 }
 
 </script>
+<style scoped>
+.radio-check{
+    margin-right: 20px;
+    font-size: 14px;
+    color: #8A929E;
+    margin-bottom: 6px;
+}
+.form-label {
+    font-size: 14px;
+    color: #8A929E;
+    margin-bottom: 6px;
+}
+</style>
