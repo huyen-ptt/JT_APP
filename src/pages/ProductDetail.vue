@@ -23,32 +23,8 @@
                         <img height="30" src="../assets/images/shopping-cart-w.png" />
                     </div>
                 </div>
-
-                <!-- <div class="carousel-item">
-                    <img src="../assets/images/img11.jpg" alt="Fansipan Temple Complex" class="d-block w-100"
-                        style="height: 280px; object-fit: cover;">
-                    <div class="position-absolute start-0 translate-middle-y p-3 icon">
-                        <button class="back-button-product">
-                            <i class="fas fa-arrow-left" style="color: white;"></i>
-                        </button>
-                    </div>
-                    <div class="position-absolute end-0 translate-middle-y p-3 icon">
-                        <img height="30" src="../assets/images/shopping-cart-w.png" />
-                    </div>
-                </div> -->
             </div>
-
-            <!-- Controls -->
-            <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button> -->
         </div>
-
         <!-- Title section -->
         <div class="p-3">
             <div class=" title-detail">{{ productDetail.title }}</div>
@@ -684,6 +660,8 @@ import { usePayStore } from '../stores/payStore';
 import { useCartStore } from '../stores/cartStore';
 import axios from "axios";
 import { RouterLink, useRouter } from 'vue-router'
+import { StatusBar } from '@capacitor/status-bar';
+StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
 
 const uri = import.meta.env.VITE_API_URI;
 

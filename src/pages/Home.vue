@@ -2,17 +2,22 @@
    <div class="header-bg">
       <div class="container bao-h">
          <div class="header-container">
-            <div class="search-h d-flex justify-content-between align-items-center gap-1">
+            <div class="search-h d-flex justify-content-between align-items-center" style="gap:12px">
                <div class="logo-container">
                   <img src="../assets/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
                </div>
-
-               <!-- Search input -->
-               <RouterLink to="/search" class="search-container none-line">
+               <div class="search-box-container">
+                  <div class="search-box-items"></div>
                   <i class="fas fa-search search-icon"></i>
-                  <input type="text" class="search-input" :placeholder="$t('place_to_go')" v-model="searchTerm"
-                     @keyup.enter="handleSearch" />
-               </RouterLink>
+                  <span>{{ $t('place_to_go') }}</span>
+                  <!-- Search input -->
+                  <!-- <RouterLink to="/search" class="none-line">
+                     
+                     <input type="text" class="search-input" :placeholder="$t('place_to_go')" v-model="searchTerm"
+                        @keyup.enter="handleSearch" />
+                  </RouterLink> -->
+
+               </div>
 
                <!-- Icons on the right -->
                <div class="icons-container gap-2 d-flex ">
@@ -23,8 +28,22 @@
                </div>
             </div>
          </div>
+         <div class="row row-cols-5 mt-4">
+            <div class="col s__col__item" v-for="(s, index) in first4Services" :key="index">
+               <div class="icon-circle combo-icon">
+                  <img class="icon-services" :src="helper.getImageCMS(s.icon)" />
+               </div>
+               <span class="service-text">{{ s.title }}</span>
+            </div>
+            <div class="col s__col__item" @click="modalStore.open()">
+               <div class="icon-circle all-icon">
+                  <img class="icon-services" src="../assets/images/Frame.png" />
 
-         <div class="service-icons mt-3 border-bottom" v-if="services.length > 0">
+               </div>
+               <span class="service-text">{{ $t('ALL') }}</span>
+            </div>
+         </div>
+         <!-- <div class="service-icons mt-3 border-bottom" v-if="services.length > 0">
             <div class="service-item" v-for="(s, index) in first4Services" :key="index">
                <div class="icon-circle combo-icon">
                   <img class="icon-services" :src="helper.getImageCMS(s.icon)" />
@@ -38,7 +57,7 @@
                </div>
                <span class="service-text">{{ $t('ALL') }}</span>
             </div>
-         </div>
+         </div> -->
          <div class="mb-promotion">
             <div class="mb-container">
                <div class="promo-header">
@@ -457,5 +476,19 @@ onMounted(async () => {
 .swiper-slide.swiper-slide-active {
    transform: scale(0.95);
    z-index: 999;
+}
+
+
+/* fix giao dien app */
+.search-box-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* nhẹ nhàng, tinh tế */
+}
+.s__col__item{
+   text-align: center;
 }
 </style>

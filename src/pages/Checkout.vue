@@ -1,5 +1,6 @@
 <template>
     <div>
+        <HeaderTitle :title="$t('PAGE_TITLE_CHECKOUT')"></HeaderTitle>
         <div class="top-bar-product p-4 bg-white title">
             <button class="back-button-product">
                 <i class="fas fa-arrow-left" @click="$router.go(-1)"></i>
@@ -316,7 +317,7 @@ import NoteCustomersComponent from '@/components/NoteCustomersComponent.vue'
 import NoteInputBoxComponent from '@/components/NoteInputBoxComponent.vue'
 import NoteRadioButtonComponent from '@/components/NoteRadioButtonComponent.vue'
 import NoteTimeComponent from '@/components/NoteTimeComponent.vue'
-
+import HeaderTitle from '../components/HeaderTitle.vue';
 
 import { ref, onBeforeMount, computed, onMounted } from "vue";
 import { useI18n } from 'vue-i18n'
@@ -332,6 +333,8 @@ import Select from 'primevue/select';
 import { label } from '@primeuix/themes/aura/metergroup';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser';
 import router from '../routers';
+import { StatusBar } from '@capacitor/status-bar';
+
 
 const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
@@ -539,14 +542,20 @@ const onRequestPay = async () => {
         try {
             const response = await payComposable.onRequestOnepay(data);
             if (response && response.data.returnUrl) {
+
+                // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
+                StatusBar.setOverlaysWebView({ overlay: false });
                 const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
-                    location: 'yes',
-                    clearcache: 'yes',
-                    toolbar: 'no'
+                    location: 'no',        // ✅ Ẩn thanh địa chỉ URL
+                    toolbar: 'yes',        // ✅ Hiện thanh toolbar (dưới statusbar)
+                    toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
+                    closebuttoncaption: 'Đóng', // 🛑 Android không hỗ trợ nhưng iOS có
+                    hideurlbar: 'yes',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
                 });
+
                 let returnPaymentUrl = "";
                 // Bắt URL trước khi load
-                browser.on('loadstart').subscribe((event) => {
+                browser.on('loadstart').subscribe(async (event) => {
                     const url = event.url;
                     console.log('🔗 Đang chuẩn bị load:', url);
 
@@ -556,31 +565,38 @@ const onRequestPay = async () => {
                         browser.close(); // đóng InAppBrowser
                         // alert('✅ Phát hiện deeplink redirect:', url);
                         // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
+                        // Thực thi url 
+                        try {
+                            const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+                            if (response && response.data) {
+                                console.log(response.data);
+                                if (response.data.auth) {
+                                    response.data.auth.isNewUser = false;
+                                    authStore.opnChangeAuth = response.data.auth;
 
-
-
+                                }
+                                if (response.data.orderCode) {
+                                    router.push('/confirm/payment/success');
+                                }
+                            }
+                        } catch (error) {
+                            alert(error) // Thanh toan that bai 1
+                        }
 
                     }
 
 
                     // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
                 });
-                // Thực thi url 
-                try {
-                    const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
-                    if (response && response.data) {
-                        alert("THANH TOAN THANH CONG");
-                        router.push('/confirm/payment/success')
-                    }
-                } catch (error) {
-                    alert(error)
-                }
+
             }
         } catch (error) {
             alert(error);
         }
+        finally {
+            StatusBar.setOverlaysWebView({ overlay: true });
+        }
     }
-
 }
 
 
