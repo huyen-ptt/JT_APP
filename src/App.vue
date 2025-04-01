@@ -5,8 +5,8 @@
 import { StatusBar } from '@capacitor/status-bar';
 import { RouterLink, useRouter } from 'vue-router'
 
-StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
-StatusBar.setBackgroundColor({ color: 'transparent' }); // Làm trong suốt
+StatusBar.setOverlaysWebView({ overlay: false }); // Cho nội dung tràn lên StatusBar
+StatusBar.setBackgroundColor({ color: '#F8F9FA' }); // Làm trong suốt
 
 
 
