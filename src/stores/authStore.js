@@ -5,19 +5,20 @@ import { ref } from "vue";
 export const useAuthStore = defineStore(
   "auth",
   () => {
-    const auth = ref({ id: 0, email: "" });
+    const auth = ref({ id: 0, email: "", firstName: "", lastName: "", country: "", phoneNumber: "", isNewUser: true, pcname: "", avatar: "" });
 
     const onChangeAuth = (authItem) => {
       auth.value = authItem;
     }
     const onRemoveAuth = () => {
-      auth.value = { id: 0, email: "", firstName: "", lastName: "", country: "", phonePrefix: "", phoneNumber: "" }
+      auth.value = { id: 0, email: "", firstName: "", lastName: "", country: "", phoneNumber: "", isNewUser: true, pcname: "", avatar: "" }
     }
     return { auth, onChangeAuth, onRemoveAuth };
   },
   {
     persist: {
-      storage: persistedState.localStorage,
+      enabled: true, // Bật chế độ lưu trạng thái
+      storage: localStorage, // Hoặc sử dụng sessionStorage nếu muốn lưu tạm thời
     },
   }
 );

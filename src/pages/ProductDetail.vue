@@ -679,11 +679,20 @@ import { useOptionProduct } from "../composables/optionProduct";
 import { useHelper } from "../composables/helper";
 import { useSeenStore } from "../stores/seenStore";
 import { useCurrencyStore } from "../stores/currencyStore";
+
+import { usePayStore } from '../stores/payStore';
+import { useCartStore } from '../stores/cartStore';
 import axios from "axios";
+import { RouterLink, useRouter } from 'vue-router'
+
 const uri = import.meta.env.VITE_API_URI;
 
 const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
+
+
+const payStore = usePayStore();
+const cartStore = useCartStore();
 const visible = ref(false);
 const productComposable = useProduct();
 const helper = useHelper();
@@ -692,6 +701,7 @@ const optionComposable = useOptionProduct()
 const visibleBottom = ref(false);
 const adultQuantity = ref(4);
 const childQuantity = ref(0);
+const router = useRouter();
 // const visibleBottom = ref(false);
 
 
@@ -1104,13 +1114,10 @@ const payTemplate = ref({
     totalPrice: 0,
     triggerWatch: true,
     unit: "",
-    url: ""
-
+    url: "",
 })
 
-const buyNow = () => {
-    console.log(payItems.value, productDetail.value)
-    // convert pay object like API
+const calculatePays = () => {
     let pays = []
     payItems.value.forEach(pay => {
         if (pay.totalPrice) {
@@ -1154,6 +1161,12 @@ const buyNow = () => {
             data.numberOfAldut = pay.choosenNguoiLon;
             data.numberOfChildrend = pay.choosenTreEm;
             data.productBookingNoteGroups = productDetail.value.productBookingNoteGroups;
+            data.productBookingNoteGroups.forEach(b => {
+                b.isValidNote = true,
+                b.noteList.forEach(n => {
+                    n.triggerValid = false;
+                })
+            })
             data.productChildId = pay.currentPackage.productId;
             data.productId = productDetail.value.id;
             data.url = productDetail.value.url;
@@ -1163,7 +1176,16 @@ const buyNow = () => {
         }
     })
 
-    console.log(pays);
+    return pays;
+}
+
+
+const buyNow = () => {
+    console.log(payItems.value, productDetail.value)
+    // convert pay object like API
+    let pays = calculatePays();
+    payStore.onAddPays(pays);
+    router.push('/checkout');
 };
 
 // #endregion

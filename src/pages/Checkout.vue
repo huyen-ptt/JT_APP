@@ -2,58 +2,63 @@
     <div>
         <div class="top-bar-product p-4 bg-white title">
             <button class="back-button-product">
-                <i class="fas fa-arrow-left"  @click="$router.go(-1)"></i>
+                <i class="fas fa-arrow-left" @click="$router.go(-1)"></i>
             </button>
             <h1 class="page-title-product">Checking Your Order</h1>
             <button class="cart-button-product">
-&nbsp;
+                &nbsp;
             </button>
         </div>
         <div class="card">
             <Accordion value="0">
                 <AccordionPanel class="mb-3" value="0">
                     <AccordionHeader>
-                        <div class="promo-title pb-1">Cart Summary</div>
+                        <div class="promo-title pb-1">Payment Summary</div>
                     </AccordionHeader>
                     <AccordionContent>
                         <div class="container py-2">
-                            <div class="bao-tourr">
+                            <div class="bao-tourr" v-for="pay in pays">
                                 <div class="p-3 ">
                                     <!-- Header -->
                                     <div class="d-flex gap-3 mb-4">
-                                        <img src="../assets/images/10.jpg" alt="Tour food" class="tour-image">
+                                        <img :src="helper.getImageCMS(pay.avatar)" alt="Tour food" class="tour-image">
                                         <div>
-                                            <div class="service-date">Service date: 25/2/2025</div>
+                                            <div class="service-date">Service date: {{ pay.choosenDate }}</div>
 
-                                            <h2 class="news-title-blogg">Day tour | 3.5 hour explore Ha Noi Day tour |
+                                            <h2 class="news-title-blogg">{{ pay.bookingParentName }}
                                             </h2>
-                                            <div class="service-date pb-3 border-bottom">Noi Bai Airport to Ha Noi city
-                                                center</div>
-                                            <div class="price-info">
-                                                <span class="ad">Adults x2</span>
-                                                <span class="price-amount">VND 780,000</span>
+                                            <div class="service-date pb-3 border-bottom">{{ pay.bookingName }}</div>
+
+                                            <div v-if="pay.unit">
+                                                <div class="price-info" v-if="pay.numberOfAldut > 0">
+                                                    <span class="ad">{{ pay.unit }} x {{ pay.numberOfAldut }}</span>
+                                                    <span class="price-amount">VND {{ (pay.numberOfAldut *
+                                                        pay.combination.priceEachNguoiLon).toLocaleString() }}</span>
+                                                </div>
                                             </div>
-                                            <div class="price-info">
-                                                <span class="ad">Child x2</span>
-                                                <span class="price-amount">VND 420,000</span>
+                                            <div v-else>
+                                                <div class="price-info" v-if="pay.numberOfAldut > 0">
+                                                    <span class="ad">Adults x {{ pay.numberOfAldut }}</span>
+                                                    <span class="price-amount">VND {{ (pay.numberOfAldut *
+                                                        pay.combination.priceEachNguoiLon).toLocaleString() }}</span>
+                                                </div>
+                                                <div class="price-info" v-if="pay.numberOfChildrend > 0">
+                                                    <span class="ad">Child x {{ pay.numberOfChildrend }}</span>
+                                                    <span class="price-amount">VND {{ (pay.numberOfChildrend *
+                                                        pay.combination.priceEachTreEm).toLocaleString() }}</span>
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
 
                                     <!-- Tour Specifications -->
                                     <div class="tour-specs">
-                                        <div class="spec-row">
-                                            <span class="spec-label">Departure time</span>
-                                            <span class="spec-value">17:30</span>
+                                        <div class="spec-row" v-for="option in pay.currentPickOption">
+                                            <span class="spec-label">{{ option.parentGroupName }}</span>
+                                            <span class="spec-value">{{ option.pickItemName }}</span>
                                         </div>
-                                        <div class="spec-row">
-                                            <span class="spec-label">Tour option</span>
-                                            <span class="spec-value">Private tour</span>
-                                        </div>
-                                        <div class="spec-row">
-                                            <span class="spec-label">Group size</span>
-                                            <span class="spec-value">Group of 2-3 guests</span>
-                                        </div>
+
                                     </div>
 
                                     <!-- Promotion Section -->
@@ -66,158 +71,11 @@
                                         </div>
                                     </div>
                                     <!-- <FastTrack /> -->
-                                    <Accordion>
+                                    <Accordion v-for="noteGroup in pay.productBookingNoteGroups">
                                         <AccordionPanel value="4">
                                             <AccordionHeader class="p-0">
                                                 <div class="service-details">
-                                                    <h3 class="promo-title pb-1">For Fast Track Service<span
-                                                            class="text-danger"> *</span>
-                                                    </h3>
-                                                    <p class="results-count-product">Please provide your desired service
-                                                        details<br> to
-                                                        confirm payment for your order</p>
-                                                </div>
-                                            </AccordionHeader>
-                                            <AccordionContent class="p-0 servies-det">
-                                                <div class="">
-
-                                                    <div class="booking-form">
-                                                        <!-- Service Date -->
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="title145 pb-2">
-                                                                Service date: 25/2/2025
-                                                            </div>
-                                                            <img src="../assets/images/edit-2.png" alt=""
-                                                                style="object-fit: contain;">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">
-                                                                Flight number<span class="required-mark">*</span>
-                                                            </label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Flight number">
-                                                        </div>
-                                                        <div class="form-label">Please provide your flight number for
-                                                            your better experience</div>
-
-                                                        <!-- Time Selection -->
-                                                        <div class="row pb-3 border-bottom">
-                                                            <div class="col-6">
-                                                                <label class="form-label title-con">
-                                                                    Hour<span class="required-mark">*</span>
-                                                                </label>
-                                                                <select class="form-select">
-                                                                    <option value="">Select hour</option>
-                                                                    <!-- Add hours 00-23 -->
-                                                                    <option value="00">00</option>
-                                                                    <option value="01">01</option>
-                                                                    <!-- ... other hours ... -->
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <label class="form-label">
-                                                                    Minute<span class="required-mark">*</span>
-                                                                </label>
-                                                                <select class="form-select">
-                                                                    <option value="">Select minute</option>
-                                                                    <!-- Add minutes 00-59 -->
-                                                                    <option value="00">00</option>
-                                                                    <option value="15">15</option>
-                                                                    <option value="30">30</option>
-                                                                    <option value="45">45</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <Accordion class="mt-3">
-                                                            <div class="title-1477 pb-2">Companion information</div>
-                                                            <AccordionPanel class="customer1" value="5">
-                                                                <AccordionHeader class="p-0">
-                                                                    <div class="service-details">
-                                                                        <div class="title145">Customer 1<span
-                                                                                class="text-danger"> *</span>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </AccordionHeader>
-                                                                <AccordionContent class="p-0 servies-det">
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-6">
-                                                                            <label class="form-label">First Name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder="Your First Name">
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <label class="form-label">Family
-                                                                                Name</label>
-                                                                            <input type="text" class="form-control"
-                                                                                placeholder="Your Family Name">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Nationality and Birthday -->
-                                                                    <div class="row mb-3">
-                                                                        <div class="col-6">
-                                                                            <label
-                                                                                class="form-label">Nationality</label>
-                                                                            <select class="form-select">
-                                                                                <option value="">Nationality</option>
-                                                                                <!-- Add nationality options -->
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <label class="form-label">Birthday</label>
-                                                                            <div class="position-relative">
-                                                                                <input type="text" class="form-control"
-                                                                                    placeholder="Birthday">
-                                                                                <svg class="calendar-icon"
-                                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="16" height="16"
-                                                                                    viewBox="0 0 24 24" fill="none"
-                                                                                    stroke="currentColor"
-                                                                                    stroke-width="2">
-                                                                                    <rect x="3" y="4" width="18"
-                                                                                        height="18" rx="2" ry="2">
-                                                                                    </rect>
-                                                                                    <line x1="16" y1="2" x2="16" y2="6">
-                                                                                    </line>
-                                                                                    <line x1="8" y1="2" x2="8" y2="6">
-                                                                                    </line>
-                                                                                    <line x1="3" y1="10" x2="21"
-                                                                                        y2="10"></line>
-                                                                                </svg>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Passport Number -->
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label">Passport
-                                                                            number</label>
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="Passport number">
-                                                                    </div>
-                                                                </AccordionContent>
-                                                            </AccordionPanel>
-                                                        </Accordion>
-
-                                                    </div>
-                                                </div>
-                                            </AccordionContent>
-                                        </AccordionPanel>
-                                    </Accordion>
-                                    <!-- Service Details -->
-                                    <!-- <div class="service-details">
-                                        <h3 class="promo-title pb-1">Service Detail<span class="text-danger"> *</span>
-                                        </h3>
-                                        <p class="results-count-product">Please provide your desired service details to
-                                            confirm payment for your order</p>
-                                    </div> -->
-                                    <Accordion>
-                                        <AccordionPanel value="4">
-                                            <AccordionHeader class="p-0">
-                                                <div class="service-details">
-                                                    <h3 class="promo-title pb-1">Service Detail<span
+                                                    <h3 class="promo-title pb-1">{{ noteGroup.zoneParentName }}<span
                                                             class="text-danger"> *</span>
                                                     </h3>
                                                     <p class="results-count-product">Please provide your desired service
@@ -228,75 +86,19 @@
                                             <AccordionContent class="p-0 servies-det">
                                                 <div class="">
                                                     <div class="booking-form">
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="title145 pb-2">
-                                                                Service date: 25/2/2025
-                                                            </div>
-                                                            <img src="../assets/images/edit-2.png" alt=""
-                                                                style="object-fit: contain;">
-                                                        </div>
-
-                                                        <div class="row mb-3">
-                                                            <div class="col-6">
-                                                                <label class="form-label title-con">
-                                                                    Hour<span class="required-mark">*</span>
-                                                                </label>
-                                                                <select class="form-select">
-                                                                    <option value="">Select hour</option>
-                                                                    <option value="00">00</option>
-                                                                    <option value="01">01</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <label class="form-label">
-                                                                    Minute<span class="required-mark">*</span>
-                                                                </label>
-                                                                <select class="form-select">
-                                                                    <option value="">Select minute</option>
-                                                                    <option value="00">00</option>
-                                                                    <option value="15">15</option>
-                                                                    <option value="30">30</option>
-                                                                    <option value="45">45</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label class="form-label">
-                                                                Pick-up/ Drop-off Location<span
-                                                                    class="required-mark">*</span>
-                                                            </label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Enter Pick-up/ Drop-off Location">
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label class="form-label">
-                                                                Pick-up/ Drop-off Location<span
-                                                                    class="required-mark">*</span>
-                                                            </label>
-                                                            <div class="radio-group">
-                                                                <label class="radio-button active">
-                                                                    <input type="radio" name="locationType" checked>
-                                                                    International
-                                                                </label>
-                                                                <label class="radio-button">
-                                                                    <input type="radio" name="locationType">
-                                                                    Domestic
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="mb-3">
-                                                            <label class="form-label">
-                                                                Flight number<span class="required-mark">*</span>
-                                                            </label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Flight number">
-                                                            <div class="helper-text">
-                                                                Please provide your flight number for your better
-                                                                experience...
-                                                            </div>
+                                                        <div class="" v-for="note in noteGroup.noteList">
+                                                            <NoteInputBoxComponent :info="note"
+                                                                :trigger="triggerValidateNote"
+                                                                v-if="note.bookingNoteType === 'textarea'">
+                                                            </NoteInputBoxComponent>
+                                                            <NoteRadioButtonComponent :info="note"
+                                                                :trigger="triggerValidateNote"
+                                                                v-if="note.bookingNoteType === 'radio'">
+                                                            </NoteRadioButtonComponent>
+                                                            <NoteTimeComponent :info="note" :date="pay.choosenDate"
+                                                                :trigger="triggerValidateNote"
+                                                                v-if="note.bookingNoteType === 'datetime-local'">
+                                                            </NoteTimeComponent>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -309,7 +111,9 @@
                                 </div>
                                 <div class="order-total border-top">
                                     <span class="total-label">Order Total</span>
-                                    <span class="total-amount">VND 1,200,000</span>
+                                    <span class="total-amount">VND {{ ((pay.numberOfAldut *
+                                        pay.combination.priceEachNguoiLon) + (pay.numberOfChildrend *
+                                            pay.combination.priceEachTreEm)).toLocaleString() }}</span>
                                 </div>
                             </div>
                         </div>
@@ -332,13 +136,21 @@
                                     <label class="form-label">
                                         First Name<span class="required-mark">*</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Your First Name">
+                                    <input type="text" v-model="auth.firstName" class="form-control"
+                                        placeholder="Your First Name">
+                                    <div class="error-message" v-if="triggerValidateAuth && auth.firstName == ''">
+                                        <small>{{ $t('ERRPR_MISSING_AUTH_FIRSTNAME') }}</small>
+                                    </div>
                                 </div>
                                 <div class="col-6">
                                     <label class="form-label">
                                         Family Name<span class="required-mark">*</span>
                                     </label>
-                                    <input type="text" class="form-control" placeholder="Your Family Name">
+                                    <input type="text" v-model="auth.lastName" class="form-control"
+                                        placeholder="Your Family Name">
+                                    <div class="error-message" v-if="triggerValidateAuth && auth.lastName == ''">
+                                        <small>{{ $t('ERRPR_MISSING_AUTH_LASTNAME') }}</small>
+                                    </div>
                                 </div>
                             </div>
 
@@ -347,11 +159,13 @@
                                 <label class="form-label">
                                     Nationality<span class="required-mark">*</span>
                                 </label>
-                                <select class="form-select">
-                                    <option value="">Nationality</option>
-                                    <option value="VN">Vietnam</option>
-                                    <!-- Add other nationalities -->
-                                </select>
+                                <Select v-model="auth.country" :options="countries" id="country_1" optionLabel="name"
+                                    optionValue="code" :placeholder="$t('NATIONALITY')" filter
+                                    :filterPlaceholder="$t('NATIONALITY')" class="form-select"
+                                    :emptyFilterMessage="$t('NO_RESULTS_FOUND')"></Select>
+                                <div class="error-message" v-if="triggerValidateAuth && auth.country == ''">
+                                    <small>{{ $t('ERRPR_MISSING_AUTH_COUNTRY') }}</small>
+                                </div>
                             </div>
 
                             <!-- Email -->
@@ -359,7 +173,12 @@
                                 <label class="form-label">
                                     Email<span class="required-mark">*</span>
                                 </label>
-                                <input type="email" class="form-control" placeholder="Your email address">
+                                <input type="email" v-model="auth.email" class="form-control"
+                                    placeholder="Your email address">
+                                <div class="error-message"
+                                    v-if="triggerValidateAuth && (!auth.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(auth.email))">
+                                    <small>{{ $t('ERRPR_MISSING_AUTH_EMAIL') }}</small>
+                                </div>
                             </div>
 
                             <!-- Phone Number -->
@@ -367,19 +186,12 @@
                                 <label class="form-label">
                                     Phone number<span class="required-mark">*</span>
                                 </label>
-                                <input type="tel" class="form-control col-7" placeholder="Enter your phone number">
-
-                                <!-- <div class="phone-input-group d-flex gap-2">
-                        <div class="country-code col-3">
-                            <select class="form-select">
-                                <option value="+84">
-                                    <img src="../assets/images/artwork.png" class="flag-icon" alt="VN"> +84
-                                </option>
-                              
-                            </select>
-                        </div>
-                        <input type="tel" class="form-control col-7" placeholder="Enter your phone number">
-                    </div> -->
+                                <input type="tel" v-model="auth.phoneNumber" class="form-control col-7"
+                                    placeholder="Enter your phone number">
+                                <div class="error-message"
+                                    v-if="triggerValidateAuth && (!auth.phoneNumber || !/^(\+?\d{9,15})$/.test(auth.phoneNumber))">
+                                    <small>{{ $t('ERRPR_MISSING_AUTH_PHONENO') }}</small>
+                                </div>
                             </div>
 
                             <!-- Stay in touch -->
@@ -389,11 +201,13 @@
                                 </p>
                                 <div class="radio-group">
                                     <label class="radio-button active">
-                                        <input type="radio" name="stayInTouch" checked>
+                                        <input type="radio" name="stayInTouch" value="Yes"
+                                            v-model="orderNote.useDiffrenceNumber">
                                         Yes
                                     </label>
                                     <label class="radio-button">
-                                        <input type="radio" name="stayInTouch">
+                                        <input type="radio" name="stayInTouch" value="No"
+                                            v-model="orderNote.useDiffrenceNumber">
                                         No
                                     </label>
                                 </div>
@@ -402,18 +216,17 @@
                             <!-- OTT App -->
                             <div class="mb-3">
                                 <label class="form-label">Which App can we contact you through?</label>
-                                <select class="form-select">
-                                    <option value="">OTT App</option>
-                                    <option value="whatsapp">WhatsApp</option>
-                                    <option value="viber">Viber</option>
-                                    <option value="telegram">Telegram</option>
+                                <select class="form-select" v-model="orderNote.useAppContact">
+                                    <option disabled>OTT App</option>
+                                    <option v-for="app in ottApps" :value="app">{{ app }}</option>
                                 </select>
                             </div>
 
                             <!-- Account Name -->
                             <div class="mb-3">
                                 <label class="form-label">Account name on the OTT App</label>
-                                <input type="text" class="form-control" placeholder="Your account name">
+                                <input type="text" class="form-control" placeholder="Your account name"
+                                    v-model="orderNote.useAppContactValue">
                             </div>
                         </form>
                     </AccordionContent>
@@ -424,7 +237,8 @@
                 <!-- Note Section -->
                 <div class="mb-4  p-3 bg-white">
                     <h2 class="promo-title pb-2">Note & Other Request</h2>
-                    <textarea class="form-control" rows="3" placeholder="Note"></textarea>
+                    <textarea class="form-control" rows="3" placeholder="Note"
+                        v-model="orderNote.noteSpecial"></textarea>
                 </div>
 
                 <!-- Payment Method Section -->
@@ -482,10 +296,10 @@
                 <div class="price-text">~USD 41.2</div>
             </div>
             <div class="d-flex">
+                <button class="search-button" @click="onRequestPay()" id="search">
+                    Completed Order
+                </button>
 
-                <router-link to="/booking"> <button class="search-button" id="search">
-                        Completed Order
-                    </button></router-link>
             </div>
         </div>
     </div>
@@ -496,6 +310,281 @@ import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
+
+
+import NoteCustomersComponent from '@/components/NoteCustomersComponent.vue'
+import NoteInputBoxComponent from '@/components/NoteInputBoxComponent.vue'
+import NoteRadioButtonComponent from '@/components/NoteRadioButtonComponent.vue'
+import NoteTimeComponent from '@/components/NoteTimeComponent.vue'
+
+
+import { ref, onBeforeMount, computed, onMounted } from "vue";
+import { useI18n } from 'vue-i18n'
+
+import { useHelper } from "../composables/helper";
+import { useCurrencyStore } from "../stores/currencyStore";
+import { usePayStore } from '../stores/payStore';
+import { useAuthStore } from '../stores/authStore';
+
+import { usePay } from '../composables/pay';
+
+import Select from 'primevue/select';
+import { label } from '@primeuix/themes/aura/metergroup';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser';
+import router from '../routers';
+
+const currencyStore = useCurrencyStore();
+const currentfCurrency = computed(() => currencyStore.fCurrency)
+const payStore = usePayStore();
+const authStore = useAuthStore()
+const helper = useHelper();
+const { locale, t } = useI18n();
+const payComposable = usePay();
+
+
+
+const pays = computed(() => payStore.pays);
+const auth = computed(() => authStore.auth);
+// console.log('currentPays',currentPays)
+const countries = ref([
+    { name: t("Vietnam"), code: 'VN' },
+    { name: t("United_States"), code: 'US' },
+    { name: t("China"), code: 'CN' },
+    { name: t("Japan"), code: 'JP' },
+    { name: t("South_Korea"), code: 'KR' },
+    { name: t("Germany"), code: 'DE' },
+    { name: t("France"), code: 'FR' },
+    { name: t("United_Kingdom"), code: 'GB' },
+    { name: t("Canada"), code: 'CA' },
+    { name: t("Australia"), code: 'AU' },
+    { name: t("India"), code: 'IN' },
+    { name: t("Brazil"), code: 'BR' },
+    { name: t("Russia"), code: 'RU' },
+    { name: t("Mexico"), code: 'MX' },
+    { name: t("Italy"), code: 'IT' },
+    { name: t("Spain"), code: 'ES' },
+    { name: t("Indonesia"), code: 'ID' },
+    { name: t("Saudi_Arabia"), code: 'SA' },
+    { name: t("Turkey"), code: 'TR' },
+    { name: t("Argentina"), code: 'AR' },
+    { name: t("Thailand"), code: 'TH' },
+    { name: t("Philippines"), code: 'PH' },
+    { name: t("Netherlands"), code: 'NL' },
+    { name: t("Belgium"), code: 'BE' },
+    { name: t("Sweden"), code: 'SE' },
+    { name: t("Norway"), code: 'NO' },
+    { name: t("Denmark"), code: 'DK' },
+    { name: t("Finland"), code: 'FI' },
+    { name: t("Austria"), code: 'AT' },
+    { name: t("Switzerland"), code: 'CH' },
+    { name: t("Czech_Republic"), code: 'CZ' },
+    { name: t("Greece"), code: 'GR' },
+    { name: t("Portugal"), code: 'PT' },
+    { name: t("Ireland"), code: 'IE' },
+    { name: t("Israel"), code: 'IL' },
+    { name: t("South_Africa"), code: 'ZA' },
+    { name: t("Egypt"), code: 'EG' },
+    { name: t("Malaysia"), code: 'MY' },
+    { name: t("Singapore"), code: 'SG' },
+    { name: t("New_Zealand"), code: 'NZ' },
+    { name: t("Colombia"), code: 'CO' },
+    { name: t("Chile"), code: 'CL' },
+    { name: t("Peru"), code: 'PE' },
+    { name: t("Venezuela"), code: 'VE' },
+    { name: t("Pakistan"), code: 'PK' },
+    { name: t("Bangladesh"), code: 'BD' },
+    { name: t("Nigeria"), code: 'NG' },
+    { name: t("Kenya"), code: 'KE' },
+    { name: t("Morocco"), code: 'MA' },
+    { name: t("Algeria"), code: 'DZ' },
+    { name: t("Iraq"), code: 'IQ' },
+    { name: t("Kuwait"), code: 'KW' },
+    { name: t("Qatar"), code: 'QA' },
+    { name: t("Oman"), code: 'OM' },
+    { name: t("Jordan"), code: 'JO' },
+    { name: t("Ukraine"), code: 'UA' },
+    { name: t("Serbia"), code: 'RS' },
+    { name: t("Romania"), code: 'RO' },
+    { name: t("Bulgaria"), code: 'BG' },
+    { name: t("Slovakia"), code: 'SK' },
+    { name: t("Hungary"), code: 'HU' },
+    { name: t("Lithuania"), code: 'LT' },
+    { name: t("Latvia"), code: 'LV' },
+    { name: t("Estonia"), code: 'EE' },
+    { name: t("Belarus"), code: 'BY' },
+    { name: t("Moldova"), code: 'MD' },
+    { name: t("Georgia"), code: 'GE' },
+    { name: t("Armenia"), code: 'AM' },
+    { name: t("Azerbaijan"), code: 'AZ' },
+    { name: t("Cuba"), code: 'CU' },
+    { name: t("Dominican_Republic"), code: 'DO' },
+    { name: t("Honduras"), code: 'HN' },
+    { name: t("Guatemala"), code: 'GT' },
+    { name: t("El_Salvador"), code: 'SV' },
+    { name: t("Costa_Rica"), code: 'CR' },
+    { name: t("Panama"), code: 'PA' },
+    { name: t("Paraguay"), code: 'PY' },
+    { name: t("Uruguay"), code: 'UY' },
+    { name: t("Czechia"), code: 'CZ' },
+    { name: t("Kosovo"), code: 'XK' },
+    { name: t("North_Macedonia"), code: 'MK' },
+    { name: t("Vatican_City"), code: 'VA' },
+    { name: t("Afghanistan"), code: 'AF' },
+    { name: t("Albania"), code: 'AL' },
+    { name: t("Cambodia"), code: 'KH' },
+    { name: t("Iceland"), code: 'IS' },
+    { name: t("Iran"), code: 'IR' },
+    { name: t("Kazakhstan"), code: 'KZ' },
+    { name: t("Laos"), code: 'LA' },
+    { name: t("Luxembourg"), code: 'LU' },
+    { name: t("Myanmar"), code: 'MM' },
+    { name: t("Nepal"), code: 'NP' },
+    { name: t("Poland"), code: 'PL' },
+    { name: t("Slovenia"), code: 'SI' },
+    { name: t("Tanzania"), code: 'TZ' },
+    { name: t("Tunisia"), code: 'TN' },
+    { name: t("United_Arab_Emirates"), code: 'AE' },
+    { name: t("Uzbekistan"), code: 'UZ' },
+    { name: t("Yemen"), code: 'YE' },
+    { name: t("Zimbabwe"), code: 'ZW' },
+]);
+
+const orderNote = ref({
+    noteSpecial: "",
+    useAppContact: "",
+    useAppContactValue: "",
+    useDiffrenceNumber: ""
+})
+
+const ottApps = ref([
+    'WhatsApp', 'Zalo', 'Kakao', 'Telegram'
+])
+
+const triggerValidateAuth = ref(false);
+
+const onTriggerValidate = () => {
+    pays.value.forEach(pay => {
+        pay.productBookingNoteGroups.forEach(group => {
+            group.noteList.forEach(note => {
+                note.triggerValid = true;
+            })
+        })
+    })
+    triggerValidateAuth.value = true;
+}
+
+const checkValidateNote = () => {
+    let checker = true;
+    pays.value.forEach(pay => {
+        pay.productBookingNoteGroups.forEach(group => {
+            group.noteList.forEach(note => {
+                if (!note.noteValue) {
+                    checker = false;
+                }
+            })
+        })
+    })
+    return checker;
+}
+
+const checkValidateAuth = () => {
+    let checker = true;
+    if (!auth.value.country) {
+        checker = false;
+    }
+    if (!auth.value.email) {
+        checker = false;
+    }
+    if (!auth.value.firstName) {
+        checker = false;
+    }
+    if (!auth.value.lastName) {
+        checker = false;
+    }
+    if (!auth.value.phoneNumber) {
+        checker = false;
+    }
+
+    return checker;
+}
+
+const randomString = (length = 10) => {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        result += chars[randomIndex];
+    }
+    return result;
+}
+
+const onRequestPay = async () => {
+    onTriggerValidate();
+    let validPayNotes = checkValidateNote();
+    let validAuth = checkValidateAuth();
+    console.log(validPayNotes, validAuth)
+    if (validPayNotes == true && validAuth == true) {
+        auth.value.pcname = randomString(10);
+        let data = {
+            pays: pays.value,
+            auth: auth.value,
+            orderCode: `APP_${randomString(8)}`,
+            i18Code: locale.value,
+            orderNotes: orderNote.value,
+            paymentMethod: 'TEST_APP',
+            sourceOrder: 'MOBILE_APP'
+
+        }
+
+        try {
+            const response = await payComposable.onRequestOnepay(data);
+            if (response && response.data.returnUrl) {
+                const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
+                    location: 'yes',
+                    clearcache: 'yes',
+                    toolbar: 'no'
+                });
+                let returnPaymentUrl = "";
+                // Bắt URL trước khi load
+                browser.on('loadstart').subscribe((event) => {
+                    const url = event.url;
+                    console.log('🔗 Đang chuẩn bị load:', url);
+
+                    // 👉 Nếu phát hiện redirect về deeplink hoặc 1 URL đặc biệt, bạn có thể xử lý:
+                    if (url.startsWith(import.meta.env.VITE_API_URI)) {
+                        returnPaymentUrl = url;
+                        browser.close(); // đóng InAppBrowser
+                        // alert('✅ Phát hiện deeplink redirect:', url);
+                        // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
+
+
+
+
+                    }
+
+
+                    // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
+                });
+                // Thực thi url 
+                try {
+                    const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+                    if (response && response.data) {
+                        alert("THANH TOAN THANH CONG");
+                        router.push('/confirm/payment/success')
+                    }
+                } catch (error) {
+                    alert(error)
+                }
+            }
+        } catch (error) {
+            alert(error);
+        }
+    }
+
+}
+
+
+
 // import FastTrack from '../components/FastTrack.vue';
 </script>
 <style scoped>

@@ -33,7 +33,8 @@ export const useLanguageStore = defineStore(
   },
   {
     persist: {
-      storage: persistedState.localStorage,
+      enabled: true, // Bật chế độ lưu trạng thái
+      storage: localStorage, // Hoặc sử dụng sessionStorage nếu muốn lưu tạm thời
     },
   }
 );

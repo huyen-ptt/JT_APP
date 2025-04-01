@@ -1,5 +1,15 @@
 {
   "appId": "com.consortio.joytime",
-  "appName": "Joytime Travel Agency",
-  "webDir": "dist"
+  "appName": "joytime",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "App": {
+      "urlScheme": "joytime"
+    }
+  },
+  "server": {
+    "url": "http://192.168.9.61:5173/",
+    "cleartext": true
+  }
 }

@@ -137,7 +137,7 @@ const routes = [
         component: Checkout,
     },
     {
-        path: "/checkoutsuccess",
+        path: "/confirm/payment/success",
         name: "CheckoutSuccess",  
         component: CheckoutSuccess,
     },
