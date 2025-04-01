@@ -36,3 +36,5 @@ yarn.lock
 
 ios
 android
+capacitor.config.json
+vite.config.js
