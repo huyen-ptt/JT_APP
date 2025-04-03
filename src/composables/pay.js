@@ -45,7 +45,7 @@ export const usePay = () => {
     const onCreateOrderResponseOnepay = async (url) => {
         try {
             const respone = axios.get(url);
-            if(respone){
+            if (respone) {
                 return respone;
             }
         } catch (error) {
@@ -53,8 +53,20 @@ export const usePay = () => {
         }
     }
 
+    const onCheckCouponCode = async (data) => {
+        try {
+            const url = `${uri}/api/PageOrder/CheckCouponCode`;
+            const response = await axios.post(url, data);
+            if (response) {
+                return response;
+            }
+        } catch (error) {
+            return null;
+        }
+    }
 
 
 
-    return { onRequestOnepay, onCreateOrderResponseOnepay }
+
+    return { onRequestOnepay, onCreateOrderResponseOnepay, onCheckCouponCode }
 }

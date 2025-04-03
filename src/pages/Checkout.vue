@@ -1,15 +1,7 @@
 <template>
     <div>
         <HeaderTitle :title="$t('PAGE_TITLE_CHECKOUT')"></HeaderTitle>
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product">
-                <i class="fas fa-arrow-left" @click="$router.go(-1)"></i>
-            </button>
-            <h1 class="page-title-product">Checking Your Order</h1>
-            <button class="cart-button-product">
-                &nbsp;
-            </button>
-        </div>
+
         <div class="card">
             <Accordion value="0">
                 <AccordionPanel class="mb-3" value="0">
@@ -67,8 +59,10 @@
                                         <h3 class="promo-title pb-3">Promotion</h3>
                                         <div class="promo-input-group">
                                             <input type="text" class="promo-input input-login"
-                                                placeholder="Enter promo code">
-                                            <button class="use-code-btn">Use Code</button>
+                                                placeholder="Enter promo code"
+                                                v-model="pay.discountSelected.couponCode">
+                                            <button class="use-code-btn" @click="onCheckCouponCode(pay)">Use
+                                                Code</button>
                                         </div>
                                     </div>
                                     <!-- <FastTrack /> -->
@@ -100,6 +94,12 @@
                                                                 :trigger="triggerValidateNote"
                                                                 v-if="note.bookingNoteType === 'datetime-local'">
                                                             </NoteTimeComponent>
+                                                            <NoteCustomersComponent
+                                                                @update:info="val => note.noteValue = val.noteValue"
+                                                                :info="note" :trigger="triggerValidateNote"
+                                                                :count="pay.numberOfAldut"
+                                                                v-if="note.bookingNoteType === 'person-information'">
+                                                            </NoteCustomersComponent>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -277,15 +277,15 @@
                 <div class="bg-white p-3">
                     <div class="results-count-product summary-row">
                         <span>Subtotal</span>
-                        <span>VND 1,200,000</span>
+                        <span>VND {{subTotal.toLocaleString()}}</span>
                     </div>
-                    <div class="results-count-product summary-row">
+                    <div class="results-count-product summary-row" v-if="subDiscount > 0">
                         <span>Discount</span>
-                        <span class="discount-amount">-VND 240,000</span>
+                        <span class="discount-amount">-VND {{subDiscount.toLocaleString()}}</span>
                     </div>
                     <div class="total-row price-value">
                         <span>ORDER TOTAL</span>
-                        <span>VND 960,000</span>
+                        <span>VND {{ totalPrice.toLocaleString() }}</span>
                     </div>
                 </div>
             </div>
@@ -293,8 +293,8 @@
         </div>
         <div class="bottom-menu menu-search d-flex bo-goc">
             <div class="">
-                <div class="don-vi" id="clear-all">VND 960,000</div>
-                <div class="price-text">~USD 41.2</div>
+                <div class="don-vi" id="clear-all">VND {{ totalPrice.toLocaleString() }}</div>
+                <!-- <div class="price-text">~USD 41.2</div> -->
             </div>
             <div class="d-flex">
                 <button class="search-button" @click="onRequestPay()" id="search">
@@ -334,6 +334,7 @@ import { label } from '@primeuix/themes/aura/metergroup';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser';
 import router from '../routers';
 import { StatusBar } from '@capacitor/status-bar';
+import { scrollToFirstVisibleError } from '@/utils/scrollToFirstVisibleError';
 
 
 const currencyStore = useCurrencyStore();
@@ -463,6 +464,37 @@ const ottApps = ref([
     'WhatsApp', 'Zalo', 'Kakao', 'Telegram'
 ])
 
+const totalPrice = computed(() => {
+
+    let _total = 0;
+    pays.value.forEach(pay => {
+        let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm - pay.discountSelected.couponPrice;
+        pay.totalPrice = _t
+        _total += _t
+    });
+    return _total;
+})
+
+const subTotal = computed(() => {
+    
+    let _total = 0;
+    pays.value.forEach(pay => {
+        let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
+        pay.totalPrice = _t
+        _total += _t
+    });
+    return _total;
+})
+
+const subDiscount = computed(() => {
+    let _total = 0;
+    pays.value.forEach(pay => {
+        let _t = pay.discountSelected.couponPrice
+        _total += _t
+    });
+    return _total;
+})
+
 const triggerValidateAuth = ref(false);
 
 const onTriggerValidate = () => {
@@ -521,81 +553,129 @@ const randomString = (length = 10) => {
     return result;
 }
 
+const onCheckCouponCode = async (pay) => {
+    let data = {
+        productId: pay.productId,
+        couponCode: pay.discountSelected.couponCode,
+        customerEmail: auth.value.email
+    }
+    //Tien hanh request kiem tra
+    const response = await payComposable.onCheckCouponCode(data);
+    if (response) {
+        alert('KHUYEN MAI THANH CONG!');
+        console.log(response.data);
+        let _discountPrice = 0;
+        let postfix = "";
+        if(response.data.value.discountOption == 1){
+            postfix = "%"
+        }else{
+            postfix = "VND"
+        }
+
+        if(postfix == "%"){
+            _discountPrice = pay.totalPrice * response.data.value.valueDiscount / 100;
+        }else{
+            _discountPrice = pay.totalPrice - response.data.value.valueDiscount;
+        }
+
+        pay.totalPrice = pay.totalPrice - _discountPrice;
+        pay.discountSelected.couponDescription = response.data.value.zoneName;
+        pay.discountSelected.discountValue = _discountPrice;
+
+
+    } else {
+        alert('KHUYEN MAI THAT BAI')
+        pay.discountSelected.couponCode = '';
+        pay.discountSelected.discountOption = 0;
+        pay.discountSelected.discountValue = 0;
+
+        // Tinh lai gia tong
+        let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
+        pay.totalPrice = _t
+    }
+
+}
+
 const onRequestPay = async () => {
     onTriggerValidate();
     let validPayNotes = checkValidateNote();
     let validAuth = checkValidateAuth();
     console.log(validPayNotes, validAuth)
     if (validPayNotes == true && validAuth == true) {
-        auth.value.pcname = randomString(10);
-        let data = {
-            pays: pays.value,
-            auth: auth.value,
-            orderCode: `APP_${randomString(8)}`,
-            i18Code: locale.value,
-            orderNotes: orderNote.value,
-            paymentMethod: 'TEST_APP',
-            sourceOrder: 'MOBILE_APP'
 
-        }
-
-        try {
-            const response = await payComposable.onRequestOnepay(data);
-            if (response && response.data.returnUrl) {
-
-                // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
-                StatusBar.setOverlaysWebView({ overlay: false });
-                const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
-                    location: 'no',        // ✅ Ẩn thanh địa chỉ URL
-                    toolbar: 'yes',        // ✅ Hiện thanh toolbar (dưới statusbar)
-                    toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
-                    closebuttoncaption: 'Đóng', // 🛑 Android không hỗ trợ nhưng iOS có
-                    hideurlbar: 'yes',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
-                });
-
-                let returnPaymentUrl = "";
-                // Bắt URL trước khi load
-                browser.on('loadstart').subscribe(async (event) => {
-                    const url = event.url;
-                    console.log('🔗 Đang chuẩn bị load:', url);
-
-                    // 👉 Nếu phát hiện redirect về deeplink hoặc 1 URL đặc biệt, bạn có thể xử lý:
-                    if (url.startsWith(import.meta.env.VITE_API_URI)) {
-                        returnPaymentUrl = url;
-                        browser.close(); // đóng InAppBrowser
-                        // alert('✅ Phát hiện deeplink redirect:', url);
-                        // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
-                        // Thực thi url 
-                        try {
-                            const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
-                            if (response && response.data) {
-                                console.log(response.data);
-                                if (response.data.auth) {
-                                    response.data.auth.isNewUser = false;
-                                    authStore.opnChangeAuth = response.data.auth;
-
-                                }
-                                if (response.data.orderCode) {
-                                    router.push('/confirm/payment/success');
-                                }
-                            }
-                        } catch (error) {
-                            alert(error) // Thanh toan that bai 1
-                        }
-
-                    }
-
-
-                    // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
-                });
+        const validStep2 = scrollToFirstVisibleError();
+        if (!validStep2) return;
+        else {
+            auth.value.pcname = randomString(10);
+            let data = {
+                pays: pays.value,
+                auth: auth.value,
+                orderCode: `APP_${randomString(8)}`,
+                i18Code: locale.value,
+                orderNotes: orderNote.value,
+                paymentMethod: 'TEST_APP',
+                sourceOrder: 'MOBILE_APP'
 
             }
-        } catch (error) {
-            alert(error);
+
+            try {
+                const response = await payComposable.onRequestOnepay(data);
+                if (response && response.data.returnUrl) {
+
+                    // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
+                    StatusBar.setOverlaysWebView({ overlay: false });
+                    const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
+                        location: 'no',        // ✅ Ẩn thanh địa chỉ URL
+                        toolbar: 'yes',        // ✅ Hiện thanh toolbar (dưới statusbar)
+                        toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
+                        closebuttoncaption: 'Đóng', // 🛑 Android không hỗ trợ nhưng iOS có
+                        hideurlbar: 'yes',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
+                    });
+
+                    let returnPaymentUrl = "";
+                    // Bắt URL trước khi load
+                    browser.on('loadstart').subscribe(async (event) => {
+                        const url = event.url;
+                        console.log('🔗 Đang chuẩn bị load:', url);
+
+                        // 👉 Nếu phát hiện redirect về deeplink hoặc 1 URL đặc biệt, bạn có thể xử lý:
+                        if (url.startsWith(import.meta.env.VITE_API_URI)) {
+                            returnPaymentUrl = url;
+                            browser.close(); // đóng InAppBrowser
+                            // alert('✅ Phát hiện deeplink redirect:', url);
+                            // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
+                            // Thực thi url 
+                            try {
+                                const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+                                if (response && response.data) {
+                                    console.log(response.data);
+                                    if (response.data.auth) {
+                                        response.data.auth.isNewUser = false;
+                                        authStore.onChangeAuth(response.data.auth);
+                                    }
+                                    if (response.data.orderCode) {
+                                        router.push('/confirm/payment/success');
+                                    }
+                                }
+                            } catch (error) {
+                                alert(error) // Thanh toan that bai 1
+                            }
+
+                        }
+
+
+                        // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
+                    });
+
+                }
+            } catch (error) {
+                alert(error);
+            }
+            finally {
+                StatusBar.setOverlaysWebView({ overlay: true });
+            }
         }
-        finally {
-            StatusBar.setOverlaysWebView({ overlay: true });
-        }
+
     }
 }
 

@@ -1,15 +1,6 @@
 <template>
     <div class="forgot-password-container">
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product"  @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Checking Your Order</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
-
+        <HeaderTitle :title="$t('PAGE_TITLE_SUCCESS_ORDER')"></HeaderTitle>
         <div class="nd-checkout">
             <div class="form-container">
                 <img class="d-flex icon-success pb-4" src="../assets/images/ss.png" />
@@ -17,7 +8,7 @@
                 <div class=" icon-success text-center dia-chi-product  pb-4">Please check you email inbox for<br> more
                     information</div>
 
-                <button type="submit" class="w-100 btn btn-lg btn-login">My order</button>
+                <button type="button" class="w-100 btn btn-lg btn-login" @click="redirectMyOrder()">My order</button>
 
 
             </div>
@@ -28,6 +19,21 @@
 </template>
 <script setup>
 import NoOrder from '../components/NoOrder.vue'
+import { RouterLink, useRouter } from 'vue-router'
+import HeaderTitle from '../components/HeaderTitle.vue';
+const router = useRouter()
+
+const redirectMyOrder = () => {
+    router.push('/myorder')
+}
+
+
+
+
+
+
+
+
 </script>
 <style scoped>
 /* 
