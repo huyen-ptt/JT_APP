@@ -241,7 +241,7 @@ import Drawer from 'primevue/drawer';
 import Options from '../components/Options.vue';
 import { ref, computed, onMounted } from 'vue';
 const visibleBottom = ref(false);
-const adultQuantity = ref(4);
+const adultQuantity = ref(4); 
 const childQuantity = ref(0);
 // const visibleBottom = ref(false);
 

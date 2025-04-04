@@ -31,3 +31,20 @@ const validate = () => {
 
 
 </script>
+<style scoped>
+.form-select,
+.form-control {
+    background-color: #F5F7FA;
+    border: 1px solid #EDF1F7;
+    border-radius: 15px;
+    font-size: 14px;
+    padding: 10px 12px;
+    font-weight: 400;
+    color: #8A929E;
+}
+.form-label {
+    font-size: 14px;
+    color: #8A929E;
+    margin-bottom: 6px;
+}
+</style>

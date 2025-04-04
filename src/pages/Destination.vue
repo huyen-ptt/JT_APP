@@ -1,68 +1,69 @@
 <template>
-    <div class="container bg-white pb-3" v-if="currentDestinationSelected">
-        <!-- Header -->
-        <div class="pb-4 pt-4 d-flex justify-content-between align-items-center border-bottom">
-            <a href="#" class="text-dark col-4 text-start" @click="$router.go(-1)">
-                <i class="fa-solid fa-arrow-left"></i>
-            </a>
-            <h5 class="mb-0 col-4 text-center title">{{ currentDestinationSelected?.name }}</h5>
-            <div class="col-4 text-end">&nbsp;</div>
-        </div>
+    <div class="bg-white pb-3" v-if="currentDestinationSelected">
+       
+        <HeaderTitle :title="currentDestinationSelected?.name"></HeaderTitle>
 
         <!-- Main Image Slider -->
-        <div class="pt-3">
-            <img  :src="helper.getImageCMS(currentDestinationSelected?.avatar)" class="d-block w-100 img-des"
-                alt="Ho Chi Minh City Night Scene">
-        </div>
+        <div class="container">
+            <div class="">
+                <img :src="helper.getImageCMS(currentDestinationSelected?.avatar)" class="d-block w-100 img-des"
+                    alt="Ho Chi Minh City Night Scene">
+            </div>
 
 
 
-        <!-- Weather Section -->
-        <div class="weather-section mt-3 mb-3 rounded-4">
-            <div class="d-flex gap-3 text-center recently-carousel">
-                <div class="du-bao" v-for="db in currentDestinationSelected?.weatherData.weekWeatherData">
-                    <div class="weather-icon">
-                        <img width="50" :src="db.icon" />
+            <!-- Weather Section -->
+            <div class="weather-section mt-3 mb-3 rounded-4">
+                <div class="d-flex gap-3 text-center recently-carousel">
+                    <div class="du-bao" v-for="db in currentDestinationSelected?.weatherData.weekWeatherData">
+                        <div class="weather-icon">
+                            <img width="50" :src="db.icon" />
+                        </div>
+                        <div class="temperature">{{ db.max }}°C</div>
+                        <div class="time-small">{{ db.time }}</div>
                     </div>
-                    <div class="temperature">{{ db.max }}°C</div>
-                    <div class="time-small">{{ db.time }}</div>
+
+
                 </div>
 
 
             </div>
 
-
-        </div>
-
-        <!-- Services Section -->
-        <div class="mt-3">
-            <div class="title">{{ $t('service') }}</div>
-            <div class="service-icons">
-                <div class="service-item" v-for="(s, index) in services" :key="index">
-                    <div class="service-icon">
-                        <img :src="helper.getImageCMS(s.icon)" alt="Combo">
+            <!-- Services Section -->
+            <div class="mt-4">
+                <div class="title mb-1">{{ $t('service') }}</div>
+                <div class="service-icons">
+                    <div class="service-item" v-for="(s, index) in services" :key="index">
+                        <div class="service-icon">
+                            <img :src="helper.getImageCMS(s.icon)" alt="Combo">
+                        </div>
+                        <div class="service-name">{{ s.title }}</div>
                     </div>
-                    <div class="service-name">{{ s.title }}</div>
+
                 </div>
+            </div>
 
+            <!-- Tips Section -->
+            <div class="tips-section rounded-4">
+                <div class="mb-3 title">{{ $t('tips') }}</div>
+                <div class="small text-muted" v-html="currentDestinationSelected.content">
+                </div>
             </div>
         </div>
+        <Footer></Footer>
 
-        <!-- Tips Section -->
-        <div class="tips-section rounded-4">
-            <div class="mb-3 title">{{ $t('tips') }}</div>
-            <div class="small text-muted" v-html="currentDestinationSelected.content">
-            </div>
-        </div>
     </div>
 
 </template>
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import Footer from "@/components/Footer.vue";
 import { useHome } from "../composables/home";
 import { useHelper } from "@/composables/helper";
 import { useDestination } from "../composables/destination";
 import axios from "axios";
+import HeaderTitle from '../components/HeaderTitle.vue';
+
 const helper = useHelper();
 const homeComposable = useHome();
 const destinationComposable = useDestination();
@@ -143,7 +144,7 @@ onBeforeMount(async () => {
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: #ccc transparent;
-    padding-bottom: 10px;
+    padding-bottom: 16px;
     scrollbar-width: none !important;
 }
 

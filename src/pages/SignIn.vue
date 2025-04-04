@@ -1,54 +1,54 @@
 <template>
-    <div class="min-vh-100 d-flex align-items-center justify-content-center p-4 signin">
-      <div class="w-100" style="max-width: 400px;">
-        <div class="text-center text-white mb-8">
-          <h1 class="title-sign">Sign In</h1>
-          <p class="des pb-4">Login in to join Joysme and discover the sweetness of joy</p>
-        </div>
-  
-        <div class="login bg-white p-4 shadow-lg">
-          <form @submit.prevent="handleSubmit" class="space-y-4">
-            <div class="mb-3">
-              <label for="email" class="form-label title-con">Email Address</label>
+  <div class="min-vh-100 d-flex align-items-center justify-content-center p-4 signin">
+    <div class="w-100" style="max-width: 400px;">
+      <div class="text-center text-white mb-8">
+        <h1 class="title-sign">{{ $t('title_login') }}</h1>
+        <p class="des pb-4">{{ $t('description_login') }}</p>
+      </div>
+
+      <div class="login bg-white p-4 shadow-lg">
+        <form @submit.prevent="handleSubmit" class="space-y-4">
+          <div class="mb-2">
+            <label for="email" class="form-label title-con">{{ $t('emailLabel_login') }}</label>
+            <input
+              id="email"
+              type="email"
+              :placeholder="$t('emailPlaceholder_login')"
+              v-model="email"
+              class="form-control rounded-3 input-login"
+              required
+            />
+          </div>
+
+          <div class="mb-2">
+            <label for="password" class="form-label title-con">{{ $t('passwordLabel_login') }}</label>
+            <div class="position-relative">
               <input
-                id="email"
-                type="email"
-                placeholder="Your email address"
-                v-model="email"
+                id="password"
+                :type="showPassword ? 'text' : 'password'"
+                :placeholder="$t('passwordPlaceholder_login')"
+                v-model="password"
                 class="form-control rounded-3 input-login"
                 required
               />
             </div>
-            
-  
-            <div class="mb-3">
-              <label for="password" class="form-label title-con">Password</label>
-              <div class="position-relative">
-                <input
-                  id="password"
-                  :type="showPassword ? 'text' : 'password'"
-                  placeholder="Your password"
-                  v-model="password"
-                  class="form-control rounded-3 input-login"
-                  required
-                />
-               
-              </div>
-              <div class="d-flex justify-content-end">
-                <router-link to="/forgot-password" class="small fogot-pass">Forgot Password?</router-link>
-              </div>
+            <div class="d-flex justify-content-end">
+              <router-link to="/forgot-password" class="small fogot-pass">{{ $t('forgotPassword_login') }}</router-link>
             </div>
-  
-            <button type="submit" class="w-100 btn btn-lg btn-login">Login</button>
-  
-            <div class="text-center text-muted small pt-3 input-login">
-              Don&apos;t have an account? <router-link to="/sign-up" class="text-primary fw-medium fogot-pass">Sign Up</router-link>
-            </div>
-          </form>
-        </div>
+          </div>
+
+          <button type="submit" class="w-100 btn btn-lg btn-login">{{ $t('loginButton_login') }}</button>
+
+          <div class="text-center text-muted small pt-3 input-login">
+            {{ $t('noAccount_login') }} 
+            <router-link to="/sign-up" class="text-primary fw-medium fogot-pass">{{ $t('signUp_login') }}</router-link>
+          </div>
+        </form>
       </div>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <script setup>
   import { ref } from 'vue'

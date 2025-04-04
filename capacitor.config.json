@@ -1,0 +1,15 @@
+{
+  "appId": "com.consortio.joytime",
+  "appName": "joytime",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "App": {
+      "urlScheme": "joytime"
+    }
+  },
+  "server": {
+    "url": "http://192.168.9.109:8080/",
+    "cleartext": true
+  }
+}

@@ -1,13 +1,6 @@
 <template>
-    <div class="top-bar-product p-4 bg-white title border-bottom">
-        <button class="back-button-product" @click="$router.go(-1)">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <h1 class="page-title-product">My order</h1>
-        <button class="cart-button-product">
+    <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
 
-        </button>
-    </div>
     <div class="container-order-detail m-3">
         <div>
 
@@ -48,7 +41,7 @@
             </div>
 
             <div class="card-order-detail border">
-                <div><img src="../assets/images/10.jpg" alt="Ninh Binh Tour" class="tour-image-order-detail px-3 py-3">
+                <div><img src="../assets/images/10.jpg" alt="Ninh Binh Tour" class="tour-image-order-detail px-1 py-1">
                 </div>
                 <div class="tour-info-order-detail px-3">
                     <div class="border-bottom">
@@ -130,20 +123,23 @@
                     <div className="tab-pane fade p-3" id="description" role="tabpanel"
                         aria-labelledby="description-tab">
                         <p className="mb-3 custom-paragraph">
-                        Enjoy the breathtaking scenery of Sapa's terraced rice fields and the pristine natural landscape
-                        of
-                        Fansipan.
-                    </p>
-                    <p className="mb-3 custom-paragraph">
-                        Admire the majestic scenery of numerous temples and different spiritual landmarks from the main
-                        peak. Pay
-                        homage to the Spiritual Cultural Complex with its 12 impressive architectural structures.
-                    </p>
-                    <p className="mb-3 custom-paragraph">
-                        Especially, the Great Amitabha Buddha statue holds the record for being located at the highest
-                        altitude in
-                        Asia, where the sacred Buddha relics are preserved.
-                    </p>
+                            Enjoy the breathtaking scenery of Sapa's terraced rice fields and the pristine natural
+                            landscape
+                            of
+                            Fansipan.
+                        </p>
+                        <p className="mb-3 custom-paragraph">
+                            Admire the majestic scenery of numerous temples and different spiritual landmarks from the
+                            main
+                            peak. Pay
+                            homage to the Spiritual Cultural Complex with its 12 impressive architectural structures.
+                        </p>
+                        <p className="mb-3 custom-paragraph">
+                            Especially, the Great Amitabha Buddha statue holds the record for being located at the
+                            highest
+                            altitude in
+                            Asia, where the sacred Buddha relics are preserved.
+                        </p>
                     </div>
 
                 </div>
@@ -159,7 +155,38 @@
         </div>
     </div>
 </template>
+<script setup>
+import HeaderTitle from '../components/HeaderTitle.vue'; 
+</script>
 <style scoped>
+.search-button {
+    padding: 14px 24px;
+    border-radius: 16px;
+    border: none;
+    background-color: #446EDE;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.bo-goc .cancle button {
+    background: white !important;
+    border: 1px solid #03294C !important;
+    color: #03294C !important;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    background-color: transparent !important;
+    padding: 11px 23px;
+    border-radius: 16px;
+    align-items: center;
+}
+
 .custom-tabs {
     border-bottom: none;
 }

@@ -1,14 +1,7 @@
 <template>
     <div class="forgot-password-container">
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product"  @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Checking Your Order</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
+      
+        <HeaderTitle :title="$t('Checking_Your_Order')"></HeaderTitle>
 
         <div class="nd-checkout">
             <div class="form-container">
@@ -28,6 +21,8 @@
 </template>
 <script setup>
 import NoOrder from '../components/NoOrder.vue'
+import HeaderTitle from '../components/HeaderTitle.vue';
+
 </script>
 <style scoped>
 /* 

@@ -1,15 +1,7 @@
 <template>
     <div>
-        <HeaderTitle :title="$t('PAGE_TITLE_CHECKOUT')"></HeaderTitle>
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product">
-                <i class="fas fa-arrow-left" @click="$router.go(-1)"></i>
-            </button>
-            <h1 class="page-title-product">Checking Your Order</h1>
-            <button class="cart-button-product">
-                &nbsp;
-            </button>
-        </div>
+        <HeaderTitle :title="$t('checkcart')"></HeaderTitle>
+       
         <div class="card">
             <Accordion value="0">
                 <AccordionPanel class="mb-3" value="0">
@@ -86,7 +78,7 @@
                                             </AccordionHeader>
                                             <AccordionContent class="p-0 servies-det">
                                                 <div class="">
-                                                    <div class="booking-form">
+                                                    <div class="booking-form 12">
                                                         <div class="" v-for="note in noteGroup.noteList">
                                                             <NoteInputBoxComponent :info="note"
                                                                 :trigger="triggerValidateNote"
@@ -97,7 +89,7 @@
                                                                 v-if="note.bookingNoteType === 'radio'">
                                                             </NoteRadioButtonComponent>
                                                             <NoteTimeComponent :info="note" :date="pay.choosenDate"
-                                                                :trigger="triggerValidateNote"
+                                                                :trigger="triggerValidateNote" class="input-check"
                                                                 v-if="note.bookingNoteType === 'datetime-local'">
                                                             </NoteTimeComponent>
                                                         </div>
@@ -611,10 +603,7 @@ const onRequestPay = async () => {
     border-radius: 8px;
 }
 
-.booking-form {
-    /* max-width: 500px; */
-    /* padding: 20px; */
-}
+
 
 .form-label {
     font-size: 14px;

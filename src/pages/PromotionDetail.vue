@@ -1,15 +1,8 @@
 <template>
     <div class="promotion-bao">
-        <!-- <h1 class="text-center fw-bold pb-4 bg-white title pt-4">Winter Voucher</h1> -->
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product" @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Winter Voucher</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
+
+        <HeaderTitle :title="$t('Winter_Voucher')"></HeaderTitle>
+
         <div class="container">
             <div class="">
                 <!-- Carousel/Slider -->
@@ -62,8 +55,87 @@
                 </div>
 
             </div>
-            <div class="recently-carousel prodcut-sp pt-4">
-                <ProductSearch />
+            <div class="recently-carousel prodcut-sp pt-4 pb-4">
+                <!-- <ProductSearch /> -->
+                <div class="tour-card">
+                    <img src="../assets/images/anh-1.png" alt="Inter Sweet Love" class="tour-image">
+                    <div class="tour-content">
+                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
+                        <div class="tour-location tour-price">
+                            <div>
+                                <i class="fas fa-map-marker-alt location-dot"></i>
+                                <span class="dia-diem">Ha Noi</span>
+                                <span class="tour-booked">40 Booked</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="rating-value">4.5</span>
+                            </div>
+                        </div>
+                        <div class="tour-price">
+                            <div>
+                                <span class="price-text">From</span>
+                                <span class="price-value">~ USD 34</span>
+                            </div>
+
+                        </div>
+                      
+                    </div>
+                </div>
+
+                <!-- Tour Card 2 -->
+                <div class="tour-card">
+                    <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
+                    <div class="tour-content">
+                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
+                        <div class="tour-location tour-price">
+                            <div>
+                                <i class="fas fa-map-marker-alt location-dot"></i>
+                                <span class="dia-diem">Ha Noi</span>
+                                <span class="tour-booked">40 Booked</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="rating-value">4.5</span>
+                            </div>
+                        </div>
+                        <div class="tour-price">
+                            <div>
+                                <span class="price-text">From</span>
+                                <span class="price-value">~ USD 34</span>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="tour-card">
+                    <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
+                    <div class="tour-content">
+                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
+                        <div class="tour-location tour-price">
+                            <div>
+                                <i class="fas fa-map-marker-alt location-dot"></i>
+                                <span class="dia-diem">Ha Noi</span>
+                                <span class="tour-booked">40 Booked</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="rating-value">4.5</span>
+                            </div>
+                        </div>
+                        <div class="tour-price">
+                            <div>
+                                <span class="price-text">From</span>
+                                <span class="price-value">~ USD 34</span>
+                            </div>
+
+                        </div>
+                       
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="bottom-menu menu-search">
@@ -76,6 +148,7 @@
 </template>
 <script setup>
 import { onBeforeMount, ref } from "vue";
+import HeaderTitle from '../components/HeaderTitle.vue';
 import Drawer from 'primevue/drawer';
 const visibleBottom = ref(false);
 import { RouterLink, useRouter } from 'vue-router'
@@ -85,13 +158,14 @@ import ProductSearch from "../components/ProductSearch.vue";
 </script>
 <style scoped>
 .prodcut-sp {
-    padding: 30px 10px;
+    /* padding: 30px 10px; */
     display: grid;
     grid-template-columns: auto auto;
 }
 
 .tour-card {
     width: unset;
+    padding: 0;
 }
 
 .promotion-title {
@@ -111,5 +185,10 @@ import ProductSearch from "../components/ProductSearch.vue";
     align-items: center;
     border-radius: 15px 15px 0 0;
 
+}
+
+.tour-image {
+
+    border-radius: 20px;
 }
 </style>

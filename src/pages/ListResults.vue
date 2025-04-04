@@ -1,50 +1,55 @@
 <template>
-    <div class="search-header-product">
-        <div class="top-bar-product">
-            <button class="back-button-product" @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Product</h1>
-            <button class="cart-button-product">
-                <img class="icon-cart" src="../assets/images/shopping-cart.png" />
-            </button>
-        </div>
+    <div class="container-big">
+        <div class="search-header-product">
+            <div class="top-bar-product">
+                <button class="back-button-product" @click="$router.go(-1)">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="page-title-product">{{ $t('service') }}</h1>
+                <button class="cart-button-product">
+                    <img class="icon-cart" src="../assets/images/shopping-cart.png" />
+                </button>
+            </div>
 
-        <div class="d-flex align-items-center thanh-loc">
-            <div class="khac" @click="onRedirectSearch">
-                <div class="filter">
-                    <img src="../assets/images/Body.png" />
-                    <span class="filter-counter-product">{{ listOfSearchTag.length }}</span>
+            <div class="d-flex align-items-center thanh-loc">
+                <div class="khac" @click="onRedirectSearch">
+                    <div class="filter">
+                        <img src="../assets/images/Body.png" />
+                        <span class="filter-counter-product">{{ listOfSearchTag.length }}</span>
+                    </div>
+                </div>
+                <div class="filters-container-product">
+                    <div class="filter-badge-product" v-for="l in listOfSearchTag" :key="l.id">
+                        <span class="filter-text-product">{{ l.name }}</span>
+                        <i class="fas fa-times remove-filter-product" @click="onRemoveSearchTag(l)"></i>
+                    </div>
                 </div>
             </div>
-            <div class="filters-container-product">
-                <div class="filter-badge-product" v-for="l in listOfSearchTag" :key="l.id">
-                    <span class="filter-text-product">{{ l.name }}</span>
-                    <i class="fas fa-times remove-filter-product" @click="onRemoveSearchTag(l)"></i>
-                </div>
+        </div>
+
+        <div class="results-info-product">
+            <div class="results-count-product">{{ listOfProducts.length }} results found</div>
+            <div class="card flex justify-center">
+                <Select v-model="selectedOption" :options="sortOptions" optionLabel="name" optionValue="value"
+                    placeholder="Select" class="w-full md:w-56 seclec-pr" />
             </div>
         </div>
-    </div>
 
-    <div class="results-info-product">
-        <div class="results-count-product">{{ listOfProducts.length }} results found</div>
-        <div class="card flex justify-center">
-            <Select v-model="selectedOption" :options="sortOptions" optionLabel="name" optionValue="value"
-                placeholder="Select" class="w-full md:w-56 seclec-pr" />
+        <div class="recently-carousel prodcut-sp">
+            <ProductSearch v-for="p in listOfProducts" :key="p.id" :product="p"></ProductSearch>
         </div>
-    </div>
+        <Footer></Footer>
 
-    <div class="recently-carousel prodcut-sp">
-        <ProductSearch v-for="p in listOfProducts" :key="p.id" :product="p"></ProductSearch>
+
+        <Drawer v-model:visible="visibleRight" class="filter-modal">
+            <Filter />
+        </Drawer>
     </div>
-    
-    <Drawer v-model:visible="visibleRight" class="filter-modal">
-        <Filter />
-    </Drawer>
 </template>
 
 <script setup>
 import { onMounted, ref, computed, watch } from 'vue';
+import Footer from "@/components/Footer.vue";
 import { useRouter } from 'vue-router';
 import Drawer from 'primevue/drawer';
 import Select from 'primevue/select';
@@ -91,11 +96,11 @@ const onRedirectSearch = () => {
 };
 
 const sortProducts = async () => {
-    if(selectedOption.value){
+    if (selectedOption.value) {
         searchStore.onChangeSortBy(selectedOption.value)
         await onLoadListOfProducts();
     }
-    
+
 };
 
 
@@ -108,7 +113,7 @@ onMounted(async () => {
 
 <style scoped>
 .prodcut-sp {
-    padding: 30px 10px;
+    padding: 12px 10px 80px;
     display: grid;
     grid-template-columns: auto auto;
 }
@@ -117,7 +122,14 @@ onMounted(async () => {
     width: unset;
     padding: 0;
 }
-
+.bieu-tuong {
+    position: absolute;
+    top: 0;
+    border-radius: 0px 0px 11px 11px;
+    background: #F1F5FF;
+    right: 10px;
+    padding: 0px 10px 3px;
+}
 .tour-image {
     width: 100%;
     height: 120px;
