@@ -42,7 +42,7 @@
         </div>
 
         <div className="container-fluid p-0">
-            <ul className="nav nav-tabs custom-tabs justify-content-center" id="productTabs" role="tablist">
+            <ul className="nav nav-tabs custom-tabs justify-content-center mr-3 ml-3" id="productTabs" role="tablist">
                 <li className="nav-item" role="presentation">
                     <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                         data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
@@ -66,7 +66,7 @@
             </ul>
 
             <div className="tab-content custom-tab-content" id="productTabsContent">
-                <div className="tab-pane fade show active p-3" id="product-detail" role="tabpanel"
+                <div className="tab-pane fade show active pt-3 px-3" id="product-detail" role="tabpanel"
                     aria-labelledby="product-detail-tab">
                     <p className="mb-3 custom-paragraph" v-html="productDetail.content"></p>
 
@@ -95,7 +95,7 @@
             </div>
             <div>
                 <div class="position-relative h-100">
-                    <div className="position-relative mt-3" style="height: 300px;">
+                    <div className="position-relative mt-3" style="height: 240px;">
                         <iframe :src="productDetail.locationIframe" width="100%" height="100%" allowFullScreen={false}
                             loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
@@ -104,9 +104,9 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid p-4 review-product">
+        <div class="container-fluid p-4 review-product border-bottom">
             <!-- Rating Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center gap-4">
                     <h2 class="display-6 fw-bold mb-0 so-review">{{ productDetail.rateAVG?.toFixed(1) }}</h2>
                     <div class="d-flex text-warning">
@@ -125,7 +125,7 @@
             <div class="review-container">
                 <!-- Review Quote -->
                 <div class="nd-rv" v-for="r in productDetail.reviews" :key="r">
-                    <div class="mb-4 border-bottom">
+                    <div class="mb-3 border-bottom">
                         <div class="position-relative d-flex pb-3">
                             <div>
                                 <img class="rounded-circle" width="20" src="../assets/images/phay.png" />
@@ -133,7 +133,7 @@
 
                             </div>
                             <div>
-                                <p class="ms-4 mb-1 text-rv" style="font-size: 14px;"
+                                <p class="ms-4 text-rv" style="font-size: 14px;"
                                     v-html="r.isExpanded ? r.content : (r.content?.slice(0, 50) + '...')"></p>
                                 <a v-if="r.content?.length > 100" href="#" class="ms-4 read-more-pr"
                                     style="font-size: 14px;" @click.prevent="toggleReadMore(r)">
@@ -144,7 +144,7 @@
                     </div>
 
                     <!-- User Profile -->
-                    <div class="d-flex align-items-center gap-2 mb-4">
+                    <div class="d-flex align-items-center gap-2 mb-2">
                         <!-- <img src="../assets/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
                             height="40" /> -->
                         <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
@@ -281,25 +281,25 @@
                 <a> <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
                         {{ $t('BUY_NOW') }}
                     </button></a>
-                <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order" :style="{ width: '50vw' }"
+                <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order pt-4" :style="{ width: '50vw' }"
                     style="height: 100%; max-height: 100%;border-radius: 0;"
                     :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
                     <div id="app" class="app-container">
                         <!-- Header -->
-                        <div class="d-flex justify-content-between align-items-center p-3">
+                        <div class="d-flex justify-content-between align-items-center">
 
                             <button class="reset-btn-booking" @click="resetSelection">
-                                <i class="fas fa-redo-alt"></i> {{ $t('RESET_SELECTION')}}
+                                <i class="fas fa-redo-alt"></i> {{ $t('RESET_SELECTION') }}
                             </button>
                         </div>
 
                         <!-- Main Content -->
                         <div class="content-wrapper-booking p-3">
                             <!-- Ticket cards with accordion -->
-                            <div v-for="(p, index) in payItems" :key="index" class="ticket-card-booking p-4 mb-3">
-                                <div class="news-title-blogg mb-2">{{ p.currentPackage.title }}</div>
+                            <div v-for="(p, index) in payItems" :key="index" class="ticket-card-booking mb-3">
+                                <div class="news-title-blogg mb-1">{{ p.currentPackage.title }}</div>
                                 <div class="see-detail-booking mb-2" @click="visibleBottom = true">
-                                    {{ $t('VIEW_DETAIL')}} <i class="fa-solid fa-chevron-down"></i>
+                                    {{ $t('VIEW_DETAIL') }} <i class="fa-solid fa-chevron-down"></i>
                                     <Drawer v-model:visible="visibleBottom" header="Detail" position="bottom"
                                         style="height: auto" class="bo-goc so-luong-mua">
                                         <div class="container detail-see pb-4">
@@ -307,7 +307,7 @@
                                                 <h2 class="tour-title-see-detail">{{ p.currentPackage.title }}</h2>
 
                                                 <div class="price-text-see-detail pb-3">
-                                                    <span class="me-1">From</span> <span
+                                                    <span class="me-1">{{ $t('PRICE_FROM') }}</span> <span
                                                         class="price-value-booking"><span class="me-1">USD</span>{{
                                                             (p.currentPackage.price / currentfCurrency.exchange)
                                                                 .toFixed(1)
@@ -324,16 +324,19 @@
                                         <div class="bottom-menu menu-search bo-goc " @click="visibleBottom = false">
                                             <router-link to="" class="btn-search "> <button
                                                     class="search-button btn-search" id="search">
-                                                    {{ $t('OK')}}
+                                                    {{ $t('OK') }}
                                                 </button></router-link>
                                         </div>
                                     </Drawer>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center ">
                                     <div class="price-booking">
-                                        From <span class="price-value-booking"> {{
-                                            p.currentPackage.price.toLocaleString()
-                                        }}</span>
+                                        <div class="d-flex gap-2 align-items-center">
+                                            <span class="tour-booked"> {{ $t('PRICE_FROM') }} </span><span
+                                                class="price-value-booking">VND {{
+                                                    p.currentPackage.price.toLocaleString()
+                                                }}</span>
+                                        </div>
                                         <div class="packages-count-booking">~ USD {{
                                             (p.currentPackage.price / currentfCurrency.exchange)
                                                 .toFixed(1)
@@ -341,10 +344,11 @@
                                         }}</div>
 
                                     </div>
-                                    <button class="book-btn-booking" @click="onClickBookPackage(p)"> {{ p.isActive ? $t('CLOSE') : $t('BOOK') }}</button>
+                                    <button class="book-btn-booking" @click="onClickBookPackage(p)"> {{ p.isActive ?
+                                        $t('CLOSE') : $t('BOOK') }}</button>
                                 </div>
 
-                                <!-- Accordion content - appears when expanded --> 
+                                <!-- Accordion content - appears when expanded -->
                                 <div v-if="p.isActive" class="booking-accordion-content mt-3 border-top">
                                     <Accordion :value="p.currentAccordionStep">
                                         <AccordionPanel :value="0" class="modal-lich1">
@@ -353,11 +357,11 @@
                                                     style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
                                                     <div class="date-card-title-booking1">
                                                         <span v-if="!p.currentSelectedDate">{{ $t('Selected_Date')
-                                                            }}</span>
+                                                        }}</span>
                                                         <span v-else>{{ $t('Selected_Date') }}: <br>
                                                             <div class="chose-option">{{
                                                                 helper.formatISODate(p.currentSelectedDate)
-                                                                }}</div>
+                                                            }}</div>
                                                         </span>
                                                     </div>
                                                 </AccordionHeader>
@@ -367,7 +371,7 @@
                                                             <i class="fas fa-chevron-left"></i>
                                                         </button>
                                                         <div class="calendar-month-header-booking">{{ currentMonth
-                                                        }}/{{ currentYear
+                                                            }}/{{ currentYear
                                                             }}</div>
                                                         <button class="calendar-nav-booking" @click="nextMonth(p)">
                                                             <i class="fas fa-chevron-right"></i>
@@ -393,7 +397,7 @@
                                                 </AccordionContent>
                                             </div>
                                         </AccordionPanel>
-                                        <AccordionPanel :value="1"  class="modal-lich1">
+                                        <AccordionPanel :value="1" class="modal-lich1">
                                             <div class="lichh">
                                                 <AccordionHeader class="mb-2"
                                                     style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
@@ -423,7 +427,7 @@
                                         <AccordionPanel :value="2" class="modal-lich1">
                                             <div class="lichh">
                                                 <AccordionHeader class="mb-2"
-                                                style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
+                                                    style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
                                                     <!-- <div class="date-card-title-booking1">
                                                         <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
                                                             class="section-title-booking">{{ $t('Guest')
@@ -443,21 +447,21 @@
                                                         </div>
                                                     </div> -->
                                                     <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
-                                                    class="section-title-booking">{{ $t('Guest')
-                                                    }}
-                                                </div>
-                                                <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
-                                                    $t('Guest')
-                                                    }}<br>
-                                                    <div class="chose-option">{{ $t('Adult')
-                                                        }} : {{ p.choosenNguoiLon }} </div>
-                                                </div>
-                                                <div v-else="p.choosenTreEm" class="section-title-booking">{{
-                                                    $t('Guest')
-                                                    }}<br>
-                                                    <div class="chose-option">{{ $t('Adult')
-                                                        }} : {{ p.choosenTreEm }} </div>
-                                                </div>
+                                                        class="section-title-booking">{{ $t('Guest')
+                                                        }}
+                                                    </div>
+                                                    <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
+                                                        $t('Guest')
+                                                        }}<br>
+                                                        <div class="chose-option">{{ $t('Adult')
+                                                            }} : {{ p.choosenNguoiLon }} </div>
+                                                    </div>
+                                                    <div v-else="p.choosenTreEm" class="section-title-booking">{{
+                                                        $t('Guest')
+                                                        }}<br>
+                                                        <div class="chose-option">{{ $t('Adult')
+                                                            }} : {{ p.choosenTreEm }} </div>
+                                                    </div>
                                                 </AccordionHeader>
                                                 <AccordionContent>
                                                     <!-- <div class="guest-dropdown-booking mt-2">
@@ -529,76 +533,77 @@
                                                         </div>
                                                     </div> -->
                                                     <div class="guest-dropdown-booking mt-2">
-                                                    <div>
-                                                        <div class="guest-item-booking border-bottom">
-                                                            <div class="">
-                                                                <div
-                                                                    class="price-item-so-luong d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <div class="guest-item-booking border-bottom">
+                                                                <div class="">
                                                                     <div
-                                                                        v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
-                                                                        <div class="price-label-so-luong">Adult
+                                                                        class="price-item-so-luong d-flex justify-content-between align-items-center">
+                                                                        <div
+                                                                            v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
+                                                                            <div class="price-label-so-luong">Adult
+                                                                            </div>
+                                                                            <div class="price-amount-so-luong">VND {{
+                                                                                p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
+                                                                                }}
+                                                                            </div>
+                                                                            <div class="price-text">~USD {{
+                                                                                (p.selectedPriceByDate?.priceEachNguoiLon
+                                                                                    /
+                                                                                    currentfCurrency.exchange)
+                                                                                    .toFixed(1)
+                                                                                    .toLocaleString("en-US")
+                                                                                }}
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="price-amount-so-luong">VND {{
-                                                                            p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
-                                                                            }}
-                                                                        </div>
-                                                                        <div class="price-text">~USD {{
-                                                                            (p.selectedPriceByDate?.priceEachNguoiLon /
-                                                                                currentfCurrency.exchange)
-                                                                                .toFixed(1)
-                                                                                .toLocaleString("en-US")
-                                                                        }}
+
+                                                                        <div class="quantity-controls-so-luong">
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="decreaseNguoiLon(p)">−</button>
+                                                                            <span class="quantity-display-so-luong">{{
+                                                                                p.choosenNguoiLon }}</span>
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="increaseNguoiLon(p)">+</button>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="quantity-controls-so-luong">
-                                                                        <button class="quantity-btn-so-luong"
-                                                                            @click="decreaseNguoiLon(p)">−</button>
-                                                                        <span class="quantity-display-so-luong">{{
-                                                                            p.choosenNguoiLon }}</span>
-                                                                        <button class="quantity-btn-so-luong"
-                                                                            @click="increaseNguoiLon(p)">+</button>
-                                                                    </div>
                                                                 </div>
+                                                                <div class="">
+                                                                    <div class="price-item-so-luong d-flex justify-content-between align-items-center"
+                                                                        v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
+                                                                        <div>
+                                                                            <div class="price-label-so-luong">Child
+                                                                            </div>
+                                                                            <div class="price-amount-so-luong">VND {{
+                                                                                p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
+                                                                                }}
+                                                                            </div>
+                                                                            <div class="price-text">~USD {{
+                                                                                (p.selectedPriceByDate?.priceEachTreEm /
+                                                                                    currentfCurrency.exchange)
+                                                                                    .toFixed(1)
+                                                                                    .toLocaleString("en-US")
+                                                                                }}
+                                                                            </div>
+                                                                        </div>
 
-                                                            </div>
-                                                            <div class="">
-                                                                <div class="price-item-so-luong d-flex justify-content-between align-items-center"
-                                                                    v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
-                                                                    <div>
-                                                                        <div class="price-label-so-luong">Child
-                                                                        </div>
-                                                                        <div class="price-amount-so-luong">VND {{
-                                                                            p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
-                                                                            }}
-                                                                        </div>
-                                                                        <div class="price-text">~USD {{
-                                                                            (p.selectedPriceByDate?.priceEachTreEm /
-                                                                                currentfCurrency.exchange)
-                                                                                .toFixed(1)
-                                                                                .toLocaleString("en-US")
-                                                                        }}
+                                                                        <div class="quantity-controls-so-luong">
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="decreaseTreEm(p)">−</button>
+                                                                            <span class="quantity-display-so-luong">{{
+                                                                                p.choosenTreEm }}</span>
+                                                                            <button class="quantity-btn-so-luong"
+                                                                                @click="increaseTreEm(p)">+</button>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="quantity-controls-so-luong">
-                                                                        <button class="quantity-btn-so-luong"
-                                                                            @click="decreaseTreEm(p)">−</button>
-                                                                        <span class="quantity-display-so-luong">{{
-                                                                            p.choosenTreEm }}</span>
-                                                                        <button class="quantity-btn-so-luong"
-                                                                            @click="increaseTreEm(p)">+</button>
-                                                                    </div>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
                                                 </AccordionContent>
                                             </div>
                                         </AccordionPanel>
-                                        
+
                                     </Accordion>
 
                                 </div>
@@ -613,7 +618,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <div class="packages-count-booking">{{ productDetail.productChilds.length }}
-                                        {{ $t('PACKAGES')}}</div>
+                                        {{ $t('PACKAGES') }}</div>
                                     <div class="total-price-booking">USD {{ totalPrice.toLocaleString() }}</div>
                                     <div class="packages-count-booking">~ USD {{ (totalPrice /
                                         currentfCurrency.exchange).toFixed(1).toLocaleString("enb-US") }}</div>
@@ -623,7 +628,8 @@
                                     <div class="cart-icon-booking">
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
-                                    <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW')}} ({{ countPayItems
+                                    <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{
+                                        countPayItems
                                         }})</button>
                                 </div>
                             </div>
@@ -1141,9 +1147,9 @@ const calculatePays = () => {
             data.productBookingNoteGroups = productDetail.value.productBookingNoteGroups;
             data.productBookingNoteGroups.forEach(b => {
                 b.isValidNote = true,
-                b.noteList.forEach(n => {
-                    n.triggerValid = false;
-                })
+                    b.noteList.forEach(n => {
+                        n.triggerValid = false;
+                    })
             })
             data.productChildId = pay.currentPackage.productId;
             data.productId = productDetail.value.id;
@@ -1315,7 +1321,7 @@ const toggleReadMore = (review) => {
 .custom-tab-link {
     color: #8A929E;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 9px;
     font-size: 14px;
 }
 
@@ -1338,6 +1344,7 @@ const toggleReadMore = (review) => {
 
 .nav-tabs .nav-link {
     border-radius: unset;
+    font-weight: 500;
 }
 
 .nav-tabs .nav-link {
@@ -1346,6 +1353,10 @@ const toggleReadMore = (review) => {
 
 iframe {
     border-radius: 25px;
+}
+
+.custom-tab-link.active {
+    font-weight: 700;
 }
 
 .review-container {
@@ -1392,5 +1403,11 @@ iframe {
 
 .optionDisable {
     background-color: #ddd;
+}
+
+.reset-btn-booking {
+    position: absolute;
+    top: 48px;
+    right: 20px;
 }
 </style>

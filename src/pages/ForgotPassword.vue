@@ -1,16 +1,10 @@
 <template>
-    <div class="container forgot-password-container">
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product" @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Forgot Password</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
+    <div class="forgot-password-container">
+    
+        <HeaderTitle :title="$t('Forgot_Password')"></HeaderTitle>
 
-        <div class="form-container">
+
+        <div class="form-container m-3">
             <h1 class="form-title">Enter the email to reset password</h1>
 
             <div class="mb-3">
@@ -22,11 +16,15 @@
 
             <p class="form-title pt-3">A reset link will be sent to your email address</p>
         </div>
+        <Footer></Footer>
+
     </div>
 
 </template>
+<script setup>
+import HeaderTitle from '../components/HeaderTitle.vue';
+</script>
 <style scoped>
-
 .form-container {
     background-color: white;
     border-radius: 10px;
@@ -71,6 +69,4 @@
     color: #B3BBC7;
     font-weight: 500;
 }
-
-
 </style>

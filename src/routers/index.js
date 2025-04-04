@@ -55,7 +55,7 @@ const routes = [
         path: "/list-search",
         name: "ListSearch",
         component: ListSearch,
-    },
+    }, 
     {
         path: "/destination/:id",
         name: "Destination",

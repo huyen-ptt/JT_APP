@@ -1,6 +1,6 @@
-  <template>
+<template>
     <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-if="product">
-        <img :src="helper.getImageCMS(product.avatar)"  class="tour-image">
+        <img :src="helper.getImageCMS(product.avatar)" class="tour-image">
         <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
             <div class="tour-location tour-price">
@@ -15,8 +15,14 @@
             <div class="tour-price">
                 <div>
                     <span class="price-text">{{ $t('PRICE_FROM') }}</span>
-                    <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true }) }}</span>
-                    <span class="price-as-currency"></span>
+                    <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true })
+                        }}</span>
+                    <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~USD</span>{{
+                        (product.price / currentfCurrency.exchange)
+                            .toFixed(1)
+                            .toLocaleString("en-US")
+                    }}</span>
+                    <!-- <span class="price-as-currency"></span> -->
                 </div>
 
             </div>
@@ -31,8 +37,11 @@
 
 </template>
 <script setup>
-
+import { ref, onBeforeMount, computed, onMounted } from "vue";
+import { useCurrencyStore } from "../stores/currencyStore";
 import { useHelper } from '../composables/helper';
+const currencyStore = useCurrencyStore();
+const currentfCurrency = computed(() => currencyStore.fCurrency)
 
 const helper = useHelper();
 

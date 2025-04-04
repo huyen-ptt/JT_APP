@@ -19,38 +19,38 @@
             <div class="title-list-search">Recent Searches</div>
             <!-- Item 1 -->
             <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/7.png" alt="Day Tour" class="me-3">
-                <p class="title">Day Tour | Explore Hanoi Capital in One Day...</p>
+                <img src="../assets/images/7.png" alt="Day Tour" >
+                <p class="title-s">Day Tour | Explore Hanoi Capital in One Day...</p>
             </div>
 
             <!-- Item 2 -->
             <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/8.png" alt="Street Food Tour" class="me-3">
-                <p class="title">Hanoi Street Food Walking Tour</p>
+                <img src="../assets/images/8.png" alt="Street Food Tour" >
+                <p class="title-s">Hanoi Street Food Walking Tour</p>
             </div>
 
             <!-- Item 3 -->
             <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/10.jpg" alt="BBQ Buffet" class="me-3">
-                <p class="title">BBQ Buffet Party at The Yacht - Ambassador Cruise</p>
+                <img src="../assets/images/10.jpg" alt="BBQ Buffet" >
+                <p class="title-s">BBQ Buffet Party at The Yacht - Ambassador Cruise</p>
             </div>
 
             <!-- Item 4 -->
             <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/6.png" alt="Day Tour" class="me-3">
-                <p class="title">Day Tour | Explore Hanoi Capital in One Day...</p>
+                <img src="../assets/images/6.png" alt="Day Tour" >
+                <p class="title-s">Day Tour | Explore Hanoi Capital in One Day...</p>
             </div>
 
             <!-- Item 5 -->
             <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/7.png" alt="Savor Restaurant" class="me-3">
-                <p class="title">Savor Exquisite Cuisine at All Season Restaurant | Hanoi</p>
+                <img src="../assets/images/7.png" alt="Savor Restaurant" >
+                <p class="title-s">Savor Exquisite Cuisine at All Season Restaurant | Hanoi</p>
             </div>
 
             <!-- Item 6 -->
             <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/3.png" alt="Gia Thien Restaurant" class="me-3">
-                <p class="title">Set Menu Dining at Gia Thien Restaurant | Hanoi</p>
+                <img src="../assets/images/3.png" alt="Gia Thien Restaurant" >
+                <p class="title-s">Set Menu Dining at Gia Thien Restaurant | Hanoi</p>
             </div>
         </div>
     </div>
@@ -119,23 +119,24 @@ const clearInput = () => {
     font-size: 16px;
     color: #333;
     margin: 0 15px;
-    flex-grow: 1;
+    flex-grow: 1; 
 }
 
 .food-item {
-    padding: 12px 15px;
+    padding: 10px;
     border-bottom: 1px solid #eee;
 }
 
 .food-item img {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
     object-fit: cover;
     border-radius: 8px;
 }
 
-.food-item .title {
-    font-size: 14px;
+.food-item .title-s {
+    font-size: 14px !important;
     font-weight: 500;
     color: #03294C;
     margin: 0;
@@ -159,6 +160,6 @@ const clearInput = () => {
     border-radius: 14px; 
     width: 1%;
     min-width: 0;
-    padding: 11px 53px;
+    padding: 14px 53px;
 }
 </style>

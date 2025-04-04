@@ -1,14 +1,8 @@
     <template>
         <div class="introduce">
-            <div class="top-bar-product p-4 bg-white title">
-                <button class="back-button-product" @click="$router.go(-1)">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <h1 class="page-title-product">Introduce</h1>
-                <button class="cart-button-product">
 
-                </button>
-            </div>
+            <HeaderTitle :title="$t('Introduce')"></HeaderTitle>
+
             <div class="card  p-3">
                 <Accordion value="0">
                     <AccordionPanel value="0" class="our-story mb-3">
@@ -78,6 +72,8 @@
                     </AccordionPanel>
                 </Accordion>
             </div>
+            <Footer></Footer>
+
         </div>
     </template>
 
@@ -86,4 +82,7 @@ import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
+import HeaderTitle from '../components/HeaderTitle.vue';
+import Footer from "@/components/Footer.vue";
+
 </script>

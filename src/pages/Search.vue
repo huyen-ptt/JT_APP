@@ -1,14 +1,13 @@
 <template>
     <div class="container">
-        <div class="header-search">
+        <div class="header-search" @click="$router.go(-1)">
             <div class="close"><i class="fa-solid fa-xmark"></i></div>
         </div>
         <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" class="search-input" :placeholder="$t('place_to_go')" @keyup.enter="handleSearch" />
-
-
-
+            <a href="/list-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" :placeholder="$t('place_to_go')" />
+            </a>
         </div>
         <div class="filter-sidebar">
             <!-- Destination Section -->
@@ -59,6 +58,7 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import Slider from 'primevue/slider';
 import { useSearch } from "@/composables/search";
 import { useSearchStore } from '../stores/searchStore';
@@ -68,7 +68,8 @@ const searchComposable = useSearch();
 const searchZone = ref([])
 const destinationSearch = ref(null)
 const serviceSearch = ref(null)
-
+const router = useRouter();
+const searchQuery = ref('');
 
 const budgetRange = ref([0, 20000000]);
 
@@ -85,7 +86,11 @@ const onClickSearchItem = async (searchItem) => {
         searchStore.onRemoveSearchItem(searchItem);
     }
 }
-
+const handleSearch = () => {
+    if (searchQuery.value) {
+        router.push({ path: '/list-search', query: { q: searchQuery.value } });
+    }
+}
 onMounted(async () => {
 
     searchZone.value = await searchComposable.getSearchableZone();
@@ -127,4 +132,25 @@ const clearAllSelected = () => {
     searchStore.onClearSearchItem();
 }
 </script>
-<style></style>
+<style scoped>
+.search-container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px 56px 15px 28px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 10px;
+    color: #8A929E;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-input::placeholder {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: #8A929E;
+
+}
+</style>

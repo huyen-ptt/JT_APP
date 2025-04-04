@@ -1,16 +1,8 @@
 <template>
     <div>
-        <div class="top-bar-product p-4 bg-white title border-bottom">
-            <button class="back-button-product"  @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">My order</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
+        <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
         <div className="container-fluid p-0">
-            <ul className="nav nav-tabs custom-tabs justify-content-center" id="productTabs" role="tablist">
+            <ul className="nav nav-tabs custom-tabs justify-content-center m-3" id="productTabs" role="tablist">
                 <li className="nav-item" role="presentation">
                     <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                         data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
@@ -39,7 +31,7 @@
                 </li>
             </ul>
 
-            <div className="tab-content custom-tab-content" id="productTabsContent">
+            <div className="tab-content custom-tab-content list-orderrs" id="productTabsContent">
                 <div className="tab-pane fade show active p-3" id="product-detail" role="tabpanel"
                     aria-labelledby="product-detail-tab">
                     <div class="order-card-myorder position-relative mb-3">
@@ -61,7 +53,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/10.jpg" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -94,7 +87,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/8.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -127,7 +121,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/2.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -160,7 +155,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -195,7 +191,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/2.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -228,7 +225,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -245,7 +243,7 @@
                 </div>
                 <div className="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab">
 
-                    
+
                     <div class="order-card-myorder position-relative mb-3">
                         <div class="order-header-myorder">
                             <div>
@@ -265,7 +263,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -301,7 +300,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/2.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -334,7 +334,8 @@
                         <div class="order-details-myorder">
                             <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
                             <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai</div>
+                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
+                                </div>
                                 <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
                                     Dinh - Day tour | Explore Ninh Binh</div>
                             </div>
@@ -351,8 +352,15 @@
                 </div>
             </div>
         </div>
+        <Footer></Footer>
+
     </div>
 </template>
+<script setup>
+import HeaderTitle from '../components/HeaderTitle.vue';
+import Footer from "@/components/Footer.vue";
+
+</script>
 <style scoped>
 .custom-tabs {
     border-bottom: none;
@@ -361,7 +369,7 @@
 .custom-tab-link {
     color: #8A929E;
     border: none;
-    padding: 10px 15px;
+    padding: 8px;
     font-size: 14px;
 }
 

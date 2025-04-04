@@ -1,14 +1,14 @@
 <template>
     <div class="promotion-bao">
-        <HeaderTitle :title="$t('PAGE_TITLE_PROMOTION')"></HeaderTitle>
+        <HeaderTitle :title="$t('Promotion')"></HeaderTitle>
 
         <div class="container">
-            <div class="promotion-container ">
+            <div class="promotion-container">
                 <!-- Carousel/Slider -->
                 <div id="promotionCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <!-- Slide 1 -->
-                        <div class="carousel-item active p-2" v-for="(p, index) in promotions" :key="index">
+                        <div class="carousel-item p-2" v-for="(p, index) in promotions" :key="index"
+                            :class="{ active: index === 0 }">
                             <div class="promotion-card">
                                 <div class="promotion-image">
                                     <img :src="helper.getImageCMS(p.avatar)" alt="Winter Deal 20% Off"
@@ -16,10 +16,7 @@
                                 </div>
                                 <div class="promotion-details">
                                     <div>
-                                        <div>
-                                            <h5 class="promotion-title">{{ p.title }}</h5>
-
-                                        </div>
+                                        <h5 class="promotion-title">{{ p.title }}</h5>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="promotion-expiry">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -37,62 +34,124 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Slide 2 -->
-                       
                     </div>
 
                     <!-- Carousel Indicators -->
                     <div class="carousel-indicators position-relative mt-2">
-                        <button type="button" data-bs-target="#promotionCarousel" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#promotionCarousel" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#promotionCarousel" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
+                        <button v-for="(p, index) in promotions" :key="index" type="button"
+                            data-bs-target="#promotionCarousel" :data-bs-slide-to="index"
+                            :class="{ active: index === 0 }" aria-label="Slide {{ index + 1 }}"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recently-carousel prodcut-sp pt-4 pb-4">
+                <!-- <ProductSearch /> -->
+                <div class="tour-card">
+                    <img src="../assets/images/anh-1.png" alt="Inter Sweet Love" class="tour-image">
+                    <div class="tour-content">
+                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
+                        <div class="tour-location tour-price">
+                            <div>
+                                <i class="fas fa-map-marker-alt location-dot"></i>
+                                <span class="dia-diem">Ha Noi</span>
+                                <span class="tour-booked">40 Booked</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="rating-value">4.5</span>
+                            </div>
+                        </div>
+                        <div class="tour-price">
+                            <div>
+                                <span class="price-text">From</span>
+                                <span class="price-value">~ USD 34</span>
+                            </div>
+
+                        </div>
+                        
                     </div>
                 </div>
 
-            </div>
-            <div class="recently-carousel prodcut-sp pt-4">
-                <ProductSearch />
+                <!-- Tour Card 2 -->
+                <div class="tour-card">
+                    <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
+                    <div class="tour-content">
+                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
+                        <div class="tour-location tour-price">
+                            <div>
+                                <i class="fas fa-map-marker-alt location-dot"></i>
+                                <span class="dia-diem">Ha Noi</span>
+                                <span class="tour-booked">40 Booked</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="rating-value">4.5</span>
+                            </div>
+                        </div>
+                        <div class="tour-price">
+                            <div>
+                                <span class="price-text">From</span>
+                                <span class="price-value">~ USD 34</span>
+                            </div>
 
+                        </div>
+                      
+                    </div>
+                </div>
+
+                <div class="tour-card">
+                    <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
+                    <div class="tour-content">
+                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
+                        <div class="tour-location tour-price">
+                            <div>
+                                <i class="fas fa-map-marker-alt location-dot"></i>
+                                <span class="dia-diem">Ha Noi</span>
+                                <span class="tour-booked">40 Booked</span>
+                            </div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span class="rating-value">4.5</span>
+                            </div>
+                        </div>
+                        <div class="tour-price">
+                            <div>
+                                <span class="price-text">From</span>
+                                <span class="price-value">~ USD 34</span>
+                            </div>
+
+                        </div>
+                       
+                    </div>
+                </div>
 
             </div>
         </div>
         <Footer></Footer>
     </div>
-
 </template>
+
 <script setup>
 import { ref, onBeforeMount } from "vue";
-import Drawer from 'primevue/drawer';
-const visibleBottom = ref(false);
-import { RouterLink, useRouter } from 'vue-router'
 import ProductSearch from "../components/ProductSearch.vue";
 import Footer from "@/components/Footer.vue";
-
-import { useHome } from '@/composables/home.js'
-import { useHelper } from "@/composables/helper";
 import HeaderTitle from '../components/HeaderTitle.vue';
+import { useHome } from '@/composables/home.js';
+import { useHelper } from "@/composables/helper";
+
 const helper = useHelper();
-
 const homeComposable = useHome();
-const promotions = ref([])
+const promotions = ref([]);
 
-// import { useProduct } from '@/composables/product.js'
-// const productComposable = userProduct();
-// const listProduct = ref([])
 onBeforeMount(async () => {
     promotions.value = await homeComposable.getZonesByTypeKhuyenMai();
-    console.log(promotions.value, 'promotions.value')
-    // listProduct.value = productComposable.
-})
-
+    console.log(promotions.value, 'promotions.value');
+});
 </script>
 <style scoped>
 .prodcut-sp {
-    padding: 30px 10px;
+    /* padding: 30px 10px; */
     display: grid;
     grid-template-columns: auto auto;
 }
@@ -107,5 +166,11 @@ onBeforeMount(async () => {
 
 .promotion-title {
     max-width: unset;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+.tour-image {
+
+    border-radius: 20px;
 }
 </style>

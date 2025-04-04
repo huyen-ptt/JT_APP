@@ -1,16 +1,10 @@
 <template>
-    <div class="container forgot-password-container">
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product" @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Contact Us</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
+    <div class="forgot-password-container">
+  
+        <HeaderTitle :title="$t('CONTACT_US_ACCOUNT')"></HeaderTitle>
 
-        <div class="form-container">
+
+        <div class="form-container m-3">
             <div>
                 <div class="sz-big text-center">Joytime</div>
                 <h1 class="calendar-day-header-booking text-center">Enter the email to reset password</h1>
@@ -48,12 +42,16 @@
         </div>
         <div class="bottom-menu menu-search bo-goc">
             <router-link to="" class="btn-search "> <button class="search-button btn-search" id="search">
-                Send
+                    Send
                 </button></router-link>
         </div>
     </div>
 
 </template>
+<script setup>
+import HeaderTitle from '../components/HeaderTitle.vue';
+
+</script>
 <style scoped>
 .form-label {
     font-size: 14px;

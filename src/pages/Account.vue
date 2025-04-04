@@ -2,13 +2,7 @@
 
     <div class="container p-0" style="max-width: 480px;">
         <!-- Header -->
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product"  @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">{{ $t('SETTING_ACCOUNT') }}</h1>
-            <button class="cart-button-product">&nbsp;</button>
-        </div>
+        <HeaderTitle :title="$t('SETTING_ACCOUNT')"></HeaderTitle>
 
         <!-- Profile Section -->
         <div class="px-3 mt-3 infomation-profile">
@@ -69,7 +63,7 @@
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div>
-                <div class="settings-item">
+                <a href="/languages" class="settings-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/language-circle.png" />
@@ -80,8 +74,8 @@
                         <span class="see-detail-booking me-2">English</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
-                </div>
-                <div class="settings-item">
+                </a>
+                <a href="/currency" class="settings-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/money-send.png" />
@@ -92,7 +86,7 @@
                         <span class="see-detail-booking me-2">USD</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- About us Section -->
@@ -107,16 +101,15 @@
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div>
-                <div class="about-item">
+                <a href="/introduce" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/call-calling.png" />
-                        </div>
-                        <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
+                        </div>                          <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
-                </div>
-                <div class="about-item">
+                </a>
+                <a href="/faqs" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/re.png" />
@@ -124,7 +117,7 @@
                         <span class="title145">{{ $t('FAQS_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
-                </div>
+                </a>
                 <div class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
@@ -158,6 +151,7 @@
 <script setup>
 import { ref } from "vue";
 import Footer from "@/components/Footer.vue"
+import HeaderTitle from '../components/HeaderTitle.vue';
 import Drawer from 'primevue/drawer';
 const visibleBottom = ref(false);
 import { RouterLink, useRouter } from 'vue-router'
@@ -214,7 +208,7 @@ const visible = ref(false);
 
 .settings-item,
 .about-item {
-    padding: 15px;
+    padding: 16px;
     border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
@@ -274,5 +268,11 @@ const visible = ref(false);
 
 .see-detail-booking {
     color: #0d6efd;
+}
+.icon-circle img {
+    width: 24px;
+}
+a{
+    text-decoration: none;
 }
 </style>

@@ -1,29 +1,23 @@
 <template>
-    <div class="container forgot-password-container">
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product" @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Forgot Password</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
-
-        <div class="form-container">
-            <img class="d-flex icon-success pb-4" src="../assets/images/verify.png" />
-            <div class="icon-success text-center title-sl">Password Reset Email Sent</div>
-            <div class=" icon-success text-center dia-chi-product">Please check your email for password reset link.</div>
-            <div class=" icon-success text-center dia-chi-product pb-4">This link is only valid for <b> 24 hours</b></div>
-
-            <button type="submit" class="w-100 btn btn-lg btn-login">Sign In</button>
-
-
+    <div class="forgot-password-container">
+        <HeaderTitle :title="$t('Forgot_Password')"></HeaderTitle>
+        <div class="container">
+            <div class="form-container">
+                <img class="d-flex icon-success pb-4" src="../assets/images/verify.png" />
+                <div class="icon-success text-center title-sl">Password Reset Email Sent</div>
+                <div class=" icon-success text-center dia-chi-product">Please check your email for password reset link.
+                </div>
+                <div class=" icon-success text-center dia-chi-product pb-4">This link is only valid for <b> 24 hours</b>
+                </div>
+                <button type="submit" class="w-100 btn btn-lg btn-login">Sign In</button>
+            </div>
         </div>
     </div>
 
 </template>
-<script>
+<script setup>
+import HeaderTitle from '../components/HeaderTitle.vue';
+
 </script>
 <style scoped>
 /* 
