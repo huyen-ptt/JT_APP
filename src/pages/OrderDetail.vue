@@ -1,6 +1,7 @@
 <template>
-    <HeaderTitle :title="$t('PAGE_TITLE_MY_ORDER')"></HeaderTitle>
-    <div class="container-order-detail m-3" v-if="orderItemDetail">
+    <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
+
+    <div class="container-order-detail m-3">
         <div>
 
 
@@ -210,6 +211,34 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.search-button {
+    padding: 14px 24px;
+    border-radius: 16px;
+    border: none;
+    background-color: #446EDE;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.bo-goc .cancle button {
+    background: white !important;
+    border: 1px solid #03294C !important;
+    color: #03294C !important;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    background-color: transparent !important;
+    padding: 11px 23px;
+    border-radius: 16px;
+    align-items: center;
+}
+
 .custom-tabs {
     border-bottom: none;
 }

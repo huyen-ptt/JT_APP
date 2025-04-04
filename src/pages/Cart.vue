@@ -1,14 +1,8 @@
 <template>
     <div>
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product"  @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Cart</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
+
+        <HeaderTitle :title="$t('cart')"></HeaderTitle>
+
         <div class="body-cart">
             <div class="select-all-container d-flex align-items-center">
                 <input type="checkbox" class="custom-checkbox form-check-input" id="selectAll">
@@ -350,7 +344,7 @@
             </div>
             <div class="d-flex">
 
-                <router-link to="/booking"> <button class="search-button" id="search">
+                <router-link to="/checkout"> <button class="search-button" id="search">
                         Completed Order
                     </button></router-link>
             </div>
@@ -359,6 +353,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import HeaderTitle from '../components/HeaderTitle.vue';
 import Drawer from 'primevue/drawer';
 const visibleBottom = ref(false);
 const adultQuantity = ref(4);

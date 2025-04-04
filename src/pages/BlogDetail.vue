@@ -1,14 +1,8 @@
 <template>
     <div class="promotion-bao">
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product"  @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">News detail</h1>
-            <button class="cart-button-product">
-&nbsp;
-            </button>
-        </div>
+       
+        <HeaderTitle :title="$t('News_Detail')"></HeaderTitle>
+
         <div class="">
             <div class="">
                 <!-- Carousel/Slider -->
@@ -122,12 +116,15 @@
                 </div>
             </div>
         </div>
+        
 
     </div>
 </template>
 <script setup>
 import { ref, onMounted, onBeforeMount, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import HeaderTitle from '../components/HeaderTitle.vue';
+
 import { useBlogDetail } from '../composables/blogDetail';
 import { useHelper } from '../composables/helper';
 

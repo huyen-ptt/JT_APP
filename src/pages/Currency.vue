@@ -1,14 +1,8 @@
 <template>
-    <div class="container forgot-password-container">
-        <div class="top-bar-product p-4 bg-white title">
-            <button class="back-button-product" @click="$router.go(-1)">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <h1 class="page-title-product">Currency Settings</h1>
-            <button class="cart-button-product">
-                &nbsp;
-            </button>
-        </div>
+    <div class="forgot-password-container">
+
+        <HeaderTitle :title="$t('Currency_Settings')"></HeaderTitle>
+
         <div class="currency-container">
             <div class="search-box">
                 <i class="search-icon fas fa-search"></i>
@@ -16,16 +10,16 @@
             </div>
 
             <div class="currency-list">
-                <div v-for="currency in filteredCurrencies" :key="currency.code" class="currency-item"  :class="{ visible: selectedCurrency === currency.code }"
-                    @click="selectedCurrency = currency.code">
+                <div v-for="currency in filteredCurrencies" :key="currency.code" class="currency-item"
+                    :class="{ visible: selectedCurrency === currency.code }" @click="selectedCurrency = currency.code">
                     <div class="currency-info">
                         <img :src="currency.flagUrl" :alt="currency.name" class="currency-flag">
                         <span class="title145">{{ currency.name }}</span>
                     </div>
-                    <div class="d-flex align-items-center"  :class="{ visible: selectedCurrency === currency.code }">
+                    <div class="d-flex align-items-center" :class="{ visible: selectedCurrency === currency.code }">
                         <span class="add-btn-booking me-3">{{ currency.code }}</span>
-                        <i class="currency-check fas fa-check"  :class="{ visible: selectedCurrency === currency.code }"
-                           ></i>
+                        <i class="currency-check fas fa-check"
+                            :class="{ visible: selectedCurrency === currency.code }"></i>
                     </div>
                 </div>
             </div>
@@ -45,6 +39,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import HeaderTitle from '../components/HeaderTitle.vue';
 
 // Données réactives avec ref
 const searchQuery = ref('');

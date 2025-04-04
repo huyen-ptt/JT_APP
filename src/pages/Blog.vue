@@ -1,6 +1,7 @@
 <template>
     <div class="blog-container">
-        <h1 class="text-center border-bottom fw-bold pb-4 bg-white title pt-4 mb-4">{{ $t('TRAVEL_SUPPORT') }}</h1>
+        <!-- <h1 class="text-center border-bottom fw-bold pb-4 bg-white title pt-4 mb-4">{{ $t('TRAVEL_SUPPORT') }}</h1> -->
+        <HeaderTitle :title="$t('TRAVEL_SUPPORT')"></HeaderTitle>
 
         <div class="card">
             <Tabs value="0">
@@ -77,6 +78,8 @@
 </template>
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import HeaderTitle from '../components/HeaderTitle.vue';
+
 import Drawer from 'primevue/drawer';
 const visibleBottom = ref(false);
 import Tabs from 'primevue/tabs';
@@ -131,7 +134,10 @@ onBeforeMount(async () => {
 
 /* Hover and active state styles for the tabs */
 
+.card {
 
+    margin-bottom: 0px;
+} 
 .custom-tab:active,
 .custom-tab.ui-state-active {
     background-color: #007bff;

@@ -1,8 +1,12 @@
 <template>
     <div>
+<<<<<<< HEAD
         <HeaderTitle :title="$t('PAGE_TITLE_MY_ORDERS')"></HeaderTitle>
+=======
+        <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
+>>>>>>> master
         <div className="container-fluid p-0">
-            <ul className="nav nav-tabs custom-tabs justify-content-center" id="productTabs" role="tablist">
+            <ul className="nav nav-tabs custom-tabs justify-content-center m-3" id="productTabs" role="tablist">
                 <li className="nav-item" role="presentation">
                     <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                         data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
@@ -31,7 +35,7 @@
                 </li>
             </ul>
 
-            <div className="tab-content custom-tab-content" id="productTabsContent">
+            <div className="tab-content custom-tab-content list-orderrs" id="productTabsContent">
                 <div className="tab-pane fade show active p-3" id="product-detail" role="tabpanel"
                     aria-labelledby="product-detail-tab">
                     <div class="order-card-myorder position-relative mb-3" v-for="order in pendingOrder">
@@ -59,6 +63,8 @@
                 </div>
             </div>
         </div>
+        <Footer></Footer>
+
     </div>
 </template>
 <script setup>
@@ -146,7 +152,7 @@ onMounted(async () => {
 .custom-tab-link {
     color: #8A929E;
     border: none;
-    padding: 10px 15px;
+    padding: 8px;
     font-size: 14px;
 }
 

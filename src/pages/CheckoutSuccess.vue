@@ -1,6 +1,8 @@
 <template>
     <div class="forgot-password-container">
-        <HeaderTitle :title="$t('PAGE_TITLE_SUCCESS_ORDER')"></HeaderTitle>
+      
+        <HeaderTitle :title="$t('Checking_Your_Order')"></HeaderTitle>
+
         <div class="nd-checkout">
             <div class="form-container">
                 <img class="d-flex icon-success pb-4" src="../assets/images/ss.png" />
