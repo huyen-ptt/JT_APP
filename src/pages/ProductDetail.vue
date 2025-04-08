@@ -674,6 +674,9 @@ const uri = import.meta.env.VITE_API_URI;
 const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
 
+const seenStore = useSeenStore();
+
+
 
 const payStore = usePayStore();
 const cartStore = useCartStore();
@@ -1305,6 +1308,7 @@ onMounted(async () => {
 });
 onBeforeMount(async () => {
     productDetail.value = await productComposable.getProductDetail();
+    seenStore.onAddSeen(productDetail.value.id)
 
     // console.log(productDetail.value, "productDetail.value");
     // await onLoadPackage();

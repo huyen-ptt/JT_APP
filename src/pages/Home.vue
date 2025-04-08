@@ -86,7 +86,7 @@
             </div>
 
          </div>
-         <div class="recently-container mb-3">
+         <div class="recently-container mb-3" v-if="currentSeen.length > 0">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('RECENTLY_VIEWED') }}</h2>
                <a href="#" class="view-all">{{ $t('VIEW_All') }}</a>
@@ -95,101 +95,38 @@
 
             <div class="recently-carousel">
                <!-- Tour Card 1 -->
-               <div class="tour-card">
-                  <img src="../assets/images/anh-1.png" alt="Inter Sweet Love" class="tour-image">
+               <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-for="product in currentSeen">
+                  <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
                   <div class="tour-content">
-                     <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
+                     <h3 class="tour-title">{{ product.title }}</h3>
                      <div class="tour-location tour-price">
                         <div>
                            <i class="fas fa-map-marker-alt location-dot"></i>
-                           <span class="dia-diem">Ha Noi</span>
-                           <span class="tour-booked">40 Booked</span>
+                           <span class="dia-diem">{{product.zoneName}}</span>
+                           <span class="tour-booked">{{product.totalSale}} Booked</span>
                         </div>
                         <div class="rating">
                            <i class="fas fa-star"></i>
-                           <span class="rating-value">4.5</span>
+                           <span class="rating-value">{{ product.rate }}</span>
                         </div>
                      </div>
                      <div class="tour-price">
                         <div>
                            <span class="price-text">From</span>
-                           <span class="price-value">~ USD 34</span>
+                           <span class="price-value">VND {{product.price.toLocaleString()}}</span>
                         </div>
 
                      </div>
-                     <div class="bieu-tuong-gg">
+                     <!-- <div class="bieu-tuong-gg">
 
                         <div class="flight-icon">
                            -50%
                         </div>
-                     </div>
+                     </div> -->
                   </div>
-               </div>
+               </RouterLink>
 
-               <!-- Tour Card 2 -->
-               <div class="tour-card">
-                  <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
-                  <div class="tour-content">
-                     <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                     <div class="tour-location tour-price">
-                        <div>
-                           <i class="fas fa-map-marker-alt location-dot"></i>
-                           <span class="dia-diem">Ha Noi</span>
-                           <span class="tour-booked">40 Booked</span>
-                        </div>
-                        <div class="rating">
-                           <i class="fas fa-star"></i>
-                           <span class="rating-value">4.5</span>
-                        </div>
-                     </div>
-                     <div class="tour-price">
-                        <div>
-                           <span class="price-text">From</span>
-                           <span class="price-value">~ USD 34</span>
-                        </div>
-
-                     </div>
-                     <div class="bieu-tuong">
-
-                        <div class="flight-icon">
-                           <img src="../assets/images/airplane.png" />
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-               <div class="tour-card">
-                  <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
-                  <div class="tour-content">
-                     <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                     <div class="tour-location tour-price">
-                        <div>
-                           <i class="fas fa-map-marker-alt location-dot"></i>
-                           <span class="dia-diem">Ha Noi</span>
-                           <span class="tour-booked">40 Booked</span>
-                        </div>
-                        <div class="rating">
-                           <i class="fas fa-star"></i>
-                           <span class="rating-value">4.5</span>
-                        </div>
-                     </div>
-                     <div class="tour-price">
-                        <div>
-                           <span class="price-text">From</span>
-                           <span class="price-value">~ USD 34</span>
-                        </div>
-
-                     </div>
-                     <div class="bieu-tuong">
-
-                        <div class="flight-icon">
-                           <img src="../assets/images/airplane.png" />
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-
+               
             </div>
          </div>
          <div class="container-destination">
@@ -226,44 +163,6 @@
                </div>
             </div>
          </div>
-
-
-         <!-- <div class="container-joytime">
-            <div class="recently-header">
-               <h2 class="promo-title">Travel with Joytime</h2>
-               <a href="#" class="view-all">View All</a>
-
-            </div>
-            <div class="card-joytime">
-               <img src="../assets/images/6.png" alt="Ha Noi" class="image-joytime">
-               <div class="content-joytime">
-                  <div class="location-joytime">
-                     <div class="location-icon-joytime">
-                        <i class="fas fa-map-marker-alt" style="color: #888;"></i>
-                     </div>
-                     <span class="location-name-joytime">Ha Noi</span>
-                  </div>
-                  <h3 class="journey-title-joytime">Ha Noi: A Journey Along t...</h3>
-                  <p class="journey-description-joytime">Hue, one of Vietnam's most ancient and poetic cities, is ren
-                  </p>
-               </div>
-            </div>
-
-            <div class="card-joytime">
-               <img src="../assets/images/7.png" alt="Hue" class="image-joytime">
-               <div class="content-joytime">
-                  <div class="location-joytime">
-                     <div class="location-icon-joytime">
-                        <i class="fas fa-map-marker-alt" style="color: #888;"></i>
-                     </div>
-                     <span class="location-name-joytime">Hue</span>
-                  </div>
-                  <h3 class="journey-title-joytime">Hue: A Journey Along the...</h3>
-                  <p class="journey-description-joytime">Hue, one of Vietnam's most ancient and poetic cities, is ren...
-                  </p>
-               </div>
-            </div>
-         </div> -->
          <Footer></Footer>
 
          <div class="floating-icons">
@@ -326,7 +225,7 @@ const handleSearch = () => {
       query: searchTerm.value ? { q: searchTerm.value } : {}
    })
 }
-localStorage.setItem('seen', JSON.stringify([946, 3886, 479, 623, 929, 562, 784, 1136, 4066, 2580, 1175, 531, 2370]));
+
 const topTrends = ref([])
 const services = ref([])
 const promotions = ref([])
