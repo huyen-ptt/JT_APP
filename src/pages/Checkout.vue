@@ -1,12 +1,13 @@
 <template>
     <div>
         <HeaderTitle :title="$t('checkcart')"></HeaderTitle>
-       
+
         <div class="card">
             <Accordion value="0">
                 <AccordionPanel class="mb-3" value="0">
                     <AccordionHeader>
-                        <div class="promo-title pb-1">Payment Summary</div>
+                        <div class="promo-title pb-1">{{ $t('payment_summary') }}
+                        </div>
                     </AccordionHeader>
                     <AccordionContent>
                         <div class="container py-2">
@@ -31,12 +32,13 @@
                                             </div>
                                             <div v-else>
                                                 <div class="price-info" v-if="pay.numberOfAldut > 0">
-                                                    <span class="ad">Adults x {{ pay.numberOfAldut }}</span>
+                                                    <span class="ad">{{ $t('Adult') }} x {{ pay.numberOfAldut }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfAldut *
                                                         pay.combination.priceEachNguoiLon).toLocaleString() }}</span>
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
-                                                    <span class="ad">Child x {{ pay.numberOfChildrend }}</span>
+                                                    <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
+                                                        }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -56,11 +58,11 @@
 
                                     <!-- Promotion Section -->
                                     <div class="promotion-section  border-top pt-3">
-                                        <h3 class="promo-title pb-3">Promotion</h3>
+                                        <h3 class="promo-title pb-3">{{ $t('promotion') }}</h3>
                                         <div class="promo-input-group">
                                             <input type="text" class="promo-input input-login"
                                                 placeholder="Enter promo code">
-                                            <button class="use-code-btn">Use Code</button>
+                                            <button class="use-code-btn">{{ $t('use_code') }}</button>
                                         </div>
                                     </div>
                                     <!-- <FastTrack /> -->
@@ -71,9 +73,8 @@
                                                     <h3 class="promo-title pb-1">{{ noteGroup.zoneParentName }}<span
                                                             class="text-danger"> *</span>
                                                     </h3>
-                                                    <p class="results-count-product">Please provide your desired service
-                                                        details<br> to
-                                                        confirm payment for your order</p>
+                                                    <p class="results-count-product">{{ $t('please_provide') }}<br> {{
+                                                        $t('to_confirm_payment') }}</p>
                                                 </div>
                                             </AccordionHeader>
                                             <AccordionContent class="p-0 servies-det">
@@ -103,7 +104,7 @@
 
                                 </div>
                                 <div class="order-total border-top">
-                                    <span class="total-label">Order Total</span>
+                                    <span class="total-label">{{ $t('order_total') }}</span>
                                     <span class="total-amount">VND {{ ((pay.numberOfAldut *
                                         pay.combination.priceEachNguoiLon) + (pay.numberOfChildrend *
                                             pay.combination.priceEachTreEm)).toLocaleString() }}</span>
@@ -115,10 +116,9 @@
                 <AccordionPanel class="mb-3" value="1">
                     <AccordionHeader>
                         <div>
-                            <div class="promo-title pb-1">Customer Infomation</div>
-                            <div class="results-count-product">Please provide your desired service
-                                details<br> to
-                                confirm payment for your order</div>
+                            <div class="promo-title pb-1">{{ $t('customer_info') }}</div>
+                            <div class="results-count-product">{{ $t('please_provide_service') }}<br> {{
+                                $t('confirm_payment') }}</div>
                         </div>
                     </AccordionHeader>
                     <AccordionContent>
@@ -127,20 +127,20 @@
                             <div class="row mb-3">
                                 <div class="col-6">
                                     <label class="form-label">
-                                        First Name<span class="required-mark">*</span>
+                                        {{ $t('first_name') }}<span class="required-mark">*</span>
                                     </label>
                                     <input type="text" v-model="auth.firstName" class="form-control"
-                                        placeholder="Your First Name">
+                                        :placeholder="$t('your_first_name')">
                                     <div class="error-message" v-if="triggerValidateAuth && auth.firstName == ''">
                                         <small>{{ $t('ERRPR_MISSING_AUTH_FIRSTNAME') }}</small>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label class="form-label">
-                                        Family Name<span class="required-mark">*</span>
+                                        {{ $t('family_name') }}<span class="required-mark">*</span>
                                     </label>
                                     <input type="text" v-model="auth.lastName" class="form-control"
-                                        placeholder="Your Family Name">
+                                        :placeholder="$t('your_family_name')">
                                     <div class="error-message" v-if="triggerValidateAuth && auth.lastName == ''">
                                         <small>{{ $t('ERRPR_MISSING_AUTH_LASTNAME') }}</small>
                                     </div>
@@ -150,12 +150,12 @@
                             <!-- Nationality -->
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Nationality<span class="required-mark">*</span>
+                                    {{ $t('nationality') }}<span class="required-mark">*</span>
                                 </label>
                                 <Select v-model="auth.country" :options="countries" id="country_1" optionLabel="name"
-                                    optionValue="code" :placeholder="$t('NATIONALITY')" filter
-                                    :filterPlaceholder="$t('NATIONALITY')" class="form-select"
-                                    :emptyFilterMessage="$t('NO_RESULTS_FOUND')"></Select>
+                                    optionValue="code" :placeholder="$t('nationality')" filter
+                                    :filterPlaceholder="$t('nationality')" class="form-select"
+                                    :emptyFilterMessage="$t('no_results_found')"></Select>
                                 <div class="error-message" v-if="triggerValidateAuth && auth.country == ''">
                                     <small>{{ $t('ERRPR_MISSING_AUTH_COUNTRY') }}</small>
                                 </div>
@@ -164,23 +164,23 @@
                             <!-- Email -->
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Email<span class="required-mark">*</span>
+                                    {{ $t('email') }}<span class="required-mark">*</span>
                                 </label>
                                 <input type="email" v-model="auth.email" class="form-control"
-                                    placeholder="Your email address">
+                                :placeholder="$t('your_email')">
                                 <div class="error-message"
                                     v-if="triggerValidateAuth && (!auth.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(auth.email))">
                                     <small>{{ $t('ERRPR_MISSING_AUTH_EMAIL') }}</small>
                                 </div>
                             </div>
-
+                            <!-- hết -->
                             <!-- Phone Number -->
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Phone number<span class="required-mark">*</span>
+                                    {{ $t('phone_number') }}<span class="required-mark">*</span>
                                 </label>
                                 <input type="tel" v-model="auth.phoneNumber" class="form-control col-7"
-                                    placeholder="Enter your phone number">
+                                :placeholder="$t('enter_your_phone_number')">
                                 <div class="error-message"
                                     v-if="triggerValidateAuth && (!auth.phoneNumber || !/^(\+?\d{9,15})$/.test(auth.phoneNumber))">
                                     <small>{{ $t('ERRPR_MISSING_AUTH_PHONENO') }}</small>
@@ -189,36 +189,36 @@
 
                             <!-- Stay in touch -->
                             <div class="mb-3">
-                                <label class="price-value">Stay in touch</label>
-                                <p class="text-muted small mb-2">Will you use a different phone number when traveling?
+                                <label class="price-value">{{ $t('stay_in_touch') }}</label>
+                                <p class="text-muted small mb-2">{{ $t('different_phone_number') }}
                                 </p>
                                 <div class="radio-group">
                                     <label class="radio-button active">
                                         <input type="radio" name="stayInTouch" value="Yes"
                                             v-model="orderNote.useDiffrenceNumber">
-                                        Yes
+                                            {{ $t('yes') }}
                                     </label>
                                     <label class="radio-button">
                                         <input type="radio" name="stayInTouch" value="No"
                                             v-model="orderNote.useDiffrenceNumber">
-                                        No
+                                            {{ $t('no') }}
                                     </label>
                                 </div>
                             </div>
 
                             <!-- OTT App -->
                             <div class="mb-3">
-                                <label class="form-label">Which App can we contact you through?</label>
+                                <label class="form-label">{{ $t('contact_through_app') }}</label>
                                 <select class="form-select" v-model="orderNote.useAppContact">
-                                    <option disabled>OTT App</option>
+                                    <option disabled>{{ $t('ott_app') }}</option>
                                     <option v-for="app in ottApps" :value="app">{{ app }}</option>
                                 </select>
                             </div>
 
                             <!-- Account Name -->
                             <div class="mb-3">
-                                <label class="form-label">Account name on the OTT App</label>
-                                <input type="text" class="form-control" placeholder="Your account name"
+                                <label class="form-label">{{ $t('account_name_ott_app') }}</label>
+                                <input type="text" class="form-control" :placeholder="$t('your_account_name')"
                                     v-model="orderNote.useAppContactValue">
                             </div>
                         </form>
@@ -226,6 +226,8 @@
                 </AccordionPanel>
 
             </Accordion>
+                <!-- Dịch i18n đến đoạn này rồi -->
+
             <div class="rounded shadow-sm">
                 <!-- Note Section -->
                 <div class="mb-4  p-3 bg-white">

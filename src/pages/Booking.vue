@@ -123,7 +123,7 @@
                     <!-- Guest Selection - Đã chuyển thành dropdown -->
                     <div class="section-item-booking">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="section-title-booking">Guest</div>
+                            <div class="section-title-booking">{{ $t('Guest') }}</div>
                             <a href="#" class="add-btn-booking" @click.prevent="toggleGuestDropdown(index)">
                                 Add Guest
                             </a>
@@ -132,8 +132,8 @@
                             @click="toggleGuestDropdown(index)">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <div v-if="ticket.guests.adult > 0">Adult: {{ ticket.guests.adult }}</div>
-                                    <div v-if="ticket.guests.child > 0">Child: {{ ticket.guests.child }}</div>
+                                    <div v-if="ticket.guests.adult > 0">{{ $t('Adult') }}: {{ ticket.guests.adult }}</div>
+                                    <div v-if="ticket.guests.child > 0">{{ $t('Child') }}: {{ ticket.guests.child }}</div>
                                 </div>
                                 <i class="fas fa-chevron-down"></i>
                             </div>
@@ -149,7 +149,7 @@
                                         <div
                                             class="price-item-so-luong d-flex justify-content-between align-items-center">
                                             <div>
-                                                <div class="price-label-so-luong">Adult</div>
+                                                <div class="price-label-so-luong">{{ $t('Adult') }}</div>
                                                 <div class="price-amount-so-luong">VND 320,000</div>
                                                 <div class="price-text">~USD 41.2/Unit</div>
                                             </div>
@@ -168,7 +168,7 @@
                                         <div
                                             class="price-item-so-luong d-flex justify-content-between align-items-center">
                                             <div>
-                                                <div class="price-label-so-luong">Child</div>
+                                                <div class="price-label-so-luong">{{ $t('Child') }}</div>
                                                 <div class="price-amount-so-luong">VND 320,000</div>
                                                 <div class="price-text">~USD 27.2/Unit</div>
                                             </div>
@@ -220,7 +220,7 @@
         <div class="app-footer-booking">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <div class="packages-count-booking">{{ selectedCount }} packages</div>
+                    <div class="packages-count-booking">{{ selectedCount }} {{ $t('PACKAGES') }}</div>
                     <div class="total-price-booking">USD {{ totalPrice }}</div>
                     <div class="packages-count-booking">~ USD 24</div>
 
@@ -229,7 +229,7 @@
                     <div class="cart-icon-booking">
                         <img src="../assets/images/shopping-cong.png">
                     </div>
-                    <button class="buy-btn-booking px-4" @click="buyNow">Buy Now ({{ selectedCount }})</button>
+                    <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{ selectedCount }})</button>
                 </div>
             </div>
         </div>

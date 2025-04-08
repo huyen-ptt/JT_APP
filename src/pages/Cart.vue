@@ -6,7 +6,7 @@
         <div class="body-cart">
             <div class="select-all-container d-flex align-items-center">
                 <input type="checkbox" class="custom-checkbox form-check-input" id="selectAll">
-                <label class="select-all-text mb-0" for="selectAll">SELECT ALL</label>
+                <label class="select-all-text mb-0" for="selectAll">{{ $t('select_all') }}</label>
             </div>
             <div class="p-3">
                 <div class="d-flex justify-content-center align-items-center">
@@ -345,7 +345,7 @@
             <div class="d-flex">
 
                 <router-link to="/checkout"> <button class="search-button" id="search">
-                        Completed Order
+                    {{ $t('completed_order') }}
                     </button></router-link>
             </div>
         </div>

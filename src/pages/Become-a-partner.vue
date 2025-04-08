@@ -8,7 +8,7 @@
                 {{ $t('achieve_enduring_values') }}<br>
                 {{ $t('email_us_at') }}
             </h1>
-            <a class="text-center select-all-text d-block" href="mailto:partner@joytime.vn">partner@joytime.vn</a>
+            <a class="text-center select-all-text d-block" href="mailto:partner@joytime.vn"> {{ $t('COLLABORATE_EMAIL') }}</a>
         </div>
         <div class="form-baow m-3">
             <div class="container-be py-4">

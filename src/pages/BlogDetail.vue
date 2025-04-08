@@ -40,8 +40,8 @@
             </div>
             <div class="detail-blog p-3">
                 <div class="recently-header">
-                    <h2 class="promo-title">Related Blog</h2>
-                    <a href="#" class="view-all">View All</a>
+                    <h2 class="promo-title">{{ $t('related_blog') }}</h2>
+                    <a href="#" class="view-all"> {{ $t('VIEW_All') }}</a>
 
                 </div>
                 <div class="news-card-blogg">
