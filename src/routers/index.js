@@ -167,7 +167,7 @@ const routes = [
         component: MyOrder,
     },
     {
-        path: "/orderdetail",
+        path: "/orderdetail/:id/:code",
         name: "OrderDetail",  
         component: OrderDetail,
     },

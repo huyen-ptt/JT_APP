@@ -1,75 +1,97 @@
 <template>
     <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
 
-    <div class="container-order-detail m-3">
+    <div class="container-order-detail m-3" v-if="orderItemDetail">
         <div>
 
 
             <div class="card-order-detail border mb-3">
                 <div class="card-header-order-detail">
-                    <span class="title145">Order Status</span>
-                    <span class="status-badge-order-detail">Newly created</span>
+                    <span class="title145">{{ $t('Order_Status_ORD') }}</span>
+                    <span class="status-badge-order-detail" :style="{
+                        backgroundColor: helper.setStyleOrderStatus(orderItemDetail.activeStatus).bgColor,
+                        border: '1px solid ' + helper.setStyleOrderStatus(orderItemDetail.activeStatus).borderColor,
+                        color: helper.setStyleOrderStatus(orderItemDetail.activeStatus).textColor,
+                    }">
+                        {{ $t(orderItemDetail.activeStatus) }}
+                    </span>
                 </div>
+
                 <div class="order-info-order-detail px-3 py-3">
-                    <div class="title145">Order ID<b> #JT_21677</b> </div>
-                    <div class="order-date-order-detail">Order Date: 20/02/2025 09:31</div>
+                    <div class="title145">{{ $t('Order_ID_ORD') }} <b>#{{ orderItemDetail.orderCode }}</b></div>
+                    <div class="order-date-order-detail">{{ $t('Order_Date_ORD') }}: {{
+                        helper.formatISODate(orderItemDetail.createdDate) }}</div>
 
                     <div class="customer-info-order-detail">
                         <div class="info-row-order-detail">
-                            <div class="info-label-order-detail">Requestor</div>
-                            <div class="info-value-order-detail">Jhung Minh</div>
+                            <div class="info-label-order-detail">{{ $t('Requestor_ORD') }}</div>
+                            <div class="info-value-order-detail">{{ orderItemDetail.fullName }}</div>
                         </div>
                         <div class="info-row-order-detail">
-                            <div class="info-label-order-detail">Email</div>
-                            <div class="info-value-order-detail">Minh24197@gmail.com</div>
+                            <div class="info-label-order-detail">{{ $t('Email_ORD') }}</div>
+                            <div class="info-value-order-detail">{{ orderItemDetail.email }}</div>
                         </div>
                         <div class="info-row-order-detail">
-                            <div class="info-label-order-detail">Phone number</div>
-                            <div class="info-value-order-detail">0345348096</div>
+                            <div class="info-label-order-detail">{{ $t('Phone_Number_ORD') }}</div>
+                            <div class="info-value-order-detail">{{ orderItemDetail.phoneNumber }}</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="px-3 py-3">
                     <button class="action-button-order-detail mb-2">
-                        <img class="pe-2" src="../assets/images/document-download.png" /> Download E-Ticket
+                        <img class="pe-2" src="../assets/images/document-download.png" />
+                        {{ $t('Download_ETicket_ORD') }}
                     </button>
                     <button class="action-button-order-detail">
-                        <img class="pe-2" src="../assets/images/document-textt.png" /> Invoice Information
+                        <img class="pe-2" src="../assets/images/document-textt.png" />
+                        {{ $t('Invoice_Info_ORD') }}
                     </button>
                 </div>
             </div>
 
             <div class="card-order-detail border">
-                <div><img src="../assets/images/10.jpg" alt="Ninh Binh Tour" class="tour-image-order-detail px-1 py-1">
+                <div>
+                    <img :src="helper.getImageCMS(orderItemDetail.productParentAvatar)" alt="Tour"
+                        class="tour-image-order-detail px-3 py-3">
                 </div>
                 <div class="tour-info-order-detail px-3">
                     <div class="border-bottom">
-                        <div class="service-time-order-detail">Service time: 25/2/2025</div>
-                        <div class="tour-title-order-detail">Day tour | Explore Ninh Binh departing Experience cycling
-                            Bai Dinh</div>
-                        <div class="tour-description-order-detail">Day tour in Ninh Binh | Experience
-                            cycling Bai Dinh -
-                            Trang
-                            An</div>
+                        <div class="service-time-order-detail">{{ $t('Service_Time_ORD') }}: {{
+                            helper.formatISODate(orderItemDetail.pickingDate) }}</div>
+                        <div class="tour-title-order-detail">{{ orderItemDetail.productParentTitle }}</div>
+                        <div class="tour-description-order-detail">{{ orderItemDetail.productChildTitle }}</div>
                     </div>
 
                     <div class="tour-details-order-detail">
                         <div class="detail-row-order-detail d-flex mb-2" style="justify-content: space-between;">
-                            <div class="tour-description-order-detail m-0">Option</div>
-                            <div class="detail-value-order-detail">Limousine car</div>
+                            <div class="tour-description-order-detail m-0">{{ $t('Options_ORD') }}</div>
+                            <div class="detail-value-order-detail">
+                                <ul>
+                                    <li v-for="option in orderItemDetail.metaData.currentPickOption">{{
+                                        option.pickItemName }}</li>
+                                </ul>
+                            </div>
                         </div>
+
                         <div class="detail-row-order-detail d-flex" style="justify-content: space-between;">
-                            <div class="tour-description-order-detail">Quantity</div>
-                            <div class="detail-value-order-detail">Adult x2 | Children x1</div>
+                            <div class="tour-description-order-detail">{{ $t('Quantity_ORD') }}</div>
+                            <div class="detail-value-order-detail">
+                                <span>{{ orderItemDetail.unit ? orderItemDetail.unit : $t('ALDUT') }} x {{
+                                    orderItemDetail.metaData.numberOfAldut }}</span>
+                                <span v-if="orderItemDetail.metaData.numberOfChildrend > 0"> |
+                                    {{ $t('CHILDREND') }} x {{ orderItemDetail.metaData.numberOfChildrend }}</span>
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
+
                 <div class="detail-row-order-detail1 mt-3 ">
-                    <div class="tour-description-order-detail total-amount-order-detail">Total amount</div>
-                    <div class="detail-value-order-detail amount-value-order-detail">VND 860,000</div>
+                    <div class="tour-description-order-detail total-amount-order-detail">{{ $t('Total_Amount_ORD') }}
+                    </div>
+                    <div class="detail-value-order-detail amount-value-order-detail">
+                        VND {{ orderItemDetail.metaData.totalPrice.toLocaleString() }}
+                    </div>
                 </div>
             </div>
             <div className="container-fluid p-0">
@@ -78,86 +100,129 @@
                         <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                             data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
                             aria-selected="true">
-                            Policy
+                            {{ $t("Policy_ORDTAB") }}
                         </button>
                     </li>
                     <li className="nav-item" role="presentation">
                         <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
                             data-bs-target="#description" type="button" role="tab" aria-controls="description"
                             aria-selected="false">
-                            Note
+                            {{ $t("Note_ORDTAB") }}
                         </button>
                     </li>
-
                 </ul>
 
                 <div className="tab-content custom-tab-content my-r" id="productTabsContent">
                     <div className="tab-pane fade show active" id="product-detail" role="tabpanel"
                         aria-labelledby="product-detail-tab">
-                        <div className="tab-pane fade show active" id="product-detail" role="tabpanel"
-                            aria-labelledby="product-detail-tab">
-                            <p className="mb-3 custom-paragraph mt-3">
-                                Conquer the highest peak in Vietnam effortlessly on an unforgettable cable car journey.
-                            </p>
-                            <p className="mb-3 custom-paragraph">
-                                Enjoy the breathtaking scenery of Sapa's terraced rice fields and the pristine natural
-                                landscape
-                                of
-                                Fansipan.
-                            </p>
-                            <p className="mb-3 custom-paragraph">
-                                Admire the majestic scenery of numerous temples and different spiritual landmarks from
-                                the main
-                                peak. Pay
-                                homage to the Spiritual Cultural Complex with its 12 impressive architectural
-                                structures.
-                            </p>
-                            <p className="mb-3 custom-paragraph">
-                                Especially, the Great Amitabha Buddha statue holds the record for being located at the
-                                highest
-                                altitude in
-                                Asia, where the sacred Buddha relics are preserved.
-                            </p>
-                        </div>
+                        <div v-for="note in orderItemDetail.productParentThuTucVisa" v-html="note.noiDung"></div>
                     </div>
                     <div className="tab-pane fade p-3" id="description" role="tabpanel"
                         aria-labelledby="description-tab">
-                        <p className="mb-3 custom-paragraph">
-                            Enjoy the breathtaking scenery of Sapa's terraced rice fields and the pristine natural
-                            landscape
-                            of
-                            Fansipan.
-                        </p>
-                        <p className="mb-3 custom-paragraph">
-                            Admire the majestic scenery of numerous temples and different spiritual landmarks from the
-                            main
-                            peak. Pay
-                            homage to the Spiritual Cultural Complex with its 12 impressive architectural structures.
-                        </p>
-                        <p className="mb-3 custom-paragraph">
-                            Especially, the Great Amitabha Buddha statue holds the record for being located at the
-                            highest
-                            altitude in
-                            Asia, where the sacred Buddha relics are preserved.
-                        </p>
+                        <div v-for="note in orderItemDetail.productThongTinTour" v-html="note.noiDung"></div>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="bottom-menu menu-search bo-goc gap-3">
-            <router-link to="" class="btn-search cancle"> <button class="search-button btn-search" id="search">
-                    Cancel Order
-                </button></router-link>
-            <router-link to="" class="btn-search "> <button class="search-button btn-search" id="search">
-                    Contact Support
-                </button></router-link>
+            <router-link to="" class="btn-search cancle">
+                <button class="search-button btn-search" id="search">
+                    {{ $t("Cancel_Order_ORD") }}
+                </button>
+            </router-link>
+            <router-link to="" class="btn-search">
+                <button class="search-button btn-search" id="search">
+                    {{ $t("Contact_Support_ORD") }}
+                </button>
+            </router-link>
         </div>
+
     </div>
 </template>
 <script setup>
-import HeaderTitle from '../components/HeaderTitle.vue'; 
+import { ref, onBeforeMount, onMounted, computed } from "vue";
+import { useI18n } from 'vue-i18n'
+
+import { RouterLink, useRouter, useRoute } from 'vue-router'
+import HeaderTitle from '../components/HeaderTitle.vue';
+import MyOrderItemComponent from "../components/MyOrderItemComponent.vue";
+import { useAuthStore } from '../stores/authStore';
+
+import { useUser } from '../composables/user';
+import { useHelper } from "../composables/helper";
+import axios from "axios";
+const userComposable = useUser();
+const helper = useHelper()
+const authStore = useAuthStore()
+const auth = computed(() => authStore.auth);
+const router = useRouter()
+const route = useRoute();
+
+const orderItemDetail = ref(null);
+
+const _id = computed(() => route.params?.id);
+const _orderCode = computed(() => route.params?.code);
+const validated = ref(false);
+
+const checkOrderByEmail = async () => {
+    if (auth.value) {
+        const data = {
+            customerEmail: auth.value.email,
+            orderDetailId: parseInt(_id.value)
+        }
+        const response = await userComposable.checkOrderByEmail(data);
+        if (response) {
+            if (response.data.isAuthendicated) {
+                validated.value = true;
+                await getOrderItemFullDetail();
+            }
+        }
+    }
+
+}
+
+const getOrderItemFullDetail = async () => {
+    if (auth.value) {
+        if (_id.value && _orderCode.value) {
+            const data = {
+                customerId: auth.value.id,
+                orderCode: _orderCode.value,
+                orderDetailId: _id.value
+            }
+            try {
+                const response = await userComposable.getOrderItemFullDetail(data)
+                if (response.data) {
+
+                    orderItemDetail.value = response.data;
+                    if (orderItemDetail.value.metaData) {
+                        orderItemDetail.value.metaData = JSON.parse(orderItemDetail.value.metaData)
+                    }
+                    if (orderItemDetail.value.productParentThuTucVisa) {
+                        orderItemDetail.value.productParentThuTucVisa = JSON.parse(orderItemDetail.value.productParentThuTucVisa)
+                    }
+                    if (orderItemDetail.value.productThongTinTour) {
+                        orderItemDetail.value.productThongTinTour = JSON.parse(orderItemDetail.value.productThongTinTour)
+                    }
+                    console.log(orderItemDetail.value)
+                }
+            } catch (err) {
+
+            }
+        }
+
+
+
+    }
+
+
+}
+
+onMounted(async () => {
+    await checkOrderByEmail();
+})
+
 </script>
+
 <style scoped>
 .search-button {
     padding: 14px 24px;

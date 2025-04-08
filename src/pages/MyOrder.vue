@@ -7,26 +7,26 @@
                     <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                         data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
                         aria-selected="true">
-                        Newly created
+                        {{ $t('Tab_NewlyCreated_MyOrder') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
                         data-bs-target="#description" type="button" role="tab" aria-controls="description"
                         aria-selected="false">
-                        Ready
+                        {{ $t('Tab_Ready_MyOrder') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
                         data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
-                        Used
+                        {{ $t('Tab_Used_MyOrder') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="pending" data-bs-toggle="tab"
-                        data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
-                        Pending/Cancelled
+                        data-bs-target="#cancel" type="button" role="tab" aria-controls="terms" aria-selected="false">
+                        {{ $t('Tab_PendingCancelled_MyOrder') }}
                     </button>
                 </li>
             </ul>
@@ -34,320 +34,27 @@
             <div className="tab-content custom-tab-content list-orderrs" id="productTabsContent">
                 <div className="tab-pane fade show active p-3" id="product-detail" role="tabpanel"
                     aria-labelledby="product-detail-tab">
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/10.jpg" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in pendingOrder">
+                        <MyOrderItemComponent :order="order"></MyOrderItemComponent>
                     </div>
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
 
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/8.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
-                    </div>
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/2.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
-                    </div>
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
-                    </div>
                 </div>
                 <div className="tab-pane fade p-3" id="description" role="tabpanel" aria-labelledby="description-tab">
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/2.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
-                    </div>
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in onReadyOrder">
+                        <MyOrderItemComponent :order="order"></MyOrderItemComponent>
                     </div>
                 </div>
                 <div className="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab">
 
 
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in completeOrder">
+                        <MyOrderItemComponent :order="order"></MyOrderItemComponent>
                     </div>
                 </div>
-                <div className="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="pending">
+                <div className="tab-pane fade p-3" id="cancel" role="tabpanel" aria-labelledby="pending">
 
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/2.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
-                    </div>
-                    <div class="order-card-myorder position-relative mb-3">
-                        <div class="order-header-myorder">
-                            <div>
-                                <div class="title-1477">#JT_21677</div>
-                                <div class="results-count-product">Ordered on 20/02/2025</div>
-                            </div>
-                            <div class="date-box-myorder">
-                                <div>
-                                    <div class="service-text">Mar</div>
-                                    <div class="recently-title">16</div>
-                                </div>
-                            </div>
-                            <div class="chevron-myorder">›</div>
-
-                        </div>
-
-                        <div class="order-details-myorder">
-                            <img src="../assets/images/7.png" alt="Ninh Binh tour" class="tour-image-myorder">
-                            <div class="tour-info-myorder">
-                                <div class="tour-title-myorder">Day tour | Explore Ninh Binh Experience cycling Bai
-                                </div>
-                                <div class="tour-description-myorder">Day tour in Ninh Binh | Experience cycling Bai
-                                    Dinh - Day tour | Explore Ninh Binh</div>
-                            </div>
-                        </div>
-
-                        <div class="order-footer-myorder">
-                            <div class="total-amount-myorder">
-                                <div class="amount-label-myorder">Total amount</div>
-                                <div class="price-myorder">VND 1,200,000</div>
-                            </div>
-                            <button class="support-button-myorder">Contact support</button>
-                        </div>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in cancelOrder">
+                        <MyOrderItemComponent :order="order"></MyOrderItemComponent>
                     </div>
                 </div>
             </div>
@@ -357,8 +64,80 @@
     </div>
 </template>
 <script setup>
+import { ref, onBeforeMount, onMounted, computed } from "vue";
+import { useI18n } from 'vue-i18n'
+
+import { RouterLink, useRouter } from 'vue-router'
 import HeaderTitle from '../components/HeaderTitle.vue';
-import Footer from "@/components/Footer.vue";
+import MyOrderItemComponent from "../components/MyOrderItemComponent.vue";
+import { useAuthStore } from '../stores/authStore';
+
+import { useUser } from '../composables/user';
+import { useHelper } from "../composables/helper";
+const userComposable = useUser();
+const helper = useHelper()
+const authStore = useAuthStore()
+const auth = computed(() => authStore.auth);
+
+
+
+
+
+const router = useRouter()
+
+const allOrders = ref([])
+const pendingOrder = ref([])
+const onReadyOrder = ref([])
+const completeOrder = ref([])
+const cancelOrder = ref([])
+
+const onGetAllOrders = async () => {
+    ///api/Auth/GetOrdersByCustomerId
+    ////console.log(currentAuth.value)
+    if (auth.value) {
+        const data = {
+            customerId: auth.value.id,
+        }
+        try {
+            const response = await userComposable.onGetAllOrders(data);
+            if (response.data) {
+                console.log(response.data)
+                ////console.log(response.data.value)
+                allOrders.value = response.data;
+                allOrders.value.forEach(element => {
+                    element.metaData = JSON.parse(element.metaData)
+                    if (element.activeStatus == "TAO_MOI") {
+                        pendingOrder.value.push(element)
+                    }
+                    if (element.activeStatus == "CHAP_NHAN_DICH_VU") {
+                        onReadyOrder.value.push(element)
+                    }
+                    if (element.activeStatus == "DA_SU_DUNG_DICH_VU") {
+                        completeOrder.value.push(element)
+                    }
+                    if (element.activeStatus == "TU_CHOI_DICH_VU" || "YEU_CAU_HUY" == element.activeStatus || "DA_HUY" == element.activeStatus) {
+                        cancelOrder.value.push(element)
+                    }
+                    element.isHaveNewMessage = false;
+                })
+
+
+                console.log(pendingOrder.value, onReadyOrder.value, completeOrder.value, cancelOrder.value);
+            }
+        } catch (err) {
+
+        }
+    }
+
+}
+
+
+onMounted(async () => {
+    await onGetAllOrders();
+})
+
+
+
 
 </script>
 <style scoped>

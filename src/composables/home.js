@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useI18n } from 'vue-i18n';
-import { useSeenStore } from '@/stores/seenStore'; 
+import { useSeenStore } from "../stores/seenStore";
+// import { useSeenStore } from '@/stores/seenStore'; 
 import { computed } from 'vue';
 import { useRoute } from 'vue-router'
 
 export const useHome = () => {
   const route = useRoute();
   const uri = import.meta.env.VITE_API_URI;
+  const seenStore = useSeenStore();
+  const currentSeen = computed(() => seenStore.seen);
   let _cultureCode = '';
 
   const { locale } = useI18n();
@@ -285,13 +288,12 @@ export const useHome = () => {
   }
   const getProductsLastSeen = async () => {
     const url = `${uri}/api/PageHome/GetProductLastSeen`;
-    const seenStore = useSeenStore();
-    const currentSeen = computed(() => seenStore.seen);
+
     // console.log(currentSeen.value);
     if (currentSeen.value) {
       const data = {
         ids: currentSeen.value,
-        languageCode: _cultureCode
+        cultureCode: _cultureCode
       }
       try {
         const response = await axios.post(url, data)

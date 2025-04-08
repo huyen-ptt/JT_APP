@@ -140,7 +140,7 @@
         </div>
         <div class="bottom-menu menu-search">
             <router-link class="btn-search"> <button class="search-button btn-search" id="search">
-                    Collect
+                {{ $t('Button_Collect_Promotion') }}
                 </button></router-link>
         </div>
     </div>

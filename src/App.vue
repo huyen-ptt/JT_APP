@@ -1,5 +1,8 @@
 <template>
-  <router-view/>
+  <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
+  
 </template>
 <script scope>
 import { StatusBar } from '@capacitor/status-bar';
@@ -16,30 +19,17 @@ import axios from 'axios';
 const router = useRouter(); // chỉ nếu dùng trong setup()
 
 
-CapacitorApp.addListener('appUrlOpen', async (data) => {
-  try {
-    const url = new URL(data.url); // ví dụ: joytime://payment-result?vpc_Message=Success&...
-    
-    if (url.host === 'payment-result') {
-      const params = {};
-      for (const [key, value] of url.searchParams.entries()) {
-        params[key] = value;
-      }
-
-      const orderInfo = params.vpc_OrderInfo;
-
-      const res = await axios.get(`https://stagingapi.joytime.vn/api/PageOrder/ResultPaymentOnePayApp/en/${orderInfo}`, {
-        params
-      });
-
-      console.log('✅ Thanh toán thành công:', res.data);
-
-      // Chuyển sang trang hiển thị kết quả
-      router.push({ name: 'PaymentResult', query: params });
-    }
-  } catch (err) {
-    console.error('❌ Lỗi xử lý thanh toán:', err);
-  }
-});
 
 </script>
+
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

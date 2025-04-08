@@ -1,27 +1,38 @@
 <template>
     <div class="forgot-password-container">
-      
-        <HeaderTitle :title="$t('Checking_Your_Order')"></HeaderTitle>
+    <HeaderTitle :title="$t('Checking_Your_Order')"></HeaderTitle>
 
-        <div class="nd-checkout">
-            <div class="form-container">
-                <img class="d-flex icon-success pb-4" src="../assets/images/ss.png" />
-                <div class="icon-success text-center title-sl">Thank you for your order</div>
-                <div class=" icon-success text-center dia-chi-product  pb-4">Please check you email inbox for<br> more
-                    information</div>
-
-                <button type="submit" class="w-100 btn btn-lg btn-login">My order</button>
-
-
+    <div class="nd-checkout">
+        <div class="form-container">
+            <img class="d-flex icon-success pb-4" src="../assets/images/ss.png" />
+            <div class="icon-success text-center title-sl">{{ $t('Thank_You_For_Your_Order') }}</div>
+            <div class="icon-success text-center dia-chi-product pb-4">
+                {{ $t('Please_Check_Your_Email') }}
             </div>
+            <button type="button" class="w-100 btn btn-lg btn-login" @click="redirectMyOrder()">
+                {{ $t('My_Order') }}
+            </button>
         </div>
-        <!-- <NoOrder/> -->
     </div>
+</div>
 
 </template>
 <script setup>
 import NoOrder from '../components/NoOrder.vue'
+import { RouterLink, useRouter } from 'vue-router'
 import HeaderTitle from '../components/HeaderTitle.vue';
+const router = useRouter()
+
+const redirectMyOrder = () => {
+    router.push('/myorder')
+}
+
+
+
+
+
+
+
 
 </script>
 <style scoped>

@@ -43,7 +43,7 @@
                         <span class="min-label">{{ formatCurrency(budgetRange[0]) }}</span>
                         <span class="max-label">{{ formatCurrency(budgetRange[1]) }}</span>
                     </div>
-                </div>
+                </div>         
             </div>
         </div>
 

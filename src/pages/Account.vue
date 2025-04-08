@@ -6,43 +6,48 @@
 
         <!-- Profile Section -->
         <div class="px-3 mt-3 infomation-profile">
-            <div class="profile-card d-flex align-items-center">
+            <div class="profile-card d-flex align-items-center" v-if="auth.id > 0">
                 <div class="profile-img me-3">
                     <i class="fas fa-user text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 name">John Doe</h6>
-                    <small class="email-me">azure@gmail.com</small>
+                    <h6 class="mb-0 name">{{`${auth.firstName} ${auth.lastName}`}}</h6>
+                    <small class="email-me">{{auth.email}}</small>
+                </div>
+            </div>
+            <div v-else class="profile-card d-flex align-items-center">
+                <div>
+                    Plese <RouterLink :to="'/signin'">Login</RouterLink> or <RouterLink :to="'/signup'">Sign Up</RouterLink>
                 </div>
             </div>
 
             <!-- Order Section -->
-            <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="d-flex justify-content-between align-items-center mb-2" v-if="auth.id > 0">
                 <h6 class="m-0 promo-title">{{ $t('MY_ORDER_ACCOUNT') }}</h6>
-                <small class="news-link-blogg">{{ $t('VIEW_HISTORY_ACCOUNT') }}</small>
+                <small class="news-link-blogg" @click="onRedirectMyOrder()">{{ $t('VIEW_HISTORY_ACCOUNT') }}</small>
             </div>
 
-            <div class="order-card">
+            <div class="order-card" v-if="auth.id > 0">
                 <div class="order-icons">
-                    <div class="order-icon">
+                    <div class="order-icon" @click="onRedirectMyOrder()">
                         <div class="icon-circle">
                             <img src="../assets/images/Layer_1.png">
                         </div>
                         <span class="service-text">{{ $t('NEW_ACCOUNT') }}</span>
                     </div>
-                    <div class="order-icon">
+                    <div class="order-icon" @click="onRedirectMyOrder()">
                         <div class="icon-circle">
                             <img src="../assets/images/Vector.png">
                         </div>
                         <span class="service-text">{{ $t('READY_ACCOUNT') }}</span>
                     </div>
-                    <div class="order-icon">
+                    <div class="order-icon" @click="onRedirectMyOrder()">
                         <div class="icon-circle">
                             <img src="../assets/images/user.png">
                         </div>
                         <span class="service-text">{{ $t('USED_ACCOUNT') }}</span>
                     </div>
-                    <div class="order-icon">
+                    <div class="order-icon" @click="onRedirectMyOrder()">
                         <div class="icon-circle">
                             <img src="../assets/images/pendding.png">
                         </div>
@@ -54,7 +59,7 @@
             <!-- Settings Section -->
             <h6 class="promo-title pb-3">{{ $t('SETTING_ACCOUNT') }}</h6>
             <div class="settings-card">
-                <div class="settings-item">
+                <div class="settings-item" v-if="auth.id > 0">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/password-check.png" />
@@ -118,12 +123,12 @@
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </a>
-                <div class="about-item">
+                <div class="about-item" v-if="auth.id > 0">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </div>
-                        <span @click="visible = true" class="title145">{{ $t('LOGOUT_ACCOUNT') }}</span>
+                        <span @click="visible = true" class="title145" >{{ $t('LOGOUT_ACCOUNT') }}</span>
                         <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }" class="modal-logout1">
                             <div class="logout-dialog-logoutt">
                                 <div class="text-center back-icon-logoutt">
@@ -149,14 +154,34 @@
 
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import Footer from "@/components/Footer.vue"
 import HeaderTitle from '../components/HeaderTitle.vue';
 import Drawer from 'primevue/drawer';
-const visibleBottom = ref(false);
 import { RouterLink, useRouter } from 'vue-router'
 import Dialog from 'primevue/dialog';
+import { useAuthStore } from '../stores/authStore';
+import { useUser } from '../composables/user';
+import { useHelper } from "../composables/helper";
+const router = useRouter();
+
+const userComposable = useUser();
+const helper = useHelper()
+const authStore = useAuthStore()
+const auth = computed(() => authStore.auth);
+
 const visible = ref(false);
+const visibleBottom = ref(false);
+
+
+const onRedirectMyOrder = () => {
+    router.push('/myorder');
+}
+
+
+
+
+
 </script>
 <style scoped>
 .header {

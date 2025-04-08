@@ -4,12 +4,17 @@
         <div class="container">
             <div class="form-container">
                 <img class="d-flex icon-success pb-4" src="../assets/images/verify.png" />
-                <div class="icon-success text-center title-sl">Password Reset Email Sent</div>
-                <div class=" icon-success text-center dia-chi-product">Please check your email for password reset link.
+                <div class="icon-success text-center title-sl">
+                    {{ $t('Password_Reset_Email_Sent_SS') }}
                 </div>
-                <div class=" icon-success text-center dia-chi-product pb-4">This link is only valid for <b> 24 hours</b>
+                <div class="icon-success text-center dia-chi-product">
+                    {{ $t('Password_Reset_Check_Email_SS') }}
                 </div>
-                <button type="submit" class="w-100 btn btn-lg btn-login">Sign In</button>
+                <div class="icon-success text-center dia-chi-product pb-4" v-html="$t('Password_Reset_Valid_Time_SS')">
+                </div>
+                <button type="submit" class="w-100 btn btn-lg btn-login">
+                    {{ $t('Password_Reset_Sign_In_Button_SS') }}
+                </button>
             </div>
         </div>
     </div>

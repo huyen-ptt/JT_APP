@@ -1,8 +1,11 @@
 // import { format } from 'date-fns';
 import { format } from 'date-fns';
+import { useI18n } from 'vue-i18n'
 
 export const useHelper = () => {
   const uri = import.meta.env.VITE_IMAGE_BASE_URL;
+  const { locale, t } = useI18n();
+
   const _cultureCode = 'vi-VN';
 
   // const getImageCMS = (url) => {
@@ -53,6 +56,89 @@ export const useHelper = () => {
     }
     
   }
+
+  const formatDateToDateString = (date) => {
+    // Danh sách tháng tương ứng với i18n key
+    const monthNames = [
+      'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
+  
+    // Tách chuỗi ngày/tháng/năm
+    const [dayStr, monthStr, yearStr] = date.split('/');
+  
+    // Chuyển thành số nguyên
+    const day = parseInt(dayStr, 10);
+    const monthIndex = parseInt(monthStr, 10) - 1; // vì tháng trong JS là 0-11
+  
+    // Trả về object theo yêu cầu
+    return {
+      month: t(`${monthNames[monthIndex]}`),
+      day: day
+    };
+  };
+  
+  const setStyleOrderStatus = (orderStatus) => {
+    let result = {
+      bgColor: '',
+      borderColor: '',
+      textColor: ''
+    };
+  
+    switch (orderStatus) {
+      case 'TAO_MOI':
+        // Xanh da trời dịu
+        result = {
+          bgColor: '#e6f0fa',       // nền xanh dịu
+          borderColor: '#90c6f0',   // viền xanh nhạt
+          textColor: '#1976d2'      // chữ xanh đậm
+        };
+        break;
+  
+      case 'CHAP_NHAN_DICH_VU':
+        // Xanh lá cây dịu
+        result = {
+          bgColor: '#e7f6e9',
+          borderColor: '#9ddbb1',
+          textColor: '#388e3c'
+        };
+        break;
+  
+      case 'DA_SU_DUNG_DICH_VU':
+        // Cam dịu
+        result = {
+          bgColor: '#fff3e0',
+          borderColor: '#ffcc80',
+          textColor: '#ef6c00'
+        };
+        break;
+  
+      case 'TU_CHOI_DICH_VU':
+      case 'YEU_CAU_HUY':
+      case 'DA_HUY':
+        // Đỏ dịu
+        result = {
+          bgColor: '#fdecea',
+          borderColor: '#f5c6cb',
+          textColor: '#c62828'
+        };
+        break;
+  
+      default:
+        // Trạng thái không xác định
+        result = {
+          bgColor: '#f0f0f0',
+          borderColor: '#cccccc',
+          textColor: '#666666'
+        };
+        break;
+    }
+  
+    return result;
+  };
+
+  // Output: { month: "t('SEP')", day: 3 }
+  
   const getWeatherIcon = (weatherCode, isDay) => {
     const weatherArray = [
       {
@@ -226,5 +312,5 @@ export const useHelper = () => {
     return date.toLocaleDateString('en-CA', options); // 'en-CA' để định dạng YYYY-MM-DD
   }
 
-  return { getImageCMS, getCultureByCode, formatNumberAsK, formatISODate, getImageThumbCMS, getWeatherIcon, convertDateString }
+  return { getImageCMS, getCultureByCode, formatNumberAsK, formatISODate, getImageThumbCMS, getWeatherIcon, convertDateString, formatDateToDateString, setStyleOrderStatus }
 }

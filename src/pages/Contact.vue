@@ -1,50 +1,54 @@
 <template>
-    <div class="forgot-password-container">
-  
+    <div class="forgot-password-container product-containerr">
+
         <HeaderTitle :title="$t('CONTACT_US_ACCOUNT')"></HeaderTitle>
 
 
         <div class="form-container m-3">
             <div>
-                <div class="sz-big text-center">Joytime</div>
-                <h1 class="calendar-day-header-booking text-center">Enter the email to reset password</h1>
+                <div class="sz-big text-center">{{ $t('Joytime_CONTACT') }}</div>
+                <h1 class="calendar-day-header-booking text-center">
+                    {{ $t('Enter_Email_Reset_Password_CONTACT') }}
+                </h1>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">
-                    Name<span class="required-mark">*</span>
+                    {{ $t('Name_CONTACT') }}<span class="required-mark">*</span>
                 </label>
-                <input type="text" class="form-control" placeholder="Your Name">
-
+                <input type="text" class="form-control" :placeholder="$t('Your_Name_CONTACT')" />
             </div>
+
             <div class="mb-3">
                 <label class="form-label">
-                    Email<span class="required-mark">*</span>
+                    {{ $t('Email_CONTACT') }}<span class="required-mark">*</span>
                 </label>
-                <input type="email" class="form-control input-login" placeholder="Your email">
+                <input type="email" class="form-control input-login" :placeholder="$t('Your_Email_CONTACT')" />
             </div>
+
             <div class="mb-3">
                 <label class="form-label">
-                    Phone<span class="required-mark">*</span>
+                    {{ $t('Phone_CONTACT') }}<span class="required-mark">*</span>
                 </label>
-                <input type="text" class="form-control" placeholder="Your Phone">
-
+                <input type="text" class="form-control" :placeholder="$t('Your_Phone_CONTACT')" />
             </div>
+
             <div class="mb-3">
                 <label class="form-label">
-                    Message<span class="required-mark">*</span>
+                    {{ $t('Message_CONTACT') }}<span class="required-mark">*</span>
                 </label>
-                <textarea type="text" class="form-control" placeholder="Your message"></textarea>
-
+                <textarea type="text" class="form-control" :placeholder="$t('Your_Message_CONTACT')"></textarea>
             </div>
-
-
         </div>
+
         <div class="bottom-menu menu-search bo-goc">
-            <router-link to="" class="btn-search "> <button class="search-button btn-search" id="search">
-                    Send
-                </button></router-link>
+            <router-link to="" class="btn-search">
+                <button class="search-button btn-search" id="search">
+                    {{ $t('Send_CONTACT') }}
+                </button>
+            </router-link>
         </div>
+
     </div>
 
 </template>
