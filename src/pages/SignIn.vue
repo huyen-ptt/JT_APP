@@ -51,15 +51,22 @@
 
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { useRouter } from 'vue-router'
+  import { useAuth } from '../composables/auth'
+  import { useAuthStore } from '../stores/authStore';
   
+
+  const authComposable = useAuth();
   // Reactive state for form fields
   const email = ref('')
   const password = ref('')
   const showPassword = ref(false)
   
   const router = useRouter()
+  const authStore = useAuthStore()
+  const auth = computed(() => authStore.auth);
+
   
   // Toggle password visibility
   const togglePassword = () => {
@@ -67,12 +74,20 @@
   }
   
   // Handle form submission
-  const handleSubmit = () => {
-    // Add login logic here (e.g., API call)
-    console.log('Email:', email.value)
-    console.log('Password:', password.value)
-    // Navigate to another route if needed
-    router.push('/dashboard') // Example: navigate to the dashboard page
+  const handleSubmit = async () => {
+    const data = {
+      email: email.value,
+      password: password.value,
+    };
+    const response = await authComposable.onLogin(data);
+    if(response){
+      console.log(response.data);
+      alert('DANG NHAP THANH CONG!');
+      authStore.onChangeAuth(response.data);
+      router.push('/account') // Example: navigate to the dashboard page
+      // router.push('/account') // Example: navigate to the dashboard page
+    }
+    
   }
   </script>
   

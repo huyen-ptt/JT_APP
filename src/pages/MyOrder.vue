@@ -1,10 +1,6 @@
 <template>
     <div>
-<<<<<<< HEAD
-        <HeaderTitle :title="$t('PAGE_TITLE_MY_ORDERS')"></HeaderTitle>
-=======
         <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
->>>>>>> master
         <div className="container-fluid p-0">
             <ul className="nav nav-tabs custom-tabs justify-content-center m-3" id="productTabs" role="tablist">
                 <li className="nav-item" role="presentation">

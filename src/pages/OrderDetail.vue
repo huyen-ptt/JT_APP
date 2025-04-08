@@ -1,7 +1,7 @@
 <template>
     <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
 
-    <div class="container-order-detail m-3">
+    <div class="container-order-detail m-3" v-if="orderItemDetail">
         <div>
 
 

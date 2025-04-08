@@ -306,6 +306,9 @@ import { useProduct } from '@/composables/product.js'
 import { useHelper } from "@/composables/helper";
 import ProductSearch from "../components/ProductSearch.vue";
 import { useModalStore } from '@/stores/modalStore';
+// const seenStore = useSeenStore();
+// const seen = computed(() => seenStore.seen);
+// console.log(seen.value)
 const modalStore = useModalStore();
 const searchTerm = ref('')
 const router = useRouter()
@@ -329,7 +332,7 @@ const services = ref([])
 const promotions = ref([])
 const first4Services = ref([])
 const first4DiemDen = ref([])
-const currentSeenArray = computed(() => seenStore.seen)
+// const currentSeenArray = computed(() => seenStore.seen)
 const blogs = ref([])
 // const uri = ref(import.meta.VITE_API_URI)
 const currentSeen = ref([])
@@ -361,16 +364,19 @@ onBeforeMount(async () => {
    //Lay ra cac services tu API
    services.value = await homeComposable.getZonesByTypeDichVu();
    first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
-   console.log(currentSeenArray.value)
+   currentSeen.value = await homeComposable.getProductsLastSeen();
+   console.log(currentSeen.value)
+   // console.log(currentSeenArray.value)
    promotions.value = await homeComposable.getZonesByTypeKhuyenMai();
    topTrends.value = await homeComposable.getProductsInRegion();
    diemDen.value = await homeComposable.getZonesByTypeDiemDen();
    first4DiemDen.value = JSON.parse(JSON.stringify(diemDen.value)).slice(0, 4)
-   currentSeen.value = await productComposable.onLoadLastSeen(currentSeenArray.value);
    blogs.value = await homeComposable.getBlogsHomePage();
 
    listRegions.value = await homeComposable.getListOrRegions();
-   console.log(first4DiemDen.value, 'first4DiemDen.value')
+
+
+   // console.log(first4DiemDen.value, 'first4DiemDen.value')
 
    //Lay ra region dau tien de load san pham ban dau
    if (listRegions.value.length > 0) {

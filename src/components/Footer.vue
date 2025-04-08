@@ -28,12 +28,12 @@
             <span class="menu-text">{{ $t('blog') }}</span>
         </RouterLink>
 
-        <RouterLink to="/account" class="menu-item">
+        <a class="menu-item" @click="onRedirectAccount()">
             <div class="menu-icon">
                 <img class="account-icon" src="../assets/images/user-square.png" />
             </div>
             <span class="menu-text">{{ $t('account') }}</span>
-        </RouterLink>
+        </a>
 
         <div class="indicator"></div>
     </div>
@@ -48,18 +48,39 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
     </Drawer>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import Drawer from 'primevue/drawer';
 import ServiceFooter from "./ServiceFooter.vue";
 import { useModalStore } from '@/stores/modalStore';
+import { RouterLink, useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/authStore';
+import { useUser } from '../composables/user';
+import { useHelper } from "../composables/helper";
+const router = useRouter();
+
+const userComposable = useUser();
+const helper = useHelper()
+const authStore = useAuthStore()
+const auth = computed(() => authStore.auth);
+
+
 const modalStore = useModalStore();
+
+
+const onRedirectAccount = () => {
+    router.push('/account');
+}
+
+
+
+
 
 </script>
 <style scoped>
