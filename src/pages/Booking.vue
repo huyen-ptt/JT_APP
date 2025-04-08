@@ -6,10 +6,9 @@
                 <i class="fas fa-times"></i>
             </button>
             <button class="reset-btn-booking" @click="resetSelection">
-                <i class="fas fa-redo-alt"></i> Reset Selection
+                <i class="fas fa-redo-alt"></i> {{ $t("RESET_SELECTION") }}
             </button>
         </div>
-
         <!-- Main Content -->
         <div class="content-wrapper-booking p-3">
             <!-- Ticket cards with accordion -->
@@ -48,7 +47,7 @@
                 <div class="d-flex justify-content-between align-items-center  pb-3 border-bottom">
                     <div class="price-booking">
                         From <span class="price-value-booking">{{ ticket.price.currency }} {{ ticket.price.value
-                        }}</span>
+                            }}</span>
                         <div class="packages-count-booking">~ USD 24</div>
 
                     </div>
@@ -116,14 +115,14 @@
                                 </button>
                             </div>
                             <!-- <Options/> -->
-                           
+
                         </div>
                     </div>
 
                     <!-- Guest Selection - Đã chuyển thành dropdown -->
                     <div class="section-item-booking">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="section-title-booking">Guest</div>
+                            <div class="section-title-booking">{{ $t('Guest') }}</div>
                             <a href="#" class="add-btn-booking" @click.prevent="toggleGuestDropdown(index)">
                                 Add Guest
                             </a>
@@ -132,8 +131,10 @@
                             @click="toggleGuestDropdown(index)">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <div v-if="ticket.guests.adult > 0">Adult: {{ ticket.guests.adult }}</div>
-                                    <div v-if="ticket.guests.child > 0">Child: {{ ticket.guests.child }}</div>
+                                    <div v-if="ticket.guests.adult > 0">{{ $t('Adult') }}: {{ ticket.guests.adult }}
+                                    </div>
+                                    <div v-if="ticket.guests.child > 0">{{ $t('Child') }}: {{ ticket.guests.child }}
+                                    </div>
                                 </div>
                                 <i class="fas fa-chevron-down"></i>
                             </div>
@@ -149,7 +150,7 @@
                                         <div
                                             class="price-item-so-luong d-flex justify-content-between align-items-center">
                                             <div>
-                                                <div class="price-label-so-luong">Adult</div>
+                                                <div class="price-label-so-luong">{{ $t('Adult') }}</div>
                                                 <div class="price-amount-so-luong">VND 320,000</div>
                                                 <div class="price-text">~USD 41.2/Unit</div>
                                             </div>
@@ -158,7 +159,7 @@
                                                     @click="updateQuantity('adult', -1)"
                                                     :disabled="adultQuantity === 0">−</button>
                                                 <span class="quantity-display-so-luong">{{ adultQuantity
-                                                }}</span>
+                                                    }}</span>
                                                 <button class="quantity-btn-so-luong"
                                                     @click="updateQuantity('adult', 1)">+</button>
                                             </div>
@@ -168,7 +169,7 @@
                                         <div
                                             class="price-item-so-luong d-flex justify-content-between align-items-center">
                                             <div>
-                                                <div class="price-label-so-luong">Child</div>
+                                                <div class="price-label-so-luong">{{ $t('Child') }}</div>
                                                 <div class="price-amount-so-luong">VND 320,000</div>
                                                 <div class="price-text">~USD 27.2/Unit</div>
                                             </div>
@@ -177,7 +178,7 @@
                                                     @click="updateQuantity('child', -1)"
                                                     :disabled="childQuantity === 0">−</button>
                                                 <span class="quantity-display-so-luong">{{ childQuantity
-                                                }}</span>
+                                                    }}</span>
                                                 <button class="quantity-btn-so-luong"
                                                     @click="updateQuantity('child', 1)">+</button>
                                             </div>
@@ -220,7 +221,7 @@
         <div class="app-footer-booking">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <div class="packages-count-booking">{{ selectedCount }} packages</div>
+                    <div class="packages-count-booking">{{ selectedCount }} {{ $t('PACKAGES') }}</div>
                     <div class="total-price-booking">USD {{ totalPrice }}</div>
                     <div class="packages-count-booking">~ USD 24</div>
 
@@ -229,7 +230,8 @@
                     <div class="cart-icon-booking">
                         <img src="../assets/images/shopping-cong.png">
                     </div>
-                    <button class="buy-btn-booking px-4" @click="buyNow">Buy Now ({{ selectedCount }})</button>
+                    <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{ selectedCount
+                        }})</button>
                 </div>
             </div>
         </div>
@@ -241,7 +243,7 @@ import Drawer from 'primevue/drawer';
 import Options from '../components/Options.vue';
 import { ref, computed, onMounted } from 'vue';
 const visibleBottom = ref(false);
-const adultQuantity = ref(4); 
+const adultQuantity = ref(4);
 const childQuantity = ref(0);
 // const visibleBottom = ref(false);
 

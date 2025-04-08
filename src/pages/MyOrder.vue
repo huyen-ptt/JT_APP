@@ -7,26 +7,26 @@
                     <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                         data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
                         aria-selected="true">
-                        Newly created
+                        {{ $t('Tab_NewlyCreated_MyOrder') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
                         data-bs-target="#description" type="button" role="tab" aria-controls="description"
                         aria-selected="false">
-                        Ready
+                        {{ $t('Tab_Ready_MyOrder') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
                         data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
-                        Used
+                        {{ $t('Tab_Used_MyOrder') }}
                     </button>
                 </li>
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="pending" data-bs-toggle="tab"
                         data-bs-target="#cancel" type="button" role="tab" aria-controls="terms" aria-selected="false">
-                        Pending/Cancelled
+                        {{ $t('Tab_PendingCancelled_MyOrder') }}
                     </button>
                 </li>
             </ul>

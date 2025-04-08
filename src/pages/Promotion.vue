@@ -28,7 +28,9 @@
                                                 </svg>
                                                 <span class="title-con">Ends on 28/2/2025</span>
                                             </div>
-                                            <a href="/promotion-detail" class="btn btn-primary collect-btn">Collect</a>
+                                            <a href="/promotion-detail" class="btn btn-primary collect-btn">
+                                                {{ $t('Button_Collect_Promotion') }}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +71,7 @@
                             </div>
 
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -96,7 +98,7 @@
                             </div>
 
                         </div>
-                      
+
                     </div>
                 </div>
 
@@ -122,7 +124,7 @@
                             </div>
 
                         </div>
-                       
+
                     </div>
                 </div>
 
@@ -158,6 +160,7 @@ onBeforeMount(async () => {
 
 .tour-card {
     width: unset;
+    padding: unset;
 }
 
 .promotion-bao {
@@ -169,6 +172,7 @@ onBeforeMount(async () => {
     font-size: 16px;
     margin-bottom: 6px;
 }
+
 .tour-image {
 
     border-radius: 20px;

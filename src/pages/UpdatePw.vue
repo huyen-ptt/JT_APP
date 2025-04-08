@@ -5,24 +5,31 @@
             <div class="form-container">
 
                 <div class="mb-3">
-                    <label class="form-label title-con">Current Password</label>
-                    <input type="password" class="form-control input-login" placeholder="Current Password">
+                    <label class="form-label title-con">{{ $t('Current_Password_Label_UD') }}</label>
+                    <input type="password" class="form-control input-login"
+                        :placeholder="$t('Current_Password_Placeholder_UD')" />
                 </div>
+
                 <div class="mb-3">
-                    <label class="form-label title-con">Password
-                    </label>
-                    <input type="password" class="form-control input-login" placeholder="Password">
+                    <label class="form-label title-con">{{ $t('New_Password_Label_UD') }}</label>
+                    <input type="password" class="form-control input-login"
+                        :placeholder="$t('New_Password_Placeholder_UD')" />
                 </div>
+
                 <div class="mb-3">
-                    <label class="form-label title-con">Password Confirmation</label>
-                    <input type="password" class="form-control input-login" placeholder="Password Confirmation">
+                    <label class="form-label title-con">{{ $t('Confirm_Password_Label_UD') }}</label>
+                    <input type="password" class="form-control input-login"
+                        :placeholder="$t('Confirm_Password_Placeholder_UD')" />
                 </div>
 
             </div>
+
             <div class="bottom-menu menu-search bo-goc">
-                <router-link to="" class="btn-search "> <button class="search-button btn-search" id="search">
-                        Update Password
-                    </button></router-link>
+                <router-link to="" class="btn-search">
+                    <button class="search-button btn-search" id="search">
+                        {{ $t('Update_Password_Button_UD') }}
+                    </button>
+                </router-link>
             </div>
         </div>
     </div>

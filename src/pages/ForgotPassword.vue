@@ -1,21 +1,22 @@
 <template>
     <div class="forgot-password-container">
-    
+
         <HeaderTitle :title="$t('Forgot_Password')"></HeaderTitle>
 
 
         <div class="form-container m-3">
-            <h1 class="form-title">Enter the email to reset password</h1>
+            <h1 class="form-title">{{ $t('Reset_Title_ForgotOp') }}</h1>
 
             <div class="mb-3">
-                <label class="form-label title-con">Email Address</label>
-                <input type="email" class="form-control input-login" placeholder="Your email address">
+                <label class="form-label title-con">{{ $t('Email_Label_ForgotOp') }}</label>
+                <input type="email" class="form-control input-login" :placeholder="$t('Email_Placeholder_ForgotOp')">
             </div>
 
-            <button type="submit" class="btn btn-continue">Continue</button>
+            <button type="submit" class="btn btn-continue">{{ $t('Continue_Button_ForgotOp') }}</button>
 
-            <p class="form-title pt-3">A reset link will be sent to your email address</p>
+            <p class="form-title pt-3">{{ $t('Reset_Notice_ForgotOp') }}</p>
         </div>
+
         <Footer></Footer>
 
     </div>
@@ -23,6 +24,8 @@
 </template>
 <script setup>
 import HeaderTitle from '../components/HeaderTitle.vue';
+import Footer from "@/components/Footer.vue";
+
 </script>
 <style scoped>
 .form-container {

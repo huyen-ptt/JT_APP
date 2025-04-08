@@ -91,7 +91,6 @@
         <div class="border-top p-3">
             <div class="-flex justify-content-between align-items-center">
                 <h2 class="title-map">{{ productDetail.location }}</h2>
-                <!-- <i class="fas fa-chevron-down" style="font-size: 20px;"></i> -->
             </div>
             <div>
                 <div class="position-relative h-100">
@@ -540,7 +539,8 @@
                                                                         class="price-item-so-luong d-flex justify-content-between align-items-center">
                                                                         <div
                                                                             v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
-                                                                            <div class="price-label-so-luong">Adult
+                                                                            <div class="price-label-so-luong">{{ $t('Adult')
+                                                            }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
@@ -571,7 +571,8 @@
                                                                     <div class="price-item-so-luong d-flex justify-content-between align-items-center"
                                                                         v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
                                                                         <div>
-                                                                            <div class="price-label-so-luong">Child
+                                                                            <div class="price-label-so-luong">{{ $t('Child')
+                                                            }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachTreEm.toLocaleString()

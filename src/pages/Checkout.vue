@@ -1,12 +1,13 @@
 <template>
     <div>
         <HeaderTitle :title="$t('checkcart')"></HeaderTitle>
-       
+
         <div class="card">
             <Accordion value="0">
                 <AccordionPanel class="mb-3" value="0">
                     <AccordionHeader>
-                        <div class="promo-title pb-1">Payment Summary</div>
+                        <div class="promo-title pb-1">{{ $t('payment_summary') }}
+                        </div>
                     </AccordionHeader>
                     <AccordionContent>
                         <div class="container py-2">
@@ -31,12 +32,13 @@
                                             </div>
                                             <div v-else>
                                                 <div class="price-info" v-if="pay.numberOfAldut > 0">
-                                                    <span class="ad">Adults x {{ pay.numberOfAldut }}</span>
+                                                    <span class="ad">{{ $t('Adult') }} x {{ pay.numberOfAldut }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfAldut *
                                                         pay.combination.priceEachNguoiLon).toLocaleString() }}</span>
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
-                                                    <span class="ad">Child x {{ pay.numberOfChildrend }}</span>
+                                                    <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
+                                                    }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -56,13 +58,13 @@
 
                                     <!-- Promotion Section -->
                                     <div class="promotion-section  border-top pt-3">
-                                        <h3 class="promo-title pb-3">Promotion</h3>
+                                        <h3 class="promo-title pb-3">{{ $t('promotion') }}</h3>
                                         <div class="promo-input-group">
                                             <input type="text" class="promo-input input-login"
                                                 placeholder="Enter promo code"
                                                 v-model="pay.discountSelected.couponCode">
-                                            <button class="use-code-btn" @click="onCheckCouponCode(pay)">Use
-                                                Code</button>
+                                            <button class="use-code-btn" @click="onCheckCouponCode(pay)">{{
+                                                $t('use_code') }}</button>
                                         </div>
                                     </div>
                                     <!-- <FastTrack /> -->
@@ -73,9 +75,8 @@
                                                     <h3 class="promo-title pb-1">{{ noteGroup.zoneParentName }}<span
                                                             class="text-danger"> *</span>
                                                     </h3>
-                                                    <p class="results-count-product">Please provide your desired service
-                                                        details<br> to
-                                                        confirm payment for your order</p>
+                                                    <p class="results-count-product">{{ $t('please_provide') }}<br> {{
+                                                        $t('to_confirm_payment') }}</p>
                                                 </div>
                                             </AccordionHeader>
                                             <AccordionContent class="p-0 servies-det">
@@ -111,7 +112,7 @@
 
                                 </div>
                                 <div class="order-total border-top">
-                                    <span class="total-label">Order Total</span>
+                                    <span class="total-label">{{ $t('order_total') }}</span>
                                     <span class="total-amount">VND {{ ((pay.numberOfAldut *
                                         pay.combination.priceEachNguoiLon) + (pay.numberOfChildrend *
                                             pay.combination.priceEachTreEm)).toLocaleString() }}</span>
@@ -123,10 +124,9 @@
                 <AccordionPanel class="mb-3" value="1">
                     <AccordionHeader>
                         <div>
-                            <div class="promo-title pb-1">Customer Infomation</div>
-                            <div class="results-count-product">Please provide your desired service
-                                details<br> to
-                                confirm payment for your order</div>
+                            <div class="promo-title pb-1">{{ $t('customer_info') }}</div>
+                            <div class="results-count-product">{{ $t('please_provide_service') }}<br> {{
+                                $t('confirm_payment') }}</div>
                         </div>
                     </AccordionHeader>
                     <AccordionContent>
@@ -135,20 +135,20 @@
                             <div class="row mb-3">
                                 <div class="col-6">
                                     <label class="form-label">
-                                        First Name<span class="required-mark">*</span>
+                                        {{ $t('first_name') }}<span class="required-mark">*</span>
                                     </label>
                                     <input type="text" v-model="auth.firstName" class="form-control"
-                                        placeholder="Your First Name">
+                                        :placeholder="$t('your_first_name')">
                                     <div class="error-message" v-if="triggerValidateAuth && auth.firstName == ''">
                                         <small>{{ $t('ERRPR_MISSING_AUTH_FIRSTNAME') }}</small>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <label class="form-label">
-                                        Family Name<span class="required-mark">*</span>
+                                        {{ $t('family_name') }}<span class="required-mark">*</span>
                                     </label>
                                     <input type="text" v-model="auth.lastName" class="form-control"
-                                        placeholder="Your Family Name">
+                                        :placeholder="$t('your_family_name')">
                                     <div class="error-message" v-if="triggerValidateAuth && auth.lastName == ''">
                                         <small>{{ $t('ERRPR_MISSING_AUTH_LASTNAME') }}</small>
                                     </div>
@@ -158,12 +158,12 @@
                             <!-- Nationality -->
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Nationality<span class="required-mark">*</span>
+                                    {{ $t('nationality') }}<span class="required-mark">*</span>
                                 </label>
                                 <Select v-model="auth.country" :options="countries" id="country_1" optionLabel="name"
-                                    optionValue="code" :placeholder="$t('NATIONALITY')" filter
-                                    :filterPlaceholder="$t('NATIONALITY')" class="form-select"
-                                    :emptyFilterMessage="$t('NO_RESULTS_FOUND')"></Select>
+                                    optionValue="code" :placeholder="$t('nationality')" filter
+                                    :filterPlaceholder="$t('nationality')" class="form-select"
+                                    :emptyFilterMessage="$t('no_results_found')"></Select>
                                 <div class="error-message" v-if="triggerValidateAuth && auth.country == ''">
                                     <small>{{ $t('ERRPR_MISSING_AUTH_COUNTRY') }}</small>
                                 </div>
@@ -172,23 +172,23 @@
                             <!-- Email -->
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Email<span class="required-mark">*</span>
+                                    {{ $t('email') }}<span class="required-mark">*</span>
                                 </label>
                                 <input type="email" v-model="auth.email" class="form-control"
-                                    placeholder="Your email address">
+                                    :placeholder="$t('your_email')">
                                 <div class="error-message"
                                     v-if="triggerValidateAuth && (!auth.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(auth.email))">
                                     <small>{{ $t('ERRPR_MISSING_AUTH_EMAIL') }}</small>
                                 </div>
                             </div>
-
+                            <!-- hết -->
                             <!-- Phone Number -->
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Phone number<span class="required-mark">*</span>
+                                    {{ $t('phone_number') }}<span class="required-mark">*</span>
                                 </label>
                                 <input type="tel" v-model="auth.phoneNumber" class="form-control col-7"
-                                    placeholder="Enter your phone number">
+                                    :placeholder="$t('enter_your_phone_number')">
                                 <div class="error-message"
                                     v-if="triggerValidateAuth && (!auth.phoneNumber || !/^(\+?\d{9,15})$/.test(auth.phoneNumber))">
                                     <small>{{ $t('ERRPR_MISSING_AUTH_PHONENO') }}</small>
@@ -197,36 +197,36 @@
 
                             <!-- Stay in touch -->
                             <div class="mb-3">
-                                <label class="price-value">Stay in touch</label>
-                                <p class="text-muted small mb-2">Will you use a different phone number when traveling?
+                                <label class="price-value">{{ $t('stay_in_touch') }}</label>
+                                <p class="text-muted small mb-2">{{ $t('different_phone_number') }}
                                 </p>
                                 <div class="radio-group">
                                     <label class="radio-button active">
                                         <input type="radio" name="stayInTouch" value="Yes"
                                             v-model="orderNote.useDiffrenceNumber">
-                                        Yes
+                                        {{ $t('yes') }}
                                     </label>
                                     <label class="radio-button">
                                         <input type="radio" name="stayInTouch" value="No"
                                             v-model="orderNote.useDiffrenceNumber">
-                                        No
+                                        {{ $t('no') }}
                                     </label>
                                 </div>
                             </div>
 
                             <!-- OTT App -->
                             <div class="mb-3">
-                                <label class="form-label">Which App can we contact you through?</label>
+                                <label class="form-label">{{ $t('contact_through_app') }}</label>
                                 <select class="form-select" v-model="orderNote.useAppContact">
-                                    <option disabled>OTT App</option>
+                                    <option disabled>{{ $t('ott_app') }}</option>
                                     <option v-for="app in ottApps" :value="app">{{ app }}</option>
                                 </select>
                             </div>
 
                             <!-- Account Name -->
                             <div class="mb-3">
-                                <label class="form-label">Account name on the OTT App</label>
-                                <input type="text" class="form-control" placeholder="Your account name"
+                                <label class="form-label">{{ $t('account_name_ott_app') }}</label>
+                                <input type="text" class="form-control" :placeholder="$t('your_account_name')"
                                     v-model="orderNote.useAppContactValue">
                             </div>
                         </form>
@@ -234,41 +234,32 @@
                 </AccordionPanel>
 
             </Accordion>
+            <!-- Dịch i18n đến đoạn này rồi -->
+
             <div class="rounded shadow-sm">
                 <!-- Note Section -->
-                <div class="mb-4  p-3 bg-white">
-                    <h2 class="promo-title pb-2">Note & Other Request</h2>
-                    <textarea class="form-control" rows="3" placeholder="Note"
+                <div class="mb-4 p-3 bg-white">
+                    <h2 class="promo-title pb-2">{{ $t("Note_And_Other_Request_CHECKOUT") }}</h2>
+                    <textarea class="form-control" rows="3" :placeholder="$t('Note_CHECKOUT')"
                         v-model="orderNote.noteSpecial"></textarea>
                 </div>
 
                 <!-- Payment Method Section -->
                 <div class="mb-4 bg-white p-3">
-                    <h2 class="promo-title  pb-2">Payment Method</h2>
+                    <h2 class="promo-title pb-2">{{ $t("Payment_Method_CHECKOUT") }}</h2>
                     <p class="tour-location">
-                        Please enter your promotion code to receive a discount for your order
+                        {{ $t("Promo_Instruction_CHECKOUT") }}
                     </p>
 
                     <div class="payment-options">
                         <button class="payment-option active">
-                            <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                <line x1="1" y1="10" x2="23" y2="10"></line>
-                            </svg>
-                            <span class="payment-label">Credit/Debit Card</span>
+                            <!-- icon -->
+                            <span class="payment-label">{{ $t("Credit_Debit_Card_CHECKOUT") }}</span>
                         </button>
 
                         <button class="payment-option">
-                            <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="3" y1="9" x2="21" y2="9"></line>
-                                <path d="M8 13h.01"></path>
-                                <path d="M12 13h.01"></path>
-                                <path d="M16 13h.01"></path>
-                            </svg>
-                            <span class="payment-label">ATM Card/Bank Ac...</span>
+                            <!-- icon -->
+                            <span class="payment-label">{{ $t("ATM_Bank_Transfer_CHECKOUT") }}</span>
                         </button>
                     </div>
                 </div>
@@ -276,15 +267,15 @@
                 <!-- Order Summary -->
                 <div class="bg-white p-3">
                     <div class="results-count-product summary-row">
-                        <span>Subtotal</span>
-                        <span>VND {{subTotal.toLocaleString()}}</span>
+                        <span>{{ $t("Subtotal_CHECKOUT") }}</span>
+                        <span>VND {{ subTotal.toLocaleString() }}</span>
                     </div>
                     <div class="results-count-product summary-row" v-if="subDiscount > 0">
-                        <span>Discount</span>
-                        <span class="discount-amount">-VND {{subDiscount.toLocaleString()}}</span>
+                        <span>{{ $t("Discount_CHECKOUT") }}</span>
+                        <span class="discount-amount">-VND {{ subDiscount.toLocaleString() }}</span>
                     </div>
                     <div class="total-row price-value">
-                        <span>ORDER TOTAL</span>
+                        <span>{{ $t("Order_Total_CHECKOUT") }}</span>
                         <span>VND {{ totalPrice.toLocaleString() }}</span>
                     </div>
                 </div>
@@ -292,15 +283,14 @@
 
         </div>
         <div class="bottom-menu menu-search d-flex bo-goc">
-            <div class="">
+            <div>
                 <div class="don-vi" id="clear-all">VND {{ totalPrice.toLocaleString() }}</div>
                 <!-- <div class="price-text">~USD 41.2</div> -->
             </div>
             <div class="d-flex">
                 <button class="search-button" @click="onRequestPay()" id="search">
-                    Completed Order
+                    {{ $t("Completed_Order_CHECKOUT") }}
                 </button>
-
             </div>
         </div>
     </div>
@@ -476,7 +466,7 @@ const totalPrice = computed(() => {
 })
 
 const subTotal = computed(() => {
-    
+
     let _total = 0;
     pays.value.forEach(pay => {
         let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
@@ -566,15 +556,15 @@ const onCheckCouponCode = async (pay) => {
         console.log(response.data);
         let _discountPrice = 0;
         let postfix = "";
-        if(response.data.value.discountOption == 1){
+        if (response.data.value.discountOption == 1) {
             postfix = "%"
-        }else{
+        } else {
             postfix = "VND"
         }
 
-        if(postfix == "%"){
+        if (postfix == "%") {
             _discountPrice = pay.totalPrice * response.data.value.valueDiscount / 100;
-        }else{
+        } else {
             _discountPrice = pay.totalPrice - response.data.value.valueDiscount;
         }
 

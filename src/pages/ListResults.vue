@@ -28,10 +28,11 @@
         </div>
 
         <div class="results-info-product">
-            <div class="results-count-product">{{ listOfProducts.length }} results found</div>
+            <div class="results-count-product">{{ $t('Results_Count_ProductResult', { count: listOfProducts.length }) }}
+            </div>
             <div class="card flex justify-center">
                 <Select v-model="selectedOption" :options="sortOptions" optionLabel="name" optionValue="value"
-                    placeholder="Select" class="w-full md:w-56 seclec-pr" />
+                    :placeholder="$t('Select_Sort_Option_ProductResult')" class="w-full md:w-56 seclec-pr" />
             </div>
         </div>
 
@@ -122,6 +123,7 @@ onMounted(async () => {
     width: unset;
     padding: 0;
 }
+
 .bieu-tuong {
     position: absolute;
     top: 0;
@@ -130,6 +132,7 @@ onMounted(async () => {
     right: 10px;
     padding: 0px 10px 3px;
 }
+
 .tour-image {
     width: 100%;
     height: 120px;

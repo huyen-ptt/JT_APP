@@ -6,7 +6,7 @@
 
             <i class="fa-solid fa-arrow-left"  @click="$router.go(-1)"></i>
             <div class="input-group">
-                <input class="search-list form-control" v-model="searchTerm" type="text" placeholder="Place to go..."
+                <input class="search-list form-control" v-model="searchTerm" type="text" :placeholder="$t('place_to_go')"
                     aria-label="Search" />
                 <!-- Dấu X để xóa input, luôn hiển thị khi có nội dung -->
                 <button v-if="searchTerm" class="btn-close" type="button" aria-label="Clear"

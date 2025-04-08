@@ -7,141 +7,122 @@
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
                                 <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
-                                <div class="promo-title">Joytime Account Step</div>
+                                <div class="promo-title">{{ $t('Joytime_Account_Step_FAQ') }}</div>
                             </div>
                         </AccordionHeader>
                         <AccordionContent>
-
-                            <div class="dia-chi-product"><b>Register a Joytime
-                                    Account</b>
+                            <div class="dia-chi-product">
+                                <b>{{ $t('Register_Joytime_FAQ') }}</b>
                                 <ul>
-                                    <li>Visit <a href="https://joytime.vn">https://joytime.vn</a>, click on 'Sign Up/Log
-                                        In'.
+                                    <li>
+                                        {{ $t('Visit_Joytime_FAQ') }}
+                                        <a href="https://joytime.vn">https://joytime.vn</a>, {{ $t('Click_Sign_Up_FAQ')
+                                        }}
                                     </li>
-                                    <li>Enter your email, phone number, and password.</li>
-                                    <li>Click 'Agree'.</li>
-                                    <li>After successfully logging in, your profile picture will be
-                                        displayed in the top right corner of the screen.</li>
-                                </ul><b>How do I change the password?</b>
+                                    <li>{{ $t('Enter_Email_Phone_Password_FAQ') }}</li>
+                                    <li>{{ $t('Click_Agree_FAQ') }}</li>
+                                    <li>{{ $t('Profile_Picture_Top_Right_FAQ') }}</li>
+                                </ul>
+                                <b>{{ $t('Change_Password_FAQ') }}</b>
                                 <ul>
-                                    <li>Log in to Your Account, go to the joytime.vn and log in to
-                                        your account using your email and current password.</li>
-                                    <li>Access Account Settings, Once logged in, click on your
-                                        profile icon, and choose “Change Password”</li>
-                                    <li>Enter Current and New Password, you will be prompted to enter
-                                        your current password, followed by your new password. Make sure your new
-                                        password meets the security requirements, such as a minimum length or the use of
-                                        special characters.</li>
-                                    <li>Save Changes, after entering the required information, click
-                                        “Change Password” to confirm the change.</li>
+                                    <li>{{ $t('Login_Account_FAQ') }}</li>
+                                    <li>{{ $t('Access_Account_Settings_FAQ') }}</li>
+                                    <li>{{ $t('Enter_Current_New_Password_FAQ') }}</li>
+                                    <li>{{ $t('Save_Changes_FAQ') }}</li>
                                 </ul>
                             </div>
-
                         </AccordionContent>
                     </AccordionPanel>
                     <AccordionPanel value="1" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
                                 <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
-                                <div class="promo-title">Discover and Experience</div>
+                                <div class="promo-title">{{ $t('Discover_And_Experience_FAQ') }}</div>
                             </div>
                         </AccordionHeader>
 
                         <AccordionContent>
                             <div class="dia-chi-product">
-                                <p><b>How do I book a tour or service on
-                                        Joytime?</b></p>
-                                <p>Booking with Joytime is simple:</p>
+                                <p><b>{{ $t('How_To_Book_FAQ') }}</b></p>
+                                <p>{{ $t('Booking_Simple_FAQ') }}</p>
                                 <ul>
-                                    <li>Visit joytime.vn.</li>
-                                    <li>Browse through the categories to find your desired service.
-                                    </li>
-                                    <li>Select the service, choose your options (e.g., date,
-                                        quantity), and add to the cart.</li>
-                                    <li>Proceed to checkout and complete payment. You will receive a
-                                        confirmation email with your booking details shortly after.</li>
+                                    <li>{{ $t('Booking_Step_Visit_FAQ') }}</li>
+                                    <li>{{ $t('Booking_Step_Browse_FAQ') }}</li>
+                                    <li>{{ $t('Booking_Step_Select_FAQ') }}</li>
+                                    <li>{{ $t('Booking_Step_Checkout_FAQ') }}</li>
                                 </ul>
-                                <p><b>What payment methods does Joytime
-                                        accept?</b></p>
-                                <p>We accept the following payment methods:</p>
+
+                                <p><b>{{ $t('Payment_Methods_FAQ') }}</b></p>
+                                <p>{{ $t('Payment_Methods_Intro_FAQ') }}</p>
                                 <ul>
-                                    <li>Credit/Debit Cards (Visa, MasterCard, American Express)</li>
-                                    <li>PayPal</li>
-                                </ul><b>Can I book multiple services at once?</b>
-                                <p>Yes, you can add multiple services to your cart and complete a
-                                    single checkout for all bookings.</p><b>Is my payment information
-                                    secure?</b>
-                                <p>Absolutely. Joytime uses advanced encryption technologies to
-                                    ensure your payment details are secure.</p><b>Are there any
-                                    discounts for travelers frequently?</b>
-                                <p>Yes, Joytime frequently offers promotions and discounts for
-                                    customers. Create an account on our website to receive promotional emails, or follow
-                                    us on social media (Facebook, Instagram,..) to stay updated on the latest deals.</p>
-                                <b>How can I apply a promo code?</b>
-                                <ul>
-                                    <li>Select the product/service you desire</li>
-                                    <li>Complete the required information process</li>
-                                    <li>Enter the promo code in the 'ENTER PROMO CODE' field</li>
-                                    <li>Complete the payment process</li>
-                                </ul><b>Payment in Currencies Other Than Vietnamese Dong</b>
-                                <ul>
-                                    <li>When paying for orders on Joytime, you can use several types
-                                        of currencies.</li>
-                                    <li>Joytime determines the conversion rate, and the actual amount
-                                        charged to your account will depend on the rate applied at the time of payment.
-                                        Please note that your bank or credit card issuer may convert the payment to your
-                                        country's default currency, which could result in additional fees for currency
-                                        conversion.</li>
-                                    <li>Some banks or credit card providers may charge extra
-                                        conversion fees for online transactions. These fees are applied by the bank or
-                                        card issuer, not Joytime.</li>
-                                    <li>For further information on these charges, please contact your
-                                        bank or credit card issuer.</li>
+                                    <li>{{ $t('Payment_Credit_Cards_FAQ') }}</li>
+                                    <li>{{ $t('Payment_PayPal_FAQ') }}</li>
                                 </ul>
-                                <p>Note: Joytime does not charge any conversion or transaction fees.
-                                </p>
+
+                                <b>{{ $t('Multiple_Services_FAQ') }}</b>
+                                <p>{{ $t('Multiple_Services_Answer_FAQ') }}</p>
+
+                                <b>{{ $t('Is_Payment_Secure_FAQ') }}</b>
+                                <p>{{ $t('Payment_Secure_Answer_FAQ') }}</p>
+
+                                <b>{{ $t('Frequent_Traveler_Discounts_FAQ') }}</b>
+                                <p>{{ $t('Discounts_Answer_FAQ') }}</p>
+
+                                <b>{{ $t('Apply_Promo_Code_FAQ') }}</b>
+                                <ul>
+                                    <li>{{ $t('Promo_Select_Product_FAQ') }}</li>
+                                    <li>{{ $t('Promo_Fill_Info_FAQ') }}</li>
+                                    <li>{{ $t('Promo_Enter_Code_FAQ') }}</li>
+                                    <li>{{ $t('Promo_Complete_Payment_FAQ') }}</li>
+                                </ul>
+
+                                <b>{{ $t('Currency_Conversion_FAQ') }}</b>
+                                <ul>
+                                    <li>{{ $t('Currency_Conversion_Options_FAQ') }}</li>
+                                    <li>{{ $t('Currency_Conversion_Note_FAQ') }}</li>
+                                    <li>{{ $t('Currency_Conversion_BankFees_FAQ') }}</li>
+                                    <li>{{ $t('Currency_Conversion_Contact_FAQ') }}</li>
+                                </ul>
+
+                                <p>{{ $t('No_Joytime_Fee_FAQ') }}</p>
                             </div>
                         </AccordionContent>
                     </AccordionPanel>
+
                     <AccordionPanel value="2" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
                                 <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
-                                <div class="promo-title">Cancellation & Refunds</div>
+                                <div class="promo-title">{{ $t("Cancellation_Refunds_FAQ") }}</div>
                             </div>
                         </AccordionHeader>
 
                         <AccordionContent>
                             <div class="dia-chi-product">
-                                <p><b>Can I cancel or modify my booking?</b></p>
-                                <p>Yes, you can cancel or modify your booking, subject to the
-                                    cancellation policy of the specific service or tour.</p>
+                                <p><b>{{ $t("Cancel_Modify_Booking_FAQ") }}</b></p>
+                                <p>{{ $t("Cancel_Modify_Booking_Answer_FAQ") }}</p>
                                 <ul>
-                                    <li>Cancellation policies are mentioned on each product page.
-                                    </li>
-                                    <li>For modifications, please contact our customer support team
-                                        with your booking details.</li>
+                                    <li>{{ $t("Cancel_Policy_Detail_FAQ") }}</li>
+                                    <li>{{ $t("Cancel_Contact_Support_FAQ") }}</li>
                                 </ul>
-                                <p><b>What is the refund policy?</b></p>
-                                <p>Refunds depend on the cancellation policy of the service provider.
-                                    Generally:</p>
+
+                                <p><b>{{ $t("Refund_Policy_FAQ") }}</b></p>
+                                <p>{{ $t("Refund_Policy_Intro_FAQ") }}</p>
                                 <ul>
-                                    <li>If applicable, returns can be made for products purchased
-                                        through our services within 14 days of receipt.</li>
-                                    <li>Products must be new or unused for a return to be eligible.
-                                    </li>
-                                    <li>Items such as gift cards are non-refundable.</li>
+                                    <li>{{ $t("Refund_Within_14Days_FAQ") }}</li>
+                                    <li>{{ $t("Refund_New_Unused_FAQ") }}</li>
+                                    <li>{{ $t("Refund_No_GiftCards_FAQ") }}</li>
                                 </ul>
-                                <p><b>Refund Process:</b></p>
+
+                                <p><b>{{ $t("Refund_Process_FAQ") }}</b></p>
                                 <ul>
-                                    <li>Refunds will be issued to the original payment method unless
-                                        otherwise agreed.</li>
-                                    <li>It may take up to 10 business days to process the refund.
-                                    </li>
+                                    <li>{{ $t("Refund_Original_Method_FAQ") }}</li>
+                                    <li>{{ $t("Refund_Timeline_FAQ") }}</li>
                                 </ul>
                             </div>
                         </AccordionContent>
                     </AccordionPanel>
+
                     <AccordionPanel value="3" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
