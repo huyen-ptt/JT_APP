@@ -76,7 +76,7 @@
                         <span class="title145">{{ $t('LANGUAGES_ACCOUNT') }}</span>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="see-detail-booking me-2">English</span>
+                        <span class="see-detail-booking me-2">{{ fLanguage.name }}</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
                 </a>
@@ -88,7 +88,7 @@
                         <span class="title145">{{ $t('CURRENCY_ACCOUNT') }}</span>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="see-detail-booking me-2">USD</span>
+                        <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
                 </a>
@@ -163,6 +163,11 @@ import Dialog from 'primevue/dialog';
 import { useAuthStore } from '../stores/authStore';
 import { useUser } from '../composables/user';
 import { useHelper } from "../composables/helper";
+
+import { useLanguageStore } from "../stores/languageStore";
+import { useCurrencyStore } from "../stores/currencyStore";
+
+
 const router = useRouter();
 
 const userComposable = useUser();
@@ -172,6 +177,13 @@ const auth = computed(() => authStore.auth);
 
 const visible = ref(false);
 const visibleBottom = ref(false);
+
+const languageStore = useLanguageStore();
+const currencyStore = useCurrencyStore();
+
+const fLanguage = computed(() => languageStore.language);
+const fCurrency = computed(() => currencyStore.fCurrency)
+
 
 
 const onRedirectMyOrder = () => {

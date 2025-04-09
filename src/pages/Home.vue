@@ -21,6 +21,14 @@
                </div>
             </div>
          </div>
+         <div class="row row-cols-5 mt-4" v-if="onLoadServices">
+            <div class="col s__col__item" v-for="index in 5" :key="index">
+               <div class="icon-circle combo-icon flex items-center justify-center mb-2">
+                  <Skeleton shape="circle" size="48px" />
+               </div>
+               <Skeleton width="60px" height="12px" />
+            </div>
+         </div>
          <div class="row row-cols-5 mt-4">
             <div class="col s__col__item" v-for="(s, index) in first4Services" :key="index">
                <a href="/list-results" class="icon-circle combo-icon">
@@ -36,7 +44,7 @@
                <span class="service-text">{{ $t('ALL') }}</span>
             </div>
          </div>
-        
+
          <div class="mb-promotion">
             <div class="mb-container">
                <div class="promo-header">
@@ -49,9 +57,14 @@
                      nextEl: '.swiper-button-next',
                      prevEl: '.swiper-button-prev',
                   }" class="swiper-container promo-carousel">
-                  <swiper-slide v-for="(p, index) in promotions" :key="index">
+                  <swiper-slide v-for="(p, index) in promotions" :key="index" v-if="!onLoadPromotions">
                      <div class="promo-card">
                         <img :src="helper.getImageCMS(p.avatar)" :alt="p.title" />
+                     </div>
+                  </swiper-slide>
+                  <swiper-slide v-for="(p, index) in 5" :key="index" v-if="onLoadPromotions">
+                     <div class="promo-card">
+                        <Skeleton height="160px" borderRadius="12px" />
                      </div>
                   </swiper-slide>
                </swiper>
@@ -68,17 +81,28 @@
 
             </div>
             <div class="">
-               <ul class="nav nav-tabs" id="tourTabs" role="tablist">
+               <ul class="nav nav-tabs" id="tourTabs" role="tablist" v-if="!onLoadRegions">
+
                   <li class="nav-item" role="presentation" v-for="r in listRegions">
                      <button class="nav-link tab-sp " :class="r.isActive == true ? 'active' : ''"
                         @click="onClickRegion(r)" type="button" role="tab">{{ r.name }}</button>
                   </li>
                </ul>
+               <ul class="nav nav-tabs" id="tourTabs" role="tablist" v-if="onLoadRegions">
+
+                  <li class="nav-item" role="presentation" v-for="r in 4" :key="r">
+                     <Skeleton width="80px" height="32px" borderRadius="999px" />
+                  </li>
+               </ul>
                <div class="tab-content mt-3" id="tourTabsContent">
                   <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-                     <div class="recently-carousel">
-                        <ProductSearch v-for="p in listProductInRegion" :product="p"></ProductSearch>
+                     <div class="recently-carousel" v-if="!onLoadingRegion">
+                        <ProductSearch v-for="p in listProductInRegion" :product="p">
+                        </ProductSearch>
 
+                     </div>
+                     <div class="recently-carousel" v-else>
+                        <ProductHomeSkeleton v-for="index in 2" :key="index"></ProductHomeSkeleton>
                      </div>
                   </div>
 
@@ -95,15 +119,16 @@
 
             <div class="recently-carousel">
                <!-- Tour Card 1 -->
-               <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-for="product in currentSeen">
+               <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card"
+                  v-for="product in currentSeen">
                   <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
                   <div class="tour-content">
                      <h3 class="tour-title">{{ product.title }}</h3>
                      <div class="tour-location tour-price">
                         <div>
                            <i class="fas fa-map-marker-alt location-dot"></i>
-                           <span class="dia-diem">{{product.zoneName}}</span>
-                           <span class="tour-booked">{{product.totalSale}} Booked</span>
+                           <span class="dia-diem">{{ product.zoneName }}</span>
+                           <span class="tour-booked">{{ product.totalSale }} Booked</span>
                         </div>
                         <div class="rating">
                            <i class="fas fa-star"></i>
@@ -113,7 +138,7 @@
                      <div class="tour-price">
                         <div>
                            <span class="price-text">From</span>
-                           <span class="price-value">VND {{product.price.toLocaleString()}}</span>
+                           <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
                         </div>
 
                      </div>
@@ -126,7 +151,7 @@
                   </div>
                </RouterLink>
 
-               
+
             </div>
          </div>
          <div class="container-destination">
@@ -148,7 +173,7 @@
                   </div>
                </div>
 
-               <div class="column">
+               <div class="column" v-if="!onLoadDestinations">
                   <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 !== 0)" :key="'col2-' + index"
                      :class="`card-destination des${index + 3}`">
                      <RouterLink :to="`/destination/${d.id}`">
@@ -159,6 +184,17 @@
                         </div>
                      </RouterLink>
 
+                  </div>
+               </div>
+               <div class="column" v-else>
+                  <div v-for="index in 4" :key="'col2-' + index" :class="`card-destination des${index + 3}`">
+                     <div class="image-container mb-2">
+                        <Skeleton height="120px" borderRadius="12px" />
+                     </div>
+                     <div class="location-destination flex items-center gap-1">
+                        <Skeleton shape="circle" size="1rem" />
+                        <Skeleton width="60px" height="14px" />
+                     </div>
                   </div>
                </div>
             </div>
@@ -205,6 +241,9 @@ import { useProduct } from '@/composables/product.js'
 import { useHelper } from "@/composables/helper";
 import ProductSearch from "../components/ProductSearch.vue";
 import { useModalStore } from '@/stores/modalStore';
+import ProductHomeSkeleton from "../components/ProductHomeSkeleton.vue";
+import Skeleton from 'primevue/skeleton';
+
 // const seenStore = useSeenStore();
 // const seen = computed(() => seenStore.seen);
 // console.log(seen.value)
@@ -226,7 +265,11 @@ const handleSearch = () => {
    })
 }
 
-const topTrends = ref([])
+const onLoadProductInRegion = ref(true);
+const onLoadServices = ref(true);
+const onLoadRegions = ref(true);
+
+
 const services = ref([])
 const promotions = ref([])
 const first4Services = ref([])
@@ -240,6 +283,9 @@ const diemDen = ref([])
 
 const listRegions = ref([])
 const listProductInRegion = ref([])
+const defaultProducts = ref({
+   id: 0
+})
 
 
 
@@ -251,57 +297,123 @@ const onClickRegion = async (region) => {
    //2: Gan hien tai  = true
    region.isActive = true;
    let regionId = region.id;
+   await onRequestProductsInRegion(regionId)
+   // listProductInRegion.value = await homeComposable.getListProductInRegion(regionId);
 
-   listProductInRegion.value = await homeComposable.getListProductInRegion(regionId);
+
+}
 
 
+
+const onRequestServices = async () => {
+   try {
+      onLoadServices.value = true
+      services.value = await homeComposable.getZonesByTypeDichVu();
+      first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
+   } catch (error) {
+      console.log(error);
+   } finally {
+      onLoadServices.value = false;
+   }
+
+}
+const onRequestProductsInRegion = async (_firstRegionId) => {
+   try {
+      onLoadProductInRegion.value = true;
+      listProductInRegion.value = await homeComposable.getListProductInRegion(_firstRegionId);
+   } catch (error) {
+      console.log(error)
+   } finally {
+      onLoadProductInRegion.value = false;
+   }
+}
+
+const onRequestRegions = async () => {
+   try {
+      onLoadRegions.value = true;
+      listRegions.value = await homeComposable.getListOrRegions();
+
+      //Lay ra region dau tien de load san pham ban dau
+      if (listRegions.value.length > 0) {
+         for (let i = 0; i < listRegions.value.length; i++) {
+            if (i == 0) {
+               listRegions.value[i].isActive = true;
+            }
+            else {
+               listRegions.value[i].isActive = false;
+            }
+         }
+         console.log(listRegions.value);
+
+
+         let _firstRegionId = listRegions.value[0].id;
+         if (_firstRegionId > 0) {
+            await onRequestProductsInRegion(_firstRegionId);
+         }
+      }
+
+   } catch (error) {
+      console.log(error)
+   } finally {
+      onLoadRegions.value = false;
+   }
+}
+
+const onLoadPromotions = ref(true);
+const onRequestPromotions = async () => {
+   try {
+      onLoadPromotions.value = true;
+      promotions.value = await homeComposable.getZonesByTypeKhuyenMai();
+   } catch (error) {
+      console.log(error)
+   } finally {
+      onLoadPromotions.value = false;
+   }
+
+}
+
+const onLoadDestinations = ref(true);
+const onRequestLoadDestinations = async () => {
+   try {
+      onLoadDestinations.value = true;
+      diemDen.value = await homeComposable.getZonesByTypeDiemDen();
+      first4DiemDen.value = JSON.parse(JSON.stringify(diemDen.value)).slice(0, 4)
+   } catch (error) {
+      console.log(error);
+   } finally {
+      onLoadDestinations.value = false;
+   }
 }
 
 onBeforeMount(async () => {
    //Tuong duong ham created
    // Goi cac ham `Future`
    //Lay ra cac services tu API
-   services.value = await homeComposable.getZonesByTypeDichVu();
-   first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
-   currentSeen.value = await homeComposable.getProductsLastSeen();
-   console.log(currentSeen.value)
-   // console.log(currentSeenArray.value)
-   promotions.value = await homeComposable.getZonesByTypeKhuyenMai();
-   topTrends.value = await homeComposable.getProductsInRegion();
-   diemDen.value = await homeComposable.getZonesByTypeDiemDen();
-   first4DiemDen.value = JSON.parse(JSON.stringify(diemDen.value)).slice(0, 4)
-   blogs.value = await homeComposable.getBlogsHomePage();
 
-   listRegions.value = await homeComposable.getListOrRegions();
+   
+
+   
+   // console.log(currentSeenArray.value)
+
+
+   // blogs.value = await homeComposable.getBlogsHomePage();
+
 
 
    // console.log(first4DiemDen.value, 'first4DiemDen.value')
 
-   //Lay ra region dau tien de load san pham ban dau
-   if (listRegions.value.length > 0) {
-      for (let i = 0; i < listRegions.value.length; i++) {
-         if (i == 0) {
-            listRegions.value[i].isActive = true;
-         }
-         else {
-            listRegions.value[i].isActive = false;
-         }
-      }
-      console.log(listRegions.value);
 
-
-      let _firstRegionId = listRegions.value[0].id;
-      if (_firstRegionId > 0) {
-         listProductInRegion.value = await homeComposable.getListProductInRegion(_firstRegionId);
-
-      }
-   }
 
 
 
 })
 
 onMounted(async () => {
+   await onRequestServices();
+   await onRequestPromotions();
+   await onRequestRegions();
+   currentSeen.value = await homeComposable.getProductsLastSeen();
+   await onRequestLoadDestinations();
 })
 </script>
 <style scoped>

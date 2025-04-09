@@ -1,5 +1,6 @@
 <template>
-    <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-if="product">
+    
+    <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-if="product && !onLoading">
         <img :src="helper.getImageCMS(product.avatar)" class="tour-image">
         <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
@@ -16,7 +17,7 @@
                 <div>
                     <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                     <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true })
-                        }}</span>
+                    }}</span>
                     <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~USD</span>{{
                         (product.price / currentfCurrency.exchange)
                             .toFixed(1)
@@ -40,6 +41,7 @@
 import { ref, onBeforeMount, computed, onMounted } from "vue";
 import { useCurrencyStore } from "../stores/currencyStore";
 import { useHelper } from '../composables/helper';
+
 const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
 
@@ -51,7 +53,7 @@ const props = defineProps({
     product: {
         type: Object,
         required: true,
-    },
+    }
 });
 </script>
 <style scoped>
