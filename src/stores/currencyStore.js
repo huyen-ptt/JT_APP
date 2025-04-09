@@ -6,7 +6,7 @@ import { ref } from "vue";
 export const useCurrencyStore = defineStore(
   "fCurrency",
   () => {
-    const fCurrency = ref({code: 'USD', symbol: "$", exchange: 26000 });
+    const fCurrency = ref({ name: 'US Dollar', code: 'USD', symbol: '$', flagUrl: 'https://flagcdn.com/w40/us.png', exchange: 25200 });
     
     const onChangefCurrency = (item) => {
         fCurrency.value = item;
