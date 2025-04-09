@@ -11,21 +11,6 @@
                         v-model="searchQuery" />
                 </div>
 
-<<<<<<< HEAD
-                <div class="currency-list">
-                    <div v-for="currency in filteredCurrencies" :key="currency.code" class="currency-item"
-                        :class="{ visible: selectedCurrency === currency.code }"
-                        @click="selectedCurrency = currency.code">
-                        <div class="currency-info">
-                            <img :src="currency.flagUrl" :alt="currency.name" class="currency-flag" />
-                            <span class="title145">{{ currency.name }}</span>
-                        </div>
-                        <div class="d-flex align-items-center" :class="{ visible: selectedCurrency === currency.code }">
-                            <span class="add-btn-booking me-3">{{ currency.code }}</span>
-                            <i class="currency-check fas fa-check"
-                                :class="{ visible: selectedCurrency === currency.code }"></i>
-                        </div>
-=======
             <div class="currency-list">
                 <div v-for="currency in filteredCurrencies" :key="currency.code" class="currency-item"
                     :class="{ visible: selectedCurrency.code === currency.code }" @click="onSelectCurrentcy(currency)">
@@ -37,32 +22,18 @@
                         <span class="add-btn-booking me-3">{{ currency.code }}</span>
                         <i class="currency-check fas fa-check"
                             :class="{ visible: selectedCurrency.code === currency.code }"></i>
->>>>>>> huybc
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="bottom-menu menu-search bo-goc gap-3">
-<<<<<<< HEAD
-            <router-link to="" class="btn-search cancle">
-                <button class="search-button btn-search" id="search">
-                    {{ $t('Cancel_CURRENCY') }}
-                </button>
-            </router-link>
-            <router-link to="" class="btn-search">
-                <button class="search-button btn-search" id="search">
-                    {{ $t('Save_CURRENCY') }}
-                </button>
-            </router-link>
-=======
             <router-link to="/account" class="btn-search cancle"> <button class="search-button btn-search" id="search">
                     Cancel
                 </button></router-link>
             <router-link to="/account" class="btn-search "> <button class="search-button btn-search" id="search">
                     Save
                 </button></router-link>
->>>>>>> huybc
         </div>
 
     </div>

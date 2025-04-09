@@ -13,20 +13,11 @@
         </div>
 
         <div class="bottom-menu menu-search bo-goc gap-3">
-<<<<<<< HEAD
-            <router-link to="" class="btn-search cancle"> <button class="search-button btn-search" id="search">
-                {{ $t('CANCEL_ACCOUNT') }}
-                </button></router-link>
-            <router-link to="" class="btn-search "> <button class="search-button btn-search" id="search">
-                {{ $t('Save_CURRENCY') }}
-
-=======
             <router-link to="/account" class="btn-search cancle"> <button class="search-button btn-search" id="search">
                     Cancel
                 </button></router-link>
             <router-link to="/account" class="btn-search "> <button class="search-button btn-search" id="search">
                     Save
->>>>>>> huybc
                 </button></router-link>
         </div>
     </div>
