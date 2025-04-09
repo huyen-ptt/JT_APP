@@ -42,6 +42,18 @@ export const usePay = () => {
 
     }
 
+    const onRequestPaypal = async (data)  => {
+        try {
+            const url = `${uri}/api/PageOrder/ProcessPaymentPayPalApp`;
+            const respone = axios.post(url, data);
+            if (respone) {
+                return respone;
+            }
+        } catch (error) {
+            alert(error);
+        }
+    }
+
     const onCreateOrderResponseOnepay = async (url) => {
         try {
             const respone = axios.get(url);
@@ -68,5 +80,5 @@ export const usePay = () => {
 
 
 
-    return { onRequestOnepay, onCreateOrderResponseOnepay, onCheckCouponCode }
+    return { onRequestOnepay, onCreateOrderResponseOnepay, onCheckCouponCode, onRequestPaypal }
 }

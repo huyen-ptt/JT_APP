@@ -2183,6 +2183,11 @@ input::placeholder {
   margin: 0 auto;
   font-size: 14px;
   transition: all 0.2s ease;
+  color: #ddd;
+  text-decoration: line-through;
+}
+.canClick {
+  text-decoration: unset;
   color: #03294C;
 }
 

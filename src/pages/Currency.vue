@@ -11,31 +11,35 @@
                         v-model="searchQuery" />
                 </div>
 
-            <div class="currency-list">
-                <div v-for="currency in filteredCurrencies" :key="currency.code" class="currency-item"
-                    :class="{ visible: selectedCurrency.code === currency.code }" @click="onSelectCurrentcy(currency)">
-                    <div class="currency-info">
-                        <img :src="currency.flagUrl" :alt="currency.name" class="currency-flag">
-                        <span class="title145">{{ currency.name }}</span>
-                    </div>
-                    <div class="d-flex align-items-center" :class="{ visible: selectedCurrency.code === currency.code }">
-                        <span class="add-btn-booking me-3">{{ currency.code }}</span>
-                        <i class="currency-check fas fa-check"
-                            :class="{ visible: selectedCurrency.code === currency.code }"></i>
+                <div class="currency-list">
+                    <div v-for="currency in filteredCurrencies" :key="currency.code" class="currency-item"
+                        :class="{ visible: selectedCurrency.code === currency.code }"
+                        @click="onSelectCurrentcy(currency)">
+                        <div class="currency-info">
+                            <img :src="currency.flagUrl" :alt="currency.name" class="currency-flag">
+                            <span class="title145">{{ currency.name }}</span>
+                        </div>
+                        <div class="d-flex align-items-center"
+                            :class="{ visible: selectedCurrency.code === currency.code }">
+                            <span class="add-btn-booking me-3">{{ currency.code }}</span>
+                            <i class="currency-check fas fa-check"
+                                :class="{ visible: selectedCurrency.code === currency.code }"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="bottom-menu menu-search bo-goc gap-3">
-            <router-link to="/account" class="btn-search cancle"> <button class="search-button btn-search" id="search">
-                    Cancel
-                </button></router-link>
-            <router-link to="/account" class="btn-search "> <button class="search-button btn-search" id="search">
-                    Save
-                </button></router-link>
-        </div>
+            <div class="bottom-menu menu-search bo-goc gap-3">
+                <router-link to="/account" class="btn-search cancle"> <button class="search-button btn-search"
+                        id="search">
+                        Cancel
+                    </button></router-link>
+                <router-link to="/account" class="btn-search "> <button class="search-button btn-search" id="search">
+                        Save
+                    </button></router-link>
+            </div>
 
+        </div>
     </div>
 
 </template>
@@ -43,7 +47,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import HeaderTitle from '../components/HeaderTitle.vue';
-import {useCurrencyStore} from '../stores/currencyStore';
+import { useCurrencyStore } from '../stores/currencyStore';
 
 
 const currencyStore = useCurrencyStore();

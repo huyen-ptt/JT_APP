@@ -269,9 +269,10 @@
             </div>
         </div>
         <div class="bottom-menu menu-search d-flex ">
-            <div class="d-flex">
-                <div class="don-vi align-items-center" id="clear-all">USD</div>
-                <div class="price-pr">---</div>
+            <div class="">
+                <div class="price-parent-from"><small>{{$t('PRICE_PARENT_FROM')}}</small></div>
+                <div class="don-vi align-items-center" id="clear-all">VND {{ productDetail.price.toLocaleString() }}</div>
+                <!-- <div class="price-pr">{{ productDetail.price.toLocaleString() }}</div> -->
             </div>
             <div class="d-flex">
                 <div class="gio-hang-pr">
@@ -280,8 +281,8 @@
                 <a> <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
                         {{ $t('BUY_NOW') }}
                     </button></a>
-                <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order pt-4" :style="{ width: '50vw' }"
-                    style="height: 100%; max-height: 100%;border-radius: 0;"
+                <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order pt-4"
+                    :style="{ width: '50vw' }" style="height: 100%; max-height: 100%;border-radius: 0;"
                     :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
                     <div id="app" class="app-container">
                         <!-- Header -->
@@ -307,7 +308,7 @@
 
                                                 <div class="price-text-see-detail pb-3">
                                                     <span class="me-1">{{ $t('PRICE_FROM') }}</span> <span
-                                                        class="price-value-booking"><span class="me-1">USD</span>{{
+                                                        class="price-value-booking"><span class="me-1">{{ currentfCurrency.code }}</span>{{
                                                             (p.currentPackage.price / currentfCurrency.exchange)
                                                                 .toFixed(1)
                                                                 .toLocaleString("en-US")
@@ -336,7 +337,7 @@
                                                     p.currentPackage.price.toLocaleString()
                                                 }}</span>
                                         </div>
-                                        <div class="packages-count-booking">~ USD {{
+                                        <div class="packages-count-booking">~ {{ currentfCurrency.code }} {{
                                             (p.currentPackage.price / currentfCurrency.exchange)
                                                 .toFixed(1)
                                                 .toLocaleString("en-US")
@@ -356,11 +357,11 @@
                                                     style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
                                                     <div class="date-card-title-booking1">
                                                         <span v-if="!p.currentSelectedDate">{{ $t('Selected_Date')
-                                                        }}</span>
+                                                            }}</span>
                                                         <span v-else>{{ $t('Selected_Date') }}: <br>
                                                             <div class="chose-option">{{
                                                                 helper.formatISODate(p.currentSelectedDate)
-                                                            }}</div>
+                                                                }}</div>
                                                         </span>
                                                     </div>
                                                 </AccordionHeader>
@@ -369,8 +370,8 @@
                                                         <button class="calendar-nav-booking" @click="prevMonth(p)">
                                                             <i class="fas fa-chevron-left"></i>
                                                         </button>
-                                                        <div class="calendar-month-header-booking">{{ currentMonth
-                                                            }}/{{ currentYear
+                                                        <div class="calendar-month-header-booking">{{ p.calendar.currentMonth
+                                                        }}/{{ p.calendar.currentYear
                                                             }}</div>
                                                         <button class="calendar-nav-booking" @click="nextMonth(p)">
                                                             <i class="fas fa-chevron-right"></i>
@@ -389,7 +390,7 @@
                                                             @click="onChoosenDate(p, index)">
                                                             <span v-if="d.day == -1">
                                                             </span>
-                                                            <span v-else>{{ d.day }}</span>
+                                                            <span v-else >{{ d.day }}</span>
                                                             <!-- {{ day.day }} -->
                                                         </div>
                                                     </div>
@@ -427,110 +428,26 @@
                                             <div class="lichh">
                                                 <AccordionHeader class="mb-2"
                                                     style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
-                                                    <!-- <div class="date-card-title-booking1">
-                                                        <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
-                                                            class="section-title-booking">{{ $t('Guest')
-                                                            }}
-                                                        </div>
-                                                        <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
-                                                            $t('Guest')
-                                                            }}<br>
-                                                            <div class="chose-option">{{ $t('Adult')
-                                                                }} : {{ p.choosenNguoiLon }} </div>
-                                                        </div>
-                                                        <div class="section-title-booking">{{
-                                                            $t('Guest')
-                                                            }}<br>
-                                                            <div class="chose-option">{{ $t('Child')
-                                                                }} : {{ p.choosenTreEm }} </div>
-                                                        </div>
-                                                    </div> -->
+
                                                     <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
                                                         class="section-title-booking">{{ $t('Guest')
                                                         }}
                                                     </div>
                                                     <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
                                                         $t('Guest')
-                                                        }}<br>
+                                                    }}<br>
                                                         <div class="chose-option">{{ $t('Adult')
-                                                            }} : {{ p.choosenNguoiLon }} </div>
+                                                        }} : {{ p.choosenNguoiLon }} </div>
                                                     </div>
                                                     <div v-else="p.choosenTreEm" class="section-title-booking">{{
                                                         $t('Guest')
-                                                        }}<br>
+                                                    }}<br>
                                                         <div class="chose-option">{{ $t('Adult')
-                                                            }} : {{ p.choosenTreEm }} </div>
+                                                        }} : {{ p.choosenTreEm }} </div>
                                                     </div>
                                                 </AccordionHeader>
                                                 <AccordionContent>
-                                                    <!-- <div class="guest-dropdown-booking mt-2">
-                                                        <div>
-                                                            <div class="guest-item-booking border-bottom">
-                                                                <div class="">
-                                                                    <div
-                                                                        class="price-item-so-luong d-flex justify-content-between align-items-center">
-                                                                        <div
-                                                                            v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
-                                                                            <div class="price-label-so-luong">Adult
-                                                                            </div>
-                                                                            <div class="price-amount-so-luong">VND {{
-                                                                                p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
-                                                                                }}
-                                                                            </div>
-                                                                            <div class="price-text">~USD {{
-                                                                                (p.selectedPriceByDate?.priceEachNguoiLon
-                                                                                    /
-                                                                                    currentfCurrency.exchange)
-                                                                                    .toFixed(1)
-                                                                                    .toLocaleString("en-US")
-                                                                                }}
-                                                                            </div>
-                                                                        </div>
 
-                                                                        <div class="quantity-controls-so-luong">
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="decreaseNguoiLon(p)">−</button>
-                                                                            <span class="quantity-display-so-luong">{{
-                                                                                p.choosenNguoiLon }}</span>
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="increaseNguoiLon(p)">+</button>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="">
-                                                                    <div class="price-item-so-luong d-flex justify-content-between align-items-center"
-                                                                        v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
-                                                                        <div>
-                                                                            <div class="price-label-so-luong">Child
-                                                                            </div>
-                                                                            <div class="price-amount-so-luong">VND {{
-                                                                                p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
-                                                                                }}
-                                                                            </div>
-                                                                            <div class="price-text">~USD {{
-                                                                                (p.selectedPriceByDate?.priceEachTreEm /
-                                                                                    currentfCurrency.exchange)
-                                                                                    .toFixed(1)
-                                                                                    .toLocaleString("en-US")
-                                                                                }}
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="quantity-controls-so-luong">
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="decreaseTreEm(p)">−</button>
-                                                                            <span class="quantity-display-so-luong">{{
-                                                                                p.choosenTreEm }}</span>
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="increaseTreEm(p)">+</button>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
                                                     <div class="guest-dropdown-booking mt-2">
                                                         <div>
                                                             <div class="guest-item-booking border-bottom">
@@ -539,20 +456,21 @@
                                                                         class="price-item-so-luong d-flex justify-content-between align-items-center">
                                                                         <div
                                                                             v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
-                                                                            <div class="price-label-so-luong">{{ $t('Adult')
-                                                            }}
+                                                                            <div class="price-label-so-luong">{{
+                                                                                $t('Adult')
+                                                                                }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
-                                                                                }}
+                                                                            }}
                                                                             </div>
-                                                                            <div class="price-text">~USD {{
+                                                                            <div class="price-text">~ {{ currentfCurrency.code }} {{
                                                                                 (p.selectedPriceByDate?.priceEachNguoiLon
                                                                                     /
                                                                                     currentfCurrency.exchange)
                                                                                     .toFixed(1)
                                                                                     .toLocaleString("en-US")
-                                                                                }}
+                                                                            }}
                                                                             </div>
                                                                         </div>
 
@@ -571,19 +489,20 @@
                                                                     <div class="price-item-so-luong d-flex justify-content-between align-items-center"
                                                                         v-if="p.selectedPriceByDate?.priceEachTreEm > 0">
                                                                         <div>
-                                                                            <div class="price-label-so-luong">{{ $t('Child')
-                                                            }}
+                                                                            <div class="price-label-so-luong">{{
+                                                                                $t('Child')
+                                                                                }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
-                                                                                }}
+                                                                            }}
                                                                             </div>
-                                                                            <div class="price-text">~USD {{
+                                                                            <div class="price-text">~ {{ currentfCurrency.code }} {{
                                                                                 (p.selectedPriceByDate?.priceEachTreEm /
                                                                                     currentfCurrency.exchange)
                                                                                     .toFixed(1)
                                                                                     .toLocaleString("en-US")
-                                                                                }}
+                                                                            }}
                                                                             </div>
                                                                         </div>
 
@@ -620,8 +539,8 @@
                                 <div>
                                     <div class="packages-count-booking">{{ productDetail.productChilds.length }}
                                         {{ $t('PACKAGES') }}</div>
-                                    <div class="total-price-booking">USD {{ totalPrice.toLocaleString() }}</div>
-                                    <div class="packages-count-booking">~ USD {{ (totalPrice /
+                                    <div class="total-price-booking">VND {{ totalPrice.toLocaleString() }}</div>
+                                    <div class="packages-count-booking">~ {{ currentfCurrency.code }} {{ (totalPrice /
                                         currentfCurrency.exchange).toFixed(1).toLocaleString("enb-US") }}</div>
 
                                 </div>
@@ -631,7 +550,7 @@
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{
                                         countPayItems
-                                        }})</button>
+                                    }})</button>
                                 </div>
                             </div>
                         </div>
@@ -740,6 +659,8 @@ const activeTicketIndex = ref(null);
 
 const payItems = ref([]);
 
+
+
 const currentBook = ref({
     currentPackage: null,
     currentListOptions: [],
@@ -837,7 +758,7 @@ const onLoadCelendar = (p) => {
                 isPast: isPast,
                 price: 0,
                 isActive: false,
-                canClick: true,
+                canClick: isPast ? false : true,
                 formattedDate: formattedDate,
                 priceEachNguoiLon: 0,
                 priceEachTreEm: 0,
@@ -1235,27 +1156,27 @@ const resetSelection = () => {
     });
 };
 
-const nextMonth = () => {
-    currentMonth.value++;
-    if (currentMonth.value > 12) {
-        currentMonth.value = 1;
-        currentYear.value++;
+const nextMonth = (p) => {
+    p.calendar.currentMonth++;
+    if (p.calendar.currentMonth > 12) {
+        p.calendar.currentMonth = 1;
+        p.calendar.currentYear++;
     }
-    updateCalendar();
+    onLoadCelendar(p);
 };
 
-const prevMonth = () => {
-    currentMonth.value--;
-    if (currentMonth.value < 1) {
-        currentMonth.value = 12;
-        currentYear.value--;
+const prevMonth = (p) => {
+    p.calendar.currentMonth--;
+    if (p.calendar.currentMonth < 1) {
+        p.calendar.currentMonth = 12;
+        p.calendar.currentYear--;
     }
-    updateCalendar();
+    onLoadCelendar(p);
 };
 
 const updateCalendar = (p) => {
     // Get days in month
-    p.calendar.daysInMonth.value = new Date(p.calendar.currentYear, p.calendar.currentMonth, 0).getDate();
+    p.calendar.daysInMonth = new Date(p.calendar.currentYear, p.calendar.currentMonth, 0).getDate();
 
     // Get first day of month (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     let firstDay = new Date(p.calendar.currentYear, p.calendar.currentMonth - 1, 1).getDay();
@@ -1302,17 +1223,38 @@ const onSelectedZoneChild = (child) => {
     console.log(child)
 }
 
+
+const setupCurrentDate = () => {
+    const today = new Date();
+
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1; // từ 0 - 11
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay() + 1; // từ 0-6, cộng 1 nếu bạn muốn 1-7
+
+    let df_calendar = {
+        firstDayOfMonth: firstDayOfMonth,
+        daysInMonth: daysInMonth,
+        currentMonth: currentMonth,
+        currentYear: currentYear,
+        items: []
+    }
+    currentBook.value.calendar = df_calendar;
+    console.log(currentBook.value)
+}
+
 // Lifecycle hook
 onMounted(async () => {
-    // updateCalendar();
+    setupCurrentDate();
+
+
+    // console.log(productDetail.value, "productDetail.value");
+    // await onLoadPackage();
 
 });
 onBeforeMount(async () => {
     productDetail.value = await productComposable.getProductDetail();
     seenStore.onAddSeen(productDetail.value.id)
-
-    // console.log(productDetail.value, "productDetail.value");
-    // await onLoadPackage();
 })
 const toggleReadMore = (review) => {
     review.isExpanded = !review.isExpanded; // Đảo trạng thái mở rộng
