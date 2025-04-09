@@ -252,14 +252,14 @@
                     </p>
 
                     <div class="payment-options">
-                        <button class="payment-option active">
+                        <button class="payment-option active" @click="onChoosePaymentMethod('ONEPAY')">
                             <!-- icon -->
                             <span class="payment-label">{{ $t("Credit_Debit_Card_CHECKOUT") }}</span>
                         </button>
 
-                        <button class="payment-option">
+                        <button class="payment-option" @click="onChoosePaymentMethod('PAYPAL')">
                             <!-- icon -->
-                            <span class="payment-label">{{ $t("ATM_Bank_Transfer_CHECKOUT") }}</span>
+                            <span class="payment-label">{{ $t("PAYMENT_CHECKOUT_PAYPAL") }}</span>
                         </button>
                     </div>
                 </div>
@@ -586,7 +586,20 @@ const onCheckCouponCode = async (pay) => {
 
 }
 
+const choosenPayment = ref('ONEPAY');
+const onChoosePaymentMethod = (method) => {
+    choosenPayment.value = method
+}
 const onRequestPay = async () => {
+    if (choosenPayment.value === "ONEPAY") {
+        await onRequestPayOnePay();
+    }
+    if (choosenPayment.value === "PAYPAL") {
+        await onRequestPayPayPal();
+    }
+}
+
+const onRequestPayOnePay = async () => {
     onTriggerValidate();
     let validPayNotes = checkValidateNote();
     let validAuth = checkValidateAuth();
@@ -648,7 +661,7 @@ const onRequestPay = async () => {
                                     }
                                 }
                             } catch (error) {
-                                alert(error) // Thanh toan that bai 1
+                                alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
                             }
 
                         }
@@ -659,7 +672,7 @@ const onRequestPay = async () => {
 
                 }
             } catch (error) {
-                alert(error);
+                alert(t('PAYMENT_RESULT_FAIL'));
             }
             finally {
                 StatusBar.setOverlaysWebView({ overlay: true });
@@ -669,6 +682,90 @@ const onRequestPay = async () => {
     }
 }
 
+const onRequestPayPayPal = async () => {
+    onTriggerValidate();
+    let validPayNotes = checkValidateNote();
+    let validAuth = checkValidateAuth();
+    console.log(validPayNotes, validAuth)
+    if (validPayNotes == true && validAuth == true) {
+
+        const validStep2 = scrollToFirstVisibleError();
+        if (!validStep2) return;
+        else {
+            auth.value.pcname = randomString(10);
+            let data = {
+                pays: pays.value,
+                auth: auth.value,
+                orderCode: `APP_${randomString(8)}`,
+                i18Code: locale.value,
+                orderNotes: orderNote.value,
+                paymentMethod: 'PAYPAL',
+                sourceOrder: 'MOBILE_APP'
+
+            }
+
+            try {
+                const response = await payComposable.onRequestPaypal(data);
+                if (response && response.data) {
+
+                    console.log(response.data);
+                    // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
+                    StatusBar.setOverlaysWebView({ overlay: false });
+                    const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
+                        location: 'no',        // ✅ Ẩn thanh địa chỉ URL
+                        toolbar: 'yes',        // ✅ Hiện thanh toolbar (dưới statusbar)
+                        toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
+                        closebuttoncaption: 'Đóng', // 🛑 Android không hỗ trợ nhưng iOS có
+                        hideurlbar: 'yes',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
+                    });
+
+                    let returnPaymentUrl = "";
+                    // Bắt URL trước khi load
+                    browser.on('loadstart').subscribe(async (event) => {
+                        const url = event.url;
+                        console.log('🔗 Đang chuẩn bị load:', url);
+
+                        // 👉 Nếu phát hiện redirect về deeplink hoặc 1 URL đặc biệt, bạn có thể xử lý:
+                        if (url.startsWith(import.meta.env.VITE_API_URI)) {
+                            returnPaymentUrl = url;
+                            browser.close(); // đóng InAppBrowser
+                            // alert('✅ Phát hiện deeplink redirect:', url);
+                            // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
+                            // Thực thi url 
+                            try {
+                                const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+                                if (response && response.data) {
+                                    console.log(response.data);
+                                    if (response.data.auth) {
+                                        response.data.auth.isNewUser = false;
+                                        authStore.onChangeAuth(response.data.auth);
+                                    }
+                                    if (response.data.orderCode) {
+                                        router.push('/confirm/payment/success');
+                                    }
+                                }
+                            } catch (error) {
+                                alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
+                            }
+
+                        }
+
+
+                        // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
+                    });
+
+
+                }
+            } catch (error) {
+                alert(t('PAYMENT_RESULT_FAIL'));
+            }
+            finally {
+                StatusBar.setOverlaysWebView({ overlay: true });
+            }
+        }
+
+    }
+}
 
 
 // import FastTrack from '../components/FastTrack.vue';
