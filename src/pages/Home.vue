@@ -50,9 +50,7 @@
                <div class="promo-header">
                   <h2 class="promo-title">{{ $t('PROMOTION') }}</h2>
                </div>
-
-
-               <swiper :modules="[Navigation]" :slides-per-view="3" :space-between="1" :loop="true"
+               <swiper :modules="[Navigation]" :slides-per-view="5" :space-between="1" :loop="true"
                   :centered-slides="true" :round-lengths="true" :loop-additional-slides="30" :navigation="{
                      nextEl: '.swiper-button-next',
                      prevEl: '.swiper-button-prev',
@@ -158,47 +156,58 @@
             <h2 class="promo-title idea">{{ $t('IDEAL_DESTINATION') }}</h2>
 
             <div class="grid-destination">
+               <!-- CỘT TRÁI -->
                <div class="column">
-                  <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 === 0)" :key="'col1-' + index"
-                     :class="`card-destination des${index + 1}`">
-                     <RouterLink :to="`/destination/${d.id}`">
-
-                        <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">
-                        <div class="location-destination">
-                           <i class="fas fa-map-marker-alt icon-destination"></i>
-                           <span>{{ d.title }}</span>
+                  <template v-if="!onLoadDestinations">
+                     <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 === 0)" :key="'col1-' + index"
+                        :class="`card-destination des${index + 1}`">
+                        <RouterLink :to="`/destination/${d.id}`">
+                           <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">
+                           <div class="location-destination">
+                              <i class="fas fa-map-marker-alt icon-destination"></i>
+                              <span>{{ d.title }}</span>
+                           </div>
+                        </RouterLink>
+                     </div>
+                  </template>
+                  <template v-else>
+                     <div v-for="index in 2" :key="'col1-skeleton-' + index"
+                        :class="`card-destination`" style="margin-bottom: 10px;">
+                        <div class="image-container mb-2">
+                           <Skeleton height="120px" borderRadius="12px" />
                         </div>
-                     </RouterLink>
-
-                  </div>
+                     
+                     </div>
+                  </template>
                </div>
 
-               <div class="column" v-if="!onLoadDestinations">
-                  <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 !== 0)" :key="'col2-' + index"
-                     :class="`card-destination des${index + 3}`">
-                     <RouterLink :to="`/destination/${d.id}`">
-                        <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">
-                        <div class="location-destination">
-                           <i class="fas fa-map-marker-alt icon-destination"></i>
-                           <span>{{ d.title }}</span>
+               <!-- CỘT PHẢI -->
+               <div class="column">
+                  <template v-if="!onLoadDestinations">
+                     <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 !== 0)" :key="'col2-' + index"
+                        :class="`card-destination des${index + 3}`">
+                        <RouterLink :to="`/destination/${d.id}`">
+                           <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">
+                           <div class="location-destination">
+                              <i class="fas fa-map-marker-alt icon-destination"></i>
+                              <span>{{ d.title }}</span>
+                           </div>
+                        </RouterLink>
+                     </div>
+                  </template>
+                  <template v-else>
+                     <div v-for="index in 2" :key="'col2-skeleton-' + index"
+                        :class="`card-destination`" style="margin-bottom: 10px;">
+                        <div class="image-container mb-2">
+                           <Skeleton height="120px" borderRadius="12px" />
                         </div>
-                     </RouterLink>
-
-                  </div>
-               </div>
-               <div class="column" v-else>
-                  <div v-for="index in 4" :key="'col2-' + index" :class="`card-destination des${index + 3}`">
-                     <div class="image-container mb-2">
-                        <Skeleton height="120px" borderRadius="12px" />
+                       
                      </div>
-                     <div class="location-destination flex items-center gap-1">
-                        <Skeleton shape="circle" size="1rem" />
-                        <Skeleton width="60px" height="14px" />
-                     </div>
-                  </div>
+                  </template>
                </div>
             </div>
          </div>
+
          <Footer></Footer>
 
          <div class="floating-icons">
@@ -390,9 +399,9 @@ onBeforeMount(async () => {
    // Goi cac ham `Future`
    //Lay ra cac services tu API
 
-   
 
-   
+
+
    // console.log(currentSeenArray.value)
 
 
@@ -411,9 +420,9 @@ onBeforeMount(async () => {
 onMounted(async () => {
    await onRequestServices();
    await onRequestPromotions();
-   await onRequestRegions();
+   await onRequestRegions();  
    currentSeen.value = await homeComposable.getProductsLastSeen();
-   await onRequestLoadDestinations();
+   await onRequestLoadDestinations(); 
 })
 </script>
 <style scoped>
