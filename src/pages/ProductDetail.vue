@@ -771,6 +771,7 @@ console.log(currentBook.value, "currentBook")
 const visibleDrawerPackageList = ref(false);
 const onClickBuyNowParent = () => {
     visibleDrawerPackageList.value = true;
+    payItems.value = [];
     //Tao danh sach cac package
     if (productDetail.value) {
         productDetail.value.productChilds.forEach(r => {

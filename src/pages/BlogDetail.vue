@@ -89,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="news-card-blogg">
+                <div class="news-card-blogg">   
                     <div class="news-image-blogg">
                         <img src="../assets/images/img11.jpg" alt="Da Nang ancient town" />
                     </div>
@@ -137,7 +137,5 @@ onMounted(async () => {
     blogDetail.value = await blogDetailComposable.getBlogInfomationDetail();
     console.log(blogDetail.value);
 })
-
-
 
 </script>
