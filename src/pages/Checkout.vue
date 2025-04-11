@@ -3,7 +3,7 @@
         <HeaderTitle :title="$t('checkcart')"></HeaderTitle>
 
         <div class="card">
-            <Accordion value="0">
+            <Accordion :value="activeMainAccordion" multiple>
                 <AccordionPanel class="mb-3" value="0">
                     <AccordionHeader>
                         <div class="promo-title pb-1">{{ $t('payment_summary') }}
@@ -68,7 +68,8 @@
                                         </div>
                                     </div>
                                     <!-- <FastTrack /> -->
-                                    <Accordion v-for="noteGroup in pay.productBookingNoteGroups">
+                                    <Accordion :value="activeSubNoteAccordion"
+                                        v-for="noteGroup in pay.productBookingNoteGroups" multiple>
                                         <AccordionPanel value="4">
                                             <AccordionHeader class="p-0">
                                                 <div class="service-details">
@@ -343,6 +344,10 @@ const payComposable = usePay();
 
 const pays = computed(() => payStore.pays);
 const auth = computed(() => authStore.auth);
+
+const activeMainAccordion = ref(['0']);
+const activeSubNoteAccordion = ref([]);
+
 // console.log('currentPays',currentPays)
 const countries = ref([
     { name: t("Vietnam"), code: 'VN' },
@@ -605,12 +610,16 @@ const onRequestPay = async () => {
 
 const onRequestPayOnePay = async () => {
     onTriggerValidate();
+
     let validPayNotes = checkValidateNote();
     let validAuth = checkValidateAuth();
     console.log(validPayNotes, validAuth)
+    activeMainAccordion.value = ['0', '1'];
+    activeSubNoteAccordion.value = ['4'];
+    const validStep2 = scrollToFirstVisibleError();
     if (validPayNotes == true && validAuth == true) {
 
-        const validStep2 = scrollToFirstVisibleError();
+        
         if (!validStep2) return;
         else {
             auth.value.pcname = randomString(10);

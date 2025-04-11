@@ -1,8 +1,9 @@
 export function scrollToFirstVisibleError() {
     // Lấy tất cả các phần tử có class 'error-message' và đang hiển thị
-    const errors = Array.from(document.querySelectorAll('.error-message'))
-      .filter(el => el.offsetParent !== null); // offsetParent null nghĩa là bị ẩn (accordion đang đóng, v.v.)
-  
+    const errors = Array.from(document.querySelectorAll('.error-message')); // offsetParent null nghĩa là bị ẩn (accordion đang đóng, v.v.)
+
+    console.log(errors.length);
+
     if (errors.length === 0) return true;
   
     const firstError = errors[0];
