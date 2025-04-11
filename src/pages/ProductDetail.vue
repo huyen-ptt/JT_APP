@@ -270,8 +270,14 @@
         </div>
         <div class="bottom-menu menu-search d-flex ">
             <div class="">
-                <div class="price-parent-from"><small>{{$t('PRICE_PARENT_FROM')}}</small></div>
+                <div class="price-usd">{{$t('PRICE_FROM')}}</div>
                 <div class="don-vi align-items-center" id="clear-all">VND {{ productDetail.price.toLocaleString() }}</div>
+                <div class="price-usd">~ USD {{
+                        (productDetail.price / currentfCurrency.exchange)
+                            .toFixed(1)
+                            .toLocaleString("en-US")
+                    }}</div>
+
                 <!-- <div class="price-pr">{{ productDetail.price.toLocaleString() }}</div> -->
             </div>
             <div class="d-flex">

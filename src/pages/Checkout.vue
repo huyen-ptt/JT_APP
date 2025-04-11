@@ -38,7 +38,7 @@
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
                                                     <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
-                                                    }}</span>
+                                                        }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -253,12 +253,12 @@
 
                     <div class="payment-options">
                         <button class="payment-option active" @click="onChoosePaymentMethod('ONEPAY')">
-                            <!-- icon -->
+                            <img src="../assets/images/atm.png" alt="OnePay" class="payment-icon" />
                             <span class="payment-label">{{ $t("Credit_Debit_Card_CHECKOUT") }}</span>
                         </button>
 
                         <button class="payment-option" @click="onChoosePaymentMethod('PAYPAL')">
-                            <!-- icon -->
+                            <img src="../assets/images/atm1.png" alt="PayPal" class="payment-icon" />
                             <span class="payment-label">{{ $t("PAYMENT_CHECKOUT_PAYPAL") }}</span>
                         </button>
                     </div>
@@ -285,7 +285,11 @@
         <div class="bottom-menu menu-search d-flex bo-goc">
             <div>
                 <div class="don-vi" id="clear-all">VND {{ totalPrice.toLocaleString() }}</div>
-                <!-- <div class="price-text">~USD 41.2</div> -->
+                <div class="price-text">~ USD {{
+                    (totalPrice / currentfCurrency.exchange)
+                        .toFixed(1)
+                        .toLocaleString("en-US")
+                }}</div>
             </div>
             <div class="d-flex">
                 <button class="search-button" @click="onRequestPay()" id="search">

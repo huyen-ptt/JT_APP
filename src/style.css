@@ -408,7 +408,7 @@ input::placeholder {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   background: white;
   transition: all 0.2s;
 }
@@ -430,7 +430,7 @@ input::placeholder {
 }
 
 .payment-label {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: #03294C;
 }

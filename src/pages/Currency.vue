@@ -32,16 +32,15 @@
             <div class="bottom-menu menu-search bo-goc gap-3">
                 <router-link to="/account" class="btn-search cancle"> <button class="search-button btn-search"
                         id="search">
-                        Cancel
+                        {{ $t('CANCEL_ACCOUNT') }}
                     </button></router-link>
                 <router-link to="/account" class="btn-search "> <button class="search-button btn-search" id="search">
-                        Save
+                        {{ $t('Save_CURRENCY') }}
                     </button></router-link>
             </div>
 
         </div>
     </div>
-</div> 
 
 </template>
 
