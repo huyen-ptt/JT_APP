@@ -13,12 +13,21 @@
             <!-- Destination Section -->
             <div class="filter-section" v-if="destinationSearch">
                 <h3 class="section-title">{{ destinationSearch.zoneParentName }}</h3>
-                <div class="button-grid" id="destinations">
+                <div>
+                    <div :class="['half-list-container', { expanded: isExpanded }]">
+                        <div class="button-grid" id="destinations">
+                            <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index"
+                                class="filter-button" :class="s.isActive ? 'selected' : ''" :data-name="s.name"
+                                @click="onClickSearchItem(s)">
+                                {{ s.name }}
+                            </button>
+                        </div>
+                        <div v-if="!isExpanded" class="gradient-overlay"></div>
+                    </div>
 
-                    <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index" class="filter-button"
-                        :class="s.isActive ? 'selected' : ''" :data-name="s.name" @click="onClickSearchItem(s)">{{
-                            s.name
-                        }}</button>
+                    <button class="read-more-btn" @click="toggleExpand">
+                        {{ isExpanded ? 'Show Less' : 'Read More' }}
+                    </button>
                 </div>
             </div>
 
@@ -43,7 +52,7 @@
                         <span class="min-label">{{ formatCurrency(budgetRange[0]) }}</span>
                         <span class="max-label">{{ formatCurrency(budgetRange[1]) }}</span>
                     </div>
-                </div>         
+                </div>
             </div>
         </div>
 
@@ -70,7 +79,7 @@ const destinationSearch = ref(null)
 const serviceSearch = ref(null)
 const router = useRouter();
 const searchQuery = ref('');
-
+const isExpanded = ref(false)
 const budgetRange = ref([0, 20000000]);
 
 const formatCurrency = (value) => {
@@ -91,6 +100,9 @@ const handleSearch = () => {
     if (searchQuery.value) {
         router.push({ path: '/list-search', query: { q: searchQuery.value } });
     }
+}
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value
 }
 onMounted(async () => {
 
@@ -153,5 +165,60 @@ const clearAllSelected = () => {
     letter-spacing: 0px;
     color: #8A929E;
 
+}
+.half-list-container {
+  position: relative;
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.half-list-container.expanded {
+  max-height: 1000px;
+}
+
+.button-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  background-color: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-button.selected {
+  background-color: #0f172a;
+  color: white;
+}
+
+.gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, white, rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.read-more-btn {
+    background-color: #446EDE;
+    color: white;
+    padding: 6px 20px;
+    border-radius: 25px;
+    border: none;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+.read-more-btn:hover {
+  background-color: #446EDE;
 }
 </style>
