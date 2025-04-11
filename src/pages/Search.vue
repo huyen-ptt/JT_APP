@@ -78,6 +78,7 @@ const formatCurrency = (value) => {
 };
 
 const onClickSearchItem = async (searchItem) => {
+    // console.log(searchItem);
     if (searchItem.isActive == false) {
         searchItem.isActive = true;
         searchStore.onAddSearchItem(searchItem);

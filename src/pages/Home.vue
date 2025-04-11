@@ -31,7 +31,7 @@
          </div>
          <div class="row row-cols-5 mt-4">
             <div class="col s__col__item" v-for="(s, index) in first4Services" :key="index">
-               <a href="/list-results" class="icon-circle combo-icon">
+               <a  @click="onChooseService(s)" class="icon-circle combo-icon">
                   <img class="icon-services" :src="helper.getImageCMS(s.icon)" />
                </a>
                <span class="service-text">{{ s.title }}</span>
@@ -252,6 +252,7 @@ import ProductSearch from "../components/ProductSearch.vue";
 import { useModalStore } from '@/stores/modalStore';
 import ProductHomeSkeleton from "../components/ProductHomeSkeleton.vue";
 import Skeleton from 'primevue/skeleton';
+import { useSearchStore } from "../stores/searchStore";
 
 // const seenStore = useSeenStore();
 // const seen = computed(() => seenStore.seen);
@@ -262,6 +263,8 @@ const router = useRouter()
 
 const homeComposable = useHome();
 const productComposable = useProduct();
+const searchStore = useSearchStore();
+
 
 
 const helper = useHelper();
@@ -296,7 +299,14 @@ const defaultProducts = ref({
    id: 0
 })
 
+const searchs = computed(() => searchStore.search);
 
+const onChooseService = (s) => {
+   searchStore.onClearSearchItem();
+   searchStore.onAddSearchItem(s)
+   modalStore.close();
+   router.push('/list-results')
+}
 
 const onClickRegion = async (region) => {
    //1: Loai bo tat ca true
@@ -318,6 +328,10 @@ const onRequestServices = async () => {
    try {
       onLoadServices.value = true
       services.value = await homeComposable.getZonesByTypeDichVu();
+      services.value.forEach(r => {
+         r.url = r.alias
+         r.name = r.title
+      })
       first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
    } catch (error) {
       console.log(error);
