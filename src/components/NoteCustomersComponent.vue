@@ -1,81 +1,63 @@
 <template>
-    <Accordion class="mt-3">
-        <div class="title-1477 pb-2">{{ info.zoneName }}</div>
-        <AccordionPanel class="customer1" v-for="(customer, index) in customers" :value="index" :key="index">
-            <AccordionHeader class="p-0">
-                <div class="service-details">
-                    <div class="title145">Customer {{ index + 1 }}<span class="text-danger"> *</span>
-                    </div>
+   <Accordion class="mt-3">
+  <div class="title-1477 pb-2">{{ info.zoneName }}</div>
+  <AccordionPanel class="customer1" v-for="(customer, index) in customers" :value="index" :key="index">
+    <AccordionHeader class="customer-accordion-custom-class">
+        <div class="title145">{{ $t('CUSTOMER') }} {{ index + 1 }}<span class="text-danger"> *</span></div>
+    </AccordionHeader>
+    <AccordionContent class="p-0 servies-det">
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="form-label">{{ $t('FIRST_NAME') }}</label>
+          <input type="text" class="form-control" :placeholder="$t('FIRST_NAME')" v-model="customer.firstName">
+          <div class="error-message" v-if="info.triggerValid && customer.firstName == ''">
+            <small>{{ $t('ERRPR_MISSING_CUSTOMER_FIRSTNAME_INPUT') }}</small>
+          </div>
+        </div>
+        <div class="col-12">
+          <label class="form-label">{{ $t('FAMILY_NAME') }}</label>
+          <input type="text" class="form-control" :placeholder="$t('FAMILY_NAME')" v-model="customer.familyName">
+          <div class="error-message" v-if="info.triggerValid && customer.familyName == ''">
+            <small>{{ $t('ERRPR_MISSING_CUSTOMER_FAMILYNAME_INPUT') }}</small>
+          </div>
+        </div>
+      </div>
 
-                </div>
-            </AccordionHeader>
-            <AccordionContent class="p-0 servies-det">
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" placeholder="Your First Name"
-                            v-model="customer.firstName">
-                        <div class="error-message" v-if="info.triggerValid && customer.firstName == ''">
-                            <small>{{ $t('ERRPR_MISSING_CUSTOMER_FIRSTNAME_INPUT') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Family
-                            Name</label>
-                        <input type="text" class="form-control" placeholder="Your Family Name"
-                            v-model="customer.familyName">
-                        <div class="error-message" v-if="info.triggerValid && customer.familyName == ''">
-                            <small>{{ $t('ERRPR_MISSING_CUSTOMER_FAMILYNAME_INPUT') }}</small>
-                        </div>
-                    </div>
-                </div>
+      <!-- Nationality and Birthday -->
+      <div class="row mb-3">
+        <div class="col-12">
+          <label class="form-label">{{ $t('NATIONALITY') }}</label>
+          <Select v-model="customer.country" :options="countries" id="country_2" optionLabel="name"
+            optionValue="code" :placeholder="$t('NATIONALITY')" filter
+            :filterPlaceholder="$t('NATIONALITY')" class="form-select na"
+            :emptyFilterMessage="$t('NO_RESULTS_FOUND')"></Select>
+          <div class="error-message" v-if="info.triggerValid && customer.country == ''">
+            <small>{{ $t('ERRPR_MISSING_CUSTOMER_COUNTRY_INPUT') }}</small>
+          </div>
+        </div>
+        <div class="col-12">
+          <label class="form-label">{{ $t('BIRTHDAY') }}</label>
+          <div class="position-relative">
+            <DatePicker width="100%" v-model="customer.birthDay" dateFormat="dd/mm/yyyy" class="date-check "/>
+          </div>
+          <div class="error-message" v-if="info.triggerValid && customer.birthDay == ''">
+            <small>{{ $t('ERRPR_MISSING_CUSTOMER_BIRTHDAY_INPUT') }}</small>
+          </div>
+        </div>
+      </div>
 
-                <!-- Nationality and Birthday -->
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <label class="form-label">Nationality</label>
-                        <Select v-model="customer.country" :options="countries" id="country_2" optionLabel="name"
-                            optionValue="code" :placeholder="$t('NATIONALITY')" filter
-                            :filterPlaceholder="$t('NATIONALITY')" class="form-select"
-                            :emptyFilterMessage="$t('NO_RESULTS_FOUND')"></Select>
-                        <div class="error-message" v-if="info.triggerValid && customer.country == ''">
-                            <small>{{ $t('ERRPR_MISSING_CUSTOMER_COUNTRY_INPUT') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label">Birthday</label>
-                        <div class="position-relative">
-                            <DatePicker v-model="customer.birthDay" dateFormat="dd/mm/yyyy" />
-                            <!-- <svg class="calendar-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2">
-                                </rect>
-                                <line x1="16" y1="2" x2="16" y2="6">
-                                </line>
-                                <line x1="8" y1="2" x2="8" y2="6">
-                                </line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg> -->
-                        </div>
-                        <div class="error-message" v-if="info.triggerValid && customer.birthDay == ''">
-                            <small>{{ $t('ERRPR_MISSING_CUSTOMER_BIRTHDAY_INPUT') }}</small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Passport Number -->
-                <div class="mb-3">
-                    <label class="form-label">Passport
-                        number</label>
-                    <input type="text" v-model="customer.passportNumber" class="form-control"
-                        placeholder="Passport number">
-                    <div class="error-message" v-if="info.triggerValid && customer.passportNumber == ''">
-                        <small>{{ $t('ERRPR_MISSING_CUSTOMER_BIRTHDAY_INPUT') }}</small>
-                    </div>
-                </div>
-            </AccordionContent>
-        </AccordionPanel>
-    </Accordion>
+      <!-- Passport Number -->
+      <div class="mb-3">
+        <label class="form-label">{{ $t('PASSPORT_NUMBER') }}</label>
+        <input type="text" v-model="customer.passportNumber" class="form-control"
+          :placeholder="$t('PASSPORT_NUMBER')">
+        <div class="error-message" v-if="info.triggerValid && customer.passportNumber == ''">
+          <small>{{ $t('ERRPR_MISSING_CUSTOMER_PASSPORT_INPUT') }}</small>
+        </div>
+      </div>
+    </AccordionContent>
+  </AccordionPanel>
+</Accordion>
 </template>
 <script setup>
 import { ref, onBeforeMount, computed, onMounted, watch, toRef } from "vue";
@@ -235,3 +217,24 @@ onMounted(() => {
 
 
 </script>
+<style scoped>
+.form-select,
+.form-control {
+    background-color: #F5F7FA;
+    border: 1px solid #EDF1F7;
+    border-radius: 15px;
+    font-size: 14px;
+    padding: 10px 12px;
+    font-weight: 400;
+    color: #8A929E;
+}
+.form-label {
+    font-size: 14px;
+    color: #8A929E;
+    margin-bottom: 6px;
+}
+.na .p-select-label.p-placeholde{
+  color: #8A929E !important;
+
+}
+</style>

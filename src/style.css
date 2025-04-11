@@ -282,7 +282,7 @@ input::placeholder {
   top: 0;
   border-radius: 0px 0px 11px 11px;
   background: #F1F5FF;
-  right: 10px;   
+  right: 10px;
   padding: 0px 8px;
 }
 
@@ -398,6 +398,34 @@ input::placeholder {
   display: flex;
   gap: 16px;
   margin-bottom: 24px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.date-check input {
+  width: 100% !important;
+  background-color: #F5F7FA;
+  border: 1px solid #EDF1F7;
+  border-radius: 15px;
+  font-size: 14px;
+  padding: 10px 12px;
+  font-weight: 400;
+  color: #8A929E;
+}
+
+.na .p-select-label {
+  padding: 0 !important;
+}
+.na .p-select-label.p-placeholde{
+  color: #8A929E !important;
+
+}
+
+.date-check {
+  width: 100% !important;
 }
 
 .payment-option {
@@ -1381,7 +1409,7 @@ input::placeholder {
 }
 
 .p-select-label.p-placeholder {
-  color: #03294C !important;
+  color: #8A929E !important;
 }
 
 .results-info-product svg {
@@ -2186,6 +2214,7 @@ input::placeholder {
   color: #ddd;
   text-decoration: line-through;
 }
+
 .canClick {
   text-decoration: unset;
   color: #03294C;
@@ -3610,8 +3639,7 @@ input::placeholder {
   background-color: #F5F7FA;
   border-bottom: none;
   padding: 16px 20px;
-  display: flex
-;
+  display: flex;
   border-radius: 10px;
   margin: 6px;
   justify-content: space-between;
