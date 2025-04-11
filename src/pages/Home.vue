@@ -6,12 +6,11 @@
                <div class="logo-container">
                   <img src="../assets/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
                </div>
-               <a class="search-box-container" href="/search" style="text-decoration: none;">
+               <RouterLink class="search-box-container" :to="`/search`" style="text-decoration: none;">
                   <div class="search-box-items"></div>
                   <i class="fas fa-search search-icon"></i>
                   <span style="color: #8A929E;">{{ $t('place_to_go') }}</span>
-               </a>
-
+               </RouterLink>
                <!-- Icons on the right -->
                <div class="icons-container gap-2 d-flex ">
                   <RouterLink to="/cart">

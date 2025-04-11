@@ -4,10 +4,10 @@
             <div class="close"><i class="fa-solid fa-xmark"></i></div>
         </div>
         <div class="search-container">
-            <a href="/list-search">
+            <RouterLink :to="`/list-search`">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" :placeholder="$t('place_to_go')" />
-            </a>
+            </RouterLink>
         </div>
         <div class="filter-sidebar">
             <!-- Destination Section -->
