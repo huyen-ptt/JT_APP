@@ -20,7 +20,10 @@
                         </button>
                     </div>
                     <div class="position-absolute end-0 translate-middle-y p-3 icon">
-                        <img height="30" src="../assets/images/shopping-cart-w.png" />
+                        <router-link :to="`/cart`">
+                            <img height="30" src="../assets/images/shopping-cart-w.png" />
+                        </router-link>
+                        
                     </div>
                 </div>
             </div>
@@ -545,7 +548,7 @@
 
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <div class="cart-icon-booking">
+                                    <div class="cart-icon-booking" @click="onAddToCart()">
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{
@@ -587,6 +590,7 @@ import { useCartStore } from '../stores/cartStore';
 import axios from "axios";
 import { RouterLink, useRouter } from 'vue-router'
 import { StatusBar } from '@capacitor/status-bar';
+
 StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
 
 const uri = import.meta.env.VITE_API_URI;
@@ -595,11 +599,11 @@ const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
 
 const seenStore = useSeenStore();
-
+const cartStore = useCartStore();
+const carts = computed(() => cartStore.carts)
 
 
 const payStore = usePayStore();
-const cartStore = useCartStore();
 const visible = ref(false);
 const productComposable = useProduct();
 const helper = useHelper();
@@ -1091,12 +1095,21 @@ const calculatePays = () => {
 
 
 const buyNow = () => {
-    console.log(payItems.value, productDetail.value)
+    // console.log(payItems.value, productDetail.value)
     // convert pay object like API
     let pays = calculatePays();
     payStore.onAddPays(pays);
     router.push('/checkout');
 };
+
+const onAddToCart = () => {
+    let pays = calculatePays();
+    pays.forEach(p => {
+        cartStore.onAddCart(p);
+    })
+    
+    router.push('/cart')
+}
 
 // #endregion
 // Thêm hàm mới để xử lý dropdown Option
