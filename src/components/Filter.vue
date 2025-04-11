@@ -12,7 +12,7 @@
             <!-- Destination Section -->
             <div class="filter-section" v-if="destinationSearch">
                 <h3 class="section-title">{{ destinationSearch.zoneParentName }}</h3>
-                <div class="button-grid" id="destinations">
+                <div class="button-grid " id="destinations">
                     <button class="filter-button selected" data-name="Ha Noi">Ha Noi</button>
                     <button v-for="(s, index) in destinationSearch.zoneChilds" :key="index" class="filter-button"
                         :data-name="s.name">{{ s.name }}</button>

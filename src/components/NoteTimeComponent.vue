@@ -8,26 +8,27 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12">
                 <label class="form-label title-con">
-                    Hour<span class="required-mark">*</span>
+                    {{ $t('HOUR') }}<span class="required-mark">*</span>
                 </label>
                 <select class="form-select" v-model="selectedHour" @change="updateMinutes">
-                    <option disabled value="">Select hour</option>
+                    <option disabled value="">{{ $t('SELECT_HOUR') }}</option>
                     <option :value="h" v-for="h in hours" :key="h">{{ h }}</option>
                 </select>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <label class="form-label">
-                    Minute<span class="required-mark">*</span>
+                    {{ $t('MINUTE') }}<span class="required-mark">*</span>
                 </label>
-                <select class="form-select" v-model="selectedMinute" :disabled="minutes.length <= 0" @change="validate()">
-                    <option disabled>Select minute</option>
+                <select class="form-select" v-model="selectedMinute" :disabled="minutes.length <= 0"
+                    @change="validate()">
+                    <option disabled>{{ $t('SELECT_MINUTE') }}</option>
                     <option v-for="m in minutes" :value="m" :key="m">{{ m.toString().padStart(2, '0') }}</option>
                 </select>
             </div>
             <div class="error-message" v-if="info.triggerValid && info.noteValue == ''">
-                <small>{{$t('ERRPR_MISSING_NOTE_DATETIME')}}</small>
+                <small>{{ $t('ERRPR_MISSING_NOTE_DATETIME') }}</small>
             </div>
         </div>
     </div>
@@ -76,11 +77,11 @@ watch(props.info?.triggerValid, () => {
     validate();
 })
 const validate = () => {
-    
-    if(selectedHour.value == "" || selectedMinute.value == ""){
+
+    if (selectedHour.value == "" || selectedMinute.value == "") {
         props.info.isValidNoteItem = false;
     }
-    else{
+    else {
         props.info.noteValue = `${props.date} ${selectedHour.value}:${selectedMinute.value}`
         props.info.isValidNoteItem = true;
     }
@@ -91,3 +92,20 @@ onMounted(() => {
     updateMinutes()
 })
 </script>
+<style scoped>
+.form-select,
+.form-control {
+    background-color: #F5F7FA;
+    border: 1px solid #EDF1F7;
+    border-radius: 15px;
+    font-size: 14px;
+    padding: 10px 12px;
+    font-weight: 400;
+    color: #8A929E;
+}
+.form-label {
+    font-size: 14px;
+    color: #8A929E;
+    margin-bottom: 6px;
+}
+</style>

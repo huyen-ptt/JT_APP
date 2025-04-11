@@ -42,6 +42,7 @@ const validate = () => {
     font-weight: 400;
     color: #8A929E;
 }
+
 .form-label {
     font-size: 14px;
     color: #8A929E;
