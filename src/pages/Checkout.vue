@@ -685,7 +685,8 @@ const onRequestPayOnePay = async () => {
 
                 }
             } catch (error) {
-                alert(t('PAYMENT_RESULT_FAIL'));
+                alert(error);
+                // alert(t('PAYMENT_RESULT_FAIL'));
             }
             finally {
                 StatusBar.setOverlaysWebView({ overlay: true });
@@ -758,7 +759,8 @@ const onRequestPayPayPal = async () => {
                                     }
                                 }
                             } catch (error) {
-                                alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
+                                // alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
+                                alert(error);
                             }
 
                         }
@@ -770,7 +772,8 @@ const onRequestPayPayPal = async () => {
 
                 }
             } catch (error) {
-                alert(t('PAYMENT_RESULT_FAIL'));
+                alert(error);
+                // alert(t('PAYMENT_RESULT_FAIL'));
             }
             finally {
                 StatusBar.setOverlaysWebView({ overlay: true });
