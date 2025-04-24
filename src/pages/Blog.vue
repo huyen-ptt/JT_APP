@@ -114,7 +114,7 @@ onBeforeMount(async () => {
 <style scoped>
 .custom-tab-list {
     display: flex;
-    border-bottom: 2px solid #ddd;
+    /* border-bottom: 2px solid #ddd; */
     /* Add a border below the TabList */
 }
 
@@ -127,8 +127,8 @@ onBeforeMount(async () => {
     width: 48%;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 500 !important;
-    font-weight: bold;
+    font-weight: 500;
+    /* font-weight: bold; */
     transition: background-color 0.3s, color 0.3s;
 }
 

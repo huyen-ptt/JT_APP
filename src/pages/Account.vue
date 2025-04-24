@@ -17,7 +17,7 @@
             </div>
             <div v-else class="profile-card d-flex align-items-center">
                 <div>
-                    Plese <RouterLink :to="'/signin'">Login</RouterLink> or <RouterLink :to="'/signup'">Sign Up</RouterLink>
+                    {{ $t('please') }} <RouterLink to="/signin">{{ $t('Login') }}</RouterLink> {{ $t('or') }} <RouterLink to="/sign-up">{{ $t('SignUp') }}</RouterLink>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
             <!-- About us Section -->
             <h6 class="promo-title pb-3">{{ $t('ABOUT_US_ACCOUNT') }}</h6>
             <div class="about-card">
-                <div class="about-item">
+                <!-- <div class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/book.png" />
@@ -105,8 +105,16 @@
                         <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
-                </div>
+                </div> -->
                 <a href="/introduce" class="about-item">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-circle me-3">
+                            <img src="../assets/images/book.png" />
+                        </div>                          <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
+                    </div>
+                    <i class="fas fa-chevron-right "></i>
+                </a>
+                <a href="/contact" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/call-calling.png" />
@@ -120,6 +128,15 @@
                             <img src="../assets/images/re.png" />
                         </div>
                         <span class="title145">{{ $t('FAQS_ACCOUNT') }}</span>
+                    </div>
+                    <i class="fas fa-chevron-right "></i>
+                </a>
+                <a href="/becomeapartner" class="about-item">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-circle me-3">
+                            <img src="../assets/images/re.png" />
+                        </div>
+                        <span class="title145">{{ $t('become_a_partner') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </a>

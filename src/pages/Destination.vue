@@ -1,47 +1,54 @@
 <template>
     <div class="bg-white pb-3" v-if="currentDestinationSelected">
-       
         <HeaderTitle :title="currentDestinationSelected?.name"></HeaderTitle>
-
         <!-- Main Image Slider -->
         <div class="container">
             <div class="">
                 <img :src="helper.getImageCMS(currentDestinationSelected?.avatar)" class="d-block w-100 img-des"
                     alt="Ho Chi Minh City Night Scene">
             </div>
-
-
-
             <!-- Weather Section -->
-            <div class="weather-section mt-3 mb-3 rounded-4">
-                <div class="d-flex gap-3 text-center recently-carousel">
-                    <div class="du-bao" v-for="db in currentDestinationSelected?.weatherData.weekWeatherData">
-                        <div class="weather-icon">
-                            <img width="50" :src="db.icon" />
-                        </div>
-                        <div class="temperature">{{ db.max }}°C</div>
-                        <div class="time-small">{{ db.time }}</div>
-                    </div>
 
-
+            <ClientOnly>
+                <div class="weather-section mt-3 rounded-4">
+                    <swiper v-if="currentDestinationSelected?.weatherData?.weekWeatherData"
+                        :modules="[Pagination, Autoplay]" :slides-per-view="4" :space-between="16" :autoplay="{
+                            delay: 5000,
+                            disableOnInteraction: false
+                        }" :pagination="{ clickable: true }" class="recently-carousel text-center pb-5">
+                        <swiper-slide v-for="(db, index) in currentDestinationSelected.weatherData.weekWeatherData"
+                            :key="index">
+                            <div class="du-bao">
+                                <div class="weather-icon">
+                                    <img width="50" :src="db.icon" />
+                                </div>
+                                <div class="temperature">{{ db.max }}°C</div>
+                                <div class="time-small">{{ db.time }}</div>
+                            </div>
+                        </swiper-slide>
+                    </swiper>
                 </div>
+            </ClientOnly>
 
-
-            </div>
 
             <!-- Services Section -->
-            <div class="mt-4">
-                <div class="title mb-1">{{ $t('service') }}</div>
-                <div class="service-icons">
-                    <div class="service-item" v-for="(s, index) in services" :key="index">
-                        <div class="service-icon">
-                            <img :src="helper.getImageCMS(s.icon)" alt="Combo">
-                        </div>
-                        <div class="service-name">{{ s.title }}</div>
-                    </div>
 
+            <ClientOnly>
+                <div class="mt-2">
+                    <div class="title mb-1">{{ $t('service') }}</div>
+                    <swiper :modules="[Pagination, Autoplay]" :slides-per-view="4" :space-between="8" :autoplay="{
+                        delay: 5000,
+                        disableOnInteraction: false
+                    }" :pagination="{ clickable: true }" class="service-icons">
+                        <swiper-slide class="service-item pb-4" v-for="(s, index) in services" :key="index">
+                            <div class="service-icon">
+                                <img :src="helper.getImageCMS(s.icon)" alt="Combo">
+                            </div>
+                            <div class="service-name">{{ s.title }}</div>
+                        </swiper-slide>
+                    </swiper>
                 </div>
-            </div>
+            </ClientOnly>
 
             <!-- Tips Section -->
             <div class="tips-section rounded-4">
@@ -63,7 +70,10 @@ import { useHelper } from "@/composables/helper";
 import { useDestination } from "../composables/destination";
 import axios from "axios";
 import HeaderTitle from '../components/HeaderTitle.vue';
-
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Pagination } from 'swiper/modules';
+import "swiper/css";
+import "swiper/css/navigation";
 const helper = useHelper();
 const homeComposable = useHome();
 const destinationComposable = useDestination();

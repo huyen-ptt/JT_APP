@@ -27,6 +27,7 @@ import Faqs from '@/pages/Faqs.vue';
 import BecomePartner from '@/pages/Become-a-partner.vue';
 import MyOrder from '@/pages/MyOrder.vue';
 import OrderDetail from '@/pages/OrderDetail.vue';
+import csdk from '@/pages/csdk.vue';
 
 
 
@@ -97,7 +98,7 @@ const routes = [
         component: SignUp,
     },
     {
-        path: "/forgot",
+        path: "/forgot-password",
         name: "ForgotPassword",
         component: ForgotPassword,
     },
@@ -170,6 +171,11 @@ const routes = [
         path: "/orderdetail/:id/:code",
         name: "OrderDetail",  
         component: OrderDetail,
+    },
+    {
+        path: "/csdk",
+        name: "csdk",  
+        component: csdk,
     },
   
 ];

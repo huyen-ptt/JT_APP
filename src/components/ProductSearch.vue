@@ -1,6 +1,6 @@
 <template>
     
-    <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card" v-if="product && !onLoading">
+    <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1" v-if="product && !onLoading">
         <img :src="helper.getImageCMS(product.avatar)" class="tour-image">
         <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="tour-price">
-                <div>
+                <div class="linee-h">
                     <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                     <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true })
                     }}</span>
@@ -53,7 +53,7 @@ const props = defineProps({
     product: {
         type: Object,
         required: true,
-    }
+    }       
 });
 </script>
 <style scoped>
@@ -66,19 +66,19 @@ const props = defineProps({
 .tour-card {
     width: unset;
     padding: 0;
-    height: 260px;
+    height: 255px;
     position: relative;
 }
 
 .tour-image {
     width: 100%;
-    height: 120px;
+    height: 110px;
     object-fit: cover;
     border-radius: 8px;
 }
 
 .tour-title {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     color: #03294C;
     margin-bottom: 4px;
