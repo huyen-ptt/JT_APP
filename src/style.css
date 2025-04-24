@@ -233,8 +233,12 @@ input::placeholder {
   margin-top: 25px;
 }
 
+img {
+  image-rendering: auto;
+}
+
 .recently-container {
-  padding: 30px 0;
+  padding: 10px 0;
 }
 
 .bottom-menu .router-link-exact-active .menu-text {
@@ -309,7 +313,6 @@ input::placeholder {
 }
 
 
-
 .tour-image {
   width: 100%;
   height: 140px;
@@ -318,6 +321,10 @@ input::placeholder {
 
 .tour-content {
   padding: 10px;
+}
+
+.header-search {
+  text-decoration: none;
 }
 
 .tour-title {
@@ -419,7 +426,8 @@ input::placeholder {
 .na .p-select-label {
   padding: 0 !important;
 }
-.na .p-select-label.p-placeholde{
+
+.na .p-select-label.p-placeholde {
   color: #8A929E !important;
 
 }
@@ -902,6 +910,29 @@ input::placeholder {
   background-color: transparent;
 }
 
+.logo-end {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+  animation: fadeIn 0.8s ease-in;
+}
+
+.logo-end.show {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .footer-services {
   position: fixed;
   bottom: 0;
@@ -911,7 +942,7 @@ input::placeholder {
   background-color: white;
   border-top: 1px dotted #ccc;
   z-index: 99;
-  padding-bottom: 80px;
+  padding-bottom: 20px;
 }
 
 .floating-icons {
@@ -1014,6 +1045,35 @@ input::placeholder {
 
 .close i {
   font-size: 17px;
+  color: #03294C;
+
+
+}
+
+.fraction-pagination {
+  position: absolute;
+  bottom: 10px;
+  right: 10px !important;
+  left: unset !important;
+  background: rgba(226, 222, 222, 0.3);
+  padding: 4px 10px;
+  border-radius: 15px;
+  color: #fff !important;
+
+  width: 55px !important;
+  z-index: 10;
+}
+
+.fraction-pagination .swiper-pagination-current {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fraction-pagination .swiper-pagination-total {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
 
 }
 
@@ -1053,7 +1113,7 @@ input::placeholder {
   color: #575F6B;
   font-size: 14px;
   font-weight: 500;
-  margin-right: 10px;
+  margin-right: 8px;
   margin-bottom: 10px;
   cursor: pointer;
   text-align: center;
@@ -1062,6 +1122,25 @@ input::placeholder {
 
 .filter-button:hover {
   background-color: #e5e7eb;
+}
+
+.img-ho {
+  border-radius: 20px;
+}
+
+.seclec-pr .p-select-label.p-placeholder {
+  padding: 7px 0px 7px 14px;
+  font-size: 14px;
+  color: #03294C !important;
+  font-weight: 600;
+}
+
+.seclec-pr .p-select-label {
+  padding: 7px 0px 7px 14px;
+  font-size: 14px;
+  color: #03294C !important;
+  font-weight: 600;
+
 }
 
 .filter-button.selected {
@@ -1417,6 +1496,10 @@ input::placeholder {
 
 }
 
+.linee-h {
+  line-height: 17px;
+}
+
 .p-select:not(.p-disabled):hover {
   border-color: #647b91 !important;
 
@@ -1605,14 +1688,14 @@ input::placeholder {
 
 .du-bao {
   background-color: #d2e0f5;
-  padding: 14px 24px;
+  padding: 10px 13px;
   border-radius: 15px;
 }
 
 .temperature {
   color: #03294C;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 13px;
   padding-top: 3px;
 }
 
@@ -1851,7 +1934,20 @@ input::placeholder {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
-
+.news-title-blogg1 {
+  font-weight: 600;
+  color: #03294C;
+  margin-bottom: 5px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+#country_1{
+  padding: 0;
+}
 .news-description-blogg {
   color: #575F6B;
   font-size: 12px;
@@ -1922,19 +2018,19 @@ input::placeholder {
   gap: 10px;
   justify-content: center !important;
   background: unset;
-  border-style: solid;
-  border-color: var(--p-tabs-tablist-border-color);
-  border-width: var(--p-tabs-tablist-border-width);
+  border-style: unset;
+  /* border-color: var(--p-tabs-tablist-border-color);
+  border-width: var(--p-tabs-tablist-border-width); */
 }
 
 .custom-tab-list .custom-tab:hover {
   background-color: #F5F7FA !important;
   color: #446EDE !important;
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 
 .custom-tab-list .p-tab-active {
-  background-color: #F5F7FA !important;
+  background-color: #ebeff6 !important;
   color: #446EDE !important;
   font-weight: 700 !important;
 }
@@ -2453,6 +2549,15 @@ input::placeholder {
   border-radius: 12px;
   max-width: 400px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.tour-card1 {
+  border: 1px solid #EDF1F7;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  text-decoration: none;
+
 }
 
 .tour-title-see-detail {
@@ -3007,6 +3112,24 @@ input::placeholder {
   color: #d1d5db;
   cursor: not-allowed;
   background: #f9fafb;
+}
+
+.logo-end {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  opacity: 0.3;
+}
+
+.csdk {
+  align-items: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #8A929E;
+  text-align: center;
+
 }
 
 .quantity-display-so-luong {

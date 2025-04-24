@@ -97,7 +97,9 @@
                                                         <router-link to="" class="btn-search "
                                                             @click="cart.isOpenModalChangeQuantity = false"> <button
                                                                 class="search-button btn-search" id="search">
-                                                                {{ $t('CART_CHANGE_QUANTITY_CONFIRM') }}
+                                                                <!-- {{ $t('CART_CHANGE_QUANTITY_CONFIRM') }} -->
+                                                                {{ $t('OK') }}
+
                                                             </button></router-link>
                                                     </div>
                                                 </div>

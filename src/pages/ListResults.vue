@@ -5,7 +5,7 @@
                 <button class="back-button-product" @click="$router.go(-1)">
                     <i class="fas fa-arrow-left"></i>
                 </button>
-                <h1 class="page-title-product">{{ $t('service') }}</h1>
+                <h1 class="page-title-product">{{ $t('Product') }}</h1>
                 <button class="cart-button-product">
                     <img class="icon-cart" src="../assets/images/shopping-cart.png" />
                 </button>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="results-info-product">
-            <div class="results-count-product">{{ $t('Results_Count_ProductResult', { count: listOfProducts.length }) }}
+            <div class="results-count-product">{{ listOfProducts.length }} {{ $t('Results_Count_ProductResult', { count: listOfProducts.length })}}
             </div>
             <div class="card flex justify-center">
                 <Select v-model="selectedOption" :options="sortOptions" optionLabel="name" optionValue="value"
