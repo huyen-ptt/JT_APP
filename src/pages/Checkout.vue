@@ -725,13 +725,7 @@ const onRequestPayPayPal = async () => {
                     console.log(response.data);
                     // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
                     StatusBar.setOverlaysWebView({ overlay: false });
-                    const browser = InAppBrowser.create(response.data, '_blank', {
-                        location: 'no',        // ✅ Ẩn thanh địa chỉ URL
-                        toolbar: 'yes',        // ✅ Hiện thanh toolbar (dưới statusbar)
-                        toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
-                        closebuttoncaption: 'Đóng', // 🛑 Android không hỗ trợ nhưng iOS có
-                        hideurlbar: 'yes',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
-                    });
+                      
 
                     let returnPaymentUrl = "";
                     // Bắt URL trước khi load
