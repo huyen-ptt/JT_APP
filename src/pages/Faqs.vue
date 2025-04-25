@@ -127,35 +127,36 @@
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
                                 <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
-                                <div class="promo-title">Customer Support</div>
+                                <div class="promo-title">{{ $t('customer_support_title') }}</div>
                             </div>
                         </AccordionHeader>
 
                         <AccordionContent>
                             <div class="dia-chi-product">
-                                <p><b>How do I contact Joytime for support?</b></p>
-                                <p>You can reach out to our customer support team via:</p>
+                                <p><b>{{ $t('customer_support_contact_question') }}</b></p>
+                                <p>{{ $t('customer_support_contact_intro') }}</p>
                                 <ul>
-                                    <li>Hotline: <a href="tel:+84 902 225 282">+84 902 225 282</a></li>
-                                    <li>Email: <a href="mailto:cs@joytime.vn">cs@joytime.vn</a></li>
-                                    <li>Live Chat: Available on our Social Media Platform (Facebook, Instagram,..) Our
-                                        team is available 24/7 to assist you.</li>
+                                    <li>{{ $t('customer_support_hotline') }}: <a href="tel:+84 902 225 282">+84 902 225
+                                            282</a></li>
+                                    <li>{{ $t('customer_support_email') }}: <a
+                                            href="mailto:cs@joytime.vn">cs@joytime.vn</a></li>
+                                    <li>{{ $t('customer_support_live_chat') }}</li>
                                 </ul>
-                                <p><b>What should I do if I don't receive my booking confirmation?</b></p>
-                                <p>If you haven't received your confirmation email:</p>
+
+                                <p><b>{{ $t('customer_support_missing_confirmation_title') }}</b></p>
+                                <p>{{ $t('customer_support_missing_confirmation_intro') }}</p>
                                 <ol>
-                                    <li>Please check your spam folder. In some cases, emails may be redirected to this
-                                        folder.</li>
-                                    <li>Ensure the email address entered during booking is correct.</li>
-                                    <li>For modifications, please contact our customer support team with your booking
-                                        details.</li>
+                                    <li>{{ $t('customer_support_check_spam') }}</li>
+                                    <li>{{ $t('customer_support_verify_email') }}</li>
+                                    <li>{{ $t('customer_support_contact_support') }}</li>
                                 </ol>
-                                <p><b>Can I track the status of my booking?</b></p>
-                                <p>Yes, you can log in to your account on our website to view and track your booking
-                                    status.</p>
+
+                                <p><b>{{ $t('customer_support_track_booking_title') }}</b></p>
+                                <p>{{ $t('customer_support_track_booking_detail') }}</p>
                             </div>
                         </AccordionContent>
                     </AccordionPanel>
+
                 </Accordion>
             </div>
             <Footer></Footer>

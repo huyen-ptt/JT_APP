@@ -8,7 +8,7 @@
                </div>
                <RouterLink class="search-box-container" :to="`/search`" style="text-decoration: none;">
                   <div class="search-box-items"></div>
-                  <i class="fas fa-search search-icon"></i>
+                  <img src="../assets/images/search-normal.png">
                   <span style="color: #8A929E;">{{ $t('place_to_go') }}</span>
                </RouterLink>
                <!-- Icons on the right -->
@@ -30,7 +30,7 @@
          </div>
          <div class="row row-cols-5 mt-4">
             <div class="col s__col__item" v-for="(s, index) in first4Services" :key="index">
-               <a  @click="onChooseService(s)" class="icon-circle combo-icon">
+               <a @click="onChooseService(s)" class="icon-circle combo-icon">
                   <img class="icon-services" :src="helper.getImageCMS(s.icon)" />
                </a>
                <span class="service-text">{{ s.title }}</span>
@@ -49,24 +49,25 @@
                <div class="promo-header">
                   <h2 class="promo-title">{{ $t('PROMOTION') }}</h2>
                </div>
-               <swiper :modules="[Navigation]" :slides-per-view="5" :space-between="1" :loop="true"
-                  :centered-slides="true" :round-lengths="true" :loop-additional-slides="30" :navigation="{
-                     nextEl: '.swiper-button-next',
-                     prevEl: '.swiper-button-prev',
-                  }" class="swiper-container promo-carousel">
-                  <swiper-slide v-for="(p, index) in promotions" :key="index" v-if="!onLoadPromotions">
-                     <div class="promo-card">
-                        <img :src="helper.getImageCMS(p.avatar)" :alt="p.title" />
-                     </div>
-                  </swiper-slide>
-                  <swiper-slide v-for="(p, index) in 5" :key="index" v-if="onLoadPromotions">
-                     <div class="promo-card">
-                        <Skeleton height="160px" borderRadius="12px" />
-                     </div>
-                  </swiper-slide>
-               </swiper>
-               <div class="swiper-button-prev"></div>
-               <div class="swiper-button-next"></div>
+               <ClientOnly>
+                  <swiper :modules="[Autoplay, Pagination]" :slides-per-view="1" :loop="true" :autoplay="{
+                     delay: 5000,
+                     disableOnInteraction: false
+                  }" :pagination="{ clickable: true }" class="promo-carousel" style="padding-bottom: 40px;">
+                     <swiper-slide v-for="(p, index) in promotions" :key="index" v-if="!onLoadPromotions">
+                        <div class="">
+                           <img :src="helper.getImageCMS(p.avatar)" width="100%" class="img-ho" :alt="p.title" />
+                        </div>
+                     </swiper-slide>
+
+                     <swiper-slide v-for="index in 5" :key="`skeleton-${index}`" v-if="onLoadPromotions">
+                        <div class="">
+                           <Skeleton height="160px" borderRadius="12px" />
+                        </div>
+                     </swiper-slide>
+                  </swiper>
+
+               </ClientOnly>
             </div>
          </div>
 
@@ -78,7 +79,7 @@
 
             </div>
             <div class="">
-               <ul class="nav nav-tabs" id="tourTabs" role="tablist" v-if="!onLoadRegions">
+               <ul class="nav nav-tabs pb-2" id="tourTabs" role="tablist" v-if="!onLoadRegions">
 
                   <li class="nav-item" role="presentation" v-for="r in listRegions">
                      <button class="nav-link tab-sp " :class="r.isActive == true ? 'active' : ''"
@@ -91,65 +92,64 @@
                      <Skeleton width="80px" height="32px" borderRadius="999px" />
                   </li>
                </ul>
-               <div class="tab-content mt-3" id="tourTabsContent">
-                  <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-                     <div class="recently-carousel" v-if="!onLoadingRegion">
-                        <ProductSearch v-for="p in listProductInRegion" :product="p">
-                        </ProductSearch>
 
-                     </div>
-                     <div class="recently-carousel" v-else>
-                        <ProductHomeSkeleton v-for="index in 2" :key="index"></ProductHomeSkeleton>
-                     </div>
-                  </div>
+               <ClientOnly>
+                  <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :loop="true" :space-between="10"
+                     :autoplay="{
+                        delay: 5000,
+                        disableOnInteraction: false
+                     }" :pagination="{ clickable: true }" style="padding-bottom: 40px;">
+                     <!-- Nếu đang load: hiện skeleton -->
+                     <swiper-slide v-if="onLoadingRegion" v-for="index in 2" :key="`skeleton-${index}`">
+                        <ProductHomeSkeleton />
+                     </swiper-slide>
 
-               </div>
+                     <!-- Nếu đã load: hiện sản phẩm -->
+                     <swiper-slide v-else v-for="(p, index) in listProductInRegion" :key="index">
+                        <ProductSearch :product="p"/>
+                     </swiper-slide>
+                  </swiper>
+               </ClientOnly>
             </div>
-
          </div>
          <div class="recently-container mb-3" v-if="currentSeen.length > 0">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('RECENTLY_VIEWED') }}</h2>
                <a href="#" class="view-all">{{ $t('VIEW_All') }}</a>
-
             </div>
-
-            <div class="recently-carousel">
-               <!-- Tour Card 1 -->
-               <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card"
-                  v-for="product in currentSeen">
-                  <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
-                  <div class="tour-content">
-                     <h3 class="tour-title">{{ product.title }}</h3>
-                     <div class="tour-location tour-price">
-                        <div>
-                           <i class="fas fa-map-marker-alt location-dot"></i>
-                           <span class="dia-diem">{{ product.zoneName }}</span>
-                           <span class="tour-booked">{{ product.totalSale }} Booked</span>
+            <ClientOnly>
+               <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"
+                  :pagination="{ clickable: true }" class="recently-carousel" style="padding-bottom: 40px;">
+                  <swiper-slide v-for="product in currentSeen" :key="product.productId">
+                     <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1">
+                        <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
+                        <div class="tour-content">
+                           <h3 class="tour-title">{{ product.title }}</h3>
+                           <div class="tour-location tour-price">
+                              <div>
+                                 <span class="tour-booked">{{ product.totalSale }} {{ $t('BOOKED') }}</span>
+                              </div>
+                              <div class="rating">
+                                 <i class="fas fa-star"></i>
+                                 <span class="rating-value">{{ product.rate.toFixed(1) }}</span>
+                              </div>
+                           </div>
+                           <div class="tour-price">
+                              <div class="linee-h">
+                                 <span class="price-text">{{ $t('PRICE_FROM') }}</span>
+                                 <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
+                                 <span class="me-1"></span>
+                                 <p class="menu-text" style="margin: 0;">
+                                    <span class="me-1 menu-text">~USD</span>
+                                    {{ (product.price / currentfCurrency.exchange).toFixed(1).toLocaleString("en-US") }}
+                                 </p>
+                              </div>
+                           </div>
                         </div>
-                        <div class="rating">
-                           <i class="fas fa-star"></i>
-                           <span class="rating-value">{{ product.rate }}</span>
-                        </div>
-                     </div>
-                     <div class="tour-price">
-                        <div>
-                           <span class="price-text">From</span>
-                           <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
-                        </div>
-
-                     </div>
-                     <!-- <div class="bieu-tuong-gg">
-
-                        <div class="flight-icon">
-                           -50%
-                        </div>
-                     </div> -->
-                  </div>
-               </RouterLink>
-
-
-            </div>
+                     </RouterLink>
+                  </swiper-slide>
+               </swiper>
+            </ClientOnly>
          </div>
          <div class="container-destination">
             <h2 class="promo-title idea">{{ $t('IDEAL_DESTINATION') }}</h2>
@@ -170,12 +170,12 @@
                      </div>
                   </template>
                   <template v-else>
-                     <div v-for="index in 2" :key="'col1-skeleton-' + index"
-                        :class="`card-destination`" style="margin-bottom: 10px;">
+                     <div v-for="index in 2" :key="'col1-skeleton-' + index" :class="`card-destination`"
+                        style="margin-bottom: 10px;">
                         <div class="image-container mb-2">
                            <Skeleton height="120px" borderRadius="12px" />
                         </div>
-                     
+
                      </div>
                   </template>
                </div>
@@ -195,18 +195,27 @@
                      </div>
                   </template>
                   <template v-else>
-                     <div v-for="index in 2" :key="'col2-skeleton-' + index"
-                        :class="`card-destination`" style="margin-bottom: 10px;">
+                     <div v-for="index in 2" :key="'col2-skeleton-' + index" :class="`card-destination`"
+                        style="margin-bottom: 10px;">
                         <div class="image-container mb-2">
                            <Skeleton height="120px" borderRadius="12px" />
                         </div>
-                       
+
                      </div>
                   </template>
                </div>
             </div>
          </div>
+         <div class="mt-3 text-center">
+            <a href="/csdk" class="csdk">Chính sách và điều khoản</a>
+         </div>
 
+         <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
+         <!-- <div ref="triggerPoint" style="height: 100px;"></div>
+
+         <div class="logo-end" :class="{ show: showLogo }">
+            <img src="../assets/images/logo-end.png" width="120" alt="JOY TIME" class="logo-img" />
+         </div> -->
          <Footer></Footer>
 
          <div class="floating-icons">
@@ -230,10 +239,10 @@
    </div>
 </template>
 <script setup>
-import { ref, onBeforeMount, onMounted, computed } from "vue";
+import { ref, onBeforeMount, onMounted, computed, onUnmounted } from "vue";
 import Footer from "@/components/Footer.vue";
-import { Swiper, SwiperSlide } from "swiper/vue";
-import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Autoplay, Pagination } from 'swiper/modules';
 import "swiper/css";
 import "swiper/css/navigation";
 // Import TabView và TabPanel từ PrimeVue
@@ -251,8 +260,11 @@ import ProductSearch from "../components/ProductSearch.vue";
 import { useModalStore } from '@/stores/modalStore';
 import ProductHomeSkeleton from "../components/ProductHomeSkeleton.vue";
 import Skeleton from 'primevue/skeleton';
-import { useSearchStore } from "../stores/searchStore";
+import { useCurrencyStore } from "../stores/currencyStore";
 
+import { useSearchStore } from "../stores/searchStore";
+const currencyStore = useCurrencyStore();
+const currentfCurrency = computed(() => currencyStore.fCurrency)
 // const seenStore = useSeenStore();
 // const seen = computed(() => seenStore.seen);
 // console.log(seen.value)
@@ -264,7 +276,29 @@ const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();
 
+const showLogo = ref(false)
+const triggerPoint = ref(null)
 
+const checkScroll = () => {
+   if (!triggerPoint.value) return
+
+   const rect = triggerPoint.value.getBoundingClientRect()
+   const screenHeight = window.innerHeight
+
+   if (rect.top < screenHeight) {
+      showLogo.value = true
+   } else {
+      showLogo.value = false
+   }
+}
+
+onMounted(() => {
+   window.addEventListener('scroll', checkScroll)
+})
+
+onUnmounted(() => {
+   window.removeEventListener('scroll', checkScroll)
+})
 
 const helper = useHelper();
 
@@ -415,7 +449,7 @@ onBeforeMount(async () => {
 
 
 
-   // console.log(currentSeenArray.value)
+   console.log(currentSeen.value)
 
 
    // blogs.value = await homeComposable.getBlogsHomePage();
@@ -433,9 +467,9 @@ onBeforeMount(async () => {
 onMounted(async () => {
    await onRequestServices();
    await onRequestPromotions();
-   await onRequestRegions();  
+   await onRequestRegions();
    currentSeen.value = await homeComposable.getProductsLastSeen();
-   await onRequestLoadDestinations(); 
+   await onRequestLoadDestinations();
 })
 </script>
 <style scoped>
@@ -491,23 +525,29 @@ onMounted(async () => {
    align-items: center;
    justify-content: center;
    transition: all 200ms linear;
-   transform: scale(0.8);
+   /* transform: scale(0.8); */
 
 
 }
 
 .swiper-slide.swiper-slide-active {
-   transform: scale(0.95);
+   /* transform: scale(0.95); */
    z-index: 999;
 }
 
+.tour-image {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 12px;
+}
 
 /* fix giao dien app */
 .search-box-container {
    display: flex;
    gap: 10px;
    padding: 10px 15px;
-   align-items: baseline;
+   align-items: center;
    border-radius: 10px;
    width: 100%;
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <div class="header-search" @click="$router.go(-1)">
+        <router-link to="/" class="header-search">
             <div class="close"><i class="fa-solid fa-xmark"></i></div>
-        </div>
+        </router-link>
         <div class="search-container">
             <RouterLink :to="`/list-search`">
                 <i class="fas fa-search search-icon"></i>
@@ -60,7 +60,7 @@
             <a @click="clearAllSelected" class="clear-button" id="clear-all">{{ $t('clear_all') }}</a>
             <router-link to="/list-results"> <button class="search-button" id="search">
                     <i class="fas fa-search search-icon1"></i>
-                    {{ $t('search') }}
+                    {{ $t('Button_ApplyFilters') }}
                 </button></router-link>
         </div>
     </div>
@@ -102,7 +102,7 @@ const handleSearch = () => {
     }
 }
 const toggleExpand = () => {
-  isExpanded.value = !isExpanded.value
+    isExpanded.value = !isExpanded.value
 }
 onMounted(async () => {
 
@@ -166,43 +166,44 @@ const clearAllSelected = () => {
     color: #8A929E;
 
 }
+
 .half-list-container {
-  position: relative;
-  max-height: 300px;
-  overflow: hidden;
-  transition: max-height 0.5s ease;
+    position: relative;
+    max-height: 300px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
 }
 
 .half-list-container.expanded {
-  max-height: 1000px;
+    max-height: 1000px;
 }
 
 .button-grid {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .filter-button {
-  background-color: #f1f5f9;
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
+    background-color: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
 }
 
 .filter-button.selected {
-  background-color: #0f172a;
-  color: white;
+    background-color: #0f172a;
+    color: white;
 }
 
 .gradient-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(to top, white, rgba(255, 255, 255, 0));
-  pointer-events: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to top, white, rgba(255, 255, 255, 0));
+    pointer-events: none;
 }
 
 .read-more-btn {
@@ -218,7 +219,8 @@ const clearAllSelected = () => {
     font-weight: bold;
     transition: background 0.3s;
 }
+
 .read-more-btn:hover {
-  background-color: #446EDE;
+    background-color: #446EDE;
 }
 </style>

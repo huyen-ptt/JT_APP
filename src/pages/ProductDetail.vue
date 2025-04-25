@@ -4,14 +4,20 @@
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
+          
                     <div class="product-slider position-relative">
                         <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
-                            :autoplay="{ delay: 3000 }" :navigation="true" :pagination="{ clickable: true }"
-                            class="mySwiper">
+                            :autoplay="{ delay: 3000 }" :navigation="true" :pagination="{
+                                el: '.swiper-pagination',
+                                type: 'fraction'
+                            }" class="mySwiper">
                             <swiper-slide v-for="(image, index) in productDetail.gallary" :key="index">
                                 <img :src="helper.getImageCMS(image)" class="d-block w-100"
-                                    style="height: 280px; object-fit: cover;">
+                                    style="height: 280px; object-fit: cover;" />
                             </swiper-slide>
+
+                            <!-- Hiển thị số đếm dạng 1/5 -->
+                            <div class="swiper-pagination fraction-pagination"></div>
                         </swiper>
                     </div>
                     <div class="position-absolute start-0 translate-middle-y p-3 icon">
@@ -23,7 +29,7 @@
                         <router-link :to="`/cart`">
                             <img height="30" src="../assets/images/shopping-cart-w.png" />
                         </router-link>
-                        
+
                     </div>
                 </div>
             </div>
@@ -47,19 +53,20 @@
         <div className="container-fluid p-0">
             <ul className="nav nav-tabs custom-tabs justify-content-center mr-3 ml-3" id="productTabs" role="tablist">
                 <li className="nav-item" role="presentation">
-                    <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
-                        data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
-                        aria-selected="true">
-                        {{ $t('PRODUCT_DETAIL') }}
-                    </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
+                    <button className="nav-link active custom-tab-link" id="description-tab" data-bs-toggle="tab"
                         data-bs-target="#description" type="button" role="tab" aria-controls="description"
                         aria-selected="false">
                         {{ $t('DESCRIPTION') }}
                     </button>
                 </li>
+                <li className="nav-item" role="presentation">
+                    <button className="nav-link custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
+                        data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
+                        aria-selected="true">
+                        {{ $t('PRODUCT_DETAIL') }}
+                    </button>
+                </li>
+               
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
                         data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
@@ -69,13 +76,13 @@
             </ul>
 
             <div className="tab-content custom-tab-content" id="productTabsContent">
-                <div className="tab-pane fade show active pt-3 px-3" id="product-detail" role="tabpanel"
+                <div className="tab-pane fade  pt-3 px-3" id="product-detail" role="tabpanel"
                     aria-labelledby="product-detail-tab">
                     <p className="mb-3 custom-paragraph" v-html="productDetail.content"></p>
 
 
                 </div>
-                <div className="tab-pane fade p-3" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <div className="tab-pane fade p-3 show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                     <p className="mb-3 custom-paragraph" v-html="productDetail.description">
 
                     </p>
@@ -273,13 +280,14 @@
         </div>
         <div class="bottom-menu menu-search d-flex ">
             <div class="">
-                <div class="price-usd">{{$t('PRICE_FROM')}}</div>
-                <div class="don-vi align-items-center" id="clear-all">VND {{ productDetail.price.toLocaleString() }}</div>
+                <div class="price-usd">{{ $t('PRICE_FROM') }}</div>
+                <div class="don-vi align-items-center" id="clear-all">VND {{ productDetail.price.toLocaleString() }}
+                </div>
                 <div class="price-usd">~ USD {{
-                        (productDetail.price / currentfCurrency.exchange)
-                            .toFixed(1)
-                            .toLocaleString("en-US")
-                    }}</div>
+                    (productDetail.price / currentfCurrency.exchange)
+                        .toFixed(1)
+                        .toLocaleString("en-US")
+                }}</div>
 
                 <!-- <div class="price-pr">{{ productDetail.price.toLocaleString() }}</div> -->
             </div>
@@ -317,11 +325,12 @@
 
                                                 <div class="price-text-see-detail pb-3">
                                                     <span class="me-1">{{ $t('PRICE_FROM') }}</span> <span
-                                                        class="price-value-booking"><span class="me-1">{{ currentfCurrency.code }}</span>{{
-                                                            (p.currentPackage.price / currentfCurrency.exchange)
-                                                                .toFixed(1)
-                                                                .toLocaleString("en-US")
-                                                        }}</span>
+                                                        class="price-value-booking"><span class="me-1">{{
+                                                            currentfCurrency.code }}</span>{{
+                                                                (p.currentPackage.price / currentfCurrency.exchange)
+                                                                    .toFixed(1)
+                                                                    .toLocaleString("en-US")
+                                                            }}</span>
                                                 </div>
 
                                                 <p class="dia-chi-product" v-html="p.currentPackage.description">
@@ -366,11 +375,11 @@
                                                     style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
                                                     <div class="date-card-title-booking1">
                                                         <span v-if="!p.currentSelectedDate">{{ $t('Selected_Date')
-                                                            }}</span>
+                                                        }}</span>
                                                         <span v-else>{{ $t('Selected_Date') }}: <br>
                                                             <div class="chose-option">{{
                                                                 helper.formatISODate(p.currentSelectedDate)
-                                                                }}</div>
+                                                            }}</div>
                                                         </span>
                                                     </div>
                                                 </AccordionHeader>
@@ -379,8 +388,9 @@
                                                         <button class="calendar-nav-booking" @click="prevMonth(p)">
                                                             <i class="fas fa-chevron-left"></i>
                                                         </button>
-                                                        <div class="calendar-month-header-booking">{{ p.calendar.currentMonth
-                                                        }}/{{ p.calendar.currentYear
+                                                        <div class="calendar-month-header-booking">{{
+                                                            p.calendar.currentMonth
+                                                            }}/{{ p.calendar.currentYear
                                                             }}</div>
                                                         <button class="calendar-nav-booking" @click="nextMonth(p)">
                                                             <i class="fas fa-chevron-right"></i>
@@ -399,7 +409,7 @@
                                                             @click="onChoosenDate(p, index)">
                                                             <span v-if="d.day == -1">
                                                             </span>
-                                                            <span v-else >{{ d.day }}</span>
+                                                            <span v-else>{{ d.day }}</span>
                                                             <!-- {{ day.day }} -->
                                                         </div>
                                                     </div>
@@ -444,15 +454,15 @@
                                                     </div>
                                                     <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
                                                         $t('Guest')
-                                                    }}<br>
+                                                        }}<br>
                                                         <div class="chose-option">{{ $t('Adult')
-                                                        }} : {{ p.choosenNguoiLon }} </div>
+                                                            }} : {{ p.choosenNguoiLon }} </div>
                                                     </div>
                                                     <div v-else="p.choosenTreEm" class="section-title-booking">{{
                                                         $t('Guest')
-                                                    }}<br>
+                                                        }}<br>
                                                         <div class="chose-option">{{ $t('Adult')
-                                                        }} : {{ p.choosenTreEm }} </div>
+                                                            }} : {{ p.choosenTreEm }} </div>
                                                     </div>
                                                 </AccordionHeader>
                                                 <AccordionContent>
@@ -467,19 +477,20 @@
                                                                             v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
                                                                             <div class="price-label-so-luong">{{
                                                                                 $t('Adult')
-                                                                                }}
+                                                                            }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
-                                                                            }}
+                                                                                }}
                                                                             </div>
-                                                                            <div class="price-text">~ {{ currentfCurrency.code }} {{
-                                                                                (p.selectedPriceByDate?.priceEachNguoiLon
-                                                                                    /
-                                                                                    currentfCurrency.exchange)
-                                                                                    .toFixed(1)
-                                                                                    .toLocaleString("en-US")
-                                                                            }}
+                                                                            <div class="price-text">~ {{
+                                                                                currentfCurrency.code }} {{
+                                                                                    (p.selectedPriceByDate?.priceEachNguoiLon
+                                                                                        /
+                                                                                        currentfCurrency.exchange)
+                                                                                        .toFixed(1)
+                                                                                        .toLocaleString("en-US")
+                                                                                }}
                                                                             </div>
                                                                         </div>
 
@@ -500,18 +511,19 @@
                                                                         <div>
                                                                             <div class="price-label-so-luong">{{
                                                                                 $t('Child')
-                                                                                }}
+                                                                            }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
-                                                                            }}
+                                                                                }}
                                                                             </div>
-                                                                            <div class="price-text">~ {{ currentfCurrency.code }} {{
-                                                                                (p.selectedPriceByDate?.priceEachTreEm /
-                                                                                    currentfCurrency.exchange)
-                                                                                    .toFixed(1)
-                                                                                    .toLocaleString("en-US")
-                                                                            }}
+                                                                            <div class="price-text">~ {{
+                                                                                currentfCurrency.code }} {{
+                                                                                    (p.selectedPriceByDate?.priceEachTreEm /
+                                                                                        currentfCurrency.exchange)
+                                                                                        .toFixed(1)
+                                                                                        .toLocaleString("en-US")
+                                                                                }}
                                                                             </div>
                                                                         </div>
 
@@ -559,7 +571,7 @@
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{
                                         countPayItems
-                                    }})</button>
+                                        }})</button>
                                 </div>
                             </div>
                         </div>
@@ -1113,7 +1125,7 @@ const onAddToCart = () => {
     pays.forEach(p => {
         cartStore.onAddCart(p);
     })
-    
+
     router.push('/cart')
 }
 
@@ -1164,16 +1176,6 @@ const toggleGuestDropdown = (index) => {
 };
 
 const resetSelection = () => {
-    tickets.value.forEach(ticket => {
-        ticket.bookingExpanded = false;
-        ticket.selectedDate = null;
-        ticket.selectedOption = null;
-        ticket.guestSelected = false;
-        ticket.guests = { adult: 0, child: 0 };
-        // Reset các dropdown
-        ticket.showOptionDropdown = false;
-        ticket.showGuestDropdown = false;
-    });
 };
 
 const nextMonth = (p) => {
@@ -1304,7 +1306,7 @@ const toggleReadMore = (review) => {
 }
 
 .custom-paragraph {
-    color: #8A929E;
+    color: #575F6B;
     font-size: 14px;
     line-height: 1.5;
 }

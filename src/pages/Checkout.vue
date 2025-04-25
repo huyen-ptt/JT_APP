@@ -19,7 +19,7 @@
                                         <div>
                                             <div class="service-date">Service date: {{ pay.choosenDate }}</div>
 
-                                            <h2 class="news-title-blogg">{{ pay.bookingParentName }}
+                                            <h2 class="news-title-blogg1">{{ pay.bookingParentName }}
                                             </h2>
                                             <div class="service-date pb-3 border-bottom">{{ pay.bookingName }}</div>
 
@@ -38,7 +38,7 @@
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
                                                     <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
-                                                        }}</span>
+                                                    }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -203,14 +203,15 @@
                                 </p>
                                 <div class="radio-group">
                                     <label class="radio-button active">
+                                        {{ $t('yes') }}
                                         <input type="radio" name="stayInTouch" value="Yes"
                                             v-model="orderNote.useDiffrenceNumber">
-                                        {{ $t('yes') }}
                                     </label>
                                     <label class="radio-button">
+
+                                        {{ $t('no') }}
                                         <input type="radio" name="stayInTouch" value="No"
                                             v-model="orderNote.useDiffrenceNumber">
-                                        {{ $t('no') }}
                                     </label>
                                 </div>
                             </div>
@@ -619,7 +620,7 @@ const onRequestPayOnePay = async () => {
     const validStep2 = scrollToFirstVisibleError();
     if (validPayNotes == true && validAuth == true) {
 
-        
+
         if (!validStep2) return;
         else {
             auth.value.pcname = randomString(10);
@@ -830,6 +831,7 @@ const onRequestPayPayPal = async () => {
     display: flex;
     align-items: center;
     padding: 8px 16px;
+    justify-content: space-between;
     border: 1px solid #8A929E;
     border-radius: 12px;
     cursor: pointer;
@@ -856,7 +858,7 @@ const onRequestPayPayPal = async () => {
 .form-select {
     background-color: #f8f9fa;
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border-radius: 25px;
     font-size: 14px;
     padding: 10px 12px;
 }
