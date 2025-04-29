@@ -76,7 +76,7 @@
          <div class="recently-container">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('TOP_TRENDS') }}</h2>
-               <a href="/" class="view-all"> {{ $t('VIEW_All') }}</a>
+               <router-link to="/" class="view-all"> {{ $t('VIEW_All') }}</router-link>
 
             </div>
             <div class="">
@@ -208,7 +208,7 @@
             </div>
          </div>
          <div class="mt-3 text-center">
-            <a href="/csdk" class="csdk">Chính sách và điều khoản</a>
+            <RouterLink to="/csdk" class="csdk">Chính sách và điều khoản</RouterLink>
          </div>
 
          <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
