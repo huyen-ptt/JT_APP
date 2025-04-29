@@ -4,7 +4,7 @@
             <div class="close"><i class="fa-solid fa-xmark"></i></div>
         </router-link>
         <div class="search-container">
-            <RouterLink :to="`/list-search`">
+            <RouterLink to="/list-search">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" :placeholder="$t('place_to_go')" />
             </RouterLink>

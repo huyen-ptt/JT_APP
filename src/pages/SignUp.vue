@@ -27,7 +27,7 @@
                 <input class="form-check-input" type="checkbox" id="consentCheckbox">
                 <label class="form-check-label consent-text title-con" for="consentCheckbox">
                   {{ $t('consentText_dki') }}
-                  <a href="/csdk" class="fogot-pass">{{ $t('Policies_And_Terms') }}</a> 
+                  <RouterLink href="/csdk" class="fogot-pass">{{ $t('Policies_And_Terms') }}</RouterLink> 
                 </label>
               </div>
             </div>
