@@ -28,7 +28,7 @@
         </div>
 
         <div class="results-info-product">
-            <div class="results-count-product">{{ listOfProducts.length }} {{ $t('Results_Count_ProductResult', { count: listOfProducts.length })}}
+            <div class="results-count-product">{{ total }} {{ $t('Results_Count_ProductResult', { count: total })}}
             </div>
             <div class="card flex justify-center">
                 <Select v-model="selectedOption" :options="sortOptions" optionLabel="name" optionValue="value"
@@ -38,6 +38,9 @@
 
         <div class="recently-carousel prodcut-sp">
             <ProductSearch v-for="p in listOfProducts" :key="p.id" :product="p"></ProductSearch>
+        </div>
+        <div v-if="isLoadingMore" class="text-center py-4">
+            <i class="pi pi-spinner pi-spin"></i> {{ $t('LOAD_MORE') }}
         </div>
         <Footer></Footer>
 
@@ -49,7 +52,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, watch } from 'vue';
+import { onMounted, ref, computed, watch, onUnmounted } from 'vue';
 import Footer from "@/components/Footer.vue";
 import { useRouter } from 'vue-router';
 import Drawer from 'primevue/drawer';
@@ -68,7 +71,7 @@ const listOfProducts = ref([]);
 const pageIndex = ref(1);
 const selectedOption = ref(null);
 const visibleRight = ref(false);
-
+const total = ref(0);
 const sortOptions = ref([
     { name: 'Top view', value: 'TOP_VIEW' },
     { name: 'Top rate', value: 'TOP_RATE' },
@@ -90,6 +93,7 @@ const onLoadListOfSearchTag = async () => {
 const onLoadListOfProducts = async () => {
     const response = await searchComposable.onSearchProducts(pageIndex.value);
     listOfProducts.value = response.products;
+    total.value = response.total;
 };
 
 const onRedirectSearch = () => {
@@ -107,10 +111,46 @@ const sortProducts = async () => {
 
 watch(selectedOption, sortProducts);
 
+const isLoadingMore = ref(false); // tránh gọi trùng
+const hasMore = ref(true); // để biết còn dữ liệu nữa không
+
+const onScrollHandler = async () => {
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.documentElement.scrollHeight;
+
+    const threshold = fullHeight * (2 / 3);
+
+    if (scrollY + windowHeight >= threshold && !isLoadingMore.value && hasMore.value) {
+        isLoadingMore.value = true;
+        pageIndex.value++;
+
+        const response = await searchComposable.onSearchProducts(pageIndex.value);
+        
+        if (response.products.length === 0) {
+            hasMore.value = false;
+        } else {
+            listOfProducts.value.push(...response.products);
+            total.value = response.total;
+        }
+
+        isLoadingMore.value = false;
+    }
+};
+
+
+
 onMounted(async () => {
     await onLoadListOfSearchTag();
+    window.addEventListener('scroll', onScrollHandler);
+
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', onScrollHandler);
 });
 </script>
+
 
 <style scoped>
 .prodcut-sp {

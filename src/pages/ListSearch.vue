@@ -7,7 +7,7 @@
             <i class="fa-solid fa-arrow-left"  @click="$router.go(-1)"></i>
             <div class="input-group">
                 <input class="search-list form-control" v-model="searchTerm" type="text" :placeholder="$t('place_to_go')"
-                    aria-label="Search" />
+                    aria-label="Search" @keyup="onSearch()"/>
                 <!-- Dấu X để xóa input, luôn hiển thị khi có nội dung -->
                 <button v-if="searchTerm" class="btn-close" type="button" aria-label="Clear"
                     @click="clearInput"></button>
@@ -16,55 +16,60 @@
 
         <!-- Food Items List -->
         <div class="food-list">
-            <div class="title-list-search">Recent Searches</div>
+            <div class="title-list-search">{{$t('RECENT_SEARCH_PRODUCT')}}</div>
             <!-- Item 1 -->
-            <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/7.png" alt="Day Tour" >
-                <p class="title-s">Day Tour | Explore Hanoi Capital in One Day...</p>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/8.png" alt="Street Food Tour" >
-                <p class="title-s">Hanoi Street Food Walking Tour</p>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/10.jpg" alt="BBQ Buffet" >
-                <p class="title-s">BBQ Buffet Party at The Yacht - Ambassador Cruise</p>
-            </div>
-
-            <!-- Item 4 -->
-            <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/6.png" alt="Day Tour" >
-                <p class="title-s">Day Tour | Explore Hanoi Capital in One Day...</p>
-            </div>
-
-            <!-- Item 5 -->
-            <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/7.png" alt="Savor Restaurant" >
-                <p class="title-s">Savor Exquisite Cuisine at All Season Restaurant | Hanoi</p>
-            </div>
-
-            <!-- Item 6 -->
-            <div class="food-item d-flex align-items-center">
-                <img src="../assets/images/3.png" alt="Gia Thien Restaurant" >
-                <p class="title-s">Set Menu Dining at Gia Thien Restaurant | Hanoi</p>
+            <div class="food-item d-flex align-items-center" v-for="p in products" @click="onRedirectProductDetail(p)">
+                <img :src="helper.getImageCMS(p.avatar)" alt="Day Tour" >
+                <p class="title-s">{{p.title}}</p>
             </div>
         </div>
     </div>
 
 </template>
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import {useSearchStore} from '@/stores/searchStore'
+import {useSearch} from '@/composables/search'
+import {useHelper} from '@/composables/helper'
+import { RouterLink, useRouter } from 'vue-router'
+
+
+const helper = useHelper();
+const router = useRouter()
+
+const searchStore = useSearchStore();
+const currentSearch = computed(() => searchStore.search)
+
+const searchComposable = useSearch();
 
 const searchTerm = ref('');
+let debounceTimeout = ref(null);
+
+const products = ref([]);
 
 // Hàm xóa input
 const clearInput = () => {
     searchTerm.value = '';
 };
+
+const onSearch = async () => {
+    if (debounceTimeout.value) clearTimeout(debounceTimeout.value);
+
+    debounceTimeout.value = setTimeout(async () => {
+        searchStore.onClearSearchItem();
+        currentSearch.value.keyword = searchTerm.value;
+        const response = await searchComposable.onSearchProducts(1);
+        if (response) {
+            products.value = response.products;
+            console.log(products.value);
+        }
+    }, 300); // Chờ 300ms sau khi dừng gõ
+};
+
+const onRedirectProductDetail = (p) => {
+    router.push(`/detail-product/${p.productId}`)
+}
+
 </script>
 
 <style scoped>

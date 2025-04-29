@@ -595,7 +595,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { ref, onBeforeMount, computed, onMounted } from "vue";
+import { ref, onBeforeMount, computed, onMounted, onUnmounted } from "vue";
 import { useProduct } from "../composables/product";
 import { useOptionProduct } from "../composables/optionProduct";
 
@@ -609,7 +609,7 @@ import axios from "axios";
 import { RouterLink, useRouter } from 'vue-router'
 import { StatusBar } from '@capacitor/status-bar';
 
-StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
+
 
 const uri = import.meta.env.VITE_API_URI;
 
@@ -1176,6 +1176,7 @@ const toggleGuestDropdown = (index) => {
 };
 
 const resetSelection = () => {
+    onClickBuyNowParent();
 };
 
 const nextMonth = (p) => {
@@ -1269,7 +1270,7 @@ const setupCurrentDate = () => {
 onMounted(async () => {
     setupCurrentDate();
 
-
+    StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
     // console.log(productDetail.value, "productDetail.value");
     // await onLoadPackage();
 
@@ -1278,6 +1279,10 @@ onBeforeMount(async () => {
     productDetail.value = await productComposable.getProductDetail();
     seenStore.onAddSeen(productDetail.value.id)
 })
+
+onUnmounted(() => {
+  StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
+});
 const toggleReadMore = (review) => {
     review.isExpanded = !review.isExpanded; // Đảo trạng thái mở rộng
 };

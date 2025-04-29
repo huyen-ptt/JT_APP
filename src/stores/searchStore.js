@@ -26,7 +26,8 @@ export const useSearchStore = defineStore(
                 keyword: "",
                 startBudget: 0,
                 endBudget: 20000000,
-                searchItems: []
+                searchItems: [],
+                sortBy: "TOP_BOOKING"
             }
         }
         const onChangeSortBy = (sortBy) => {
