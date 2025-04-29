@@ -28,9 +28,9 @@
                                                 </svg>
                                                 <span class="title-con">Ends on 28/2/2025</span>
                                             </div>
-                                            <a href="/promotion-detail" class="btn btn-primary collect-btn">
+                                            <RouterLink to="/promotion-detail" class="btn btn-primary collect-btn">
                                                 {{ $t('Button_Collect_Promotion') }}
-                                            </a>
+                                            </RouterLink>
                                         </div>
                                     </div>
                                 </div>

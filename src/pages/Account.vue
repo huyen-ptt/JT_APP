@@ -11,13 +11,14 @@
                     <i class="fas fa-user text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 name">{{`${auth.firstName} ${auth.lastName}`}}</h6>
-                    <small class="email-me">{{auth.email}}</small>
+                    <h6 class="mb-0 name">{{ `${auth.firstName} ${auth.lastName}` }}</h6>
+                    <small class="email-me">{{ auth.email }}</small>
                 </div>
             </div>
             <div v-else class="profile-card d-flex align-items-center">
                 <div>
-                    {{ $t('please') }} <RouterLink to="/signin">{{ $t('Login') }}</RouterLink> {{ $t('or') }} <RouterLink to="/sign-up">{{ $t('SignUp') }}</RouterLink>
+                    {{ $t('please') }} <RouterLink to="/signin">{{ $t('Login') }}</RouterLink> {{ $t('or') }}
+                    <RouterLink to="/sign-up">{{ $t('SignUp') }}</RouterLink>
                 </div>
             </div>
 
@@ -68,7 +69,7 @@
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div>
-                <a href="/languages" class="settings-item">
+                <router-link to="/languages" class="settings-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/language-circle.png" />
@@ -79,8 +80,9 @@
                         <span class="see-detail-booking me-2">{{ fLanguage.name }}</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
-                </a>
-                <a href="/currency" class="settings-item">
+                </router-link>
+
+                <router-link to="/currency" class="settings-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/money-send.png" />
@@ -91,7 +93,7 @@
                         <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
-                </a>
+                </router-link>
             </div>
 
             <!-- About us Section -->
@@ -106,23 +108,27 @@
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </div> -->
-                <a href="/introduce" class="about-item">
+                <router-link to="/introduce" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/book.png" />
-                        </div>                          <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
+                        </div>
+                        <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
-                </a>
-                <a href="/contact" class="about-item">
+                </router-link>
+
+                <router-link to="/contact" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/call-calling.png" />
-                        </div>                          <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
+                        </div>
+                        <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
-                </a>
-                <a href="/faqs" class="about-item">
+                </router-link>
+
+                <router-link to="/faqs" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/re.png" />
@@ -130,8 +136,9 @@
                         <span class="title145">{{ $t('FAQS_ACCOUNT') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
-                </a>
-                <a href="/becomeapartner" class="about-item">
+                </router-link>
+
+                <router-link to="/becomeapartner" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/re.png" />
@@ -139,13 +146,13 @@
                         <span class="title145">{{ $t('become_a_partner') }}</span>
                     </div>
                     <i class="fas fa-chevron-right "></i>
-                </a>
+                </router-link>
                 <div class="about-item" v-if="auth.id > 0">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </div>
-                        <span @click="visible = true" class="title145" >{{ $t('LOGOUT_ACCOUNT') }}</span>
+                        <span @click="visible = true" class="title145">{{ $t('LOGOUT_ACCOUNT') }}</span>
                         <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }" class="modal-logout1">
                             <div class="logout-dialog-logoutt">
                                 <div class="text-center back-icon-logoutt">
@@ -323,10 +330,12 @@ const onRedirectMyOrder = () => {
 .see-detail-booking {
     color: #0d6efd;
 }
+
 .icon-circle img {
     width: 24px;
 }
-a{
+
+a {
     text-decoration: none;
 }
 </style>
