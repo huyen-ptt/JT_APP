@@ -686,7 +686,8 @@ const onRequestPayOnePay = async () => {
 
                 }
             } catch (error) {
-                alert(t('PAYMENT_RESULT_FAIL'));
+                alert(error);
+                // alert(t('PAYMENT_RESULT_FAIL'));
             }
             finally {
                 StatusBar.setOverlaysWebView({ overlay: true });
@@ -725,7 +726,7 @@ const onRequestPayPayPal = async () => {
                     console.log(response.data);
                     // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
                     StatusBar.setOverlaysWebView({ overlay: false });
-                    const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
+                    const browser = InAppBrowser.create(response.data, '_blank', {
                         location: 'no',        // ✅ Ẩn thanh địa chỉ URL
                         toolbar: 'yes',        // ✅ Hiện thanh toolbar (dưới statusbar)
                         toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
@@ -759,7 +760,8 @@ const onRequestPayPayPal = async () => {
                                     }
                                 }
                             } catch (error) {
-                                alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
+                                // alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
+                                alert(error);
                             }
 
                         }
@@ -771,7 +773,8 @@ const onRequestPayPayPal = async () => {
 
                 }
             } catch (error) {
-                alert(t('PAYMENT_RESULT_FAIL'));
+                alert(error);
+                // alert(t('PAYMENT_RESULT_FAIL'));
             }
             finally {
                 StatusBar.setOverlaysWebView({ overlay: true });
