@@ -27,13 +27,6 @@ const redirectMyOrder = () => {
     router.push('/myorder')
 }
 
-
-
-
-
-
-
-
 </script>
 <style scoped>
 /* 

@@ -28,8 +28,8 @@ import BecomePartner from '@/pages/Become-a-partner.vue';
 import MyOrder from '@/pages/MyOrder.vue';
 import OrderDetail from '@/pages/OrderDetail.vue';
 import csdk from '@/pages/csdk.vue';
-
-
+import Onboarding from '@/pages/Onboarding.vue';
+import OnboardingT1 from '@/pages/OnboardingT1.vue';
 
 const routes = [
     {
@@ -176,6 +176,16 @@ const routes = [
         path: "/csdk",
         name: "csdk",  
         component: csdk,
+    },
+    {
+        path: "/onboarding",
+        name: "Onboarding",  
+        component: Onboarding,
+    },
+       {
+        path: "/onboarding1",
+        name: "OnboardingT1",  
+        component: OnboardingT1,
     },
   
 ];

@@ -1922,7 +1922,31 @@ img {
 .news-content-blogg {
   flex: 1;
 }
+.lo{
+  margin: auto;
+  justify-content: center;
+  flex-direction: column;
+}
+.jt {
+  font-weight: 700;
+  color: #F05B89;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
 
+.welcome {
+  font-weight: 700;
+  color: #03294C;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+
+}
 .news-title-blogg {
   font-weight: 600;
   color: #03294C;
