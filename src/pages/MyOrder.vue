@@ -1,57 +1,57 @@
 <template>
     <div>
         <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
-        <div className="container-fluid p-0">
-            <ul className="nav nav-tabs custom-tabs justify-content-center m-3" id="productTabs" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
+        <div class="container-fluid p-0">
+            <ul class="nav nav-tabs custom-tabs justify-content-center m-3" id="productTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link ac custom-tab-link" :class="v === 1 ? 'active' : ''" id="product-detail-tab" data-bs-toggle="tab"
                         data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
                         aria-selected="true">
                         {{ $t('Tab_NewlyCreated_MyOrder') }}
                     </button>
                 </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab" :class="v === 2 ? 'active' : ''"
                         data-bs-target="#description" type="button" role="tab" aria-controls="description"
                         aria-selected="false">
                         {{ $t('Tab_Ready_MyOrder') }}
                     </button>
                 </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab" :class="v === 3 ? 'active' : ''"
                         data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
                         {{ $t('Tab_Used_MyOrder') }}
                     </button>
                 </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link custom-tab-link" id="pending" data-bs-toggle="tab"
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link custom-tab-link" id="pending" data-bs-toggle="tab" :class="v === 4 ? 'active' : ''"
                         data-bs-target="#cancel" type="button" role="tab" aria-controls="terms" aria-selected="false">
                         {{ $t('Tab_PendingCancelled_MyOrder') }}
                     </button>
                 </li>
             </ul>
 
-            <div className="tab-content custom-tab-content list-orderrs" id="productTabsContent">
-                <div className="tab-pane fade show active p-3" id="product-detail" role="tabpanel"
+            <div class="tab-content custom-tab-content list-orderrs" id="productTabsContent">
+                <div class="tab-pane fade p-3" :class="v === 1 ? 'show active' : ''" id="product-detail" role="tabpanel"
                     aria-labelledby="product-detail-tab">
                     <div class="order-card-myorder position-relative mb-3" v-for="order in pendingOrder">
                         <MyOrderItemComponent :order="order"></MyOrderItemComponent>
                     </div>
 
                 </div>
-                <div className="tab-pane fade p-3" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <div class="tab-pane fade p-3" id="description" :class="v === 2 ? 'show active' : ''" role="tabpanel" aria-labelledby="description-tab">
                     <div class="order-card-myorder position-relative mb-3" v-for="order in onReadyOrder">
                         <MyOrderItemComponent :order="order"></MyOrderItemComponent>
                     </div>
                 </div>
-                <div className="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab">
+                <div class="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab" :class="v === 3 ? 'show active' : ''">
 
 
                     <div class="order-card-myorder position-relative mb-3" v-for="order in completeOrder">
                         <MyOrderItemComponent :order="order"></MyOrderItemComponent>
                     </div>
                 </div>
-                <div className="tab-pane fade p-3" id="cancel" role="tabpanel" aria-labelledby="pending">
+                <div class="tab-pane fade p-3" id="cancel" role="tabpanel" aria-labelledby="pending" :class="v === 4 ? 'show active' : ''">
 
                     <div class="order-card-myorder position-relative mb-3" v-for="order in cancelOrder">
                         <MyOrderItemComponent :order="order"></MyOrderItemComponent>
@@ -67,7 +67,7 @@
 import { ref, onBeforeMount, onMounted, computed } from "vue";
 import { useI18n } from 'vue-i18n'
 
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink, useRouter, useRoute } from 'vue-router'
 import HeaderTitle from '../components/HeaderTitle.vue';
 import MyOrderItemComponent from "../components/MyOrderItemComponent.vue";
 import { useAuthStore } from '../stores/authStore';
@@ -79,6 +79,9 @@ const helper = useHelper()
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth);
 
+const route = useRoute();
+
+const v = computed(() => parseInt(route.query.v));
 
 
 

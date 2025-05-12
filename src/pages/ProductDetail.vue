@@ -292,7 +292,7 @@
                 <!-- <div class="price-pr">{{ productDetail.price.toLocaleString() }}</div> -->
             </div>
             <div class="d-flex">
-                <div class="gio-hang-pr">
+                <div class="gio-hang-pr" @click="onClickBuyNowParent()">
                     <img src="../assets/images/shopping-cart.png" />
                 </div>
                 <a> <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">

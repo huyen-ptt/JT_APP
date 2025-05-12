@@ -30,25 +30,25 @@
 
             <div class="order-card" v-if="auth.id > 0">
                 <div class="order-icons">
-                    <div class="order-icon" @click="onRedirectMyOrder()">
+                    <div class="order-icon" @click="onRedirectMyOrder(1)">
                         <div class="icon-circle">
                             <img src="../assets/images/Layer_1.png">
                         </div>
                         <span class="service-text">{{ $t('NEW_ACCOUNT') }}</span>
                     </div>
-                    <div class="order-icon" @click="onRedirectMyOrder()">
+                    <div class="order-icon" @click="onRedirectMyOrder(2)">
                         <div class="icon-circle">
                             <img src="../assets/images/Vector.png">
                         </div>
                         <span class="service-text">{{ $t('READY_ACCOUNT') }}</span>
                     </div>
-                    <div class="order-icon" @click="onRedirectMyOrder()">
+                    <div class="order-icon" @click="onRedirectMyOrder(3)">
                         <div class="icon-circle">
                             <img src="../assets/images/user.png">
                         </div>
                         <span class="service-text">{{ $t('USED_ACCOUNT') }}</span>
                     </div>
-                    <div class="order-icon" @click="onRedirectMyOrder()">
+                    <div class="order-icon" @click="onRedirectMyOrder(4)">
                         <div class="icon-circle">
                             <img src="../assets/images/pendding.png">
                         </div>
@@ -60,7 +60,7 @@
             <!-- Settings Section -->
             <h6 class="promo-title pb-3">{{ $t('SETTING_ACCOUNT') }}</h6>
             <div class="settings-card">
-                <div class="settings-item" v-if="auth.id > 0">
+                <div class="settings-item" v-if="auth.id > 0" @click="onRedirectUpdatePassword()">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <img src="../assets/images/password-check.png" />
@@ -147,12 +147,12 @@
                     </div>
                     <i class="fas fa-chevron-right "></i>
                 </router-link>
-                <div class="about-item" v-if="auth.id > 0">
+                <div class="about-item" v-if="auth.id > 0" @click="visible = true">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </div>
-                        <span @click="visible = true" class="title145">{{ $t('LOGOUT_ACCOUNT') }}</span>
+                        <span  class="title145">{{ $t('LOGOUT_ACCOUNT') }}</span>
                         <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }" class="modal-logout1">
                             <div class="logout-dialog-logoutt">
                                 <div class="text-center back-icon-logoutt">
@@ -163,7 +163,7 @@
                                 <div class="buttons-container-logoutt">
                                     <button class="btn btn-cancel-logoutt" @click="visible = false">{{
                                         $t('CANCEL_ACCOUNT') }}</button>
-                                    <button class="btn btn-logout-logoutt">{{ $t('LOG_OUT_ACCOUNT') }}</button>
+                                    <button class="btn btn-logout-logoutt" @click="onLogout()">{{ $t('LOG_OUT_ACCOUNT') }}</button>
                                 </div>
                             </div>
                         </Dialog>
@@ -210,11 +210,17 @@ const fCurrency = computed(() => currencyStore.fCurrency)
 
 
 
-const onRedirectMyOrder = () => {
-    router.push('/myorder');
+const onRedirectMyOrder = (index) => {
+    router.push('/myorder?v='+index);
 }
 
+const onLogout = () => {
+    authStore.onRemoveAuth();
+}
 
+const onRedirectUpdatePassword = () => {
+    router.push('/updatepw')
+}
 
 
 

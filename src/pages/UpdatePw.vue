@@ -6,37 +6,93 @@
 
                 <div class="mb-3">
                     <label class="form-label title-con">{{ $t('Current_Password_Label_UD') }}</label>
-                    <input type="password" class="form-control input-login"
+                    <input type="password" class="form-control input-login" v-model="oldPassword"
                         :placeholder="$t('Current_Password_Placeholder_UD')" />
+                        <small class="error-message" v-if="totalValid == false && !oldPassword">{{$t('CONFIRM_PASSWORD_REQUIRED')}}</small>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label title-con">{{ $t('New_Password_Label_UD') }}</label>
-                    <input type="password" class="form-control input-login"
+                    <input type="password" class="form-control input-login" v-model="password"
                         :placeholder="$t('New_Password_Placeholder_UD')" />
+                        <small class="error-message" v-if="totalValid == false && !password">{{$t('CONFIRM_PASSWORD_REQUIRED')}}</small>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label title-con">{{ $t('Confirm_Password_Label_UD') }}</label>
-                    <input type="password" class="form-control input-login"
+                    <input type="password" class="form-control input-login" v-model="confirmPassword"
                         :placeholder="$t('Confirm_Password_Placeholder_UD')" />
+                    <small class="error-message" v-if="totalValid == false && !confirmPassword">{{$t('CONFIRM_PASSWORD_REQUIRED')}}</small>
+                    <small class="error-message" v-if="totalValid == false && password !== confirmPassword && confirmPassword">{{$t('CONFIRM_PASSWORD_MUST_SAME_PASSWORD')}}</small>
                 </div>
 
             </div>
 
             <div class="bottom-menu menu-search bo-goc">
-                <router-link to="" class="btn-search">
+                <a @click="onChangePassword()" class="btn-search">
                     <button class="search-button btn-search" id="search">
                         {{ $t('Update_Password_Button_UD') }}
                     </button>
-                </router-link>
+                </a>
             </div>
         </div>
     </div>
 
 </template>
 <script setup>
+import { ref, onBeforeMount, onMounted, computed, onUnmounted } from "vue";
+
 import HeaderTitle from '../components/HeaderTitle.vue';
+import { useAuthStore } from '../stores/authStore';
+import { useI18n } from 'vue-i18n'
+import { useHelper } from "../composables/helper";
+import { RouterLink, useRouter } from 'vue-router'
+import { useAuth } from '../composables/auth';
+const { locale, t } = useI18n();
+
+
+const authComposable = useAuth();
+
+const router = useRouter()
+const authStore = useAuthStore();
+const currentAuth = computed(() => authStore.auth);
+
+
+const oldPassword = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+
+const totalValid = ref(true);
+
+const onValidate = () => {
+    if(!oldPassword.value) totalValid.value = false;
+    if(!password.value) totalValid.value = false;
+    if(!confirmPassword.value) totalValid.value = false;
+
+    totalValid.value = true;
+}
+
+const onChangePassword = async () => {
+    onValidate();
+    if(totalValid.value){
+        let data = {
+            email: currentAuth.value.email,
+            password: password.value,
+            oldPassword: oldPassword.value
+
+        }
+        const response = await authComposable.onChangePassword(data);
+        if(response){
+            if(response.data.status == 'success'){
+                alert(t(`CHANGE_PASSWORD_SUCCESS!`))
+                router.push(`/account`)
+            }
+            
+        }
+    }
+}
+
+
 </script>
 <style scoped>
 .form-container {
