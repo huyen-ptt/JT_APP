@@ -38,7 +38,7 @@
         <div class="col-12">
           <label class="form-label">{{ $t('BIRTHDAY') }}</label>
           <div class="position-relative">
-            <DatePicker width="100%" v-model="customer.birthDay" dateFormat="dd/mm/yyyy" class="date-check "/>
+            <DatePicker width="100%" v-model="customer.birthDay" dateFormat="dd/mm/yy" class="date-check " :manualInput="false"/>
           </div>
           <div class="error-message" v-if="info.triggerValid && customer.birthDay == ''">
             <small>{{ $t('ERRPR_MISSING_CUSTOMER_BIRTHDAY_INPUT') }}</small>

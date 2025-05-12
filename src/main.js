@@ -13,6 +13,7 @@ import { StatusBar } from '@capacitor/status-bar';
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+// import 'primevue/resources/themes/saga-blue/theme.css'; // theme sáng
 
 const app = createApp(App);
 
@@ -26,7 +27,11 @@ app.use(pinia);
 app.use(PrimeVue, {
     theme: {
         preset: Aura
-    }
-});
+    },
+    options: {
+        darkModeSelector: false, // trying to also force a non-usage of the dark mode
+    },
+}
+);
 
 app.mount('#app');

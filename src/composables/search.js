@@ -180,23 +180,36 @@ export const useSearch = () => {
   }
 
   const onSearchProducts = async (pageIndex, pageSort) => {
-    const url = `${uri}/api/PageSearch/GetProductByKeywords`;
+    const url = `${uri}/api/PageSearch/GetProductByKeywords_V2`;
     
     let keywords = [];
     if(currentSreach.value.keyword){
       keywords.push(currentSreach.value.keyword)
     }
-    let searchItems = [];
+    let selectedZoneDestinations = [];
+    let selectedZoneServices = [];
+    let selectedZoneRegions = [];
     if(currentSreach.value.searchItems.length > 0){
       currentSreach.value.searchItems.forEach(r => {
-        searchItems.push(r.url);
+        console.log(r);
+        if(r.type == 5){
+          selectedZoneDestinations.push(r.id)
+        }
+        if(r.type == 1){
+          selectedZoneServices.push(r.id)
+        }
+        if(r.type == 7){
+          selectedZoneRegions.push(r.id)          
+        }
       })
     }
 
 
     const data = {
       keywords: keywords,
-      selectedZones: searchItems,
+      selectedZoneDestinations: selectedZoneDestinations,
+      selectedZoneServices: selectedZoneServices,
+      selectedZoneRegions: selectedZoneRegions,
       cultureCode: _cultureCode,
       pageIndex: pageIndex,
       pageSize: 12,
