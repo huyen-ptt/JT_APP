@@ -144,9 +144,9 @@ import { ref, onBeforeMount, onMounted, computed } from "vue";
 import { useI18n } from 'vue-i18n'
 
 import { RouterLink, useRouter, useRoute } from 'vue-router'
-import HeaderTitle from '../components/HeaderTitle.vue';
+import HeaderTitle from '../components/HeaderTitle.vue';            
 import MyOrderItemComponent from "../components/MyOrderItemComponent.vue";
-import { useAuthStore } from '../stores/authStore';
+import { useAuthStore } from '../stores/authStore';  
 
 import { useUser } from '../composables/user';
 import { useHelper } from "../composables/helper";
