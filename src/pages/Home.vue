@@ -175,13 +175,12 @@
                         <div class="image-container mb-2">
                            <Skeleton height="120px" borderRadius="12px" />
                         </div>
-
                      </div>
                   </template>
                </div>
 
                <!-- CỘT PHẢI -->
-               <div class="column">
+               <div class="column"> 
                   <template v-if="!onLoadDestinations">
                      <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 !== 0)" :key="'col2-' + index"
                         :class="`card-destination des${index + 3}`">
@@ -200,24 +199,20 @@
                         <div class="image-container mb-2">
                            <Skeleton height="120px" borderRadius="12px" />
                         </div>
-
                      </div>
                   </template>
                </div>
             </div>
          </div>
          <div class="mt-3 text-center">
-            <RouterLink to="/csdk" class="csdk">Chính sách và điều khoản</RouterLink>
+            <RouterLink to="/csdk" class="csdk">{{ $t('Policies_And_Terms') }}</RouterLink>
          </div>
-
          <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
          <!-- <div ref="triggerPoint" style="height: 100px;"></div>
-
          <div class="logo-end" :class="{ show: showLogo }">
             <img src="../assets/images/logo-end.png" width="120" alt="JOY TIME" class="logo-img" />
-         </div> -->
+         </div> -->  
          <Footer></Footer>
-
          <div class="floating-icons">
             <!-- Robot Icon -->
             <div class="icon-container">
@@ -225,8 +220,6 @@
                   <img src="../assets/images/robot.png">
                </div>
             </div>
-
-
             <!-- Map Icon with connector dot -->
             <div class="icon-container">
                <div class="floating-icon icon-robot  ban-do">
@@ -234,7 +227,6 @@
                </div>
             </div>
          </div>
-
       </div>
    </div>
 </template>

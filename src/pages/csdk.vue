@@ -1,6 +1,6 @@
     <template>
         <div class="introduce">
-            <HeaderTitle :title="$t('FAQS_ACCOUNT')"></HeaderTitle>
+            <HeaderTitle :title="$t('Policies_And_Terms')"></HeaderTitle>
             <div class="card  p-3">
                 <Accordion value="0">
                     <AccordionPanel value="0" class="our-story mb-3">
