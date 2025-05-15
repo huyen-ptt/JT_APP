@@ -222,7 +222,7 @@ watch(currentSlide, (val) => {
 .get-start-btn-ab {
     background-color: #446EDE;
     color: white;
-    border: none;
+    border: none;  
     font-size: 14px;
     font-weight: 600;
     padding: 14px 24px;
