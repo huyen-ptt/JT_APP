@@ -317,7 +317,7 @@
                                 <div class="news-title-blogg mb-1">{{ p.currentPackage.title }}</div>
                                 <div class="see-detail-booking mb-2" @click="visibleBottom = true">
                                     {{ $t('VIEW_DETAIL') }} <i class="fa-solid fa-chevron-down"></i>
-                                    <Drawer v-model:visible="visibleBottom" header="Detail" position="bottom"
+                                    <Drawer v-model:visible="visibleBottom" :header="$t('detail')" position="bottom"
                                         style="height: auto" class="bo-goc so-luong-mua">
                                         <div class="container detail-see pb-4">
                                             <div class="tour-card-see-detail">

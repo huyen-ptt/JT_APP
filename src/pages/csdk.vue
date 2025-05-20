@@ -204,7 +204,7 @@
                                 </ul>
 
                                  <p><b>{{ $t('refund_period_title') }}</b></p>
-                                <ul>
+                                <ul> 
                                     <li>{{ $t('tour_refund_policy') }}</li>
                                     <li>{{ $t('airport_refund_policy') }}</li>
                                 </ul>

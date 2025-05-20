@@ -172,20 +172,19 @@
                   <template v-else>
                      <div v-for="index in 2" :key="'col1-skeleton-' + index" :class="`card-destination`"
                         style="margin-bottom: 10px;">
-                        <div class="image-container mb-2">
+                        <div class="image-container mb-2">  
                            <Skeleton height="120px" borderRadius="12px" />
                         </div>
                      </div>
                   </template>
                </div>
-
                <!-- CỘT PHẢI -->
                <div class="column"> 
                   <template v-if="!onLoadDestinations">
                      <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 !== 0)" :key="'col2-' + index"
                         :class="`card-destination des${index + 3}`">
                         <RouterLink :to="`/destination/${d.id}`">
-                           <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">
+                           <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">  
                            <div class="location-destination">
                               <i class="fas fa-map-marker-alt icon-destination"></i>
                               <span>{{ d.title }}</span>

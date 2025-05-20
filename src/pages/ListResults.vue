@@ -61,6 +61,8 @@ import Filter from '../components/Filter.vue';
 import ProductSearch from '../components/ProductSearch.vue';
 import { useSearchStore } from '../stores/searchStore';
 import { useSearch } from '../composables/search';
+import { useI18n } from 'vue-i18n'
+const { locale, t } = useI18n();
 
 const router = useRouter();
 const searchStore = useSearchStore();
@@ -73,10 +75,10 @@ const selectedOption = ref(null);
 const visibleRight = ref(false);
 const total = ref(0);
 const sortOptions = ref([
-    { name: 'Top view', value: 'TOP_VIEW' },
-    { name: 'Top rate', value: 'TOP_RATE' },
-    { name: 'Top booking', value: 'TOP_BOOKING' },
-    { name: 'Price low to high', value: 'PRICE_LOW_TO_HIGH' }
+  { name: t('SORT_TOP_VIEW'), value: 'TOP_VIEW' },
+  { name: t('SORT_TOP_RATE'), value: 'TOP_RATE' },
+  { name: t('SORT_TOP_BOOKING'), value: 'TOP_BOOKING' },
+  { name: t('SORT_PRICE_LOW_TO_HIGH'), value: 'PRICE_LOW_TO_HIGH' }
 ]);
 console.log(listOfProducts.value)
 

@@ -3,7 +3,7 @@
   <div class="title-1477 pb-2">{{ info.zoneName }}</div>
   <AccordionPanel class="customer1" v-for="(customer, index) in customers" :value="index" :key="index">
     <AccordionHeader class="customer-accordion-custom-class">
-        <div class="title145">{{ $t('CUSTOMER') }} {{ index + 1 }}<span class="text-danger"> *</span></div>
+        <div class="title145">{{ $t('customer') }} {{ index + 1 }}<span class="text-danger"> *</span></div>
     </AccordionHeader>
     <AccordionContent class="p-0 servies-det">
       <div class="row mb-3">

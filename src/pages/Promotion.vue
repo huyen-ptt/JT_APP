@@ -26,7 +26,7 @@
                                                     <path
                                                         d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                                                 </svg>
-                                                <span class="title-con">Ends on 28/2/2025</span>
+                                                <span class="title-con">{{ $t('ends_on') }} 28/2/2025</span>
                                             </div>
                                             <RouterLink to="/promotion-detail" class="btn btn-primary collect-btn">
                                                 {{ $t('Button_Collect_Promotion') }}
