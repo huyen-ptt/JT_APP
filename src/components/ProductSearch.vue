@@ -27,12 +27,12 @@
                 </div>
 
             </div>
-            <div class="bieu-tuong">
+            <!-- <div class="bieu-tuong">
 
                 <div class="flight-icon">
                     <img src="../assets/images/airplane.png" />
                 </div>
-            </div>
+            </div> -->
         </div>
     </RouterLink>
 

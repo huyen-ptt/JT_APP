@@ -17,7 +17,7 @@
                                     <div class="d-flex gap-3 mb-4">
                                         <img :src="helper.getImageCMS(pay.avatar)" alt="Tour food" class="tour-image">
                                         <div>
-                                            <div class="service-date">Service date: {{ pay.choosenDate }}</div>
+                                            <div class="service-date">{{ $t('service_date') }}: {{ pay.choosenDate }}</div>
 
                                             <h2 class="news-title-blogg1">{{ pay.bookingParentName }}
                                             </h2>
@@ -61,7 +61,7 @@
                                         <h3 class="promo-title pb-3">{{ $t('promotion') }}</h3>
                                         <div class="promo-input-group">
                                             <input type="text" class="promo-input input-login"
-                                                placeholder="Enter promo code"
+                                                :placeholder="$t('enter_promo_code')"
                                                 v-model="pay.discountSelected.couponCode">
                                             <button class="use-code-btn" @click="onCheckCouponCode(pay)">{{
                                                 $t('use_code') }}</button>

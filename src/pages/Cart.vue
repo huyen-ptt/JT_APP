@@ -36,7 +36,7 @@
                                                 <polyline points="6 9 12 15 18 9"></polyline>
                                             </svg>
                                             <Drawer v-model:visible="cart.isOpenModalChangeQuantity"
-                                                header="Select quantity" position="bottom" style="height: auto"
+                                               :header="$t('select_quantity')" position="bottom" style="height: auto"
                                                 class="bo-goc so-luong-mua" :dismissable="false">
                                                 <div class="quantity-selector-so-luong">
 

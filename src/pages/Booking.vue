@@ -16,7 +16,7 @@
                 <div class="news-title-blogg mb-2">{{ ticket.name }}</div>
                 <div class="see-detail-booking mb-2" @click="visibleBottom = true">
                     See detail <i class="fa-solid fa-chevron-down"></i>
-                    <Drawer v-model:visible="visibleBottom" header="Detail" position="bottom" style="height: auto"
+                    <Drawer v-model:visible="visibleBottom" :header="$t('detail')" position="bottom" style="height: auto"
                         class="bo-goc so-luong-mua">
                         <div class="container detail-see pb-4">
                             <div class="tour-card-see-detail">
@@ -71,7 +71,7 @@
 
                         <div class="calendar-grid-booking">
                             <div class="calendar-day-header-booking"
-                                v-for="day in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']" :key="day">
+                              v-for="day in [$t('mon'), $t('tue'), $t('wed'), $t('thu'), $t('fri'), $t('sat'), $t('sun')]" :key="day">
                                 {{ day }}
                             </div>
                             <div v-for="n in firstDayOfMonth" :key="'empty-' + n"></div>

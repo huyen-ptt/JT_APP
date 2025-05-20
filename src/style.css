@@ -1987,7 +1987,7 @@ img {
 .news-meta-blogg {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
   font-size: 13px;
 }
 

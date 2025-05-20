@@ -1,6 +1,6 @@
     <template>
         <div class="introduce">
-            <HeaderTitle :title="$t('FAQS_ACCOUNT')"></HeaderTitle>
+            <HeaderTitle :title="$t('Policies_And_Terms')"></HeaderTitle>
             <div class="card  p-3">
                 <Accordion value="0">
                     <AccordionPanel value="0" class="our-story mb-3">
@@ -204,7 +204,7 @@
                                 </ul>
 
                                  <p><b>{{ $t('refund_period_title') }}</b></p>
-                                <ul>
+                                <ul> 
                                     <li>{{ $t('tour_refund_policy') }}</li>
                                     <li>{{ $t('airport_refund_policy') }}</li>
                                 </ul>

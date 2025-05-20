@@ -13,7 +13,7 @@
             </div>
             <span class="menu-text">{{ $t('promotion') }}</span>
         </RouterLink>
-
+ 
         <div class="menu-item" @click="modalStore.open()">
             <div class="menu-icon">
                 <img src="../assets/images/element-plus.png" />
@@ -28,12 +28,12 @@
             <span class="menu-text">{{ $t('blog') }}</span>
         </RouterLink>
 
-        <a class="menu-item" @click="onRedirectAccount()">
+        <RouterLink class="menu-item" to="/account">
             <div class="menu-icon">
                 <img class="account-icon" src="../assets/images/user-square.png" />
             </div>
             <span class="menu-text">{{ $t('account') }}</span>
-        </a>
+        </RouterLink>
 
         <div class="indicator"></div>
     </div>
@@ -48,10 +48,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </Drawer>
 </template>
 <script setup>
@@ -74,9 +72,9 @@ const auth = computed(() => authStore.auth);
 const modalStore = useModalStore();
 
 
-const onRedirectAccount = () => {
-    router.push('/account');
-}
+// const onRedirectAccount = () => {
+//     router.push('/account');
+// }
 
 
 

@@ -2,7 +2,7 @@
     <div class="mb-3">
         <div class="d-flex justify-content-between">
             <div class="title145 pb-2">
-                Service date: {{ date }}
+                {{ $t('service_date') }}: {{ date }}
             </div>
             <!-- <img src="../assets/images/edit-2.png" alt="" style="object-fit: contain;"> -->
         </div>
