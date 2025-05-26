@@ -31,6 +31,8 @@ import csdk from '@/pages/csdk.vue';
 import Onboarding from '@/pages/Onboarding.vue';
 import OnboardingT1 from '@/pages/OnboardingT1.vue';
 import ChatBox from '@/pages/ChatBox.vue';
+import LanguagesOnboading from '@/pages/LanguagesOnboading.vue';
+
 
 const routes = [
     {
@@ -122,6 +124,11 @@ const routes = [
         path: "/languages",
         name: "Languages",
         component: Languages,
+    },
+    {
+        path: "/languagesonboading",
+        name: "LanguagesOnboading",
+        component: LanguagesOnboading,
     },
     {
         path: "/currency",

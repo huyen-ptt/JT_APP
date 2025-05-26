@@ -1942,10 +1942,10 @@ img {
 .welcome {
   font-weight: 700;
   color: #03294C;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 36px;
   letter-spacing: 0%;
-  text-align: center;
+  text-align: center;  
   vertical-align: middle;
 
 }
@@ -2709,6 +2709,8 @@ img {
   font-weight: 500;
   font-size: 14px;
   display: flex;
+  display: block;
+  
   align-items: center;
   text-decoration: none;
 }

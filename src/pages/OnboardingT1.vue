@@ -2,27 +2,27 @@
   <div class="">
     <Swiper :modules="[Autoplay]" :slides-per-view="1" :allow-touch-move="true" :autoplay="false"
       @slideChange="onSlideChange" @swiper="onSwiper" class="swiper-container-ab">
-      <SwiperSlide>
+      <SwiperSlide >
         <img class="pb-4 img-onb" src="../assets/images/abroad.png" alt="JOY TIME" />
-        <h1 class="welcome text-center">Welcome to <span class="jt">Joytime</span></h1>
-        <p class="add-btn-booking text-center">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        </p>
+        <h1 class="welcome text-center">{{ $t('onboard_welcome_title') }}</h1>
+        <div class="add-btn-booking text-center">
+          {{ $t('onboard_welcome_desc') }}
+        </div>
       </SwiperSlide>
 
       <SwiperSlide>
         <img class="pb-4 img-onb" src="../assets/images/abroad-2.png" alt="Slide 2" />
-        <h1 class="welcome text-center">Discover with <span style="color:#f43f5e">ease</span></h1>
+        <h1 class="welcome text-center">{{ $t('onboard_support_title') }}</h1>
         <p class="add-btn-booking text-center">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          {{ $t('onboard_support_desc') }}
         </p>
       </SwiperSlide>
 
       <SwiperSlide>
         <img class="pb-5 img-onb" src="../assets/images/hero-illustrations.png" alt="Slide 3" />
-        <h1 class="welcome text-center">Enjoy <span class="jt">anywhere</span></h1>
+        <h1 class="welcome text-center">{{ $t('onboard_journey_title') }}</h1>
         <p class="add-btn-booking text-center">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          {{ $t('onboard_journey_desc') }}
         </p>
       </SwiperSlide>
     </Swiper>
@@ -33,7 +33,7 @@
         <div class="dots-ab">
           <span v-for="(dot, index) in 3" :key="index" :class="index === currentSlide ? 'active-dot-ab' : ''"></span>
         </div>
-        <button class="skip-btn-ab pt-2" @click="skipAb">Skip</button>
+        <button class="skip-btn-ab pt-2" @click="skipAb">{{ $t('skip') }}</button>
       </div>
 
       <!-- Footer cho slide 0 & 1: vòng tròn -->
@@ -47,7 +47,7 @@
 
       <!-- Footer cho slide 2 -->
       <div class="get-start-wrapper-ab" v-else>
-        <button class="get-start-btn-ab" @click="finish">Get Start</button>
+        <button class="get-start-btn-ab" @click="finish">{{ $t('getStarted') }}</button>
       </div>
     </div>
   </div>
@@ -141,7 +141,7 @@ watch(currentSlide, (val) => {
 }
 
 .img-onb {
-  height: 450px;
+  height: 480px;
   width: 100%;
   object-fit: cover;
 }

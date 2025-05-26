@@ -11,7 +11,7 @@ const router = useRouter()
 
 onMounted(() => {
   setTimeout(() => {
-    router.replace('/languages')
+    router.replace('/languagesonboading')
   }, 3000)
 })
 </script>
