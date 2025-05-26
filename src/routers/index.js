@@ -30,6 +30,7 @@ import OrderDetail from '@/pages/OrderDetail.vue';
 import csdk from '@/pages/csdk.vue';
 import Onboarding from '@/pages/Onboarding.vue';
 import OnboardingT1 from '@/pages/OnboardingT1.vue';
+import ChatBox from '@/pages/ChatBox.vue';
 
 const routes = [
     {
@@ -56,7 +57,7 @@ const routes = [
         path: "/list-search",
         name: "ListSearch",
         component: ListSearch,
-    }, 
+    },
     {
         path: "/destination/:id",
         name: "Destination",
@@ -139,60 +140,65 @@ const routes = [
     },
     {
         path: "/confirm/payment/success",
-        name: "CheckoutSuccess",  
+        name: "CheckoutSuccess",
         component: CheckoutSuccess,
     },
     {
         path: "/introduce",
-        name: "Introduce",  
+        name: "Introduce",
         component: Introduce,
     },
     {
         path: "/contact",
-        name: "Contact",  
+        name: "Contact",
         component: Contact,
     },
     {
         path: "/faqs",
-        name: "Faqs",  
+        name: "Faqs",
         component: Faqs,
     },
     {
         path: "/becomeapartner",
-        name: "BecomePartner",  
+        name: "BecomePartner",
         component: BecomePartner,
     },
     {
         path: "/myorder",
-        name: "MyOrder",  
+        name: "MyOrder",
         component: MyOrder,
     },
     {
         path: "/orderdetail/:id/:code",
-        name: "OrderDetail",  
+        name: "OrderDetail",
         component: OrderDetail,
     },
     {
         path: "/csdk",
-        name: "csdk",  
+        name: "csdk",
         component: csdk,
     },
     {
         path: "/onboarding",
-        name: "Onboarding",  
+        name: "Onboarding",
         component: Onboarding,
     },
-       {
+    {
         path: "/onboarding1",
-        name: "OnboardingT1",  
+        name: "OnboardingT1",
         component: OnboardingT1,
     },
-  
+    {
+        path: "/chat",
+        name: "ChatBox",
+        component: ChatBox,
+    },
+
 ];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes, 
+    routes,
 });
 
 export default router;
