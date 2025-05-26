@@ -1,10 +1,7 @@
 <template>
 
     <div class="container p-0" style="max-width: 480px;">
-        <!-- Header -->
-        <!-- <HeaderTitle :title="$t('SETTING_ACCOUNT')"></HeaderTitle> -->
 
-        <!-- Profile Section -->
         <div class="chat-container-chat">
             <!-- Header -->
             <div class="chat-header-chat">
@@ -14,10 +11,10 @@
                 <div class="header-info-chat">
                     <div class="bot-avatar-chat"></div>
                     <div class="header-text-chat">
-                        <div class="bot-name-chat">Chat bot</div>
+                        <div class="bot-name-chat">{{ $t('botName') }}</div>
                         <div class="status-chat d-flex align-items-center gap-1">
                             <div class="cham"></div>
-                            <div> Always active</div>
+                            <div>{{ $t('status') }}</div>
                         </div>
                     </div>
                 </div>
@@ -75,33 +72,27 @@
                 </div>
             </div>
 
-            <!-- Suggestions -->
             <div class="suggestions-chat">
                 <div class="example-1">
                     <div class="divider"></div>
-                    <div class="content">Suggestions for you</div>
+                    <div class="content">{{ $t('suggestionsTitle') }}</div>
                     <div class="divider"></div>
                 </div>
-                <!-- <div class="suggestions-title-chat">Suggestions for you</div> -->
-                <div class="suggestion-buttons-chat">
-                    <button class="suggestion-button-chat">Day tour food</button>
-                    <button class="suggestion-button-chat">Combo ticket | Ha noi</button>
-                    <button class="suggestion-button-chat">Combo ticket | Ha noi</button>
 
+                <div class="suggestion-buttons-chat">
+                    <button class="suggestion-button-chat">{{ $t('suggestion1') }}</button>
+                    <button class="suggestion-button-chat">{{ $t('suggestion2') }}</button>
+                    <button class="suggestion-button-chat">{{ $t('suggestion2') }}</button>
                 </div>
             </div>
 
-            <!-- Input Area -->
             <div class="chat-input-chat">
                 <div class="input-container-chat">
-                    <input type="text" class="text-input-chat" placeholder="Type here and press enter...">
-                    <!-- <button class="emoji-button-chat">😊</button> -->
-                    <img src="../assets/images/happy.png" class="" />
-
+                    <input type="text" class="text-input-chat" :placeholder="$t('inputPlaceholder')">
+                    <img src="../assets/images/happy.png" />
                 </div>
                 <button class="send-button-chat">
-                    <img src="../assets/images/send-2.png" class="" />
-
+                    <img src="../assets/images/send-2.png" />
                 </button>
             </div>
         </div>
@@ -158,6 +149,4 @@ const onRedirectUpdatePassword = () => {
 
 
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>
