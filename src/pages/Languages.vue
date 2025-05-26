@@ -16,7 +16,7 @@
             <router-link to="/account" class="btn-search cancle"> <button class="search-button btn-search" id="search">
                     {{ $t('CANCEL_ACCOUNT') }}
                 </button></router-link>
-            <router-link to="/account" class="btn-search "> <button class="search-button btn-search" id="search">
+            <router-link to="/account" class="btn-search"> <button class="search-button btn-search" id="search">
                     {{ $t('Save_CURRENCY') }}
                 </button></router-link>
         </div>
@@ -25,10 +25,19 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import HeaderTitle from '../components/HeaderTitle.vue';
 import { useLanguageStore } from '../stores/languageStore.js'
+import { useRouter } from 'vue-router'
 
+
+const router = useRouter()
+
+onMounted(() => {
+    setTimeout(() => {
+        router.replace('/onboarding1')
+    }, 5000)
+})
 
 const languageStore = useLanguageStore();
 const currentLanguage = computed(() => languageStore.language)

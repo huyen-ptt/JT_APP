@@ -252,7 +252,7 @@ import { useModalStore } from '@/stores/modalStore';
 import ProductHomeSkeleton from "../components/ProductHomeSkeleton.vue";
 import Skeleton from 'primevue/skeleton';
 import { useCurrencyStore } from "../stores/currencyStore";
-
+import { hasSeenOnboarding } from '../utils/onboarding'
 import { useSearchStore } from "../stores/searchStore";
 const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
@@ -262,7 +262,13 @@ const currentfCurrency = computed(() => currencyStore.fCurrency)
 const modalStore = useModalStore();
 const searchTerm = ref('')
 const router = useRouter()
-
+onMounted(() => {
+  if (hasSeenOnboarding()) {
+    router.replace('/')
+  } else {
+    router.replace('/onboarding')
+  }
+})
 const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();

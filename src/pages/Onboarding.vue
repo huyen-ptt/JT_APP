@@ -4,4 +4,14 @@
     </div>
 </template>
 <script setup>
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+
+const router = useRouter()
+
+onMounted(() => {
+  setTimeout(() => {
+    router.replace('/languages')
+  }, 3000)
+})
 </script>
