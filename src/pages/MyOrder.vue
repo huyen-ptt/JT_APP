@@ -66,7 +66,7 @@
 <script setup>
 import { ref, onBeforeMount, onMounted, computed } from "vue";
 import { useI18n } from 'vue-i18n'
-
+import Footer from "@/components/Footer.vue";
 import { RouterLink, useRouter, useRoute } from 'vue-router'
 import HeaderTitle from '../components/HeaderTitle.vue';
 import MyOrderItemComponent from "../components/MyOrderItemComponent.vue";
