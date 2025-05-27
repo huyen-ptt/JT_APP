@@ -13,10 +13,10 @@
         </div>
 
         <div class="bottom-menu menu-search bo-goc gap-3">
-            <router-link to="/account" class="btn-search cancle"> <button class="search-button btn-search" id="search">
+            <router-link to="/onboarding1" class="btn-search cancle"> <button class="search-button btn-search" id="search">
                     {{ $t('CANCEL_ACCOUNT') }}
                 </button></router-link>
-            <router-link to="/account" class="btn-search"> <button class="search-button btn-search" id="search">
+            <router-link to="/onboarding1" class="btn-search"> <button class="search-button btn-search" id="search">
                     {{ $t('Save_CURRENCY') }}
                 </button></router-link>
         </div>
@@ -33,7 +33,11 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-
+onMounted(() => {
+    setTimeout(() => {
+        router.replace('/onboarding1')
+    }, 5000)
+})
 
 const languageStore = useLanguageStore();
 const currentLanguage = computed(() => languageStore.language)

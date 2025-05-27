@@ -16,17 +16,17 @@
         </div>
         <div class="col-12">
           <label class="form-label">{{ $t('FAMILY_NAME') }}</label>
-          <input type="text" class="form-control" :placeholder="$t('FAMILY_NAME')" v-model="customer.familyName">
+          <input type="text" class="form-control" :placeholder="$t('FAMILY_NAME')" v-model ="customer.familyName">
           <div class="error-message" v-if="info.triggerValid && customer.familyName == ''">
             <small>{{ $t('ERRPR_MISSING_CUSTOMER_FAMILYNAME_INPUT') }}</small>
           </div>
         </div>
       </div>
 
-      <!-- Nationality and Birthday -->
+      <!-- Nationality and Birthday --> 
       <div class="row mb-3">
         <div class="col-12">
-          <label class="form-label">{{ $t('NATIONALITY') }}</label>
+          <label class="form-label">{{ $t('NATIONALITY') }}</label> 
           <Select v-model="customer.country" :options="countries" id="country_2" optionLabel="name"
             optionValue="code" :placeholder="$t('NATIONALITY')" filter
             :filterPlaceholder="$t('NATIONALITY')" class="form-select na"

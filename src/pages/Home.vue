@@ -106,7 +106,7 @@
 
                      <!-- Nếu đã load: hiện sản phẩm -->
                      <swiper-slide v-else v-for="(p, index) in listProductInRegion" :key="index">
-                        <ProductSearch :product="p"/>
+                        <ProductSearch :product="p" />
                      </swiper-slide>
                   </swiper>
                </ClientOnly>
@@ -172,19 +172,19 @@
                   <template v-else>
                      <div v-for="index in 2" :key="'col1-skeleton-' + index" :class="`card-destination`"
                         style="margin-bottom: 10px;">
-                        <div class="image-container mb-2">  
+                        <div class="image-container mb-2">
                            <Skeleton height="120px" borderRadius="12px" />
                         </div>
                      </div>
                   </template>
                </div>
                <!-- CỘT PHẢI -->
-               <div class="column"> 
+               <div class="column">
                   <template v-if="!onLoadDestinations">
                      <div v-for="(d, index) in first4DiemDen.filter((_, i) => i % 2 !== 0)" :key="'col2-' + index"
                         :class="`card-destination des${index + 3}`">
                         <RouterLink :to="`/destination/${d.id}`">
-                           <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">  
+                           <img :src="helper.getImageCMS(d.avatar)" :alt="d.title" class="image-destination">
                            <div class="location-destination">
                               <i class="fas fa-map-marker-alt icon-destination"></i>
                               <span>{{ d.title }}</span>
@@ -210,14 +210,14 @@
          <!-- <div ref="triggerPoint" style="height: 100px;"></div>
          <div class="logo-end" :class="{ show: showLogo }">
             <img src="../assets/images/logo-end.png" width="120" alt="JOY TIME" class="logo-img" />
-         </div> -->  
+         </div> -->
          <Footer></Footer>
          <div class="floating-icons">
             <!-- Robot Icon -->
             <div class="icon-container">
-               <div class="floating-icon icon-robot">
+               <RouterLink to="/chat" class="floating-icon icon-robot">
                   <img src="../assets/images/robot.png">
-               </div>
+               </RouterLink>
             </div>
             <!-- Map Icon with connector dot -->
             <div class="icon-container">
@@ -252,7 +252,7 @@ import { useModalStore } from '@/stores/modalStore';
 import ProductHomeSkeleton from "../components/ProductHomeSkeleton.vue";
 import Skeleton from 'primevue/skeleton';
 import { useCurrencyStore } from "../stores/currencyStore";
-
+import { hasSeenOnboarding } from '../utils/onboarding'
 import { useSearchStore } from "../stores/searchStore";
 const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
@@ -262,7 +262,13 @@ const currentfCurrency = computed(() => currencyStore.fCurrency)
 const modalStore = useModalStore();
 const searchTerm = ref('')
 const router = useRouter()
-
+onMounted(() => {
+  if (hasSeenOnboarding()) {
+    router.replace('/')
+  } else {
+    router.replace('/onboarding')
+  }
+})
 const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();
@@ -527,10 +533,10 @@ onMounted(async () => {
 }
 
 .tour-image {
-    width: 100%;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 12px;
+   width: 100%;
+   height: 110px;
+   object-fit: cover;
+   border-radius: 12px;
 }
 
 /* fix giao dien app */
