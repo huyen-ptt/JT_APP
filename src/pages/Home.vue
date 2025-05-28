@@ -16,7 +16,7 @@
                   <RouterLink to="/cart">
                      <img class="icon-cart" src="../assets/images/shopping-cart.png" alt="Cart" />
                   </RouterLink>
-                  <img class="icon-cart " src="../assets/images/Icon.png" />
+                  <!-- <img class="icon-cart " src="../assets/images/Icon.png" /> -->
                </div>
             </div>
          </div>
@@ -220,11 +220,11 @@
                </RouterLink>
             </div>
             <!-- Map Icon with connector dot -->
-            <div class="icon-container">
+            <!-- <div class="icon-container">
                <div class="floating-icon icon-robot  ban-do">
                   <img src="../assets/images/map.png">
                </div>
-            </div>
+            </div> -->
          </div>
       </div>
    </div>

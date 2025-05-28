@@ -4,14 +4,14 @@
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-          
+
                     <div class="product-slider position-relative">
                         <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
                             :autoplay="{ delay: 3000 }" :navigation="true" :pagination="{
                                 el: '.swiper-pagination',
                                 type: 'fraction'
                             }" class="mySwiper">
-                            <swiper-slide v-for="(image, index) in productDetail.gallary" :key="index">
+                            <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index" >
                                 <img :src="helper.getImageCMS(image)" class="d-block w-100"
                                     style="height: 280px; object-fit: cover;" />
                             </swiper-slide>
@@ -49,7 +49,7 @@
 
             </div>
         </div>
- 
+
         <div className="container-fluid p-0">
             <ul className="nav nav-tabs custom-tabs justify-content-center mr-3 ml-3" id="productTabs" role="tablist">
                 <li className="nav-item" role="presentation">
@@ -66,7 +66,7 @@
                         {{ $t('PRODUCT_DETAIL') }}
                     </button>
                 </li>
-               
+
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
                         data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
@@ -82,7 +82,8 @@
 
 
                 </div>
-                <div className="tab-pane fade p-3 show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <div className="tab-pane fade p-3 show active" id="description" role="tabpanel"
+                    aria-labelledby="description-tab">
                     <p className="mb-3 custom-paragraph" v-html="productDetail.description">
 
                     </p>
@@ -566,15 +567,22 @@
 
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <div class="cart-icon-booking" @click="onAddToCart()">
+                                    <div class="cart-icon-booking" @click="onAddToCart()"
+                                        :disabled="countPayItems === 0">
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
-                                    <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{
-                                        countPayItems
+                                    <button class="buy-btn-booking px-4" @click="buyNow"
+                                        :disabled="countPayItems === 0">{{ $t('BUY_NOW') }} ({{
+                                            countPayItems
                                         }})</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- Spinner toàn màn hình -->
+                    <div class="fullscreen-loading" v-if="loadingPriceOption">
+                        <ProgressSpinner style="width: 60px; height: 60px" strokeWidth="6" fill="transparent"
+                            animationDuration="0.8s" aria-label="Custom ProgressSpinner" />
                     </div>
                 </Dialog>
             </div>
@@ -608,6 +616,7 @@ import { useCartStore } from '../stores/cartStore';
 import axios from "axios";
 import { RouterLink, useRouter } from 'vue-router'
 import { StatusBar } from '@capacitor/status-bar';
+import ProgressSpinner from 'primevue/progressspinner';
 
 
 
@@ -631,6 +640,8 @@ const visibleBottom = ref(false);
 const adultQuantity = ref(4);
 const childQuantity = ref(0);
 const router = useRouter();
+
+const loadingPriceOption = ref(false);
 // const visibleBottom = ref(false);
 
 
@@ -872,8 +883,9 @@ const onLoadPriceForPayItem = async (p) => {
             year: p.calendar.currentYear,
             combination: arrTemp.join(','),
         }
-
+        loadingPriceOption.value = true;
         const response = await productComposable.getProductOptionsPriceByDate(data);
+        loadingPriceOption.value = false;
         if (response) {
             p.priceSelectedOptionByDate = response.data;
 
@@ -1121,12 +1133,15 @@ const buyNow = () => {
 };
 
 const onAddToCart = () => {
-    let pays = calculatePays();
-    pays.forEach(p => {
-        cartStore.onAddCart(p);
-    })
+    if (countPayItems > 0) {
+        let pays = calculatePays();
+        pays.forEach(p => {
+            cartStore.onAddCart(p);
+        })
 
-    router.push('/cart')
+        router.push('/cart')
+    }
+
 }
 
 // #endregion
@@ -1281,7 +1296,7 @@ onBeforeMount(async () => {
 })
 
 onUnmounted(() => {
-  StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
+    StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
 });
 const toggleReadMore = (review) => {
     review.isExpanded = !review.isExpanded; // Đảo trạng thái mở rộng
@@ -1383,5 +1398,25 @@ iframe {
     position: absolute;
     top: 48px;
     right: 20px;
+}
+
+.fullscreen-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* nền mờ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.buy-btn-booking:disabled {
+    background-color: #d6d6d6;
+    color: #999;
+    cursor: not-allowed;
 }
 </style>

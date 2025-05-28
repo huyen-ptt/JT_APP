@@ -1,7 +1,11 @@
 <template>
     <div>
         <HeaderTitle :title="$t('checkcart')"></HeaderTitle>
-
+        <!-- Spinner toàn màn hình -->
+        <div class="fullscreen-loading" v-if="loadingCheckout">
+            <ProgressSpinner style="width: 60px; height: 60px" strokeWidth="6" fill="transparent"
+                animationDuration="0.8s" aria-label="Custom ProgressSpinner" />
+        </div>
         <div class="card">
             <Accordion :value="activeMainAccordion" multiple>
                 <AccordionPanel class="mb-3" value="0">
@@ -17,7 +21,8 @@
                                     <div class="d-flex gap-3 mb-4">
                                         <img :src="helper.getImageCMS(pay.avatar)" alt="Tour food" class="tour-image">
                                         <div>
-                                            <div class="service-date">{{ $t('service_date') }}: {{ pay.choosenDate }}</div>
+                                            <div class="service-date">{{ $t('service_date') }}: {{ pay.choosenDate }}
+                                            </div>
 
                                             <h2 class="news-title-blogg1">{{ pay.bookingParentName }}
                                             </h2>
@@ -38,7 +43,7 @@
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
                                                     <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
-                                                    }}</span>
+                                                        }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -341,7 +346,7 @@ const helper = useHelper();
 const { locale, t } = useI18n();
 const payComposable = usePay();
 
-
+const loadingCheckout = ref(false);
 
 const pays = computed(() => payStore.pays);
 const auth = computed(() => authStore.auth);
@@ -726,7 +731,7 @@ const onRequestPayPayPal = async () => {
                     console.log(response.data);
                     // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
                     // StatusBar.setOverlaysWebView({ overlay: false });
-                      
+
 
                     let returnPaymentUrl = "";
                     // Bắt URL trước khi load
@@ -742,9 +747,11 @@ const onRequestPayPayPal = async () => {
                             // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
                             // Thực thi url 
                             try {
+                                loadingCheckout.value = true;
                                 const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+                                loadingCheckout.value = false;
                                 if (response && response.data) {
-                                    console.log(response.data);
+                                    // console.log(response.data);
                                     if (response.data.auth) {
                                         response.data.auth.isNewUser = false;
                                         authStore.onChangeAuth(response.data.auth);
@@ -908,5 +915,18 @@ const onRequestPayPayPal = async () => {
     width: 20px;
     height: 20px;
     color: #666;
+}
+.fullscreen-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* nền mờ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 </style>
