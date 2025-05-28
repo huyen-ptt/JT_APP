@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <!-- <div class="menu-button-chat">⋯</div> -->
-                <img src="../assets/images/more.png" class="" />
+                <!-- <img src="../assets/images/more.png" class="" /> -->
             </div>
 
             <!-- Messages Area -->
@@ -70,9 +70,29 @@
                         </div>
                     </div>
                 </div>
+                  <div class="message-chat">
+                    <div class="message-avatar-chat"></div>
+                    <div class="message-content-chat">
+                        <div class="message-bubble-chat">
+                            Ok, how about these?
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="action-button-chat">Show me other options</button>
+
+                </div>
+                <div class="message-chat">
+                    <div class="message-avatar-chat"></div>
+                    <div class="message-content-chat">
+                        <div class="message-bubble-chat">
+                            Ok, how about these?
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="suggestions-chat">
+            <!-- <div class="suggestions-chat">
                 <div class="example-1">
                     <div class="divider"></div>
                     <div class="content">{{ $t('suggestionsTitle') }}</div>
@@ -84,12 +104,12 @@
                     <button class="suggestion-button-chat">{{ $t('suggestion2') }}</button>
                     <button class="suggestion-button-chat">{{ $t('suggestion2') }}</button>
                 </div>
-            </div>
+            </div> -->
 
             <div class="chat-input-chat">
                 <div class="input-container-chat">
                     <input type="text" class="text-input-chat" :placeholder="$t('inputPlaceholder')">
-                    <img src="../assets/images/happy.png" />
+                    <!-- <img src="../assets/images/happy.png" /> -->
                 </div>
                 <button class="send-button-chat">
                     <img src="../assets/images/send-2.png" />

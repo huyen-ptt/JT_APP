@@ -77,7 +77,7 @@
                <h2 class="promo-title">{{ $t('TOP_TRENDS') }}</h2>
                <router-link to="/" class="view-all"> {{ $t('VIEW_All') }}</router-link>
 
-            </div>
+            </div>  
             <div class="">
                <ul class="nav nav-tabs pb-2" id="tourTabs" role="tablist" v-if="!onLoadRegions">
 

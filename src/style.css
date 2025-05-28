@@ -2212,6 +2212,9 @@ img {
 
 .chat-input-chat {
   padding: 15px 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   background-color: white;
   display: flex;
   align-items: center;
