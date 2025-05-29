@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "142481637876",
+    "project_id": "joytime-notification",
+    "storage_bucket": "joytime-notification.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142481637876:android:7a9749276c1b483b2b79a1",
+        "android_client_info": {
+          "package_name": "com.consortio.joytime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2n9j64-7HI7AyT9aia9UPuWVZRkJchNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

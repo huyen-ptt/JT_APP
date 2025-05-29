@@ -16,7 +16,7 @@
                   <RouterLink to="/cart">
                      <img class="icon-cart" src="../assets/images/shopping-cart.png" alt="Cart" />
                   </RouterLink>
-                  <!-- <img class="icon-cart " src="../assets/images/Icon.png" /> -->
+                  <img class="icon-cart " src="../assets/images/Icon.png" />
                </div>
             </div>
          </div>
