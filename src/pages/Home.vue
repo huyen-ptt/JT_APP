@@ -7,16 +7,19 @@
                   <img src="../assets/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
                </div>
                <RouterLink class="search-box-container" :to="`/search`" style="text-decoration: none;">
-                  <div class="search-box-items"></div>
-                  <img src="../assets/images/search-normal.png">
-                  <span style="color: #8A929E;">{{ $t('place_to_go') }}</span>
+                  <!-- <div class="search-box-items"></div> -->
+                  <img src="../assets/images/search-normal.png" style="object-fit: cover">
+                  <span style="color: #8A929E; font-size: 14px;">{{ $t('place_to_go') }}</span>
                </RouterLink>
                <!-- Icons on the right -->
                <div class="icons-container gap-2 d-flex ">
                   <RouterLink to="/cart">
                      <img class="icon-cart" src="../assets/images/shopping-cart.png" alt="Cart" />
                   </RouterLink>
-                  <img class="icon-cart " src="../assets/images/Icon.png" />
+                  <RouterLink to="/notification">
+                     <img class="icon-cart" src="../assets/images/tbb.png" alt="Cart" />
+                  </RouterLink>
+                  <!-- <img class="icon-cart " src="../assets/images/Icon.png" /> -->
                </div>
             </div>
          </div>
@@ -62,7 +65,7 @@
 
                      <swiper-slide v-for="index in 5" :key="`skeleton-${index}`" v-if="onLoadPromotions">
                         <div class="">
-                           <Skeleton height="160px" borderRadius="12px" />
+                           <Skeleton height="160px" width="350px" borderRadius="12px" />
                         </div>
                      </swiper-slide>
                   </swiper>
@@ -207,10 +210,11 @@
             <RouterLink to="/csdk" class="csdk">{{ $t('Policies_And_Terms') }}</RouterLink>
          </div>
          <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
-         <!-- <div ref="triggerPoint" style="height: 100px;"></div>
-         <div class="logo-end" :class="{ show: showLogo }">
+
+         <div class="logo-end" v-if="showLogo">
             <img src="../assets/images/logo-end.png" width="120" alt="JOY TIME" class="logo-img" />
-         </div> -->
+         </div>
+
          <Footer></Footer>
          <div class="floating-icons">
             <!-- Robot Icon -->
@@ -263,39 +267,60 @@ const modalStore = useModalStore();
 const searchTerm = ref('')
 const router = useRouter()
 onMounted(() => {
-  if (hasSeenOnboarding()) {
-    router.replace('/')
-  } else {
-    router.replace('/onboarding')
-  }
+   if (hasSeenOnboarding()) {
+      router.replace('/')
+   } else {
+      router.replace('/onboarding')
+   }
 })
+
+const showLogo = ref(false)
+
+// Hàm kiểm tra scroll
+const handleScroll = () => {
+  const scrollY = window.scrollY
+  const winHeight = window.innerHeight
+  const docHeight = document.documentElement.scrollHeight
+
+  // Nếu đã cuộn tới (gần) cuối trang thì hiện logo
+  showLogo.value = scrollY + winHeight >= docHeight - 10
+}
+
+// Gắn và gỡ event scroll
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+
 const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();
 
-const showLogo = ref(false)
-const triggerPoint = ref(null)
+// const triggerPoint = ref(null)
 
-const checkScroll = () => {
-   if (!triggerPoint.value) return
+// const checkScroll = () => {
+//    if (!triggerPoint.value) return
 
-   const rect = triggerPoint.value.getBoundingClientRect()
-   const screenHeight = window.innerHeight
+//    const rect = triggerPoint.value.getBoundingClientRect()
+//    const screenHeight = window.innerHeight
 
-   if (rect.top < screenHeight) {
-      showLogo.value = true
-   } else {
-      showLogo.value = false
-   }
-}
+//    if (rect.top < screenHeight) {
+//       showLogo.value = true
+//    } else {
+//       showLogo.value = false
+//    }
+// }
 
-onMounted(() => {
-   window.addEventListener('scroll', checkScroll)
-})
+// onMounted(() => {
+//    window.addEventListener('scroll', checkScroll)
+// })
 
-onUnmounted(() => {
-   window.removeEventListener('scroll', checkScroll)
-})
+// onUnmounted(() => {
+//    window.removeEventListener('scroll', checkScroll)
+// })
 
 const helper = useHelper();
 
@@ -493,7 +518,28 @@ onMounted(async () => {
    color: #03294C;
    /* margin-bottom: 4px; */
 }
+.logo-end {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+  animation: fadeIn 0.5s ease-in-out;
+}
 
+.logo-img {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .fa-star {
    width: 12px;
    height: 12px;
@@ -543,9 +589,9 @@ onMounted(async () => {
 .search-box-container {
    display: flex;
    gap: 10px;
-   padding: 10px 15px;
+   padding: 12px 16px;
    align-items: center;
-   border-radius: 10px;
+   border-radius: 16px;
    width: 100%;
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
    /* nhẹ nhàng, tinh tế */

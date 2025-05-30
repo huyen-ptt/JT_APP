@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <HeaderTitle :title="$t('cart')"></HeaderTitle>
 
-        <HeaderTitle :title="$t('cart')"></HeaderTitle>
+    <div v-if="carts.length > 0">
+
 
         <div class="body-cart">
             <div class="select-all-container d-flex align-items-center">
@@ -36,7 +37,7 @@
                                                 <polyline points="6 9 12 15 18 9"></polyline>
                                             </svg>
                                             <Drawer v-model:visible="cart.isOpenModalChangeQuantity"
-                                               :header="$t('select_quantity')" position="bottom" style="height: auto"
+                                                :header="$t('select_quantity')" position="bottom" style="height: auto"
                                                 class="bo-goc so-luong-mua" :dismissable="false">
                                                 <div class="quantity-selector-so-luong">
 
@@ -59,7 +60,7 @@
                                                                 :disabled="cart.combination.minimumNguoiLon >= cart.numberOfAldut">−</button>
                                                             <span class="quantity-display-so-luong">{{
                                                                 cart.numberOfAldut
-                                                                }}</span>
+                                                            }}</span>
                                                             <button class="quantity-btn-so-luong"
                                                                 @click="cart.numberOfAldut++">+</button>
                                                         </div>
@@ -83,7 +84,7 @@
                                                                 :disabled="cart.combination.minimumTreEm >= cart.numberOfChildrend">−</button>
                                                             <span class="quantity-display-so-luong">{{
                                                                 cart.numberOfChildrend
-                                                                }}</span>
+                                                            }}</span>
                                                             <button class="quantity-btn-so-luong"
                                                                 @click="cart.numberOfChildrend++">+</button>
                                                         </div>
@@ -153,6 +154,9 @@
                 </button>
             </div>
         </div>
+    </div>
+    <div v-else class="d-flex justify-content-center align-items-center p-5">
+        <p class="tour-title">{{ $t('CART_EMPTY') }}</p>
     </div>
 </template>
 <script setup>
@@ -226,14 +230,14 @@ const onChangeCheckAllCart = () => {
 const onCheckout = () => {
     let _pays = [];
     carts.value.forEach(c => {
-        if(c.isCartChecked){
+        if (c.isCartChecked) {
             _pays.push(c)
         }
     });
     payStore.onAddPays(_pays);
     router.push('/checkout')
 
-    
+
 }
 
 onMounted(() => {

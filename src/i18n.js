@@ -142,6 +142,7 @@ const messages = {
     "fri": "Fri",
     "sat": "Sat",
     "sun": "Sun",
+    THONG_BAO: "Notification",
     Phone_Number_ORD: "Phone number",
     Download_ETicket_ORD: "Download E_Ticket",
     Invoice_Info_ORD: "Invoice Information",
@@ -257,7 +258,8 @@ const messages = {
     PrivacyPolicy_Scope_List6_CSDK: "In case of requests from authorized government agencies.",
     PrivacyPolicy_Storage_Title_CSDK: "3. Information storage duration",
     PrivacyPolicy_Storage_Desc_CSDK: "No time limit unless the Customer requests cancellation to the Company's management.",
-    place_to_go: "Place to go...",
+    place_to_go: "Places to go, Things t...",
+    "RECENT_SEARCH_PRODUCT": "Recently Searched Products",
     PrivacyPolicy_Access_Title_CSDK: "4. Individuals or organizations that may access that information",
     PrivacyPolicy_Access_Desc_CSDK: "Customers agree that, if necessary, the following agencies/organizations/individuals have the right to access and collect their personal information, including:",
     PrivacyPolicy_Access_List1_CSDK: "Management Board",
@@ -272,7 +274,7 @@ const messages = {
     PrivacyPolicy_ContactInfo_Company_CSDK: "Consortio Vietnam Joint Stock Company",
     PrivacyPolicy_ContactInfo_TradeName_CSDK: "Trade name: joytime.vn",
     PrivacyPolicy_ContactInfo_Address_CSDK: "Address: 83B Ly Thuong Kiet, P. Tran Hung Dao, Hoan Kiem Dist., Hanoi",
-    PrivacyPolicy_ContactInfo_Hotline_CSDK: "Hotline: 0902225262",
+    PrivacyPolicy_ContactInfo_Hotline_CSDK: "Hotline: 0902225282",
     PrivacyPolicy_ContactInfo_Email_CSDK: "Email: cs{'@'}joytime.vn",
 
     // Section 6
@@ -282,11 +284,11 @@ const messages = {
     PrivacyPolicy_Methods_List3_CSDK: "Upon receiving this feedback, joytime.vn will confirm the information and is responsible for responding with reasons and guiding Customers to recover and secure their information.",
     PrivacyPolicy_Methods_List4_CSDK: "Forms of receiving Customer complaints:",
     PrivacyPolicy_Methods_Email_CSDK: "Email: cs{'@'}joytime.vn",
-    PrivacyPolicy_Methods_Hotline_CSDK: "Hotline: 0902225262",
+    PrivacyPolicy_Methods_Hotline_CSDK: "Hotline: 0902225282",
 
     // Section 7
     PrivacyPolicy_Mechanism_Title_CSDK: "7. Mechanism for receiving and resolving Customer complaints related to the misuse of personal information or the scope previously notified",
-    PrivacyPolicy_Mechanism_List1_CSDK: "When detecting that their personal information is being used for the wrong purpose or scope, Customers can complain to the hotline 0902225262 or send an email to cs{'@'}joytime.vn.",
+    PrivacyPolicy_Mechanism_List1_CSDK: "When detecting that their personal information is being used for the wrong purpose or scope, Customers can complain to the hotline 0902225282 or send an email to cs{'@'}joytime.vn.",
     PrivacyPolicy_Mechanism_List2_CSDK: "Upon receiving this feedback, we will confirm the information. If it matches the member's report, depending on the severity, we will take timely measures within 24 hours.",
 
     // Section 8
@@ -317,9 +319,9 @@ const messages = {
     SignUp: "Sign Up",
     or: "or",
     "onboard_welcome_title": "Welcome to Joytime",
-   "onboard_welcome_desc": "One app for all your Vietnam travel needs.",
-  "onboard_support_desc": "Need help? We’re here 24/7.",
-  "onboard_journey_desc": "Book fast, go now, stress-free.",
+    "onboard_welcome_desc": "One app for all your Vietnam travel needs.",
+    "onboard_support_desc": "Need help? We’re here 24/7.",
+    "onboard_journey_desc": "Book fast, go now, stress-free.",
     "onboard_support_title": "Support anytime you need",
     "onboard_journey_title": "Let the journey begin",
     RESET_SELECTION: "Reset Selection",
@@ -360,6 +362,10 @@ const messages = {
     SETTING_ACCOUNT: "Setting",
     MY_ORDER_ACCOUNT: "My order",
     VIEW_HISTORY_ACCOUNT: "View history",
+
+    "ERRPR_MISSING_NOTE_RADIO": "Please select an option.",
+
+
     NEW_ACCOUNT: "New",
     READY_ACCOUNT: "Ready",
     please_provide_service: "Please provide your desired service details",
@@ -410,6 +416,8 @@ const messages = {
     Update_Password_Button_UD: "Update Password",
     Adult: "Adult",
     Child: "Child",
+    "EMAIL_REQUIRED": "Please enter your email",
+    "EMAIL_INVALID": "Invalid email address",
     Policies_And_Terms: "Terms and Conditions",
     Password_Reset_Email_Sent_SS: "Password Reset Email Sent",
     Password_Reset_Check_Email_SS: "Please check your email for password reset link.",
@@ -447,6 +455,7 @@ const messages = {
     different_phone_number: "Will you use a different phone number when traveling?",
     yes: "Yes",
     no: "No",
+    "CART_EMPTY": "Your cart is empty.",
     Note_And_Other_Request_CHECKOUT: "Note & Other Request",
     Note_CHECKOUT: "Note",
     Payment_Method_CHECKOUT: "Payment Method",
@@ -678,6 +687,8 @@ const messages = {
     contact_through_app: "Chúng tôi có thể liên hệ với bạn qua ứng dụng nào?",
     Results_Count_ProductResult: "kết quả",
     Select_Sort_Option_ProductResult: "Chọn",
+    THONG_BAO: "Thông báo",
+
     Our_Mission_Title_About: "Sứ mệnh của chúng tôi",
     Our_Mission_Paragraph_About: "Joytime cam kết cung cấp các dịch vụ du lịch chất lượng cao, đáng tin cậy và tiện lợi, kết nối du khách quốc tế với văn hóa đặc sắc và những khoảnh khắc đáng nhớ tại Việt Nam. Chúng tôi không ngừng nỗ lực nâng cao dịch vụ nhằm mang đến những hành trình lý tưởng, giúp bạn khám phá trọn vẹn vẻ đẹp của Việt Nam. Với đội ngũ chuyên gia giàu kinh nghiệm, am hiểu và đam mê du lịch Việt Nam, chúng tôi luôn sẵn sàng đồng hành cùng du khách quốc tế trên từng chặng đường, đóng vai trò như một cầu nối đưa bạn đến gần hơn với một Việt Nam tinh tế, gần gũi và đầy màu sắc.",
     ott_app: "Ứng dụng OTT",
@@ -690,9 +701,9 @@ const messages = {
     HOUR: "Giờ",
     MINUTE: "Phút",
     "onboard_welcome_title": "Chào mừng đến với Joytime",
-     "onboard_welcome_desc": "Một ứng dụng cho mọi nhu cầu du lịch Việt Nam.",
-  "onboard_support_desc": "Cần hỗ trợ? Chúng tôi luôn sẵn sàng.",
-  "onboard_journey_desc": "Đặt nhanh, đi liền, không lo lắng.",
+    "onboard_welcome_desc": "Một ứng dụng cho mọi nhu cầu du lịch Việt Nam.",
+    "onboard_support_desc": "Cần hỗ trợ? Chúng tôi luôn sẵn sàng.",
+    "onboard_journey_desc": "Đặt nhanh, đi liền, không lo lắng.",
     "onboard_support_title": "Hỗ trợ bất cứ khi nào bạn cần",
     "onboard_journey_title": "Hành trình bắt đầu ngay bây giờ",
     "mon": "Th 2",
@@ -707,6 +718,7 @@ const messages = {
     skip: "Bỏ qua",
     getStarted: "Bắt đầu",
     select_all: "CHỌN TẤT CẢ",
+    "RECENT_SEARCH_PRODUCT": "Sản phẩm tìm kiếm gần đây",
     completed_order: "Thanh toán",
     title_login: "Đăng Nhập",
     description_login: "Đăng nhập để tham gia Joysme và khám phá niềm vui ngọt ngào",
@@ -755,7 +767,7 @@ const messages = {
     PrivacyPolicy_ContactInfo_Company_CSDK: "Công ty Cổ phần Consortio Việt Nam",
     PrivacyPolicy_ContactInfo_TradeName_CSDK: "Tên thương mại: joytime.vn",
     PrivacyPolicy_ContactInfo_Address_CSDK: "Địa chỉ: 83B Lý Thường Kiệt, P. Trần Hưng Đạo, Quận Hoàn Kiếm, Hà Nội",
-    PrivacyPolicy_ContactInfo_Hotline_CSDK: "Đường dây nóng: 0902225262",
+    PrivacyPolicy_ContactInfo_Hotline_CSDK: "Đường dây nóng: 0902225282",
     PrivacyPolicy_ContactInfo_Email_CSDK: "Email: cs{'@'}joytime.vn",
 
     // Section 6
@@ -765,13 +777,13 @@ const messages = {
     PrivacyPolicy_Methods_List3_CSDK: "Khi nhận được phản hồi này, joytime.vn sẽ xác nhận thông tin và có trách nhiệm trả lời với lý do và hướng dẫn Khách hàng khôi phục và bảo mật thông tin của họ.",
     PrivacyPolicy_Methods_List4_CSDK: "Hình thức tiếp nhận khiếu nại của Khách hàng:",
     PrivacyPolicy_Methods_Email_CSDK: "Email: cs{'@'}joytime.vn",
-    PrivacyPolicy_Methods_Hotline_CSDK: "Đường dây nóng: 0902225262",
+    PrivacyPolicy_Methods_Hotline_CSDK: "Đường dây nóng: 0902225282",
 
     // Section 7
     PrivacyPolicy_Mechanism_Title_CSDK: "7. Cơ chế tiếp nhận và giải quyết khiếu nại của Khách hàng liên quan đến việc sử dụng sai mục đích thông tin cá nhân hoặc phạm vi đã thông báo trước",
-    PrivacyPolicy_Mechanism_List1_CSDK: "Khi phát hiện thông tin cá nhân của mình đang được sử dụng sai mục đích hoặc phạm vi, Khách hàng có thể khiếu nại đến đường dây nóng 0902225262 hoặc gửi email đến cs{'@'}joytime.vn.",
+    PrivacyPolicy_Mechanism_List1_CSDK: "Khi phát hiện thông tin cá nhân của mình đang được sử dụng sai mục đích hoặc phạm vi, Khách hàng có thể khiếu nại đến đường dây nóng 0902225282 hoặc gửi email đến cs{'@'}joytime.vn.",
     PrivacyPolicy_Mechanism_List2_CSDK: "Khi nhận được phản hồi này, chúng tôi sẽ xác nhận thông tin. Nếu khớp với báo cáo của thành viên, tùy theo mức độ nghiêm trọng, chúng tôi sẽ có biện pháp kịp thời trong vòng 24 giờ.",
-
+    "ERRPR_MISSING_NOTE_RADIO": "Vui lòng chọn một tùy chọn.",
     // Section 8
     PrivacyPolicy_Commitment_Title_CSDK: "8. Cam kết bảo vệ thông tin cá nhân của Khách hàng",
     PrivacyPolicy_Commitment_List1_CSDK: "Thông tin cá nhân của Khách hàng được cam kết bảo mật tuyệt đối theo chính sách bảo vệ thông tin cá nhân. Việc thu thập và sử dụng thông tin của Khách hàng chỉ được thực hiện khi có sự đồng ý của họ trừ những trường hợp pháp luật có quy định khác.",
@@ -824,7 +836,7 @@ const messages = {
     join_affiliate_program: "Tham gia chương trình tiếp thị liên kết",
     earn_commissions: "Bạn có thể kiếm hoa hồng hấp dẫn cho mỗi lượt đặt chỗ thông qua giới thiệu của bạn.",
     tips: "Mẹo",
-    
+
     Thank_You_For_Your_Order: "Cảm ơn bạn đã đặt hàng",
     Please_Check_Your_Email: "Vui lòng kiểm tra hộp thư email của bạn\nđể biết thêm thông tin",
     Product: "Sản Phẩm",
@@ -832,6 +844,8 @@ const messages = {
     Search_Currency_CURRENCY: "Tìm kiếm tiền tệ",
     Cancel_CURRENCY: "Hủy",
     Save_CURRENCY: "Lưu",
+    "EMAIL_REQUIRED": "Vui lòng nhập email của bạn",
+    "EMAIL_INVALID": "Email không hợp lệ",
     Payment_OnlineMethod: "joytime.vn chỉ chấp nhận thanh toán trực tuyến (Thẻ tín dụng/Ghi nợ) và PayPal cho tất cả đơn hàng trên website (https://joytime.vn.vn/).",
     Payment_Currency: "Thanh toán sẽ được thực hiện bằng Đồng Việt Nam (VND).",
     Payment_Security: "Tất cả giao dịch thẻ tín dụng được xử lý và bảo mật bởi các nhà cung cấp dịch vụ của joytime.vn, bao gồm Onepay (https://onepay.vn) và PayPal (https://paypal.com).",
@@ -960,6 +974,7 @@ const messages = {
     alreadyAccount_dki: "Bạn đã có tài khoản?",
     please_provide_service: "Vui lòng cung cấp thông tin dịch vụ mong muốn",
     confirm_payment: "Xác nhận thanh toán cho đơn hàng của bạn",
+    "CART_EMPTY": "Không có sản phẩm nào trong giỏ hàng.",
 
 
   },
@@ -1041,7 +1056,7 @@ const messages = {
     PrivacyPolicy_ContactInfo_Company_CSDK: "컨소시오 베트남 주식회사",
     PrivacyPolicy_ContactInfo_TradeName_CSDK: "상호명: joytime.vn",
     PrivacyPolicy_ContactInfo_Address_CSDK: "주소: 83B 리투옹키엣, 쩐흥다오, 환끼엠구, 하노이",
-    PrivacyPolicy_ContactInfo_Hotline_CSDK: "핫라인: 0902225262",
+    PrivacyPolicy_ContactInfo_Hotline_CSDK: "핫라인: 0902225282",
     PrivacyPolicy_ContactInfo_Email_CSDK: "이메일: cs{'@'}joytime.vn",
 
     // Section 6
@@ -1051,11 +1066,11 @@ const messages = {
     PrivacyPolicy_Methods_List3_CSDK: "이 피드백을 받으면 joytime.vn은 정보를 확인하고 이유를 설명하며 고객이 정보를 복구하고 보호하도록 안내할 책임이 있습니다.",
     PrivacyPolicy_Methods_List4_CSDK: "고객 불만 접수 양식:",
     PrivacyPolicy_Methods_Email_CSDK: "이메일: cs{'@'}joytime.vn",
-    PrivacyPolicy_Methods_Hotline_CSDK: "핫라인: 0902225262",
+    PrivacyPolicy_Methods_Hotline_CSDK: "핫라인: 0902225282",
 
     // Section 7
     PrivacyPolicy_Mechanism_Title_CSDK: "7. 개인 정보의 오용 또는 이전에 통지된 범위와 관련된 고객 불만 접수 및 해결 메커니즘",
-    PrivacyPolicy_Mechanism_List1_CSDK: "개인 정보가 잘못된 목적이나 범위로 사용되고 있다고 판단되면 고객은 핫라인 0902225262로 신고하거나 cs{'@'}joytime.vn으로 이메일을 보낼 수 있습니다.",
+    PrivacyPolicy_Mechanism_List1_CSDK: "개인 정보가 잘못된 목적이나 범위로 사용되고 있다고 판단되면 고객은 핫라인 0902225282로 신고하거나 cs{'@'}joytime.vn으로 이메일을 보낼 수 있습니다.",
     PrivacyPolicy_Mechanism_List2_CSDK: "이 피드백을 받으면 정보를 확인합니다. 회원의 신고와 일치하는 경우 심각도에 따라 24시간 이내에 적시 조치를 취할 것입니다.",
 
     // Section 8
@@ -1103,7 +1118,10 @@ const messages = {
     Promo_Instruction_CHECKOUT: "주문에 대한 할인을 받으려면 프로모션 코드를 입력하세요",
     Credit_Debit_Card_CHECKOUT: "신용/직불 카드",
     ATM_Bank_Transfer_CHECKOUT: "ATM 카드/은행 계좌...",
+    "RECENT_SEARCH_PRODUCT": "최근 검색한 상품",
     Subtotal_CHECKOUT: "소계",
+    "EMAIL_REQUIRED": "이메일을 입력해 주세요",
+    "EMAIL_INVALID": "유효하지 않은 이메일 주소입니다",
     Discount_CHECKOUT: "할인",
     service_date: "서비스 날짜",
     enter_promo_code: "프로모션 코드 입력",
@@ -1326,6 +1344,8 @@ const messages = {
     TERM_AND_CONDITIONS: "이용약관",
     YOU_MIGHT_ALSO_LIKE: "함께 보면 좋은 상품",
     BUY_NOW: "지금 구매하기",
+    THONG_BAO: "알림",
+    "CART_EMPTY": "장바구니가 비어 있습니다.",
     ALL: "전체",
     Checking_Your_Order: "주문 확인 중",
     PROMOTION: "프로모션",
@@ -1389,6 +1409,7 @@ const messages = {
     Selected_Date: "선택한 날짜",
     Option: "옵션",
     Guest: "손님",
+    "ERRPR_MISSING_NOTE_RADIO": "옵션을 선택해 주세요.",
     CLOSE: "닫기",
     RESET_SELECTION: "선택 초기화",
     OK: "확인",
@@ -1514,6 +1535,8 @@ const messages = {
     FIRST_NAME: "名字",
     FAMILY_NAME: "姓氏",
     NATIONALITY: "国籍",
+    "EMAIL_REQUIRED": "请输入您的电子邮件地址",
+    "EMAIL_INVALID": "电子邮件地址无效",
     "detail": "详情",
     "onboard_welcome_title": "欢迎来到 Joytime",
     "onboard_welcome_desc": "一个应用，搞定越南之旅。",
@@ -1535,6 +1558,7 @@ const messages = {
     tour_refund_policy: "旅游服务和景点门票预订：在出发日期/票务预订前 3 天取消可获得 100% 退款。出发前 72 小时内的取消请求不予退款支持。",
     airport_refund_policy: "机场服务：在使用服务前 2 天取消可获得 100% 退款。服务时间前 48 小时内的取消请求不予退款支持。",
     refund_method_title: "退款方式：",
+    "RECENT_SEARCH_PRODUCT": "最近搜索的产品",
     refund_method_details: "退款将通过您预订服务时使用的相同支付方式返还给您。退款过程可能需要 10-20 个工作日，具体取决于银行或支付服务提供商的规定。",
     refund_process_title: "退款流程：",
     refund_request_process: "要申请退款，请通过热线或电子邮件联系我们，提供预订信息、服务代码和退款请求原因。收到您的请求后，我们将在 3 个工作日内审核并确认。",
@@ -1587,6 +1611,7 @@ const messages = {
     SORT_PRICE_LOW_TO_HIGH: "价格从低到高",
     Policies_And_Terms: "政策与条款",
     Button_ApplyFilters: "应用筛选器",
+    "CART_EMPTY": "购物车是空的。",
     "customer": "客户",
     Results_Count_ProductResult: "个结果",
     Select_Sort_Option_ProductResult: "请选择",
@@ -1601,6 +1626,8 @@ const messages = {
     Refund_New_Unused_FAQ: "商品必须是全新或未使用状态才能退货。",
     Service_Time_ORD: "服务时间",
     Options_ORD: "选项",
+    THONG_BAO: "公告",
+
     customer_support_title: "客户支持",
     customer_support_contact_question: "我该如何联系 Joytime 客服？",
     customer_support_contact_intro: "您可以通过以下方式联系客户支持团队：",
@@ -1636,7 +1663,7 @@ const messages = {
     PrivacyPolicy_ContactInfo_Company_CSDK: "越南联盟股份公司",
     PrivacyPolicy_ContactInfo_TradeName_CSDK: "商标名称: joytime.vn",
     PrivacyPolicy_ContactInfo_Address_CSDK: "地址: 河内市还剑区陈兴道坊李常杰街83B号",
-    PrivacyPolicy_ContactInfo_Hotline_CSDK: "热线: 0902225262",
+    PrivacyPolicy_ContactInfo_Hotline_CSDK: "热线: 0902225282",
     PrivacyPolicy_ContactInfo_Email_CSDK: "电子邮件: cs{'@'}joytime.vn",
 
     // Section 6
@@ -1646,9 +1673,9 @@ const messages = {
     PrivacyPolicy_Methods_List3_CSDK: "收到此反馈后，joytime.vn将确认信息，并负责回应原因，并指导客户恢复和保护其信息。",
     PrivacyPolicy_Methods_List4_CSDK: "接收客户投诉的形式：",
     PrivacyPolicy_Methods_Email_CSDK: "电子邮件: cs{'@'}joytime.vn",
-    PrivacyPolicy_Methods_Hotline_CSDK: "热线: 0902225262",
+    PrivacyPolicy_Methods_Hotline_CSDK: "热线: 0902225282",
     PrivacyPolicy_Mechanism_Title_CSDK: "7. 接收和解决与滥用个人信息或之前通知范围相关的客户投诉的机制",
-    PrivacyPolicy_Mechanism_List1_CSDK: "当客户发现其个人信息被用于错误的目的或范围时，可以通过热线0902225262投诉或发送电子邮件至cs{'@'}joytime.vn。",
+    PrivacyPolicy_Mechanism_List1_CSDK: "当客户发现其个人信息被用于错误的目的或范围时，可以通过热线0902225282投诉或发送电子邮件至cs{'@'}joytime.vn。",
     PrivacyPolicy_Mechanism_List2_CSDK: "收到此反馈后，我们将确认信息。如果与会员报告相符，根据严重程度，我们将在24小时内采取及时措施。",
 
     // Section 8
@@ -1660,6 +1687,7 @@ const messages = {
     Service_Delivery_Methods_CSDK: "服务交付方式",
     Inspection_Refund_Policy_CSDK: "检查和退款政策",
     Quantity_ORD: "数量",
+    "ERRPR_MISSING_NOTE_RADIO": "请选择一个选项。",
     Total_Amount_ORD: "总金额",
     Cancel_Order_ORD: "取消订单",
     Contact_Support_ORD: "联系客服",

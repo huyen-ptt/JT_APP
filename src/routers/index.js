@@ -32,6 +32,7 @@ import Onboarding from '@/pages/Onboarding.vue';
 import OnboardingT1 from '@/pages/OnboardingT1.vue';
 import ChatBox from '@/pages/ChatBox.vue';
 import LanguagesOnboading from '@/pages/LanguagesOnboading.vue';
+import  Notification from '@/pages/Notification.vue';
 
 
 const routes = [
@@ -199,6 +200,11 @@ const routes = [
         path: "/chat",
         name: "ChatBox",
         component: ChatBox,
+    },
+     {
+        path: "/notification",
+        name: "Notification",
+        component: Notification,
     },
 
 ];

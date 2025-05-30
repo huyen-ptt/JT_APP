@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
 import i18n from './i18n'
 import router from './routers'
@@ -8,11 +7,14 @@ import Aura from '@primeuix/themes/aura';
 import { createPinia } from 'pinia'
 import piniaPersist from 'pinia-plugin-persistedstate';
 import { StatusBar } from '@capacitor/status-bar';
-
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
 // Import Swiper styles toàn cục
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import './style.css'
+
 // import 'primevue/resources/themes/saga-blue/theme.css'; // theme sáng
 
 const app = createApp(App);

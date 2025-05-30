@@ -1,32 +1,64 @@
 <template>
     <div class="forgot-password-container">
-
-        <HeaderTitle :title="$t('Forgot_Password')"></HeaderTitle>
-
+        <HeaderTitle :title="$t('Forgot_Password')" />
 
         <div class="form-container m-3">
             <h1 class="form-title">{{ $t('Reset_Title_ForgotOp') }}</h1>
 
+            <!-- Email Input -->
             <div class="mb-3">
                 <label class="form-label title-con">{{ $t('Email_Label_ForgotOp') }}</label>
-                <input type="email" class="form-control input-login" :placeholder="$t('Email_Placeholder_ForgotOp')">
+                <input v-model="email" type="email" class="form-control input-login"
+                    :placeholder="$t('Email_Placeholder_ForgotOp')" />
+                <div v-if="submitted && emailError" class="text-danger small mt-1">
+                    {{ emailError }}
+                </div>
             </div>
 
-            <button type="submit" class="btn btn-continue">{{ $t('Continue_Button_ForgotOp') }}</button>
-
-            <p class="form-title pt-3">{{ $t('Reset_Notice_ForgotOp') }}</p>
+            <button type="submit" class="btn btn-continue" @click="onSubmit">
+                {{ $t('Continue_Button_ForgotOp') }}
+            </button>
         </div>
 
-        <Footer></Footer>
-
+        <Footer />
     </div>
-
 </template>
-<script setup>
-import HeaderTitle from '../components/HeaderTitle.vue';
-import Footer from "@/components/Footer.vue";
 
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import HeaderTitle from '../components/HeaderTitle.vue'
+import Footer from '@/components/Footer.vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+const router = useRouter()
+
+const email = ref('')
+const emailError = ref('')
+const submitted = ref(false)
+
+const onSubmit = () => {
+    submitted.value = true
+    emailError.value = ''
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (!email.value) {
+        emailError.value = t('EMAIL_REQUIRED')
+        return
+    }
+
+    if (!emailRegex.test(email.value)) {
+        emailError.value = t('EMAIL_INVALID')
+        return
+    }
+
+    // ✅ Nếu hợp lệ → chuyển trang
+    router.push('/successpw')
+}
 </script>
+
 <style scoped>
 .form-container {
     background-color: white;
