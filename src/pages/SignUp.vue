@@ -67,7 +67,7 @@ const handleSubmit = () => {
   console.log('Email:', email.value)
   console.log('Password:', password.value)
   // Navigate to another route if needed
-  router.push('/dashboard') // Example: navigate to the dashboard page
+  router.push('/') // Example: navigate to the dashboard page
 }
 </script>
 

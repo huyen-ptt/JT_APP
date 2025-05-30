@@ -4,10 +4,10 @@
         <div class="search-header d-flex align-items-center">
             <!-- Nút mũi tên quay lại -->
 
-            <i class="fa-solid fa-arrow-left"  @click="$router.go(-1)"></i>
+            <i class="fa-solid fa-arrow-left" @click="$router.go(-1)"></i>
             <div class="input-group">
-                <input class="search-list form-control" v-model="searchTerm" type="text" :placeholder="$t('place_to_go')"
-                    aria-label="Search" @keyup="onSearch()"/>
+                <input class="search-list form-control" v-model="searchTerm" type="text"
+                    :placeholder="$t('place_to_go')" aria-label="Search" @keyup="onSearch()" />
                 <!-- Dấu X để xóa input, luôn hiển thị khi có nội dung -->
                 <button v-if="searchTerm" class="btn-close" type="button" aria-label="Clear"
                     @click="clearInput"></button>
@@ -16,11 +16,13 @@
 
         <!-- Food Items List -->
         <div class="food-list">
-            <div class="title-list-search">{{$t('RECENT_SEARCH_PRODUCT')}}</div>
-            <!-- Item 1 -->
-            <div class="food-item d-flex align-items-center" v-for="p in products" @click="onRedirectProductDetail(p)">
-                <img :src="helper.getImageCMS(p.avatar)" alt="Day Tour" >
-                <p class="title-s">{{p.title}}</p>
+            <div class="title-list-search">{{ $t('RECENT_SEARCH_PRODUCT') }}</div>
+            <div class="thanh-tt">
+                <div class="food-item d-flex align-items-center" v-for="p in products"
+                    @click="onRedirectProductDetail(p)">
+                    <img :src="helper.getImageCMS(p.avatar)" alt="Day Tour">
+                    <p class="title-s">{{ p.title }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -28,9 +30,9 @@
 </template>
 <script setup>
 import { computed, ref } from 'vue';
-import {useSearchStore} from '@/stores/searchStore'
-import {useSearch} from '@/composables/search'
-import {useHelper} from '@/composables/helper'
+import { useSearchStore } from '@/stores/searchStore'
+import { useSearch } from '@/composables/search'
+import { useHelper } from '@/composables/helper'
 import { RouterLink, useRouter } from 'vue-router'
 
 
@@ -110,12 +112,17 @@ const onRedirectProductDetail = (p) => {
     transform: translateY(-50%);
 }
 
+.thanh-tt {
+    /* position: fixed;
+    width: 100%;
+    top: 0; */
+}
 
 .search-header {
-    position: sticky;
-    top: 0;
+    /* position: sticky; */
+    /* top: 0; */
     /* background: white; */
-    z-index: 1000;
+    /* z-index: 1000; */
     padding: 12px 15px;
     /* border-bottom: 1px solid #eee;    */
 }
@@ -124,7 +131,7 @@ const onRedirectProductDetail = (p) => {
     font-size: 16px;
     color: #333;
     margin: 0 15px;
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .food-item {
@@ -162,7 +169,7 @@ const onRedirectProductDetail = (p) => {
 .search-list {
     position: relative;
     flex: 1 1 auto;
-    border-radius: 14px; 
+    border-radius: 14px;
     width: 1%;
     min-width: 0;
     padding: 14px 53px;

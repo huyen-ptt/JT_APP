@@ -158,7 +158,7 @@ onUnmounted(() => {
 .prodcut-sp {
     padding: 12px 10px 80px;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
 }
 
 .tour-card {

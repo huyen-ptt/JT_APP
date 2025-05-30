@@ -1,17 +1,58 @@
 <template>
-    <div class="product-containerr" v-if="productDetail">
+    <div v-if="!productDetail">
+        <Skeleton height="240px" borderRadius="12px" class="mb-4" />
+
+        <!-- Tiêu đề -->
+        <Skeleton width="90%" height="24px" class="mb-2" />
+        <Skeleton width="60%" height="20px" class="mb-2" />
+
+        <!-- Địa điểm + đã đặt -->
+        <div class="flex items-center space-x-2 mb-2">
+            <Skeleton width="20px" height="20px" shape="circle" />
+            <Skeleton width="120px" height="16px" />
+        </div>
+
+        <!-- Đánh giá -->
+        <div class="flex items-center space-x-2 mb-4">
+            <Skeleton width="16px" height="16px" shape="circle" />
+            <Skeleton width="40px" height="16px" />
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex space-x-4 mb-4">
+            <Skeleton width="100px" height="30px" borderRadius="8px" />
+            <Skeleton width="100px" height="30px" borderRadius="8px" />
+            <Skeleton width="140px" height="30px" borderRadius="8px" />
+        </div>
+
+        <!-- Mô tả ngắn -->
+        <Skeleton width="100%" height="16px" class="mb-1" />
+        <Skeleton width="80%" height="16px" class="mb-1" />
+        <Skeleton width="60%" height="16px" class="mb-4" />
+
+        <!-- Giá + nút -->
+        <div class="flex items-center justify-between mt-6">
+            <div>
+                <Skeleton width="100px" height="20px" class="mb-1" />
+                <Skeleton width="80px" height="18px" />
+            </div>
+            <Skeleton width="120px" height="40px" borderRadius="8px" />
+        </div>
+
+    </div>
+    <div class="product-containerr" v-else>
         <!-- Main image -->
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-          
+
                     <div class="product-slider position-relative">
                         <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
                             :autoplay="{ delay: 3000 }" :navigation="true" :pagination="{
                                 el: '.swiper-pagination',
                                 type: 'fraction'
                             }" class="mySwiper">
-                            <swiper-slide v-for="(image, index) in productDetail.gallary" :key="index">
+                            <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
                                 <img :src="helper.getImageCMS(image)" class="d-block w-100"
                                     style="height: 280px; object-fit: cover;" />
                             </swiper-slide>
@@ -49,7 +90,7 @@
 
             </div>
         </div>
- 
+
         <div className="container-fluid p-0">
             <ul className="nav nav-tabs custom-tabs justify-content-center mr-3 ml-3" id="productTabs" role="tablist">
                 <li className="nav-item" role="presentation">
@@ -66,7 +107,7 @@
                         {{ $t('PRODUCT_DETAIL') }}
                     </button>
                 </li>
-               
+
                 <li className="nav-item" role="presentation">
                     <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
                         data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
@@ -82,7 +123,8 @@
 
 
                 </div>
-                <div className="tab-pane fade p-3 show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <div className="tab-pane fade p-3 show active" id="description" role="tabpanel"
+                    aria-labelledby="description-tab">
                     <p className="mb-3 custom-paragraph" v-html="productDetail.description">
 
                     </p>
@@ -375,11 +417,11 @@
                                                     style="width: 100%;color: rgb(3, 41, 76);padding: 0;">
                                                     <div class="date-card-title-booking1">
                                                         <span v-if="!p.currentSelectedDate">{{ $t('Selected_Date')
-                                                        }}</span>
+                                                            }}</span>
                                                         <span v-else>{{ $t('Selected_Date') }}: <br>
                                                             <div class="chose-option">{{
                                                                 helper.formatISODate(p.currentSelectedDate)
-                                                            }}</div>
+                                                                }}</div>
                                                         </span>
                                                     </div>
                                                 </AccordionHeader>
@@ -390,7 +432,7 @@
                                                         </button>
                                                         <div class="calendar-month-header-booking">{{
                                                             p.calendar.currentMonth
-                                                            }}/{{ p.calendar.currentYear
+                                                        }}/{{ p.calendar.currentYear
                                                             }}</div>
                                                         <button class="calendar-nav-booking" @click="nextMonth(p)">
                                                             <i class="fas fa-chevron-right"></i>
@@ -454,15 +496,15 @@
                                                     </div>
                                                     <div v-if="p.choosenNguoiLon" class="section-title-booking">{{
                                                         $t('Guest')
-                                                        }}<br>
+                                                    }}<br>
                                                         <div class="chose-option">{{ $t('Adult')
-                                                            }} : {{ p.choosenNguoiLon }} </div>
+                                                        }} : {{ p.choosenNguoiLon }} </div>
                                                     </div>
                                                     <div v-else="p.choosenTreEm" class="section-title-booking">{{
                                                         $t('Guest')
-                                                        }}<br>
+                                                    }}<br>
                                                         <div class="chose-option">{{ $t('Adult')
-                                                            }} : {{ p.choosenTreEm }} </div>
+                                                        }} : {{ p.choosenTreEm }} </div>
                                                     </div>
                                                 </AccordionHeader>
                                                 <AccordionContent>
@@ -477,11 +519,11 @@
                                                                             v-if="p.selectedPriceByDate?.priceEachNguoiLon > 0">
                                                                             <div class="price-label-so-luong">{{
                                                                                 $t('Adult')
-                                                                            }}
+                                                                                }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
-                                                                                }}
+                                                                            }}
                                                                             </div>
                                                                             <div class="price-text">~ {{
                                                                                 currentfCurrency.code }} {{
@@ -511,11 +553,11 @@
                                                                         <div>
                                                                             <div class="price-label-so-luong">{{
                                                                                 $t('Child')
-                                                                            }}
+                                                                                }}
                                                                             </div>
                                                                             <div class="price-amount-so-luong">VND {{
                                                                                 p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
-                                                                                }}
+                                                                            }}
                                                                             </div>
                                                                             <div class="price-text">~ {{
                                                                                 currentfCurrency.code }} {{
@@ -566,15 +608,22 @@
 
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <div class="cart-icon-booking" @click="onAddToCart()">
+                                    <div class="cart-icon-booking" @click="onAddToCart()"
+                                        :disabled="countPayItems === 0">
                                         <img src="../assets/images/shopping-cong.png">
                                     </div>
-                                    <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{
-                                        countPayItems
+                                    <button class="buy-btn-booking px-4" @click="buyNow"
+                                        :disabled="countPayItems === 0">{{ $t('BUY_NOW') }} ({{
+                                            countPayItems
                                         }})</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- Spinner toàn màn hình -->
+                    <div class="fullscreen-loading" v-if="loadingPriceOption">
+                        <ProgressSpinner style="width: 60px; height: 60px" strokeWidth="6" fill="transparent"
+                            animationDuration="0.8s" aria-label="Custom ProgressSpinner" />
                     </div>
                 </Dialog>
             </div>
@@ -608,7 +657,8 @@ import { useCartStore } from '../stores/cartStore';
 import axios from "axios";
 import { RouterLink, useRouter } from 'vue-router'
 import { StatusBar } from '@capacitor/status-bar';
-
+import ProgressSpinner from 'primevue/progressspinner';
+import Skeleton from 'primevue/skeleton'
 
 
 const uri = import.meta.env.VITE_API_URI;
@@ -619,59 +669,33 @@ const currentfCurrency = computed(() => currencyStore.fCurrency)
 const seenStore = useSeenStore();
 const cartStore = useCartStore();
 const carts = computed(() => cartStore.carts)
-
+const isLoading = ref(true)
 
 const payStore = usePayStore();
 const visible = ref(false);
 const productComposable = useProduct();
 const helper = useHelper();
-const productDetail = ref([])
+const productDetail = ref(null)
 const optionComposable = useOptionProduct()
 const visibleBottom = ref(false);
 const adultQuantity = ref(4);
 const childQuantity = ref(0);
 const router = useRouter();
+
+const loadingPriceOption = ref(false);
 // const visibleBottom = ref(false);
 
 
 // region Logic
-
-
-
-
-
-
-
-
 // endRegion
 
 
 
-// Function to update quantities
-const updateQuantity = (type, change) => {
-    if (type === 'adult') {
-        const newQuantity = adultQuantity.value + change;
-        if (newQuantity >= 0) {
-            adultQuantity.value = newQuantity;
-        }
-    } else if (type === 'child') {
-        const newQuantity = childQuantity.value + change;
-        if (newQuantity >= 0) {
-            childQuantity.value = newQuantity;
-        }
-    }
-};
-
-
-
 // Vẫn giữ các biến này nhưng sẽ không sử dụng chúng làm modal nữa
-const showOptionModal = ref(false);
-const showGuestModal = ref(false);
 const tempSelectedOption = ref(null);
 const tempGuests = ref({ adult: 0, child: 0 });
 const currentMonth = ref(3);
 const currentYear = ref(2025);
-const daysInMonth = ref(31);
 const firstDayOfMonth = ref(1); // Assuming March 1st, 2025 is a Saturday (6)
 const activeTicketIndex = ref(null);
 
@@ -872,8 +896,9 @@ const onLoadPriceForPayItem = async (p) => {
             year: p.calendar.currentYear,
             combination: arrTemp.join(','),
         }
-
+        loadingPriceOption.value = true;
         const response = await productComposable.getProductOptionsPriceByDate(data);
+        loadingPriceOption.value = false;
         if (response) {
             p.priceSelectedOptionByDate = response.data;
 
@@ -1121,12 +1146,15 @@ const buyNow = () => {
 };
 
 const onAddToCart = () => {
-    let pays = calculatePays();
-    pays.forEach(p => {
-        cartStore.onAddCart(p);
-    })
+    if (countPayItems > 0) {
+        let pays = calculatePays();
+        pays.forEach(p => {
+            cartStore.onAddCart(p);
+        })
 
-    router.push('/cart')
+        router.push('/cart')
+    }
+
 }
 
 // #endregion
@@ -1281,7 +1309,7 @@ onBeforeMount(async () => {
 })
 
 onUnmounted(() => {
-  StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
+    StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
 });
 const toggleReadMore = (review) => {
     review.isExpanded = !review.isExpanded; // Đảo trạng thái mở rộng
@@ -1300,13 +1328,16 @@ const toggleReadMore = (review) => {
 }
 
 .custom-tab-link.active {
-    color: #03294C;
-    border-bottom: 2px solid #03294C;
+    color: #03294C !important;
+    border-bottom: 2px solid #03294C !important;
     background-color: transparent;
     font-weight: 700;
 }
-
-.custom-tab-content {
+.nav-tabs .nav-link.active {
+    background-color: unset !important;
+    color: unset !important;
+}
+.custom-tab-content { 
     /* padding-top: 15px; */
 }
 
@@ -1383,5 +1414,25 @@ iframe {
     position: absolute;
     top: 48px;
     right: 20px;
+}
+
+.fullscreen-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* nền mờ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.buy-btn-booking:disabled {
+    background-color: #d6d6d6;
+    color: #999;
+    cursor: not-allowed;
 }
 </style>

@@ -265,7 +265,7 @@ onMounted(async () => {
 
 .custom-tab-link.active {
     color: #03294C;
-    border-bottom: 2px solid #03294C;
+    border-bottom: 2px solid #03294C !important;
     background-color: transparent;
     font-weight: 700;
 }

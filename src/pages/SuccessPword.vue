@@ -12,9 +12,9 @@
                 </div>
                 <div class="icon-success text-center dia-chi-product pb-4" v-html="$t('Password_Reset_Valid_Time_SS')">
                 </div>
-                <button type="submit" class="w-100 btn btn-lg btn-login">
-                    {{ $t('Password_Reset_Sign_In_Button_SS') }}
-                </button>
+                <router-link to="/signin"> <button type="submit" class="w-100 btn btn-lg btn-login">
+                        {{ $t('Password_Reset_Sign_In_Button_SS') }}
+                    </button></router-link>
             </div>
         </div>
     </div>

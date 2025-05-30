@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pt-2">
         <router-link to="/" class="header-search">
             <div class="close"><i class="fa-solid fa-xmark"></i></div>
         </router-link>
@@ -182,7 +182,10 @@ const clearAllSelected = () => {
     display: flex;
     flex-wrap: wrap;
 }
-
+.header-search{
+    margin: 0;
+    padding: 10px 0;
+}
 .filter-button {
     background-color: #f1f5f9;
     padding: 6px 12px;
