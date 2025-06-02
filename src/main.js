@@ -18,7 +18,8 @@ import './style.css'
 // import 'primevue/resources/themes/saga-blue/theme.css'; // theme sáng
 
 const app = createApp(App);
-
+// ✨ Gắn router toàn cục
+app.config.globalProperties.$globalRouter = router
 app.use(router);
 app.use(i18n);
 

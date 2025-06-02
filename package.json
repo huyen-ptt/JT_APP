@@ -15,6 +15,7 @@
     "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.0.1",
     "@capacitor/core": "^7.0.1",
+    "@capacitor/push-notifications": "^7.0.1",
     "@capacitor/status-bar": "^7.0.0",
     "@microsoft/signalr": "^8.0.7",
     "@primeuix/themes": "^1.0.0",

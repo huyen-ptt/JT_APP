@@ -10,16 +10,19 @@
 import { StatusBar } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useAuthStore } from '@/stores/authStore'
 
 const router = useRouter();
-
+const authStore = useAuthStore()
+const auth = computed(() => authStore.auth)
 // Force status bar không overlay (optional)
 StatusBar.setOverlaysWebView({ overlay: false });
 // StatusBar.setBackgroundColor({ color: '#F8F9FA' });
 
 
 onMounted(() => {
+  
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     const styleSheets = document.styleSheets;
     for (const sheet of styleSheets) {
@@ -35,6 +38,7 @@ onMounted(() => {
       }
     }
   }
+
 })
 </script>
 

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 // import { connectToNotificationHub, disconnectNotificationHub } from "@/utils/notification-socket"; // sửa path nếu khác
-import { initFCM } from "./fcm";
+import { initFCM } from "@/fcm";
 
 
 export const useAuthStore = defineStore(
