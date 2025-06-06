@@ -485,7 +485,8 @@ const messages = {
     Access_Account_Settings_FAQ: "Once logged in, click on your profile icon, and choose 'Change Password'.",
     Enter_Current_New_Password_FAQ: "You will be prompted to enter your current password, followed by your new password. Make sure your new password meets the security requirements.",
     Save_Changes_FAQ: "After entering the required information, click 'Change Password' to confirm the change.",
-    AUTH_INVALID: "Invalid username or password"
+    AUTH_INVALID: "Invalid username or password",
+    LOGIN_MESSAGE:"Login successful!"
   },
   vi: {
     payment_summary: "Tóm tắt thanh toán",
@@ -974,7 +975,7 @@ const messages = {
     confirm_payment: "Xác nhận thanh toán cho đơn hàng của bạn",
     "CART_EMPTY": "Không có sản phẩm nào trong giỏ hàng.",
     AUTH_INVALID: "Sai tài khoản hoặc mật khẩu",
-
+    LOGIN_MESSAGE:"Đăng nhập thành công!"
   },
   ko: {
     Our_Mission_Title_About: "저희의 사명",
@@ -1460,7 +1461,8 @@ const messages = {
     "sun": "일",
     "detail": "상세정보",
     "select_quantity": "수량 선택",
-    AUTH_INVALID:"사용자 이름 또는 비밀번호가 올바르지 않습니다"
+    AUTH_INVALID:"사용자 이름 또는 비밀번호가 올바르지 않습니다",
+    LOGIN_MESSAGE:"로그인 성공!"
   },
   zh: {
     Customer_Support_FAQ: "客户支持",
@@ -1944,7 +1946,8 @@ const messages = {
     RECENTLY_VIEWED: "最近浏览",
     COLLABORATE_EMAIL: "partner{'@'}joytime.vn",
     IDEAL_DESTINATION: "理想目的地",
-    AUTH_INVALID:"用户名或密码错误"
+    AUTH_INVALID:"用户名或密码错误",
+    LOGIN_MESSAGE:"登录成功!"
   }
 }
 

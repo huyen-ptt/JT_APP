@@ -36,6 +36,7 @@
         </form>
       </div>
     </div>
+    <Toast v-if="showToast" :message="loginMessage" icon="success" position="top-end" timer="800" />
   </div>
 </template>
 
@@ -45,8 +46,12 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth'
 import { useAuthStore } from '../stores/authStore';
+import Toast from '../components/Toast.vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+const showToast = ref(false);
 
-
+const loginMessage = t('LOGIN_MESSAGE');
 const authComposable = useAuth();
 // Reactive state for form fields
 const email = ref('')
@@ -71,20 +76,20 @@ const handleSubmit = async () => {
   };
   try {
     const response = await authComposable.onLogin(data);
-    loginError = false;
-    if (response) {
-      console.log(response.data);
-      alert('DANG NHAP THANH CONG!');
-      authStore.onChangeAuth(response.data);
-      router.push('/account') // Example: navigate to the dashboard page
-      // router.push('/account') // Example: navigate to the dashboard page
-    }
-  }
+    loginError.value = false; // Sửa tại đây
 
-  catch (error) {
+    console.log(response.data);
+    console.log('ĐĂNG NHẬP THÀNH CÔNG!');
+    showToast.value = true;
+    // alert('ĐĂNG NHẬP THÀNH CÔNG!');
+    authStore.onChangeAuth(response.data);
+    router.push('/account');
+  } catch (error) {
     loginError.value = true;
+    console.error('Lỗi đăng nhập:', error);
   }
-}
+};
+
 </script>
 
 <style scoped>
