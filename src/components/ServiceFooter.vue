@@ -49,3 +49,10 @@ onBeforeMount(async () => {
 
 })
 </script>
+<style scoped>
+.service-icon img {
+    width: 100%;
+    height: 60px;
+    object-fit: contain;
+}
+</style>

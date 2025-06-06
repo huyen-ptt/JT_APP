@@ -8,7 +8,7 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <label class="form-label title-con">
                     {{ $t('HOUR') }}<span class="required-mark">*</span>
                 </label>
@@ -26,7 +26,45 @@
                     <option disabled>{{ $t('SELECT_MINUTE') }}</option>
                     <option v-for="m in minutes" :value="m" :key="m">{{ m.toString().padStart(2, '0') }}</option>
                 </select>
+            </div> -->
+            <div class="col-12 mb-3">
+                <label class="form-label title-con">
+                    {{ $t('HOUR') }}<span class="required-mark">*</span>
+                </label>
+                <div class="dropdown">
+                    <button class="btn btn-light form-control text-start dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown">
+                        {{ selectedHour !== '' ? selectedHour : $t('SELECT_HOUR') }}
+                    </button>
+                    <ul class="dropdown-menu w-100">
+                        <li v-for="h in hours" :key="h">
+                            <a class="dropdown-item" href="#" @click.prevent="selectedHour = h; updateMinutes()">
+                                {{ h }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+            <div class="col-12 mb-3">
+                <label class="form-label">
+                    {{ $t('MINUTE') }}<span class="required-mark">*</span>
+                </label>
+                <div class="dropdown">
+                    <button class="btn btn-light form-control text-start dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" :disabled="minutes.length === 0">
+                        {{ selectedMinute !== '' ? selectedMinute.toString().padStart(2, '0') : $t('SELECT_MINUTE') }}
+                    </button>
+                    <ul class="dropdown-menu w-100" v-if="minutes.length > 0">
+                        <li v-for="m in minutes" :key="m">
+                            <a class="dropdown-item" href="#" @click.prevent="selectedMinute = m; validate()">
+                                {{ m.toString().padStart(2, '0') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="error-message" v-if="info.triggerValid && info.noteValue == ''">
                 <small>{{ $t('ERRPR_MISSING_NOTE_DATETIME') }}</small>
             </div>
@@ -103,9 +141,20 @@ onMounted(() => {
     font-weight: 400;
     color: #8A929E;
 }
+
 .form-label {
     font-size: 14px;
     color: #8A929E;
     margin-bottom: 6px;
+}
+.dropdown-toggle::after {
+    display: none;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
 }
 </style>

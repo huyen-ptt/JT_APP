@@ -3,7 +3,7 @@
         <div class="order-header-myorder" @click="onRedirectOrderDetail(order)">
             <div>
                 <div class="title-1477"># {{ order.orderCode }}</div>
-                <div class="results-count-product">Ordered on {{
+                <div class="results-count-product">{{ $t('ordered_on') }} {{
                     helper.formatISODate(order.createdDate) }}</div>
             </div>
             <div class="date-box-myorder">
@@ -30,10 +30,15 @@
 
     <div class="order-footer-myorder">
         <div class="total-amount-myorder">
-            <div class="amount-label-myorder">Total amount</div>
+            <div class="amount-label-myorder">{{ $t('total_amount') }}</div>
             <div class="price-myorder">VND {{ order.metaData.totalPrice.toLocaleString() }}</div>
         </div>
-        <button class="support-button-myorder">Contact support</button>
+
+        <button class="support-button-myorder" @click="onRedirectOrderDetail(order)">
+            {{ $t('contact_support') }}
+        </button>
+
+
     </div>
 </template>
 <script setup>

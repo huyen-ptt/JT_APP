@@ -211,8 +211,8 @@
          </div>
          <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
 
-         <div class="logo-end" v-if="showLogo">
-            <img src="../assets/images/logo-end.png" width="120" alt="JOY TIME" class="logo-img" />
+         <div class="logo-end pt-2">
+            <img src="../assets/images/lot.png" width="100" alt="JOY TIME" class="logo-img" />
          </div>
 
          <Footer></Footer>
@@ -273,54 +273,9 @@ onMounted(() => {
       router.replace('/onboarding')
    }
 })
-
-const showLogo = ref(false)
-
-// Hàm kiểm tra scroll
-const handleScroll = () => {
-  const scrollY = window.scrollY
-  const winHeight = window.innerHeight
-  const docHeight = document.documentElement.scrollHeight
-
-  // Nếu đã cuộn tới (gần) cuối trang thì hiện logo
-  showLogo.value = scrollY + winHeight >= docHeight - 10
-}
-
-// Gắn và gỡ event scroll
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
-
 const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();
-
-// const triggerPoint = ref(null)
-
-// const checkScroll = () => {
-//    if (!triggerPoint.value) return
-
-//    const rect = triggerPoint.value.getBoundingClientRect()
-//    const screenHeight = window.innerHeight
-
-//    if (rect.top < screenHeight) {
-//       showLogo.value = true
-//    } else {
-//       showLogo.value = false
-//    }
-// }
-
-// onMounted(() => {
-//    window.addEventListener('scroll', checkScroll)
-// })
-
-// onUnmounted(() => {
-//    window.removeEventListener('scroll', checkScroll)
-// })
 
 const helper = useHelper();
 
@@ -518,17 +473,8 @@ onMounted(async () => {
    color: #03294C;
    /* margin-bottom: 4px; */
 }
-.logo-end {
-  display: flex;
-  justify-content: center;
-  padding: 24px 0;
-  animation: fadeIn 0.5s ease-in-out;
-}
 
-.logo-img {
-  opacity: 0;
-  animation: fadeIn 0.5s ease-in-out forwards;
-}
+
 
 @keyframes fadeIn {
   from {

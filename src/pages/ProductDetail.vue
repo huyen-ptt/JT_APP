@@ -1429,7 +1429,17 @@ iframe {
     align-items: center;
     z-index: 9999;
 }
-
+.news-title-blogg {
+    font-weight: 600;
+    color: #03294C;
+    margin-bottom: 5px;
+    font-size: 14px;
+    text-overflow: unset;
+    overflow: unset;
+    display: -webkit-box;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: vertical;
+}
 .buy-btn-booking:disabled {
     background-color: #d6d6d6;
     color: #999;
