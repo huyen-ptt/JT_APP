@@ -221,104 +221,39 @@
 
             </div>
 
-            <div class="recently-carousel">
-                <!-- Tour Card 1 -->
-                <div class="tour-card">
-                    <img src="../assets/images/anh-1.png" alt="Inter Sweet Love" class="tour-image">
-                    <div class="tour-content">
-                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                        <div class="tour-location tour-price">
-                            <div>
-                                <i class="fas fa-map-marker-alt location-dot"></i>
-                                <span class="dia-diem">Ha Noi</span>
-                                <span class="tour-booked">40 Booked</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <span class="rating-value">4.5</span>
-                            </div>
+            <ClientOnly>
+               <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"
+                   class="recently-carousel" >
+                  <swiper-slide v-for="product in productDetail.productSameZones" :key="product.productId">
+                     <a :href="`/detail-product/${product.productId}`" class="tour-card1">
+                        <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
+                        <div class="tour-content">
+                           <h3 class="tour-title">{{ product.title }}</h3>
+                           <div class="tour-location tour-price">
+                              <div>
+                                 <span class="tour-booked">{{ product.totalSale }} {{ $t('BOOKED') }}</span>
+                              </div>
+                              <div class="rating">
+                                 <i class="fas fa-star"></i>
+                                 <span class="rating-value">{{ product.rate.toFixed(1) }}</span>
+                              </div>
+                           </div>
+                           <div class="tour-price">
+                              <div class="linee-h">
+                                 <span class="price-text">{{ $t('PRICE_FROM') }}</span>
+                                 <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
+                                 <span class="me-1"></span>
+                                 <p class="menu-text" style="margin: 0;">
+                                    <span class="me-1 menu-text">~USD</span>
+                                    {{ (product.price / currentfCurrency.exchange).toFixed(1).toLocaleString("en-US") }}
+                                 </p>
+                              </div>
+                           </div>
                         </div>
-                        <div class="tour-price">
-                            <div>
-                                <span class="price-text">From</span>
-                                <span class="price-value">~ USD 34</span>
-                            </div>
-
-                        </div>
-                        <div class="bieu-tuong-gg">
-
-                            <div class="flight-icon">
-                                -50%
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tour Card 2 -->
-                <div class="tour-card">
-                    <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
-                    <div class="tour-content">
-                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                        <div class="tour-location tour-price">
-                            <div>
-                                <i class="fas fa-map-marker-alt location-dot"></i>
-                                <span class="dia-diem">Ha Noi</span>
-                                <span class="tour-booked">40 Booked</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <span class="rating-value">4.5</span>
-                            </div>
-                        </div>
-                        <div class="tour-price">
-                            <div>
-                                <span class="price-text">From</span>
-                                <span class="price-value">~ USD 34</span>
-                            </div>
-
-                        </div>
-                        <div class="bieu-tuong">
-
-                            <div class="flight-icon">
-                                <img src="../assets/images/airplane.png" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tour-card">
-                    <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
-                    <div class="tour-content">
-                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                        <div class="tour-location tour-price">
-                            <div>
-                                <i class="fas fa-map-marker-alt location-dot"></i>
-                                <span class="dia-diem">Ha Noi</span>
-                                <span class="tour-booked">40 Booked</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <span class="rating-value">4.5</span>
-                            </div>
-                        </div>
-                        <div class="tour-price">
-                            <div>
-                                <span class="price-text">From</span>
-                                <span class="price-value">~ USD 34</span>
-                            </div>
-
-                        </div>
-                        <div class="bieu-tuong">
-
-                            <div class="flight-icon">
-                                <img src="../assets/images/airplane.png" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
+                    </a>
+                  </swiper-slide>
+               </swiper>
+            </ClientOnly>
         </div>
         <div class="bottom-menu menu-search d-flex ">
             <div class="">
