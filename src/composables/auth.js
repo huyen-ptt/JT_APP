@@ -61,6 +61,12 @@ export const useAuth = () => {
         }
     }
 
-
-    return { onLogin, onLogout, onChangePassword }
+ const onSignUp = async (data) => {
+        const url = `${uri}/api/Auth/DoSignUp`;
+        const response = await axios.post(url, data);
+        if(response){
+            return response;
+        }
+    }
+    return { onLogin, onLogout, onChangePassword, onSignUp }
 }
