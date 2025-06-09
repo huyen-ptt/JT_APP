@@ -12,6 +12,7 @@ import { App as CapacitorApp } from '@capacitor/app';
 import { useRouter } from 'vue-router';
 import { computed, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authStore'
+import { useLanguageStore } from './stores/languageStore'
 
 const router = useRouter();
 const authStore = useAuthStore()
@@ -19,7 +20,9 @@ const auth = computed(() => authStore.auth)
 // Force status bar không overlay (optional)
 StatusBar.setOverlaysWebView({ overlay: false });
 // StatusBar.setBackgroundColor({ color: '#F8F9FA' });
+const langStore = useLanguageStore()
 
+langStore.loadDefaulLanguage()
 
 onMounted(() => {
   
