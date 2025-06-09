@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div className="container-fluid p-0">
-                <ul className="nav nav-tabs custom-tabs justify-content-center" id="productTabs" role="tablist">
+                <ul className="nav nav-tabs custom-tabs justify-content-center pt-2" id="productTabs" role="tablist">
                     <li className="nav-item" role="presentation">
                         <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
                             data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
@@ -112,7 +112,7 @@
                     </li>
                 </ul>
 
-                <div className="tab-content custom-tab-content my-r" id="productTabsContent">
+                <div className="tab-content custom-tab-content my-r pt-3" id="productTabsContent">
                     <div className="tab-pane fade show active" id="product-detail" role="tabpanel"
                         aria-labelledby="product-detail-tab">
                         <div v-for="note in orderItemDetail.productParentThuTucVisa" v-html="note.noiDung"></div>
@@ -144,9 +144,9 @@ import { ref, onBeforeMount, onMounted, computed } from "vue";
 import { useI18n } from 'vue-i18n'
 
 import { RouterLink, useRouter, useRoute } from 'vue-router'
-import HeaderTitle from '../components/HeaderTitle.vue';            
+import HeaderTitle from '../components/HeaderTitle.vue';
 import MyOrderItemComponent from "../components/MyOrderItemComponent.vue";
-import { useAuthStore } from '../stores/authStore';  
+import { useAuthStore } from '../stores/authStore';
 
 import { useUser } from '../composables/user';
 import { useHelper } from "../composables/helper";
@@ -286,6 +286,21 @@ onMounted(async () => {
 
 .nav-tabs .nav-link {
     background-color: unset;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: unset !important;
+    color: unset !important;
+}
+
+.search-button,
+.bo-goc .cancle button {
+    font-size: 12px;
+    padding: 13px 23px;
+}
+
+.detail-value-order-detail li {
+    list-style-type: none;
 }
 
 iframe {

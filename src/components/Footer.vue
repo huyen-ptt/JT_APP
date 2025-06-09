@@ -13,7 +13,7 @@
             </div>
             <span class="menu-text">{{ $t('promotion') }}</span>
         </RouterLink>
- 
+
         <div class="menu-item" @click="modalStore.open()">
             <div class="menu-icon">
                 <img src="../assets/images/element-plus.png" />
@@ -37,8 +37,9 @@
 
         <div class="indicator"></div>
     </div>
-    <Drawer v-model:visible="modalStore.visibleBottom" header="Bottom Drawer" position="bottom" style="height: auto">
-        <div class="footer-services">
+    <Drawer v-model:visible="modalStore.visibleBottom" position="bottom" :modal="true"
+        :dismissableMask="true" style="height: 50vh; border-radius: 25px 32px 0px 0;" class="mo-ser">
+        <div class="footer-services" style="max-height: 100%;">
             <div class="services-grid">
                 <h2 class="se-title">{{ $t('service') }}</h2>
                 <div class="container-fluid">
@@ -53,7 +54,7 @@
     </Drawer>
 </template>
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import Drawer from 'primevue/drawer';
 import ServiceFooter from "./ServiceFooter.vue";
 import { useModalStore } from '@/stores/modalStore';
@@ -78,7 +79,13 @@ const modalStore = useModalStore();
 
 
 
-
+// watch(() => modalStore.visibleBottom, (visible) => {
+//   if (visible) {
+//     document.body.style.overflow = 'hidden'
+//   } else {
+//     document.body.style.overflow = ''
+//   }
+// })
 
 </script>
 <style scoped>

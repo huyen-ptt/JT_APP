@@ -161,10 +161,7 @@ onMounted(async () => {
 }
 
 .nav-tabs .nav-link {
-
-    padding: 6px 6px;
-
-
+    padding: 6px 4px;
 }
 
 .nav-tabs .nav-link.active {

@@ -321,7 +321,6 @@ import NoteTimeComponent from '@/components/NoteTimeComponent.vue'
 import HeaderTitle from '../components/HeaderTitle.vue';
 
 import { ref, onBeforeMount, computed, onMounted } from "vue";
-import { useI18n } from 'vue-i18n'
 
 import { useHelper } from "../composables/helper";
 import { useCurrencyStore } from "../stores/currencyStore";
@@ -329,6 +328,9 @@ import { usePayStore } from '../stores/payStore';
 import { useAuthStore } from '../stores/authStore';
 
 import { usePay } from '../composables/pay';
+import { useI18n } from 'vue-i18n'
+const { locale, t } = useI18n();
+
 
 import Select from 'primevue/select';
 import { label } from '@primeuix/themes/aura/metergroup';
@@ -343,7 +345,6 @@ const currentfCurrency = computed(() => currencyStore.fCurrency)
 const payStore = usePayStore();
 const authStore = useAuthStore()
 const helper = useHelper();
-const { locale, t } = useI18n();
 const payComposable = usePay();
 
 const loadingCheckout = ref(false);
@@ -567,7 +568,7 @@ const onCheckCouponCode = async (pay) => {
     //Tien hanh request kiem tra
     const response = await payComposable.onCheckCouponCode(data);
     if (response) {
-        alert('KHUYEN MAI THANH CONG!');
+       alert(t('KHUYEN_MAI_THANH_CONG'));
         console.log(response.data);
         let _discountPrice = 0;
         let postfix = "";
@@ -589,7 +590,7 @@ const onCheckCouponCode = async (pay) => {
 
 
     } else {
-        alert('KHUYEN MAI THAT BAI')
+       alert(t('KHUYEN_MAI_THAT_BAI'));
         pay.discountSelected.couponCode = '';
         pay.discountSelected.discountOption = 0;
         pay.discountSelected.discountValue = 0;

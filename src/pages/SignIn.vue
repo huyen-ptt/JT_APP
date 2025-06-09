@@ -38,6 +38,22 @@
     </div>
     <Toast v-if="showToast" :message="loginMessage" icon="success" position="top-end" timer="800" />
   </div>
+  <Dialog v-model:visible="visibleLoginSuccess" modal :style="{ width: '25rem' }" class="modal-login-success login-ss">
+    <div class="container">
+      <div class="form-container">
+        <img class="d-flex icon-success pb-4 pt-3" src="../assets/images/verify.png" />
+        <div class="icon-success text-center title-sl">
+          {{ $t('LOGIN_SUCCESS') }}
+        </div>
+        <div class="icon-success text-center dia-chi-product pb-3">
+          {{ $t('WELCOME_BACK') }}
+        </div>
+        <router-link to="/account"> <button type="submit" class="w-100 btn btn-lg btn-login">
+            {{ $t('OK') }}
+          </button></router-link>
+      </div>
+    </div>
+  </Dialog>
 </template>
 
 
@@ -46,12 +62,9 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth'
 import { useAuthStore } from '../stores/authStore';
-import Toast from '../components/Toast.vue';
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
-const showToast = ref(false);
+import Dialog from 'primevue/dialog';
 
-const loginMessage = t('LOGIN_MESSAGE');
+
 const authComposable = useAuth();
 // Reactive state for form fields
 const email = ref('')
@@ -61,35 +74,33 @@ const showPassword = ref(false)
 const router = useRouter()
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth);
-const loginError = ref(false);
+
 
 // Toggle password visibility
 const togglePassword = () => {
   showPassword.value = !showPassword.value
 }
+const visibleLoginSuccess = ref(false)
 
+const goToAccount = () => {
+  visibleLoginSuccess.value = false
+  router.push('/account')
+}
 // Handle form submission
 const handleSubmit = async () => {
   const data = {
     email: email.value,
     password: password.value,
-  };
-  try {
-    const response = await authComposable.onLogin(data);
-    loginError.value = false; // Sửa tại đây
-
-    console.log(response.data);
-    console.log('ĐĂNG NHẬP THÀNH CÔNG!');
-    showToast.value = true;
-    // alert('ĐĂNG NHẬP THÀNH CÔNG!');
-    authStore.onChangeAuth(response.data);
-    router.push('/account');
-  } catch (error) {
-    loginError.value = true;
-    console.error('Lỗi đăng nhập:', error);
   }
-};
+  const response = await authComposable.onLogin(data)
+  if (response) {
+    console.log(response.data)
+    authStore.onChangeAuth(response.data)
 
+    // ✅ Hiển thị dialog đăng nhập thành công
+    visibleLoginSuccess.value = true
+  }
+}
 </script>
 
 <style scoped>
