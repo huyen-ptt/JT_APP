@@ -143,143 +143,143 @@ export const useHelper = () => {
     const weatherArray = [
       {
         code: 0,
-        iconDay: "http://openweathermap.org/img/wn/01d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/01n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/01d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/01n@2x.png"
       },
       {
         code: 1,
-        iconDay: "http://openweathermap.org/img/wn/01d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/01n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/01d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/01n@2x.png"
       },
       {
         code: 2,
-        iconDay: "http://openweathermap.org/img/wn/02d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/02n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/02d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/02n@2x.png"
       },
       {
         code: 3,
-        iconDay: "http://openweathermap.org/img/wn/03d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/03n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/03d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/03n@2x.png"
       },
       {
         code: 45,
-        iconDay: "http://openweathermap.org/img/wn/50d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/50n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/50d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/50n@2x.png"
       },
       {
         code: 48,
-        iconDay: "http://openweathermap.org/img/wn/50d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/50n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/50d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/50n@2x.png"
       },
       {
         code: 51,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 53,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 55,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 56,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 57,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 61,
-        iconDay: "http://openweathermap.org/img/wn/10d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/10n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/10d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/10n@2x.png"
       },
       {
         code: 63,
-        iconDay: "http://openweathermap.org/img/wn/10d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/10n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/10d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/10n@2x.png"
       },
       {
         code: 65,
-        iconDay: "http://openweathermap.org/img/wn/10d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/10n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/10d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/10n@2x.png"
       },
       {
         code: 66,
-        iconDay: "http://openweathermap.org/img/wn/10d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/10n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/10d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/10n@2x.png"
       },
       {
         code: 67,
-        iconDay: "http://openweathermap.org/img/wn/10d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/10n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/10d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/10n@2x.png"
       },
       {
         code: 71,
-        iconDay: "http://openweathermap.org/img/wn/13d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/13n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/13d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/13n@2x.png"
       },
       {
         code: 73,
-        iconDay: "http://openweathermap.org/img/wn/13d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/13n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/13d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/13n@2x.png"
       },
       {
         code: 75,
-        iconDay: "http://openweathermap.org/img/wn/13d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/13n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/13d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/13n@2x.png"
       },
       {
         code: 77,
-        iconDay: "http://openweathermap.org/img/wn/13d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/13n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/13d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/13n@2x.png"
       },
       {
         code: 80,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 81,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 82,
-        iconDay: "http://openweathermap.org/img/wn/09d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/09n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/09d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/09n@2x.png"
       },
       {
         code: 85,
-        iconDay: "http://openweathermap.org/img/wn/13d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/13n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/13d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/13n@2x.png"
       },
       {
         code: 86,
-        iconDay: "http://openweathermap.org/img/wn/13d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/13n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/13d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/13n@2x.png"
       },
       {
         code: 95,
-        iconDay: "http://openweathermap.org/img/wn/11d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/11n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/11d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/11n@2x.png"
       },
       {
         code: 96,
-        iconDay: "http://openweathermap.org/img/wn/11d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/11n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/11d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/11n@2x.png"
       },
       {
         code: 99,
-        iconDay: "http://openweathermap.org/img/wn/11d@2x.png",
-        iconNight: "http://openweathermap.org/img/wn/11n@2x.png"
+        iconDay: "https://openweathermap.org/img/wn/11d@2x.png",
+        iconNight: "https://openweathermap.org/img/wn/11n@2x.png"
       }
     ];
 

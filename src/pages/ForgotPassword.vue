@@ -5,13 +5,12 @@
         <div class="form-container m-3">
             <h1 class="form-title">{{ $t('Reset_Title_ForgotOp') }}</h1>
 
-            <!-- Email Input -->
             <div class="mb-3">
                 <label class="form-label title-con">{{ $t('Email_Label_ForgotOp') }}</label>
                 <input v-model="email" type="email" class="form-control input-login"
                     :placeholder="$t('Email_Placeholder_ForgotOp')" />
-                <div v-if="submitted && emailError" class="text-danger small mt-1">
-                    {{ emailError }}
+                <div class="error-message" v-if="hasError">
+                    <small>{{ $t(errorKey) }}</small>
                 </div>
             </div>
 
@@ -20,44 +19,56 @@
             </button>
         </div>
 
-        <Footer />
+        <Footer ></Footer>
     </div>
 </template>
 
+
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import HeaderTitle from '../components/HeaderTitle.vue'
-import Footer from '@/components/Footer.vue'
-import { useI18n } from 'vue-i18n'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import HeaderTitle from '../components/HeaderTitle.vue';
+import Footer from '@/components/Footer.vue';
+import { useI18n } from 'vue-i18n';
+import { useAuth } from '../composables/auth';
 
-const { t } = useI18n()
-const router = useRouter()
+const { t } = useI18n();
+const router = useRouter();
+const authComposable = useAuth();
+const email = ref('');
+const errorKey = ref('');
+const hasError = ref(false);
 
-const email = ref('')
-const emailError = ref('')
-const submitted = ref(false)
+const onSubmit = async () => {
+    hasError.value = false;
 
-const onSubmit = () => {
-    submitted.value = true
-    emailError.value = ''
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email.value) {
-        emailError.value = t('EMAIL_REQUIRED')
-        return
+        errorKey.value = 'EMAIL_REQUIRED';
+        hasError.value = true;
+        return;
     }
 
     if (!emailRegex.test(email.value)) {
-        emailError.value = t('EMAIL_INVALID')
-        return
+        errorKey.value = 'EMAIL_INVALID';
+        hasError.value = true;
+        return;
     }
 
-    // ✅ Nếu hợp lệ → chuyển trang
-    router.push('/successpw')
-}
+    // Nếu hợp lệ → gửi request
+    try {
+        const data = { email: email.value };
+        const response = await authComposable.onForgotPassword(data);
+        console.log("response ==>", response.data);
+        router.push('/successpw');
+    } catch (error) {
+        errorKey.value = 'EMAIL_NOT_FOUND';
+        hasError.value = true;
+    }
+};
 </script>
+
 
 <style scoped>
 .form-container {
@@ -82,7 +93,6 @@ const onSubmit = () => {
     letter-spacing: 0px;
     text-align: center;
     color: #03294C;
-
 }
 
 
