@@ -86,7 +86,7 @@ const destination = ref([])
 
 
 const onLoadDestination = async () => {
-    const response = await destinationComposable.getZoneById();
+    const response = await destinationComposable.getZoneById();                           
     if (response) {
         currentDestinationSelected.value = response.data;
         if (currentDestinationSelected.value.googleMapCrood) {

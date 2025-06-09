@@ -14,7 +14,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import './style.css'
-
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 // import 'primevue/resources/themes/saga-blue/theme.css'; // theme sáng
 
 const app = createApp(App);
@@ -22,7 +23,7 @@ const app = createApp(App);
 app.config.globalProperties.$globalRouter = router
 app.use(router);
 app.use(i18n);
-
+app.use(VueSweetalert2);
 const pinia = createPinia();
 pinia.use(piniaPersist);
 app.use(pinia);

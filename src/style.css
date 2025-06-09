@@ -1,9 +1,15 @@
 html,
 body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   overscroll-behavior: none;
-  /* ngăn hiệu ứng giật trên Android Chrome */
-  touch-action: pan-y;
-  /* vẫn cuộn theo chiều dọc được */
+  -webkit-overflow-scrolling: auto !important;
+  touch-action: pan-x pan-y;
+}
+
+#app {
+  height: 100%;
 }
 
 * {
@@ -785,6 +791,7 @@ img {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
+  border-radius: 13px 13px 0 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   z-index: 98;
 }
@@ -914,6 +921,10 @@ img {
   background-color: transparent;
 }
 
+.mo-ser .p-drawer-header {
+  display: none;
+}
+
 .logo-end {
   display: none;
   text-align: center;
@@ -940,11 +951,11 @@ img {
 .footer-services {
   position: fixed;
   bottom: 0;
-  border-radius: 25px 32px 38px 0;
+  /* border-radius: 25px 32px 38px 0; */
   left: 0;
   width: 100%;
-  background-color: white;
-  border-top: 1px dotted #ccc;
+  /* background-color: white; */
+  /* border-top: 1px dotted #ccc; */
   z-index: 99;
   padding-bottom: 20px;
 }
@@ -1731,13 +1742,16 @@ img {
   padding-bottom: 50px;
 }
 
-.promotion-container {
+.promotion-bao {
+  background-color: #f8f8f8;
+
+}
+.card-p{
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 12px; 
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
 .promotion-card {
   background-color: #fff;
   border-radius: 12px;
@@ -1955,6 +1969,26 @@ img {
 
 }
 
+.login-ss .p-dialog-header {
+  padding: 10px !important;
+  display: none;
+}
+
+.signin .btn:hover {
+  background-color: #446EDE !important;
+  color: white !important;
+}
+
+.ho div {
+  height: 300px;
+  overflow: auto;
+
+}
+
+.ho option {
+  height: 10px !important;
+}
+
 .news-title-blogg {
   font-weight: 600;
   color: #03294C;
@@ -2121,10 +2155,12 @@ img {
   margin: 70px 0;
   /* background-color: #f8f9fa; */
 }
-.swiper-pagination-bullet{
+
+.swiper-pagination-bullet {
   width: 6px;
-  height: 6px;  
+  height: 6px;
 }
+
 .message-time-chat {
   text-align: center;
   color: #8A929E;
@@ -2383,6 +2419,7 @@ img {
 
 .blog-container {
   padding-bottom: 60px;
+  background: #f8f8f8;
 }
 
 .detail-blog {
