@@ -529,8 +529,8 @@ const messages = {
     Update_Password_Button_UD: "Update Password",
     Adult: "Adult",
     Child: "Child",
-    "EMAIL_REQUIRED": "Please enter your email",
-    "EMAIL_INVALID": "Invalid email address",
+    EMAIL_REQUIRED: "Please enter your email",
+    EMAIL_INVALID: "Invalid email address",
     Policies_And_Terms: "Terms and Conditions",
     Password_Reset_Email_Sent_SS: "Password Reset Email Sent",
     Password_Reset_Check_Email_SS: "Please check your email for password reset link.",
@@ -597,10 +597,9 @@ const messages = {
     Login_Account_FAQ: "Log in to your account using your email and current password.",
     Access_Account_Settings_FAQ: "Once logged in, click on your profile icon, and choose 'Change Password'.",
     Enter_Current_New_Password_FAQ: "You will be prompted to enter your current password, followed by your new password. Make sure your new password meets the security requirements.",
-    Save_Changes_FAQ: "After entering the required information, click 'Change Password' to confirm the change."
-
-
-
+    Save_Changes_FAQ: "After entering the required information, click 'Change Password' to confirm the change.",
+    AUTH_INVALID: "Invalid username or password",
+    LOGIN_MESSAGE:"Login successful!"
   },
   vi: {
     payment_summary: "Tóm tắt thanh toán",
@@ -1070,8 +1069,8 @@ const messages = {
     Search_Currency_CURRENCY: "Tìm kiếm tiền tệ",
     Cancel_CURRENCY: "Hủy",
     Save_CURRENCY: "Lưu",
-    "EMAIL_REQUIRED": "Vui lòng nhập email của bạn",
-    "EMAIL_INVALID": "Email không hợp lệ",
+    EMAIL_REQUIRED: "Vui lòng nhập email của bạn",
+    EMAIL_INVALID: "Email không hợp lệ",
     Payment_OnlineMethod: "joytime.vn chỉ chấp nhận thanh toán trực tuyến (Thẻ tín dụng/Ghi nợ) và PayPal cho tất cả đơn hàng trên website (https://joytime.vn.vn/).",
     Payment_Currency: "Thanh toán sẽ được thực hiện bằng Đồng Việt Nam (VND).",
     Payment_Security: "Tất cả giao dịch thẻ tín dụng được xử lý và bảo mật bởi các nhà cung cấp dịch vụ của joytime.vn, bao gồm Onepay (https://onepay.vn) và PayPal (https://paypal.com).",
@@ -1201,8 +1200,8 @@ const messages = {
     please_provide_service: "Vui lòng cung cấp thông tin dịch vụ mong muốn",
     confirm_payment: "Xác nhận thanh toán cho đơn hàng của bạn",
     "CART_EMPTY": "Không có sản phẩm nào trong giỏ hàng.",
-
-
+    AUTH_INVALID: "Sai tài khoản hoặc mật khẩu",
+    LOGIN_MESSAGE:"Đăng nhập thành công!"
   },
   ko: {
     Our_Mission_Title_About: "저희의 사명",
@@ -1452,8 +1451,8 @@ const messages = {
     Yemen: '예멘',
     Zimbabwe: '짐바브웨',
     Subtotal_CHECKOUT: "소계",
-    "EMAIL_REQUIRED": "이메일을 입력해 주세요",
-    "EMAIL_INVALID": "유효하지 않은 이메일 주소입니다",
+    EMAIL_REQUIRED: "이메일을 입력해 주세요",
+    EMAIL_INVALID: "유효하지 않은 이메일 주소입니다",
     Discount_CHECKOUT: "할인",
     service_date: "서비스 날짜",
     enter_promo_code: "프로모션 코드 입력",
@@ -1800,7 +1799,8 @@ const messages = {
     "sun": "일",
     "detail": "상세정보",
     "select_quantity": "수량 선택",
-
+    AUTH_INVALID:"사용자 이름 또는 비밀번호가 올바르지 않습니다",
+    LOGIN_MESSAGE:"로그인 성공!"
   },
   zh: {
     Customer_Support_FAQ: "客户支持",
@@ -1876,8 +1876,8 @@ const messages = {
     FIRST_NAME: "名字",
     FAMILY_NAME: "姓氏",
     NATIONALITY: "国籍",
-    "EMAIL_REQUIRED": "请输入您的电子邮件地址",
-    "EMAIL_INVALID": "电子邮件地址无效",
+    EMAIL_REQUIRED: "请输入您的电子邮件地址",
+    EMAIL_INVALID: "电子邮件地址无效",
     "detail": "详情",
     "onboard_welcome_title": "欢迎来到 Joytime",
     "onboard_welcome_desc": "一个应用，搞定越南之旅。",
@@ -2397,7 +2397,9 @@ const messages = {
     TOP_TRENDS: "热门趋势",
     RECENTLY_VIEWED: "最近浏览",
     COLLABORATE_EMAIL: "partner{'@'}joytime.vn",
-    IDEAL_DESTINATION: "理想目的地"
+    IDEAL_DESTINATION: "理想目的地",
+    AUTH_INVALID:"用户名或密码错误",
+    LOGIN_MESSAGE:"登录成功!"
   }
 }
 

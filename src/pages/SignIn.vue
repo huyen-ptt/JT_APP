@@ -25,9 +25,10 @@
               <router-link to="/forgot-password" class="small fogot-pass">{{ $t('forgotPassword_login') }}</router-link>
             </div>
           </div>
-
           <button type="submit" class="w-100 btn btn-lg btn-login">{{ $t('loginButton_login') }}</button>
-
+          <div class="error-message" v-if="loginError">
+            <small> {{ $t('AUTH_INVALID') }}</small>
+          </div>
           <div class="text-center text-muted small pt-3 input-login">
             {{ $t('noAccount_login') }}
             <router-link to="/sign-up" class="text-primary fw-medium fogot-pass">{{ $t('signUp_login') }}</router-link>
@@ -35,6 +36,7 @@
         </form>
       </div>
     </div>
+    <Toast v-if="showToast" :message="loginMessage" icon="success" position="top-end" timer="800" />
   </div>
   <Dialog v-model:visible="visibleLoginSuccess" modal :style="{ width: '25rem' }" class="modal-login-success login-ss">
     <div class="container">
