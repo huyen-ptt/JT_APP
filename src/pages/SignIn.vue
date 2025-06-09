@@ -32,6 +32,9 @@
             {{ $t('noAccount_login') }}
             <router-link to="/sign-up" class="text-primary fw-medium fogot-pass">{{ $t('signUp_login') }}</router-link>
           </div>
+          <div style="text-align: center; margin-bottom: 5px;">
+            <a href="/" class="text-primary fw-medium fogot-pass">← Back to Home</a>
+          </div>
         </form>
       </div>
     </div>

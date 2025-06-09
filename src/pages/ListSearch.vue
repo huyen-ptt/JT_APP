@@ -3,7 +3,6 @@
         <!-- Search Header -->
         <div class="search-header d-flex align-items-center">
             <!-- Nút mũi tên quay lại -->
-
             <i class="fa-solid fa-arrow-left" @click="$router.go(-1)"></i>
             <div class="input-group">
                 <input class="search-list form-control" v-model="searchTerm" type="text"
@@ -18,16 +17,24 @@
         <div class="food-list">
             <div class="title-list-search">{{ $t('RECENT_SEARCH_PRODUCT') }}</div>
             <div class="thanh-tt">
-                <div class="food-item d-flex align-items-center" v-for="p in products"
-                    @click="onRedirectProductDetail(p)">
-                    <img :src="helper.getImageCMS(p.avatar)" alt="Day Tour">
-                    <p class="title-s">{{ p.title }}</p>
+                <!-- Danh sách kết quả -->
+                <div v-if="products.length > 0">
+                    <div class="food-item d-flex align-items-center" v-for="p in products" :key="p.productId"
+                        @click="onRedirectProductDetail(p)">
+                        <img :src="helper.getImageCMS(p.avatar)" alt="Day Tour">
+                        <p class="title-s">{{ p.title }}</p>
+                    </div>
+                </div>
+
+                <!-- Hiển thị khi không có kết quả -->
+                <div v-if="products.length === 0 && searchTerm" class="no-results">
+                    {{ $t('NO_RESULTS_FOUND') }}
                 </div>
             </div>
         </div>
     </div>
-
 </template>
+
 <script setup>
 import { computed, ref } from 'vue';
 import { useSearchStore } from '@/stores/searchStore'
@@ -96,6 +103,13 @@ const onRedirectProductDetail = (p) => {
 .input-group {
     margin-left: 40px;
     /* Đẩy phần input qua phải một chút để không che mất nút mũi tên */
+}
+
+.no-results {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 16px;
+    color: #888;
 }
 
 .input-group {
