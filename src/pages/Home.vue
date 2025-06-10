@@ -58,9 +58,9 @@
                      disableOnInteraction: false
                   }" :pagination="{ clickable: true }" class="promo-carousel" style="padding-bottom: 40px;">
                      <swiper-slide v-for="(p, index) in promotions" :key="index" v-if="!onLoadPromotions">
-                        <div class="">
+                        <RouterLink :to="`/promotion-detail/${p.id}`">
                            <img :src="helper.getImageCMS(p.avatar)" width="100%" class="img-ho" :alt="p.title" />
-                        </div>
+                        </RouterLink>
                      </swiper-slide>
 
                      <swiper-slide v-for="index in 5" :key="`skeleton-${index}`" v-if="onLoadPromotions">

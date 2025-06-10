@@ -74,7 +74,7 @@
                                     </div> -->
                                     <div class="promotion-section border-top pt-3">
                                         <!-- Dòng tiêu đề + icon -->
-                                        <div class="flex items-center justify-between pb-3">
+                                        <div class="flex items-center justify-between pb-3 promo">
                                             <h3 class="promo-title m-0">{{ $t('promotion') }}</h3>
                                             <Button icon="pi pi-tags" class="p-button-text p-button-sm text-primary"
                                                 @click="onOpenCouponListDialog(pay)"
@@ -95,7 +95,7 @@
                                         <Dialog v-model:visible="pay.visibleCouponDialog"
                                             :header="`${$t('MY_LIST_DISCOUNT_CODE')}`" modal>
                                             <div v-for="coupon in currentPromotions" :key="coupon.discountCode"
-                                                class="py-3 border-b">
+                                                class="py-3 border-b border-bottom">
                                                 <!-- Dòng đầu: CODE + BUTTON -->
                                                 <div class="flex justify-between items-start gap-4">
                                                     <div class="font-bold uppercase text-sm text-black flex-1">
