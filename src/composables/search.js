@@ -189,6 +189,7 @@ export const useSearch = () => {
     let selectedZoneDestinations = [];
     let selectedZoneServices = [];
     let selectedZoneRegions = [];
+    let selectedIdProduct = [];
     if(currentSreach.value.searchItems.length > 0){
       currentSreach.value.searchItems.forEach(r => {
         console.log(r);
@@ -201,6 +202,9 @@ export const useSearch = () => {
         if(r.type == 7){
           selectedZoneRegions.push(r.id)          
         }
+        if(r.type == 99){
+          selectedIdProduct = r.lstId        
+        }
       })
     }
 
@@ -210,6 +214,7 @@ export const useSearch = () => {
       selectedZoneDestinations: selectedZoneDestinations,
       selectedZoneServices: selectedZoneServices,
       selectedZoneRegions: selectedZoneRegions,
+      selectedIdProduct: selectedIdProduct,
       cultureCode: _cultureCode,
       pageIndex: pageIndex,
       pageSize: 12,
