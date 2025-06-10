@@ -33,10 +33,7 @@ export const useSearchStore = defineStore(
         const onChangeSortBy = (sortBy) => {
             search.value.sortBy = sortBy;
         }
-        const isSearchItemExist = (id) => {
-    return search.value.searchItems.some(item => item.id === id);
-};
-        return { search, onAddSearchItem, onRemoveSearchItem, onClearSearchItem, onChangeSortBy,isSearchItemExist };
+        return { search, onAddSearchItem, onRemoveSearchItem, onClearSearchItem, onChangeSortBy };
     },
     {
         persist: {
