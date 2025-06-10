@@ -2,6 +2,9 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
+    ADD_DISCOUNT_CODE_TITLE: "Discount code added successfully!",
+    ADD_DISCOUNT_CODE_LABEL_LEFT: "You have collected the code",
+    ADD_DISCOUNT_CODE_LABEL_RIGHT: "successfully.",
     Selected_Date: "Selected Date",
     Option: "Option",
     title_dki: "Sign Up",
@@ -600,7 +603,7 @@ const messages = {
     Enter_Current_New_Password_FAQ: "You will be prompted to enter your current password, followed by your new password. Make sure your new password meets the security requirements.",
     Save_Changes_FAQ: "After entering the required information, click 'Change Password' to confirm the change.",
     AUTH_INVALID: "Invalid username or password",
-    LOGIN_MESSAGE:"Login successful!"
+    LOGIN_MESSAGE: "Login successful!"
   },
   vi: {
     payment_summary: "Tóm tắt thanh toán",
@@ -1202,10 +1205,15 @@ const messages = {
     please_provide_service: "Vui lòng cung cấp thông tin dịch vụ mong muốn",
     confirm_payment: "Xác nhận thanh toán cho đơn hàng của bạn",
     CART_EMPTY: "Không có sản phẩm nào trong giỏ hàng.",
-
+    ADD_DISCOUNT_CODE_TITLE: "Thêm mã khuyến mãi thành công!",
+    ADD_DISCOUNT_CODE_LABEL_LEFT: "Bạn đã thu thập mã",
+    ADD_DISCOUNT_CODE_LABEL_RIGHT: "thành công.",
 
   },
   ko: {
+    ADD_DISCOUNT_CODE_TITLE: "할인 코드가 성공적으로 추가되었습니다!",
+    ADD_DISCOUNT_CODE_LABEL_LEFT: "할인 코드",
+    ADD_DISCOUNT_CODE_LABEL_RIGHT: "를 성공적으로 수집했습니다.",
     Our_Mission_Title_About: "저희의 사명",
     Our_Mission_Paragraph_About: "Joytime은 고품질, 신뢰할 수 있으며 편리한 여행 서비스를 제공하고, 국제 여행자들이 베트남의 독특한 문화와 기억에 남는 순간들과 연결될 수 있도록 최선을 다하고 있습니다. 저희는 끊임없이 서비스를 개선하여 이상적인 여행을 제공하고 베트남의 아름다움을 온전히 발견할 수 있도록 돕고자 합니다. 베트남 여행에 대한 깊은 이해와 열정을 지닌 경험 많은 전문가 팀과 함께, 여행의 모든 단계에서 국제 여행자들을 지원할 준비가 되어 있으며, 세련되고 친밀하며 다채로운 베트남을 탐험할 수 있도록 연결해 드립니다.",
     Our_Vision_Title_About: "저희의 비전",
@@ -1805,6 +1813,9 @@ const messages = {
 
   },
   zh: {
+    ADD_DISCOUNT_CODE_TITLE: "成功添加折扣码！",
+    ADD_DISCOUNT_CODE_LABEL_LEFT: "您已成功领取优惠码",
+    ADD_DISCOUNT_CODE_LABEL_RIGHT: "。",
     Customer_Support_FAQ: "客户支持",
     How_To_Contact_FAQ: "我如何联系 Joytime 客服？",
     Contact_Methods_FAQ: "您可以通过以下方式联系我们的客服团队：",
@@ -2400,8 +2411,8 @@ const messages = {
     RECENTLY_VIEWED: "最近浏览",
     COLLABORATE_EMAIL: "partner{'@'}joytime.vn",
     IDEAL_DESTINATION: "理想目的地",
-    AUTH_INVALID:"用户名或密码错误",
-    LOGIN_MESSAGE:"登录成功!"
+    AUTH_INVALID: "用户名或密码错误",
+    LOGIN_MESSAGE: "登录成功!"
   }
 }
 
