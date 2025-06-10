@@ -834,6 +834,7 @@ const onLoadPackage = async (p) => {
 
 // Ham load gia theo ngay
 const onLoadPriceForPayItem = async (p) => {
+    p.currentAccordionStep = 1; //  Reset bước để đảm bảo Accordion hoạt động lại
     let checker = true;
     //1. Phai chon ngay phu hop
     if (!p.currentSelectedDate) checker = false;
