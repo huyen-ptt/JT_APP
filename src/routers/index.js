@@ -77,7 +77,7 @@ const routes = [
         component: Promotion,
     },
     {
-        path: "/promotion-detail",
+        path: "/promotion-detail/:id",
         name: "PromotionDetail",
         component: PromotionDetail,
     },

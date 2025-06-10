@@ -85,7 +85,9 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-
+.summary{
+  margin-bottom: 100px;
+}
 .bao-h {
   padding-top: 40px;
   padding-bottom: 80px;
@@ -1742,16 +1744,23 @@ img {
   padding-bottom: 50px;
 }
 
+.card-like .tour-image {
+
+  border-radius: 9px;
+}
+
 .promotion-bao {
   background-color: #f8f8f8;
 
 }
-.card-p{
+
+.card-p {
   background-color: #fff;
-  border-radius: 12px; 
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
 .promotion-card {
   background-color: #fff;
   border-radius: 12px;

@@ -43,7 +43,7 @@
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
                                                     <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
-                                                        }}</span>
+                                                    }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -62,7 +62,7 @@
                                     </div>
 
                                     <!-- Promotion Section -->
-                                    <div class="promotion-section  border-top pt-3">
+                                    <!-- <div class="promotion-section  border-top pt-3">
                                         <h3 class="promo-title pb-3">{{ $t('promotion') }}</h3>
                                         <div class="promo-input-group">
                                             <input type="text" class="promo-input input-login"
@@ -71,7 +71,55 @@
                                             <button class="use-code-btn" @click="onCheckCouponCode(pay)">{{
                                                 $t('use_code') }}</button>
                                         </div>
+                                    </div> -->
+                                    <div class="promotion-section border-top pt-3">
+                                        <!-- Dòng tiêu đề + icon -->
+                                        <div class="flex items-center justify-between pb-3">
+                                            <h3 class="promo-title m-0">{{ $t('promotion') }}</h3>
+                                            <Button icon="pi pi-tags" class="p-button-text p-button-sm text-primary"
+                                                @click="onOpenCouponListDialog(pay)"
+                                                v-tooltip="$t('show_available_coupons')" />
+                                        </div>
+
+                                        <!-- Nhóm input và nút áp mã -->
+                                        <div class="promo-input-group flex">
+                                            <input type="text" class="promo-input input-login"
+                                                :placeholder="$t('enter_promo_code')"
+                                                v-model="pay.discountSelected.couponCode" />
+                                            <button class="use-code-btn" @click="onCheckCouponCode(pay)">
+                                                {{ $t('use_code') }}
+                                            </button>
+                                        </div>
+
+                                        <!-- Dialog mã giảm giá -->
+                                        <Dialog v-model:visible="pay.visibleCouponDialog"
+                                            :header="`${$t('MY_LIST_DISCOUNT_CODE')}`" modal>
+                                            <div v-for="coupon in currentPromotions" :key="coupon.discountCode"
+                                                class="py-3 border-b">
+                                                <!-- Dòng đầu: CODE + BUTTON -->
+                                                <div class="flex justify-between items-start gap-4">
+                                                    <div class="font-bold uppercase text-sm text-black flex-1">
+                                                        {{ coupon.discountCode }}
+                                                    </div>
+                                                    <Button :label="`- ${coupon.discountValue} ${coupon.postFix}`"
+                                                        v-if="coupon.isCanUse == true"
+                                                        class="p-button-outlined p-button-sm text-green-500 border-green-300 whitespace-nowrap"
+                                                        style="min-width: 100px; flex-shrink: 0;"
+                                                        @click="onApplyCoupon(coupon, pay)" />
+
+                                                    <Button :label="`${$t('COUPON_NOT_SUPPORT')}`" v-else
+                                                        class="p-button-outlined p-button-sm text-green-500 border-gray-300 whitespace-nowrap"
+                                                        disabled="true" style="min-width: 100px; flex-shrink: 0;" />
+                                                </div>
+
+                                                <!-- Dòng dưới: Mô tả -->
+                                                <small class="text-sm text-gray-500 mt-1">
+                                                    {{ coupon.name }}
+                                                </small>
+                                            </div>
+                                        </Dialog>
                                     </div>
+
                                     <!-- <FastTrack /> -->
                                     <Accordion :value="activeSubNoteAccordion"
                                         v-for="noteGroup in pay.productBookingNoteGroups" multiple>
@@ -119,9 +167,10 @@
                                 </div>
                                 <div class="order-total border-top">
                                     <span class="total-label">{{ $t('order_total') }}</span>
-                                    <span class="total-amount">VND {{ ((pay.numberOfAldut *
+                                    <!-- <span class="total-amount">VND {{ ((pay.numberOfAldut *
                                         pay.combination.priceEachNguoiLon) + (pay.numberOfChildrend *
-                                            pay.combination.priceEachTreEm)).toLocaleString() }}</span>
+                                            pay.combination.priceEachTreEm)).toLocaleString() }}</span> -->
+                                    <span class="total-amount">VND {{ (pay.totalPrice).toLocaleString() }}</span>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +301,7 @@
                 </div>
 
                 <!-- Payment Method Section -->
-                <div class="mb-4 bg-white p-3">
+                <div class="bg-white p-3">
                     <h2 class="promo-title pb-2">{{ $t("Payment_Method_CHECKOUT") }}</h2>
                     <p class="tour-location">
                         {{ $t("Promo_Instruction_CHECKOUT") }}
@@ -272,7 +321,7 @@
                 </div>
 
                 <!-- Order Summary -->
-                <div class="bg-white p-3">
+                <div class="bg-white summary p-3">
                     <div class="results-count-product summary-row">
                         <span>{{ $t("Subtotal_CHECKOUT") }}</span>
                         <span>VND {{ subTotal.toLocaleString() }}</span>
@@ -312,6 +361,8 @@ import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
+import Button from 'primevue/button';
+import Dialog from 'primevue/dialog';
 
 
 import NoteCustomersComponent from '@/components/NoteCustomersComponent.vue'
@@ -339,6 +390,9 @@ import router from '../routers';
 import { StatusBar } from '@capacitor/status-bar';
 import { scrollToFirstVisibleError } from '@/utils/scrollToFirstVisibleError';
 
+import { usePromotionStore } from '@/stores/promotionStore';
+import { usePromotion } from '@/composables/promotion';
+import Swal from 'sweetalert2'
 
 const currencyStore = useCurrencyStore();
 const currentfCurrency = computed(() => currencyStore.fCurrency)
@@ -346,7 +400,22 @@ const payStore = usePayStore();
 const authStore = useAuthStore()
 const helper = useHelper();
 const payComposable = usePay();
+const promotionComposable = usePromotion();
+const promotionStore = usePromotionStore();
+const currentPromotions = computed(() => {
+    let _p = [];
+    if (promotionStore.promotions) {
+        let clones = JSON.parse(JSON.stringify(promotionStore.promotions))
+        clones.forEach(clone => {
+            clone.isCanUse = false;
+            clone.discountType = 4;
+            clone.discountValue = 0;
+            _p.push(clone)
+        })
 
+    }
+    return _p;
+})
 const loadingCheckout = ref(false);
 
 const pays = computed(() => payStore.pays);
@@ -467,16 +536,22 @@ const orderNote = ref({
 })
 
 const ottApps = ref([
-    'WhatsApp', 'Zalo', 'Kakao', 'Telegram'
+    'WhatsApp', 'Zalo', 'Kakao'
 ])
-
+// Dữ liệu giả
+const dummyCoupons = ref([
+    { code: 'SAVE10', name: 'Giảm 10% cho đơn hàng đầu tiên' },
+    { code: 'FREESHIP', name: 'Miễn phí vận chuyển toàn quốc' },
+    { code: 'WELCOME', name: 'Ưu đãi chào mừng thành viên mới' }
+])
 const totalPrice = computed(() => {
 
     let _total = 0;
     pays.value.forEach(pay => {
-        let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm - pay.discountSelected.couponPrice;
-        pay.totalPrice = _t
-        _total += _t
+        // let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm - pay.discountSelected.couponPrice;
+        // pay.totalPrice = _t
+        // _total += _t
+        _total += pay.totalPrice
     });
     return _total;
 })
@@ -485,9 +560,10 @@ const subTotal = computed(() => {
 
     let _total = 0;
     pays.value.forEach(pay => {
-        let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
-        pay.totalPrice = _t
-        _total += _t
+        // let _t = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
+        // pay.totalPrice = _t
+        // _total += _t
+        _total += pay.totalPrice
     });
     return _total;
 })
@@ -568,29 +644,41 @@ const onCheckCouponCode = async (pay) => {
     //Tien hanh request kiem tra
     const response = await payComposable.onCheckCouponCode(data);
     if (response) {
-       alert(t('KHUYEN_MAI_THANH_CONG'));
-        console.log(response.data);
+        Swal.fire({
+            icon: 'success',
+            title: t('KHUYEN_MAI_THANH_CONG'),
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        })
+        pay.totalPrice = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
         let _discountPrice = 0;
         let postfix = "";
-        if (response.data.value.discountOption == 1) {
+        if (response.data.discountOption == 1) {
             postfix = "%"
         } else {
             postfix = "VND"
         }
-
+        console.log(postfix);
         if (postfix == "%") {
-            _discountPrice = pay.totalPrice * response.data.value.valueDiscount / 100;
+            _discountPrice = pay.totalPrice * response.data.valueDiscount / 100;
         } else {
-            _discountPrice = pay.totalPrice - response.data.value.valueDiscount;
+            _discountPrice = pay.totalPrice - response.data.valueDiscount;
         }
 
         pay.totalPrice = pay.totalPrice - _discountPrice;
-        pay.discountSelected.couponDescription = response.data.value.zoneName;
+        pay.discountSelected.couponDescription = response.data.zoneName;
         pay.discountSelected.discountValue = _discountPrice;
-
+        console.log(pay.totalPrice)
 
     } else {
-       alert(t('KHUYEN_MAI_THAT_BAI'));
+        Swal.fire({
+            icon: 'error',
+            title: t('KHUYEN_MAI_THAT_BAI'),
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+        })
         pay.discountSelected.couponCode = '';
         pay.discountSelected.discountOption = 0;
         pay.discountSelected.discountValue = 0;
@@ -667,7 +755,7 @@ const onRequestPayOnePay = async () => {
                             browser.close(); // đóng InAppBrowser
                             // alert('✅ Phát hiện deeplink redirect:', url);
                             // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
-                            // Thực thi url 
+                            // Thực thi url
                             try {
                                 const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
                                 if (response && response.data) {
@@ -746,7 +834,7 @@ const onRequestPayPayPal = async () => {
                             browser.close(); // đóng InAppBrowser
                             // alert('✅ Phát hiện deeplink redirect:', url);
                             // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
-                            // Thực thi url 
+                            // Thực thi url
                             try {
                                 loadingCheckout.value = true;
                                 const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
@@ -786,6 +874,54 @@ const onRequestPayPayPal = async () => {
     }
 }
 
+const onOpenCouponListDialog = async (pay) => {
+    pay.visibleCouponDialog = true;
+    // Call API
+    let discountCodes = currentPromotions.value.map(x => x.discountCode);
+
+    let data = {
+        productId: pay.productId,
+        discountCode: discountCodes
+    }
+    const response = await promotionComposable.checkValuePromotionCodeByProductId(data);
+    if (response) {
+
+        currentPromotions.value.forEach(cp => {
+            response.forEach(r => {
+                if (cp.discountCode === r.discountCode) {
+                    cp.isCanUse = r.isCanUse;
+                    cp.discountType = r.discountType;
+                    cp.discountValue = r.discountValue
+
+                    if (cp.discountType == 0) {
+                        cp.postFix = "VND";
+                    }
+                    if (cp.discountType == 1) {
+                        cp.postFix = "%";
+                    }
+
+                }
+            })
+        })
+    }
+
+}
+
+const onApplyCoupon = async (coupon, pay) => {
+    pay.visibleCouponDialog = false;
+    pay.discountSelected.couponCode = coupon.discountCode
+    await onCheckCouponCode(pay);
+
+}
+
+onMounted(() => {
+
+    pays.value.forEach(pay => {
+        pay.totalPrice = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
+        pay.visibleCouponDialog = false
+    })
+
+})
 
 // import FastTrack from '../components/FastTrack.vue';
 </script>
@@ -917,6 +1053,7 @@ const onRequestPayPayPal = async () => {
     height: 20px;
     color: #666;
 }
+
 .fullscreen-loading {
     position: fixed;
     top: 0;

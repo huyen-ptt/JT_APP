@@ -207,9 +207,9 @@
             </div>
 
             <ClientOnly>
-                <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"
+                <swiper :modules="[Autoplay, Pagination]" :slides-per-view="1.5" :space-between="16"
                     class="recently-carousel">
-                    <swiper-slide v-for="product in productDetail.productSameZones" :key="product.productId">
+                    <swiper-slide v-for="product in productDetail.productSameZones" :key="product.productId" class="card-like tour-card1 mb-3">
                         <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1">
                             <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image" />
                             <div class="tour-content">

@@ -29,9 +29,9 @@
                              2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 
                              2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                                             </svg>
-                                            <span class="title-con">{{ $t('ends_on') }} 28/2/2025</span>
+                                            <span class="title-con">{{ $t('ends_on') }} {{ p.endingTime }}</span>
                                         </div>
-                                        <RouterLink to="/promotion-detail" class="btn btn-primary collect-btn">
+                                        <RouterLink :to="`/promotion-detail/${p.id}`" class="btn btn-primary collect-btn">
                                             {{ $t('Button_Collect_Promotion') }}
                                         </RouterLink>
                                     </div>
@@ -43,86 +43,8 @@
 
             </div>
             <div class="recently-carousel prodcut-sp pt-4 pb-4">
-                <!-- <ProductSearch /> -->
-                <div class="tour-card">
-                    <img src="../assets/images/anh-1.png" alt="Inter Sweet Love" class="tour-image">
-                    <div class="tour-content">
-                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                        <div class="tour-location tour-price">
-                            <div>
-                                <i class="fas fa-map-marker-alt location-dot"></i>
-                                <span class="dia-diem">Ha Noi</span>
-                                <span class="tour-booked">40 Booked</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <span class="rating-value">4.5</span>
-                            </div>
-                        </div>
-                        <div class="tour-price">
-                            <div>
-                                <span class="price-text">From</span>
-                                <span class="price-value">~ USD 34</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Tour Card 2 -->
-                <div class="tour-card">
-                    <img src="../assets/images/2.png" alt="Inter Sweet Love" class="tour-image">
-                    <div class="tour-content">
-                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                        <div class="tour-location tour-price">
-                            <div>
-                                <i class="fas fa-map-marker-alt location-dot"></i>
-                                <span class="dia-diem">Ha Noi</span>
-                                <span class="tour-booked">40 Booked</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <span class="rating-value">4.5</span>
-                            </div>
-                        </div>
-                        <div class="tour-price">
-                            <div>
-                                <span class="price-text">From</span>
-                                <span class="price-value">~ USD 34</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="tour-card">
-                    <img src="../assets/images/8.png" alt="Inter Sweet Love" class="tour-image">
-                    <div class="tour-content">
-                        <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
-                        <div class="tour-location tour-price">
-                            <div>
-                                <i class="fas fa-map-marker-alt location-dot"></i>
-                                <span class="dia-diem">Ha Noi</span>
-                                <span class="tour-booked">40 Booked</span>
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <span class="rating-value">4.5</span>
-                            </div>
-                        </div>
-                        <div class="tour-price">
-                            <div>
-                                <span class="price-text">From</span>
-                                <span class="price-value">~ USD 34</span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
+                <ProductSearch v-for="p in products" :key="p.id" :product="p"></ProductSearch>
+                
             </div>
         </div>
         <Footer></Footer>
@@ -135,6 +57,7 @@ import ProductSearch from "../components/ProductSearch.vue";
 import Footer from "@/components/Footer.vue";
 import HeaderTitle from '../components/HeaderTitle.vue';
 import { useHome } from '@/composables/home.js';
+import { usePromotion } from "@/composables/promotion.js";
 import { useHelper } from "@/composables/helper";
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -142,11 +65,15 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 const helper = useHelper();
 const homeComposable = useHome();
+const promotionComposable = usePromotion();
 const promotions = ref([]);
+const products = ref([]);
 
 onBeforeMount(async () => {
     promotions.value = await homeComposable.getZonesByTypeKhuyenMai();
+    products.value = await promotionComposable.getProductInPromotions([]);
     console.log(promotions.value, 'promotions.value');
+
 });
 </script>
 <style scoped>
