@@ -301,7 +301,7 @@
                 </div>
 
                 <!-- Payment Method Section -->
-                <div class="mb-4 bg-white p-3">
+                <div class="bg-white p-3">
                     <h2 class="promo-title pb-2">{{ $t("Payment_Method_CHECKOUT") }}</h2>
                     <p class="tour-location">
                         {{ $t("Promo_Instruction_CHECKOUT") }}
@@ -321,7 +321,7 @@
                 </div>
 
                 <!-- Order Summary -->
-                <div class="bg-white p-3">
+                <div class="bg-white summary p-3">
                     <div class="results-count-product summary-row">
                         <span>{{ $t("Subtotal_CHECKOUT") }}</span>
                         <span>VND {{ subTotal.toLocaleString() }}</span>
