@@ -2419,6 +2419,7 @@ const messages = {
 const i18n = createI18n({
   legacy: false, // Tắt chế độ cũ (options API)
   locale: 'en',  // Ngôn ngữ mặc định
+  fallbackLocale: 'en',
   messages,      // Các thông điệp ngôn ngữ
 })
 

@@ -61,7 +61,7 @@
 
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,onMounted  } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth'
 import { useAuthStore } from '../stores/authStore';
@@ -104,6 +104,11 @@ const handleSubmit = async () => {
     visibleLoginSuccess.value = true
   }
 }
+onMounted(() => {
+  if (auth.value.email) {
+    router.replace('/account');
+  }
+})
 </script>
 
 <style scoped>
