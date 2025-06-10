@@ -78,8 +78,10 @@
          <div class="recently-container">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('TOP_TRENDS') }}</h2>
-               <router-link to="/" class="view-all"> {{ $t('VIEW_All') }}</router-link>
-
+               <!-- <router-link to="/list-results" class="view-all"> {{ $t('VIEW_All') }}</router-link> -->
+               <a @click="handleSearch('TOP_TRENDS')" class="view-all">
+                     {{ $t('VIEW_All') }}
+                 </a>
             </div>
             <div class="">
                <ul class="nav nav-tabs pb-2" id="tourTabs" role="tablist" v-if="!onLoadRegions">
@@ -118,7 +120,9 @@
          <div class="recently-container mb-3" v-if="currentSeen.length > 0">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('RECENTLY_VIEWED') }}</h2>
-               <a href="#" class="view-all">{{ $t('VIEW_All') }}</a>
+                 <a @click="handleSearch('RECENTLY_VIEWED')" class="view-all">
+                     {{ $t('VIEW_All') }}
+                 </a>
             </div>
             <ClientOnly>
                <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"
@@ -277,14 +281,18 @@ const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();
 
+
 const helper = useHelper();
 
-const handleSearch = () => {
-   // Chuyển hướng đến trang /search với query parameter
-   router.push({
-      path: '/search',
-      query: searchTerm.value ? { q: searchTerm.value } : {}
-   })
+const handleSearch = (code) => {
+   searchStore.onClearSearchItem();
+   if(code=="TOP_TRENDS"){
+      searchStore.onAddSearchItem({id:1310,type:7,name:"Top Trends"});
+   }else{
+      const productIDs = currentSeen.value.map(item => item.productId)
+      searchStore.onAddSearchItem({lstId:productIDs,type:99,name:"Recently Viewed"});
+   }
+   router.push('/list-results');
 }
 
 const onLoadProductInRegion = ref(true);
@@ -446,7 +454,7 @@ onMounted(async () => {
    await onRequestPromotions();
    await onRequestRegions();
    currentSeen.value = await homeComposable.getProductsLastSeen();
-   await onRequestLoadDestinations();
+   await onRequestLoadDestinations();  
 })
 </script>
 <style scoped>
