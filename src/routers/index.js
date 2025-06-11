@@ -216,5 +216,25 @@ const router = createRouter({
     return { left: 0, top: 0 }
   }
 });
+router.beforeEach((to, from, next) => {
+  const hasSeen = localStorage.getItem('hasSeenOnboarding') === 'true'
 
+  if (!hasSeen) {
+    if (to.path !== '/languagesonboading' && to.path !== '/onboarding1') {
+      // Truy cập đầu tiên thì luôn đưa về trang chọn ngôn ngữ
+      return next('/languagesonboading')
+    }
+
+    // Đã ở onboarding flow thì cho đi tiếp
+    return next()
+  }
+
+  // Đã xem rồi, mà vẫn vào lại onboarding => redirect về home
+  if (hasSeen && (to.path === '/languagesonboading' || to.path === '/onboarding1')) {
+    return next('/')
+  }
+
+  // Bình thường
+  return next()
+})
 export default router;

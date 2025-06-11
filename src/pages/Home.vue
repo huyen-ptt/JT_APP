@@ -238,7 +238,7 @@
    </div>
 </template>
 <script setup>
-import { ref, onBeforeMount, onMounted, computed, onUnmounted } from "vue";
+import { ref, onBeforeMount, onMounted, computed, onUnmounted, nextTick } from "vue";
 import Footer from "@/components/Footer.vue";
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -270,13 +270,7 @@ const currentfCurrency = computed(() => currencyStore.fCurrency)
 const modalStore = useModalStore();
 const searchTerm = ref('')
 const router = useRouter()
-onMounted(() => {
-   if (hasSeenOnboarding()) {
-      router.replace('/')
-   } else {
-      router.replace('/onboarding')
-   }
-})
+
 const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();
@@ -287,12 +281,18 @@ const helper = useHelper();
 const handleSearch = (code) => {
    searchStore.onClearSearchItem();
    if(code=="TOP_TRENDS"){
-      searchStore.onAddSearchItem({id:1310,type:7,name:"Top Trends"});
+      //1. Lay region active
+      var affected = listRegions.value.find(r => r.isActive == true);
+      if(affected){
+         searchStore.onAddSearchItem(affected);
+         router.push('/list-results');
+      }
+      
    }else{
       const productIDs = currentSeen.value.map(item => item.productId)
-      searchStore.onAddSearchItem({lstId:productIDs,type:99,name:"Recently Viewed"});
+      searchStore.onAddSearchItem({lstId:productIDs,type:99,name:"Recently Viewed"}); // Fix cuwngs giai thich tai sao lai fix nhu nay
    }
-   router.push('/list-results');
+   
 }
 
 const onLoadProductInRegion = ref(true);
@@ -333,6 +333,9 @@ const onClickRegion = async (region) => {
    })
    //2: Gan hien tai  = true
    region.isActive = true;
+   listRegions.value.forEach(r => {
+      console.log(r)
+   })
    let regionId = region.id;
    await onRequestProductsInRegion(regionId)
    // listProductInRegion.value = await homeComposable.getListProductInRegion(regionId);
@@ -450,6 +453,7 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
+
    await onRequestServices();
    await onRequestPromotions();
    await onRequestRegions();

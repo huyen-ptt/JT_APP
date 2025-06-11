@@ -34,12 +34,11 @@
             <router-link to="/sign-up" class="text-primary fw-medium fogot-pass">{{ $t('signUp_login') }}</router-link>
           </div>
           <div style="text-align: center; margin-bottom: 5px;">
-            <a href="/" class="text-primary fw-medium fogot-pass">← Back to Home</a>
+            <router-link href="/" class="text-primary fw-medium fogot-pass">← {{ $t('BACK_TO_HOME') }}</router-link>
           </div>
         </form>
       </div>
     </div>
-    <Toast v-if="showToast" :message="loginMessage" icon="success" position="top-end" timer="800" />
   </div>
   <Dialog v-model:visible="visibleLoginSuccess" modal :style="{ width: '25rem' }" class="modal-login-success login-ss">
     <div class="container">
@@ -97,7 +96,7 @@ const handleSubmit = async () => {
   }
   try {
     const response = await authComposable.onLogin(data);
-    loginError = false;
+    loginError.value = false;
     if (response) {
       console.log(response.data)
       authStore.onChangeAuth(response.data)

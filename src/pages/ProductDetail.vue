@@ -256,7 +256,7 @@
                     VND {{ productDetail.price.toLocaleString() }}
                 </div>
                 <div class="price-usd">
-                    ~ USD
+                    ~ {{ currentfCurrency.code }}
                     {{
                         (productDetail.price / currentfCurrency.exchange)
                             .toFixed(1)
@@ -1114,7 +1114,7 @@ const buyNow = () => {
 };
 
 const onAddToCart = () => {
-    if (countPayItems > 0) {
+    if (countPayItems.value > 0) {
         let pays = calculatePays();
         pays.forEach((p) => {
             cartStore.onAddCart(p);
