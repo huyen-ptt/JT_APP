@@ -2434,7 +2434,9 @@ img {
   padding-bottom: 60px;
   background: #f8f8f8;
 }
-
+.news-details{
+  padding-bottom: 50px;
+}
 .detail-blog {
   background-color: #F5F7FA;
 }

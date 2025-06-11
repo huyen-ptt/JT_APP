@@ -27,19 +27,17 @@
             </div>
             <span class="menu-text">{{ $t('blog') }}</span>
         </RouterLink>
-
         <RouterLink class="menu-item" to="/account">
             <div class="menu-icon">
                 <img class="account-icon" src="../assets/images/user-square.png" />
             </div>
             <span class="menu-text">{{ $t('account') }}</span>
         </RouterLink>
-
         <div class="indicator"></div>
     </div>
-    <Drawer v-model:visible="modalStore.visibleBottom" position="bottom" :modal="true"
-        :dismissableMask="true" style="height: 50vh; border-radius: 25px 32px 0px 0;" class="mo-ser">
-        <div class="footer-services" style="max-height: 100%;">
+    <Drawer v-model:visible="modalStore.visibleBottom" position="bottom" :modal="true" :dismissableMask="true"
+        style="height: 50vh; border-radius: 25px 32px 0px 0;" class="mo-ser">
+        <div class="footer-services">
             <div class="services-grid">
                 <h2 class="se-title">{{ $t('service') }}</h2>
                 <div class="container-fluid">
