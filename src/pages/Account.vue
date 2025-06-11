@@ -25,7 +25,7 @@
             <!-- Order Section -->
             <div class="d-flex justify-content-between align-items-center mb-2" v-if="auth.id > 0">
                 <h6 class="m-0 promo-title">{{ $t('MY_ORDER_ACCOUNT') }}</h6>
-                <small class="news-link-blogg" @click="onRedirectMyOrder()">{{ $t('VIEW_HISTORY_ACCOUNT') }}</small>
+                <small class="news-link-blogg" @click="onRedirectMyOrder(1)">{{ $t('VIEW_HISTORY_ACCOUNT') }}</small>
             </div>
 
             <div class="order-card" v-if="auth.id > 0">
