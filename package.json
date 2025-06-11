@@ -13,13 +13,13 @@
     "@capacitor-community/safe-area": "^7.0.0-alpha.1",
     "@capacitor/android": "^7.0.1",
     "@capacitor/app": "^7.0.0",
-    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.0.1",
     "@capacitor/core": "^7.0.1",
     "@capacitor/push-notifications": "^7.0.1",
     "@capacitor/status-bar": "^7.0.1",
     "@capawesome/capacitor-android-edge-to-edge-support": "^7.2.2",
     "@microsoft/signalr": "^8.0.7",
+    "@capacitor/ios": "^7.2.0",
     "@primeuix/themes": "^1.0.0",
     "axios": "^1.8.2",
     "bootstrap": "^5.3.6",
@@ -39,6 +39,7 @@
     "vue-sweetalert2": "^5.0.11"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^6.1.0"
   }
