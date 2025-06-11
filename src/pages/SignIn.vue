@@ -34,7 +34,7 @@
             <router-link to="/sign-up" class="text-primary fw-medium fogot-pass">{{ $t('signUp_login') }}</router-link>
           </div>
           <div style="text-align: center; margin-bottom: 5px;">
-            <a href="/" class="text-primary fw-medium fogot-pass">← Back to Home</a>
+            <router-link href="/" class="text-primary fw-medium fogot-pass">← {{ $t('BACK_TO_HOME') }}</router-link>
           </div>
         </form>
       </div>

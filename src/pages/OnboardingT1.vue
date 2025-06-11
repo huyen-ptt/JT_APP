@@ -47,18 +47,20 @@
 
       <!-- Footer cho slide 2 -->
       <div class="get-start-wrapper-ab" v-else>
-        <button class="get-start-btn-ab" @click="finish">{{ $t('getStarted') }}</button>
+        <button class="get-start-btn-ab" @click="finish()">{{ $t('getStarted') }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, nextTick  } from 'vue'
+
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
-import { useRouter } from 'vue-router'
+import { useRouter, onBeforeRouteLeave } from 'vue-router'
 import { markOnboardingSeen } from '../utils/onboarding'
 const currentSlide = ref(0)
 const totalLength = 339.29
@@ -110,8 +112,9 @@ function skipAb() {
   }
 }
 
-function finish() {
+async function finish() {
   markOnboardingSeen()
+  await nextTick();
   router.replace('/')
 }
 
@@ -128,6 +131,10 @@ watch(currentSlide, (val) => {
       finish()
     }, duration)
   }
+})
+
+onBeforeRouteLeave(() => {
+  markOnboardingSeen()
 })
 </script>
 
