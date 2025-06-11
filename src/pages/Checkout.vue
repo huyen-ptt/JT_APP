@@ -43,7 +43,7 @@
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
                                                     <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
-                                                    }}</span>
+                                                        }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -97,8 +97,9 @@
                                             <div v-for="coupon in currentPromotions" :key="coupon.discountCode"
                                                 class="py-3 border-b border-bottom">
                                                 <!-- Dòng đầu: CODE + BUTTON -->
-                                                <div class="flex justify-between items-start gap-4">
-                                                    <div class="font-bold uppercase text-sm text-black flex-1">
+                                                <div
+                                                    class="d-flex justify-content-between items-start gap-4 align-items-center">
+                                                    <div class="fw-bold uppercase text-sm text-black flex-1">
                                                         {{ coupon.discountCode }}
                                                     </div>
                                                     <Button :label="`- ${coupon.discountValue} ${coupon.postFix}`"
@@ -106,20 +107,17 @@
                                                         class="p-button-outlined p-button-sm text-green-500 border-green-300 whitespace-nowrap"
                                                         style="min-width: 100px; flex-shrink: 0;"
                                                         @click="onApplyCoupon(coupon, pay)" />
-
                                                     <Button :label="`${$t('COUPON_NOT_SUPPORT')}`" v-else
                                                         class="p-button-outlined p-button-sm text-green-500 border-gray-300 whitespace-nowrap"
                                                         disabled="true" style="min-width: 100px; flex-shrink: 0;" />
                                                 </div>
-
                                                 <!-- Dòng dưới: Mô tả -->
-                                                <small class="text-sm text-gray-500 mt-1">
+                                                <div class="tour-booked text-gray-500 mt-1">
                                                     {{ coupon.name }}
-                                                </small>
+                                                </div>
                                             </div>
                                         </Dialog>
                                     </div>
-
                                     <!-- <FastTrack /> -->
                                     <Accordion :value="activeSubNoteAccordion"
                                         v-for="noteGroup in pay.productBookingNoteGroups" multiple>
