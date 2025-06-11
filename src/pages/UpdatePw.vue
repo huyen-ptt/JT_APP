@@ -84,7 +84,7 @@ const onChangePassword = async () => {
         const response = await authComposable.onChangePassword(data);
         if(response){
             if(response.data.status == 'success'){
-                alert(t(`CHANGE_PASSWORD_SUCCESS!`))
+                alert(t(`CHANGE_PASSWORD_SUCCESS`))
                 router.push(`/account`)
             }
             

@@ -26,7 +26,7 @@
                     </div>
 
                     <button class="read-more-btn" @click="toggleExpand">
-                        {{ isExpanded ? 'Show Less' : 'Read More' }}
+                        {{ isExpanded ? $t('READ_LESS') : $t('READ_MORE') }}
                     </button>
                 </div>
             </div>
@@ -182,10 +182,12 @@ const clearAllSelected = () => {
     display: flex;
     flex-wrap: wrap;
 }
-.header-search{
+
+.header-search {
     margin: 0;
     padding: 10px 0;
 }
+
 .filter-button {
     background-color: #f1f5f9;
     padding: 6px 12px;

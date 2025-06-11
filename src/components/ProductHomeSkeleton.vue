@@ -5,7 +5,7 @@
 
         <div class="tour-content">
 
-            <Skeleton width="80%" height="20px" class="mb-2" />
+            <Skeleton width="100%" height="20px" class="mb-2" />
 
 
             <div class="tour-location tour-price flex justify-between mb-2">
@@ -24,12 +24,21 @@
             </div>
 
 
-            <div class="bieu-tuong flex justify-end">
+            <!-- <div class="bieu-tuong flex justify-end">
                 <Skeleton shape="circle" size="32px" />
-            </div>
+            </div> -->
         </div>
     </a>
 </template>
 <script setup>
 import Skeleton from 'primevue/skeleton';
 </script>
+<style scoped>
+.tour-card {
+    max-width: 600px;
+    padding: 0;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+</style>
