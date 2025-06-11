@@ -61,7 +61,7 @@
 
 
 <script setup>
-import { ref, computed,onMounted  } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth'
 import { useAuthStore } from '../stores/authStore';
@@ -77,7 +77,7 @@ const showPassword = ref(false)
 const router = useRouter()
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth);
-
+const loginError = ref(false);
 
 // Toggle password visibility
 const togglePassword = () => {
@@ -95,14 +95,21 @@ const handleSubmit = async () => {
     email: email.value,
     password: password.value,
   }
-  const response = await authComposable.onLogin(data)
-  if (response) {
-    console.log(response.data)
-    authStore.onChangeAuth(response.data)
+  try {
+    const response = await authComposable.onLogin(data);
+    loginError = false;
+    if (response) {
+      console.log(response.data)
+      authStore.onChangeAuth(response.data)
 
-    // ✅ Hiển thị dialog đăng nhập thành công
-    visibleLoginSuccess.value = true
+      // ✅ Hiển thị dialog đăng nhập thành công
+      visibleLoginSuccess.value = true
+    }
   }
+  catch {
+    loginError.value = true;
+  }
+
 }
 onMounted(() => {
   if (auth.value.email) {
