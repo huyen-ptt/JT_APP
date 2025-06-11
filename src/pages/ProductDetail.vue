@@ -1,42 +1,44 @@
 <template>
     <div v-if="!productDetail">
-        <Skeleton height="240px" borderRadius="12px" class="mb-4" />
+        <div class="p-2">
+            <Skeleton height="240px" borderRadius="12px" class="mb-4" />
 
-        <!-- Tiêu đề -->
-        <Skeleton width="90%" height="24px" class="mb-2" />
-        <Skeleton width="60%" height="20px" class="mb-2" />
+            <!-- Tiêu đề -->
+            <Skeleton width="90%" height="24px" class="mb-2" />
+            <Skeleton width="60%" height="20px" class="mb-2" />
 
-        <!-- Địa điểm + đã đặt -->
-        <div class="flex items-center space-x-2 mb-2">
-            <Skeleton width="20px" height="20px" shape="circle" />
-            <Skeleton width="120px" height="16px" />
-        </div>
-
-        <!-- Đánh giá -->
-        <div class="flex items-center space-x-2 mb-4">
-            <Skeleton width="16px" height="16px" shape="circle" />
-            <Skeleton width="40px" height="16px" />
-        </div>
-
-        <!-- Tabs -->
-        <div class="flex space-x-4 mb-4">
-            <Skeleton width="100px" height="30px" borderRadius="8px" />
-            <Skeleton width="100px" height="30px" borderRadius="8px" />
-            <Skeleton width="140px" height="30px" borderRadius="8px" />
-        </div>
-
-        <!-- Mô tả ngắn -->
-        <Skeleton width="100%" height="16px" class="mb-1" />
-        <Skeleton width="80%" height="16px" class="mb-1" />
-        <Skeleton width="60%" height="16px" class="mb-4" />
-
-        <!-- Giá + nút -->
-        <div class="flex items-center justify-between mt-6">
-            <div>
-                <Skeleton width="100px" height="20px" class="mb-1" />
-                <Skeleton width="80px" height="18px" />
+            <!-- Địa điểm + đã đặt -->
+            <div class="flex items-center space-x-2 mb-2">
+                <Skeleton width="20px" height="20px" shape="circle"  class="mb-1"/>
+                <Skeleton width="120px" height="16px" />
             </div>
-            <Skeleton width="120px" height="40px" borderRadius="8px" />
+
+            <!-- Đánh giá -->
+            <div class="flex items-center space-x-2 mb-4">
+                <Skeleton width="16px" height="16px" shape="circle"  class="mb-1"/>
+                <Skeleton width="40px" height="16px" />
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex space-x-4 mb-4">
+                <Skeleton width="100px" height="30px" borderRadius="8px"  class="mb-1"/>
+                <Skeleton width="100px" height="30px" borderRadius="8px"  class="mb-1"/>
+                <Skeleton width="140px" height="30px" borderRadius="8px"  class="mb-1"/>
+            </div>
+
+            <!-- Mô tả ngắn -->
+            <Skeleton width="100%" height="16px" class="mb-1" />
+            <Skeleton width="80%" height="16px" class="mb-1" />
+            <Skeleton width="60%" height="16px" class="mb-4" />
+
+            <!-- Giá + nút -->
+            <div class="flex items-center justify-between mt-6">
+                <div>
+                    <Skeleton width="100px" height="20px" class="mb-1" />
+                    <Skeleton width="80px" height="18px" class="mb-1" />
+                </div>
+                <Skeleton width="120px" height="40px" borderRadius="8px"  class="mb-1"/>
+            </div>
         </div>
     </div>
     <div class="product-containerr" v-else>
@@ -209,7 +211,8 @@
             <ClientOnly>
                 <swiper :modules="[Autoplay, Pagination]" :slides-per-view="1.5" :space-between="16"
                     class="recently-carousel">
-                    <swiper-slide v-for="product in productDetail.productSameZones" :key="product.productId" class="card-like tour-card1 mb-3">
+                    <swiper-slide v-for="product in productDetail.productSameZones" :key="product.productId"
+                        class="card-like tour-card1 mb-3">
                         <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1">
                             <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image" />
                             <div class="tour-content">
@@ -235,7 +238,7 @@
                                             {{
                                                 (product.price / currentfCurrency.exchange)
                                                     .toFixed(1)
-                                            .toLocaleString("en-US")
+                                                    .toLocaleString("en-US")
                                             }}
                                         </p>
                                     </div>
@@ -309,9 +312,9 @@
                                                                     p.currentPackage.price /
                                                                     currentfCurrency.exchange
                                                                 )
-                                                        .toFixed(1)
-                                                        .toLocaleString("en-US")
-                                                        }}</span>
+                                                                    .toFixed(1)
+                                                                    .toLocaleString("en-US")
+                                                            }}</span>
                                                 </div>
 
                                                 <p class="dia-chi-product" v-html="p.currentPackage.description"></p>
@@ -330,14 +333,14 @@
                                         <div class="d-flex gap-2 align-items-center">
                                             <span class="tour-booked"> {{ $t("PRICE_FROM") }} </span><span
                                                 class="price-value-booking">VND {{
-                                                p.currentPackage.price.toLocaleString() }}</span>
+                                                    p.currentPackage.price.toLocaleString() }}</span>
                                         </div>
                                         <div class="packages-count-booking">
                                             ~ {{ currentfCurrency.code }}
                                             {{
                                                 (p.currentPackage.price / currentfCurrency.exchange)
                                                     .toFixed(1)
-                                            .toLocaleString("en-US")
+                                                    .toLocaleString("en-US")
                                             }}
                                         </div>
                                     </div>
@@ -419,7 +422,7 @@
                                                             {{
                                                                 p.currentChoosenOptions
                                                                     .map((item) => item.name)
-                                                            .join(", ")
+                                                                    .join(", ")
                                                             }}
                                                         </div>
                                                     </div>
@@ -487,9 +490,9 @@
                                                                                         p.selectedPriceByDate
                                                                                             ?.priceEachNguoiLon /
                                                                                         currentfCurrency.exchange
-                                                                                )
-                                                                                .toFixed(1)
-                                                                                .toLocaleString("en-US")
+                                                                                    )
+                                                                                        .toFixed(1)
+                                                                                        .toLocaleString("en-US")
                                                                                 }}
                                                                             </div>
                                                                         </div>
@@ -531,9 +534,9 @@
                                                                                         p.selectedPriceByDate
                                                                                             ?.priceEachTreEm /
                                                                                         currentfCurrency.exchange
-                                                                                )
-                                                                                .toFixed(1)
-                                                                                .toLocaleString("en-US")
+                                                                                    )
+                                                                                        .toFixed(1)
+                                                                                        .toLocaleString("en-US")
                                                                                 }}
                                                                             </div>
                                                                         </div>
@@ -1422,6 +1425,7 @@ iframe {
     align-items: center;
     z-index: 9999;
 }
+
 .news-title-blogg {
     font-weight: 600;
     color: #03294C;
@@ -1433,6 +1437,7 @@ iframe {
     -webkit-line-clamp: unset;
     -webkit-box-orient: vertical;
 }
+
 .buy-btn-booking:disabled {
     background-color: #d6d6d6;
     color: #999;
