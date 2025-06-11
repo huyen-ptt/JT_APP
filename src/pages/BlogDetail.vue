@@ -1,5 +1,5 @@
 <template>
-    <div class="promotion-bao">
+    <div class="promotion-bao news-details">
        
         <HeaderTitle :title="$t('News_Detail')"></HeaderTitle>
 
@@ -117,10 +117,12 @@
             </div>
         </div>
         
+            <Footer></Footer>
 
     </div>
 </template>
 <script setup>
+import Footer from "@/components/Footer.vue";
 import { ref, onMounted, onBeforeMount, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import HeaderTitle from '../components/HeaderTitle.vue';
