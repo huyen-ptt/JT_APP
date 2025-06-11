@@ -39,7 +39,6 @@
         </form>
       </div>
     </div>
-    <Toast v-if="showToast" :message="loginMessage" icon="success" position="top-end" timer="800" />
   </div>
   <Dialog v-model:visible="visibleLoginSuccess" modal :style="{ width: '25rem' }" class="modal-login-success login-ss">
     <div class="container">
@@ -97,7 +96,7 @@ const handleSubmit = async () => {
   }
   try {
     const response = await authComposable.onLogin(data);
-    loginError = false;
+    loginError.value = false;
     if (response) {
       console.log(response.data)
       authStore.onChangeAuth(response.data)
