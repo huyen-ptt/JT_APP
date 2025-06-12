@@ -78,7 +78,6 @@ import { useHelper } from "../composables/helper";
 const helper = useHelper();
 const blogDetailComposable = useBlogDetail();
 const blogDetail = ref(null);
-const zoneid = ref("");
 
 // onMounted(async () => {
 //     blogDetail.value = await blogDetailComposable.getBlogInfomationDetail();
