@@ -2,7 +2,7 @@
 
     <div class="container p-0" style="max-width: 480px;">
         <!-- Header -->
-        <HeaderTitle :title="$t('SETTING_ACCOUNT')"></HeaderTitle>
+        <HeaderTitle :title="$t('SETTING_ACCOUNT')" :uri="`/`"></HeaderTitle>
 
         <!-- Profile Section -->
         <div class="px-3 mt-3 infomation-profile">
