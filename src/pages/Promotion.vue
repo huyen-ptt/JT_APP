@@ -1,6 +1,6 @@
 <template>
     <div class="promotion-bao">
-        <HeaderTitle :title="$t('Promotion')"></HeaderTitle>
+        <HeaderTitle :title="$t('Promotion')" :uri="`/`"></HeaderTitle>
 
         <div class="container">
             <div class="promotion-container">
