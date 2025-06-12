@@ -41,7 +41,7 @@
                 :key="'skeleton-' + i" />
 
             <ProductSearch v-else v-for="p in listOfProducts" :key="p.id" :product="p" />
-        </div>
+        </div> 
         <div v-if="isLoadingMore" class="text-center py-4">
             <i class="pi pi-spinner pi-spin"></i> {{ $t('LOAD_MORE') }}
         </div>
