@@ -11,7 +11,7 @@
                     <i class="fas fa-user text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 name">{{ `${auth.firstName} ${auth.lastName}` }}</h6>
+                    <h6 class="mb-0 name">{{ `${auth.firstName??""} ${auth.lastName??""}` }}</h6>
                     <small class="email-me">{{ auth.email }}</small>
                 </div>
             </div>
