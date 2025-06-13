@@ -77,7 +77,10 @@ const onSubmit = async () => {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-
+.btn:hover {
+    background-color: #446EDE !important;
+    color: #FFFFFF !important; 
+}
 .back-arrow {
     color: #333;
     font-size: 20px;
