@@ -14,7 +14,7 @@ import { computed, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authStore'
 import { useLanguageStore } from './stores/languageStore'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
-
+import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
 const router = useRouter();
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth)
@@ -23,6 +23,9 @@ const auth = computed(() => authStore.auth)
 const langStore = useLanguageStore()
 
 langStore.loadDefaulLanguage()
+
+// Khóa portrait
+ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
 
 onMounted(async () => {
 
