@@ -4,7 +4,7 @@
             <div class="title145 pb-2">
                 {{ $t('service_date') }}: {{ date }}
             </div>
-            <!-- <img src="../assets/images/edit-2.png" alt="" style="object-fit: contain;"> -->
+            <!-- <img src="/images/edit-2.png" alt="" style="object-fit: contain;"> -->
         </div>
 
         <div class="row mb-3">

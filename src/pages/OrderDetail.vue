@@ -40,11 +40,11 @@
 
                 <div class="px-3 py-3">
                     <button class="action-button-order-detail mb-2">
-                        <img class="pe-2" src="../assets/images/document-download.png" />
+                        <img class="pe-2" src="/images/document-download.png" />
                         {{ $t('Download_ETicket_ORD') }}
                     </button>
                     <button class="action-button-order-detail">
-                        <img class="pe-2" src="../assets/images/document-textt.png" />
+                        <img class="pe-2" src="/images/document-textt.png" />
                         {{ $t('Invoice_Info_ORD') }}
                     </button>
                 </div>

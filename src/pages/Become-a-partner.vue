@@ -31,7 +31,7 @@
                                 <div class="stat-box-be">
                                     <div class="d-flex  align-items-center">
                                         <div class="stat-icon-be">
-                                            <img width="24" src="../assets/images/star.png" />
+                                            <img width="24" src="/images/star.png" />
                                         </div>
                                         <p class="service-date">{{ $t('satisfaction_rate') }}</p>
                                     </div>
@@ -44,7 +44,7 @@
                                 <div class="stat-box-be">
                                     <div class="d-flex align-items-center">
                                         <div class="stat-icon-be">
-                                            <img width="24" src="../assets/images/element-equal.png" />
+                                            <img width="24" src="/images/element-equal.png" />
                                         </div>
                                         <p class="service-date">{{ $t('wide_range_products') }}</p>
                                     </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-md-6-be">
                         <div class="image-container-be">
-                            <img class="img-be" src="../assets/images/image-34.png"
+                            <img class="img-be" src="/images/image-34.png"
                                 alt="{{$t('alt_people_discussing')}}">
                         </div>
                         <h2 class="promo-title pb-2">{{ $t('build_travel_experiences') }}</h2>
@@ -69,7 +69,7 @@
                 <div class="row-be">
                     <div class="col-md-6-be">
                         <div class="image-container-be">
-                            <img class="img-be" src="../assets/images/image-35.png" alt="{{$t('alt_person_mountain')}}">
+                            <img class="img-be" src="/images/image-35.png" alt="{{$t('alt_person_mountain')}}">
                         </div>
                     </div>
                     <div class="col-md-6-be">

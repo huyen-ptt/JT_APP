@@ -6,7 +6,7 @@
                     <AccordionPanel value="0" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t('Customer_Info_Privacy_Policy_CSDK') }}</div>
                             </div>
                         </AccordionHeader>
@@ -102,7 +102,7 @@
                     <AccordionPanel value="1" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t('Payment_Method_Info_CSDK') }}</div>
                             </div>
                         </AccordionHeader>
@@ -119,7 +119,7 @@
                     <AccordionPanel value="2" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t("Service_Delivery_Methods_CSDK") }}</div>
                             </div>
                         </AccordionHeader>
@@ -183,7 +183,7 @@
                     <AccordionPanel value="3" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t('Inspection_Refund_Policy_CSDK') }}</div>
                             </div>
                         </AccordionHeader>

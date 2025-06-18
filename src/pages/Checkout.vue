@@ -307,12 +307,12 @@
 
                     <div class="payment-options">
                         <button class="payment-option active" @click="onChoosePaymentMethod('ONEPAY')">
-                            <img src="../assets/images/atm.png" alt="OnePay" class="payment-icon" />
+                            <img src="/images/atm.png" alt="OnePay" class="payment-icon" />
                             <span class="payment-label">{{ $t("Credit_Debit_Card_CHECKOUT") }}</span>
                         </button>
 
                         <button class="payment-option" @click="onChoosePaymentMethod('PAYPAL')">
-                            <img src="../assets/images/atm1.png" alt="PayPal" class="payment-icon" />
+                            <img src="/images/atm1.png" alt="PayPal" class="payment-icon" />
                             <span class="payment-label">{{ $t("PAYMENT_CHECKOUT_PAYPAL") }}</span>
                         </button>
                     </div>
