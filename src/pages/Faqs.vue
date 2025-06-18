@@ -6,7 +6,7 @@
                     <AccordionPanel value="0" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t('Joytime_Account_Step_FAQ') }}</div>
                             </div>
                         </AccordionHeader>
@@ -36,7 +36,7 @@
                     <AccordionPanel value="1" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t('Discover_And_Experience_FAQ') }}</div>
                             </div>
                         </AccordionHeader>
@@ -92,7 +92,7 @@
                     <AccordionPanel value="2" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t("Cancellation_Refunds_FAQ") }}</div>
                             </div>
                         </AccordionHeader>
@@ -126,7 +126,7 @@
                     <AccordionPanel value="3" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/message-question.png" alt="">
+                                <img class="img-itroduct" src="/images/message-question.png" alt="">
                                 <div class="promo-title">{{ $t('customer_support_title') }}</div>
                             </div>
                         </AccordionHeader>

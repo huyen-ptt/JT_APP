@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <!-- <div class="menu-button-chat">⋯</div>
-                <img src="../assets/images/more.png" class="" /> -->
+                <img src="/images/more.png" class="" /> -->
             </div>
 
             <!-- Messages Area -->
@@ -46,10 +46,10 @@
                 <div class="input-container-chat">
                     <input type="text" class="text-input-chat" :placeholder="$t('inputPlaceholder')"
                         v-model="chatInput">
-                    <!-- <img src="../assets/images/happy.png" /> -->
+                    <!-- <img src="/images/happy.png" /> -->
                 </div>
                 <button class="send-button-chat" @click="onSendChat()" v-if="!loadingChat">
-                    <img src="../assets/images/send-2.png" />
+                    <img src="/images/send-2.png" />
                 </button>
                 <ProgressSpinner style="width: 40px; height: 40px" strokeWidth="8" fill="transparent"
                     animationDuration=".5s" aria-label="Custom ProgressSpinner" v-else />

@@ -7,14 +7,14 @@
                 </button>
                 <h1 class="page-title-product">{{ $t('Product') }}</h1>
                 <button class="cart-button-product">
-                    <img class="icon-cart" src="../assets/images/shopping-cart.png" />
+                    <img class="icon-cart" src="/images/shopping-cart.png" />
                 </button>
             </div>
 
             <div class="d-flex align-items-center thanh-loc">
                 <div class="khac" @click="onRedirectSearch">
                     <div class="filter">
-                        <img src="../assets/images/Body.png" />
+                        <img src="/images/Body.png" />
                         <span class="filter-counter-product">{{ listOfSearchTag.length }}</span>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
 
         <div class="nd-checkout">
             <div class="form-container">
-                <img class="d-flex icon-success pb-4" src="../assets/images/order1.png" />
+                <img class="d-flex icon-success pb-4" src="/images/order1.png" />
                 <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
                 <div class=" icon-success text-center dia-chi-product  pb-4">{{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}</div>
 

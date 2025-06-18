@@ -53,7 +53,7 @@ export const useAuth = () => {
             return response;
         }
     };
-
+                 
     const onSignUp = async (data) => {
         const url = `${uri}/api/Auth/DoSignUp`;
         const response = await axios.post(url, data);
@@ -61,13 +61,21 @@ export const useAuth = () => {
             return response;
         }
     };
-    const onForgotPassword= async (data) =>{
-        var dataSubmit = {...data,culture_code:_cultureCode}
+    const DeleteAccount = async (data) => {
+        const url = `${uri}/api/Auth/DeleteAccount`;
+        const response = await axios.post(url, data);
+        if (response) {
+            return response;
+        }
+    };
+    const onForgotPassword = async (data) => {
+        var dataSubmit = { ...data, culture_code: _cultureCode }
         const url = `${uri}/api/Auth/ForgotPassword`;
         const response = await axios.post(url, dataSubmit);
         if (response) {
             return response;
         }
     };
-    return { onLogin, onLogout, onChangePassword, onSignUp,onForgotPassword };
+
+    return { onLogin, onLogout, onChangePassword, onSignUp, onForgotPassword, DeleteAccount };
 };

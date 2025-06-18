@@ -8,7 +8,7 @@
                     <AccordionPanel value="0" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/document-text.png" alt="">
+                                <img class="img-itroduct" src="/images/document-text.png" alt="">
                                 <div class="promo-title">{{ $t('Our_Story_Title_About') }}</div>
                             </div>
                         </AccordionHeader>
@@ -23,7 +23,7 @@
                     <AccordionPanel value="1" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/eye.png" alt="">
+                                <img class="img-itroduct" src="/images/eye.png" alt="">
                                 <div class="promo-title">{{ $t('Our_Vision_Title_About') }}</div>
                             </div>
                         </AccordionHeader>
@@ -37,7 +37,7 @@
                     <AccordionPanel value="2" class="our-story mb-3">
                         <AccordionHeader>
                             <div class="d-flex gap-3 align-items-center">
-                                <img class="img-itroduct" src="../assets/images/element-equal.png" alt="">
+                                <img class="img-itroduct" src="/images/element-equal.png" alt="">
                                 <div class="promo-title">{{ $t('Our_Mission_Title_About') }}</div>
                             </div>
                         </AccordionHeader>

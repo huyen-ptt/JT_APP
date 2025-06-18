@@ -61,7 +61,7 @@ body {
 }
 
 .container-big {
-  padding-top: 10px;
+  /* padding-top: 10px; */
 }
 
 .list-orderrs {
@@ -73,11 +73,13 @@ body {
   width: 24px;
   height: 24px;
 }
-.promo{
+
+.promo {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .search-container {
   background-color: white;
   border-radius: 15px;
@@ -89,11 +91,13 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-.summary{
+
+.summary {
   margin-bottom: 100px;
 }
+
 .bao-h {
-  padding-top: 40px;
+  padding-top: 20px;
   padding-bottom: 80px;
 }
 
@@ -173,7 +177,7 @@ body {
 }
 
 .header-bg {
-  padding: 10px 0;
+  /* padding: 10px 0; */
 }
 
 input::placeholder {
@@ -1168,7 +1172,7 @@ img {
 .filter-button.selected {
   background-color: #03294C;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   margin-right: 10px;
 
@@ -1289,7 +1293,7 @@ img {
 }
 
 .budget-slider-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: 4.5rem;
 }
 
 .section-title {
@@ -2170,8 +2174,8 @@ img {
 }
 
 .swiper-pagination-bullet {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 .message-time-chat {
@@ -2434,9 +2438,11 @@ img {
   padding-bottom: 60px;
   background: #f8f8f8;
 }
-.news-details{
+
+.news-details {
   padding-bottom: 50px;
 }
+
 .detail-blog {
   background-color: #F5F7FA;
 }

@@ -2,34 +2,34 @@
     <div class="bottom-menu">
         <RouterLink to="/" class="menu-item">
             <div class="menu-icon">
-                <img class="home-icon" src="../assets/images/home-2.png" />
+                <img class="home-icon" src="/images/home-2.png" />
             </div>
             <span class="menu-text">{{ $t('home') }}</span>
         </RouterLink>
 
         <RouterLink to="/promotion" class="menu-item">
             <div class="menu-icon">
-                <img class="promotion-icon" src="../assets/images/gift.png" />
+                <img class="promotion-icon" src="/images/gift.png" />
             </div>
             <span class="menu-text">{{ $t('promotion') }}</span>
         </RouterLink>
 
         <div class="menu-item" @click="modalStore.open()">
             <div class="menu-icon">
-                <img src="../assets/images/element-plus.png" />
+                <img src="/images/element-plus.png" />
             </div>
             <span class="menu-text">{{ $t('service') }}</span>
         </div>
 
         <RouterLink to="/blog" class="menu-item">
             <div class="menu-icon">
-                <img class="blog-icon" src="../assets/images/document-text1.png" />
+                <img class="blog-icon" src="/images/document-text1.png" />
             </div>
             <span class="menu-text">{{ $t('blog') }}</span>
         </RouterLink>
         <RouterLink class="menu-item" to="/account">
             <div class="menu-icon">
-                <img class="account-icon" src="../assets/images/user-square.png" />
+                <img class="account-icon" src="/images/user-square.png" />
             </div>
             <span class="menu-text">{{ $t('account') }}</span>
         </RouterLink>
@@ -88,37 +88,37 @@ const modalStore = useModalStore();
 </script>
 <style scoped>
 .promotion-icon {
-    content: url('../assets/images/gift.png');
+    content: url('/images/gift.png');
 }
 
 .router-link-exact-active .promotion-icon {
-    content: url('../assets/images/gift-active.png');
+    content: url('/images/gift-active.png');
 }
 
 .home-icon {
-    content: url('../assets/images/home-2.png');
+    content: url('/images/home-2.png');
 
 }
 
 .router-link-exact-active .home-icon {
-    content: url('../assets/images/home.png');
+    content: url('/images/home.png');
 }
 
 .blog-icon {
-    content: url('../assets/images/document-text1.png');
+    content: url('/images/document-text1.png');
 
 }
 
 .router-link-exact-active .blog-icon {
-    content: url('../assets/images/document-active.png');
+    content: url('/images/document-active.png');
 }
 
 .account-icon {
-    content: url('../assets/images/user-square.png');
+    content: url('/images/user-square.png');
 
 }
 
 .router-link-exact-active .account-icon {
-    content: url('../assets/images/user-square-active.png');
+    content: url('/images/user-square-active.png');
 }
 </style>

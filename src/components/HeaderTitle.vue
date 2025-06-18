@@ -1,5 +1,5 @@
 <template>
-  <div class="top-bar-product p-4 bg-white title border-bottom">
+  <div class="top-bar-product bg-white title border-bottom">
     <button class="back-button-product" @click="goBack">
       <i class="fas fa-arrow-left"></i>
     </button>
@@ -35,3 +35,8 @@ const goBack = () => {
   }
 }
 </script>
+<style>
+.top-bar-product{
+  padding: 10px 15px;
+}
+</style>
