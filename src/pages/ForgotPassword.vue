@@ -11,18 +11,16 @@
                     :placeholder="$t('Email_Placeholder_ForgotOp')" />
                 <div class="error-message" v-if="hasError">
                     <small>{{ $t(errorKey) }}</small>
-                </div>
+                </div> 
             </div>
 
             <button type="submit" class="btn btn-continue" @click="onSubmit">
                 {{ $t('Continue_Button_ForgotOp') }}
             </button>
         </div>
-
-        <Footer ></Footer>
+        <Footer></Footer>
     </div>
 </template>
-
 
 <script setup>
 import { ref } from 'vue';
@@ -46,7 +44,7 @@ const onSubmit = async () => {
 
     if (!email.value) {
         errorKey.value = 'EMAIL_REQUIRED';
-        hasError.value = true;
+        hasError.value = true;  
         return;
     }
 
@@ -105,9 +103,6 @@ const onSubmit = async () => {
     border: 1px solid #ddd;
     margin-bottom: 20px;
 }
-
-
-
 .btn-continue {
     width: 100%;
     padding: 12px;
