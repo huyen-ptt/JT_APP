@@ -16,9 +16,9 @@
                   <RouterLink to="/cart">
                      <img class="icon-cart" src="../assets/images/shopping-cart.png" alt="Cart" />
                   </RouterLink>
-                  <RouterLink to="/notification">
+                  <!-- <RouterLink to="/notification">
                      <img class="icon-cart" src="../assets/images/tbb.png" alt="Cart" />
-                  </RouterLink>
+                  </RouterLink> -->
                   <!-- <img class="icon-cart " src="../assets/images/Icon.png" /> -->
                </div>
             </div>
@@ -339,12 +339,7 @@ const onClickRegion = async (region) => {
    let regionId = region.id;
    await onRequestProductsInRegion(regionId)
    // listProductInRegion.value = await homeComposable.getListProductInRegion(regionId);
-
-
 }
-
-
-
 const onRequestServices = async () => {
    try {
       onLoadServices.value = true
@@ -356,7 +351,7 @@ const onRequestServices = async () => {
       first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
    } catch (error) {
       console.log(error);
-   } finally {
+   } finally {   
       onLoadServices.value = false;
    }
 
@@ -385,7 +380,7 @@ const onRequestRegions = async () => {
             }
             else {
                listRegions.value[i].isActive = false;
-            }
+            } 
          }
          console.log(listRegions.value);
 
