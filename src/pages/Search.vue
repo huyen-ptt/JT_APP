@@ -36,9 +36,6 @@
                 <h3 class="section-title">{{ serviceSearch.
                     zoneParentName }}</h3>
                 <div class="button-grid" id="services">
-
-
-
                     <button class="filter-button" v-for="(d, key) in serviceSearch.zoneChilds" :key="index" :data-name="d
                         .name" :class="d.isActive ? 'selected' : ''" @click="onClickSearchItem(d)">{{ d.name
                         }}</button>
@@ -87,7 +84,6 @@ const formatCurrency = (value) => {
 };
 
 const onClickSearchItem = async (searchItem) => {
-    // console.log(searchItem);
     if (searchItem.isActive == false) {
         searchItem.isActive = true;
         searchStore.onAddSearchItem(searchItem);
@@ -95,6 +91,12 @@ const onClickSearchItem = async (searchItem) => {
         searchItem.isActive = false;
         searchStore.onRemoveSearchItem(searchItem);
     }
+}
+const onClearItemFromHome = () =>{
+    const filteredItems = searchStore.search.searchItems.filter(item => item.type === 7);
+    filteredItems.forEach(item => {
+        searchStore.onRemoveSearchItem(item);
+    });
 }
 const handleSearch = () => {
     if (searchQuery.value) {
@@ -105,7 +107,7 @@ const toggleExpand = () => {
     isExpanded.value = !isExpanded.value
 }
 onMounted(async () => {
-
+    onClearItemFromHome();
     searchZone.value = await searchComposable.getSearchableZone();
     if (searchZone.value) {
         destinationSearch.value = searchZone.value.ssrZoneList.find(r => r.zoneParentType == 5);
