@@ -238,6 +238,8 @@
    </div>
 </template>
 <script setup>
+import { StatusBar, Style } from '@capacitor/status-bar';
+
 import { ref, onBeforeMount, onMounted, computed, onUnmounted, nextTick } from "vue";
 import Footer from "@/components/Footer.vue";
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -448,7 +450,7 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
-
+   StatusBar.setOverlaysWebView({ overlay: true });
    await onRequestServices();
    await onRequestPromotions();
    await onRequestRegions();

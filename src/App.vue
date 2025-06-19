@@ -57,9 +57,9 @@ onMounted(async () => {
   // Kiem tra phien ban
   const platform = helper.getPlatformInfo();
   if(platform.isIOS){
-    StatusBar.setOverlaysWebView({ overlay: false });
+    StatusBar.setOverlaysWebView({ overlay: true });
 
-    StatusBar.setBackgroundColor({ color: '#F8F9FA' });
+    // StatusBar.setBackgroundColor({ color: '#F8F9FA' });
     // window.addEventListener('scroll', handleScrollChange, { passive: true });
   } else if (platform.isAndroid15Plus){
     StatusBar.setOverlaysWebView({ overlay: false });
