@@ -1,6 +1,6 @@
 {
   "appId": "com.consortio.joytime",
-  "appName": "joytime",
+  "appName": "Joytime Travel Agency",
   "webDir": "dist",
   "bundledWebRuntime": false,
   "plugins": {
