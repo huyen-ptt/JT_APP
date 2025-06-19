@@ -1,6 +1,6 @@
 <template>
     <div class="tour-card">
-        <img src="../assets/images/6.png" alt="Inter Sweet Love" class="tour-image">
+        <img src="/images/6.png" alt="Inter Sweet Love" class="tour-image">
         <div class="tour-content">
             <h3 class="tour-title">Day tour | 3.5 Hours explore Hanoi Street food</h3>
             <div class="tour-location tour-price">
@@ -23,7 +23,7 @@
             <div class="bieu-tuong">
 
                 <div class="flight-icon">
-                    <img src="../assets/images/airplane.png" />
+                    <img src="/images/airplane.png" />
                 </div>
             </div>
         </div>

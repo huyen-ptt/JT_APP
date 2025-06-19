@@ -4,22 +4,22 @@
          <div class="header-container">
             <div class="search-h d-flex justify-content-between align-items-center" style="gap:12px">
                <div class="logo-container">
-                  <img src="../assets/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
+                  <img src="/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
                </div>
                <RouterLink class="search-box-container" :to="`/search`" style="text-decoration: none;">
                   <!-- <div class="search-box-items"></div> -->
-                  <img src="../assets/images/search-normal.png" style="object-fit: cover">
+                  <img src="/images/search-normal.png" style="object-fit: cover">
                   <span style="color: #8A929E; font-size: 14px;">{{ $t('place_to_go') }}</span>
                </RouterLink>
                <!-- Icons on the right -->
                <div class="icons-container gap-2 d-flex ">
                   <RouterLink to="/cart">
-                     <img class="icon-cart" src="../assets/images/shopping-cart.png" alt="Cart" />
+                     <img class="icon-cart" src="/images/shopping-cart.png" alt="Cart" />
                   </RouterLink>
-                  <RouterLink to="/notification">
-                     <img class="icon-cart" src="../assets/images/tbb.png" alt="Cart" />
-                  </RouterLink>
-                  <!-- <img class="icon-cart " src="../assets/images/Icon.png" /> -->
+                  <!-- <RouterLink to="/notification">
+                     <img class="icon-cart" src="/images/tbb.png" alt="Cart" />
+                  </RouterLink> -->
+                  <!-- <img class="icon-cart " src="/images/Icon.png" /> -->
                </div>
             </div>
          </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="col s__col__item" @click="modalStore.open()">
                <div class="icon-circle all-icon">
-                  <img class="icon-services" src="../assets/images/Frame.png" />
+                  <img class="icon-services" src="/images/Frame.png" />
 
                </div>
                <span class="service-text">{{ $t('ALL') }}</span>
@@ -216,7 +216,7 @@
          <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
 
          <div class="logo-end pt-2">
-            <img src="../assets/images/lot.png" width="100" alt="JOY TIME" class="logo-img" />
+            <img src="/images/lot.png" width="100" alt="JOY TIME" class="logo-img" />
          </div>
 
          <Footer></Footer>
@@ -224,13 +224,13 @@
             <!-- Robot Icon -->
             <div class="icon-container">
                <RouterLink to="/chat" class="floating-icon icon-robot">
-                  <img src="../assets/images/robot.png">
+                  <img src="/images/robot.png">
                </RouterLink>
             </div>
             <!-- Map Icon with connector dot -->
             <!-- <div class="icon-container">
                <div class="floating-icon icon-robot  ban-do">
-                  <img src="../assets/images/map.png">
+                  <img src="/images/map.png">
                </div>
             </div> -->
          </div>
@@ -339,12 +339,7 @@ const onClickRegion = async (region) => {
    let regionId = region.id;
    await onRequestProductsInRegion(regionId)
    // listProductInRegion.value = await homeComposable.getListProductInRegion(regionId);
-
-
 }
-
-
-
 const onRequestServices = async () => {
    try {
       onLoadServices.value = true
@@ -356,7 +351,7 @@ const onRequestServices = async () => {
       first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
    } catch (error) {
       console.log(error);
-   } finally {
+   } finally {   
       onLoadServices.value = false;
    }
 
@@ -385,7 +380,7 @@ const onRequestRegions = async () => {
             }
             else {
                listRegions.value[i].isActive = false;
-            }
+            } 
          }
          console.log(listRegions.value);
 

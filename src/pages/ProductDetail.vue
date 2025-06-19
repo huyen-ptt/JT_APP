@@ -9,21 +9,21 @@
 
             <!-- Địa điểm + đã đặt -->
             <div class="flex items-center space-x-2 mb-2">
-                <Skeleton width="20px" height="20px" shape="circle"  class="mb-1"/>
+                <Skeleton width="20px" height="20px" shape="circle" class="mb-1" />
                 <Skeleton width="120px" height="16px" />
             </div>
 
             <!-- Đánh giá -->
             <div class="flex items-center space-x-2 mb-4">
-                <Skeleton width="16px" height="16px" shape="circle"  class="mb-1"/>
+                <Skeleton width="16px" height="16px" shape="circle" class="mb-1" />
                 <Skeleton width="40px" height="16px" />
             </div>
 
             <!-- Tabs -->
             <div class="flex space-x-4 mb-4">
-                <Skeleton width="100px" height="30px" borderRadius="8px"  class="mb-1"/>
-                <Skeleton width="100px" height="30px" borderRadius="8px"  class="mb-1"/>
-                <Skeleton width="140px" height="30px" borderRadius="8px"  class="mb-1"/>
+                <Skeleton width="100px" height="30px" borderRadius="8px" class="mb-1" />
+                <Skeleton width="100px" height="30px" borderRadius="8px" class="mb-1" />
+                <Skeleton width="140px" height="30px" borderRadius="8px" class="mb-1" />
             </div>
 
             <!-- Mô tả ngắn -->
@@ -37,7 +37,7 @@
                     <Skeleton width="100px" height="20px" class="mb-1" />
                     <Skeleton width="80px" height="18px" class="mb-1" />
                 </div>
-                <Skeleton width="120px" height="40px" borderRadius="8px"  class="mb-1"/>
+                <Skeleton width="120px" height="40px" borderRadius="8px" class="mb-1" />
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="position-absolute end-0 translate-middle-y p-3 icon">
                         <router-link :to="`/cart`">
-                            <img height="30" src="../assets/images/shopping-cart-w.png" />
+                            <img height="30" src="/images/shopping-cart-w.png" />
                         </router-link>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                     <i class="fas fa-star"></i>
                     <span class="rating-value">{{
                         productDetail.rateAVG?.toFixed(2)
-                        }}</span>
+                    }}</span>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
                     <div class="mb-3 border-bottom">
                         <div class="position-relative d-flex pb-3">
                             <div>
-                                <img class="rounded-circle" width="20" src="../assets/images/phay.png" />
+                                <img class="rounded-circle" width="20" src="/images/phay.png" />
                             </div>
                             <div>
                                 <p class="ms-4 text-rv" style="font-size: 14px" v-html="r.isExpanded ? r.content : r.content?.slice(0, 50) + '...'
@@ -188,11 +188,11 @@
 
                     <!-- User Profile -->
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <!-- <img src="../assets/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
+                        <!-- <img src="/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
                             height="40" /> -->
                         <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
                         <img class="rounded-circle" width="40" height="40" v-else
-                            src="../assets/images/icon-user.png" />
+                            src="/images/icon-user.png" />
                         <div>
                             <p class="mb-0 name-rv">{{ r.userName }}</p>
                             <div class="d-flex text-warning bao-sao">
@@ -225,7 +225,7 @@
                                         <i class="fas fa-star"></i>
                                         <span class="rating-value">{{
                                             product.rate.toFixed(1)
-                                            }}</span>
+                                        }}</span>
                                     </div>
                                 </div>
                                 <div class="tour-price">
@@ -268,7 +268,7 @@
             </div>
             <div class="d-flex">
                 <div class="gio-hang-pr" @click="onClickBuyNowParent()">
-                    <img src="../assets/images/shopping-cart.png" />
+                    <img src="/images/shopping-cart.png" />
                 </div>
                 <a>
                     <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
@@ -359,7 +359,7 @@
                                                     <div class="date-card-title-booking1">
                                                         <span v-if="!p.currentSelectedDate">{{
                                                             $t("Selected_Date")
-                                                            }}</span>
+                                                        }}</span>
                                                         <span v-else>{{ $t("Selected_Date") }}: <br />
                                                             <div class="chose-option">
                                                                 {{
@@ -416,7 +416,7 @@
                                                     <div class="date-card-title-booking1">
                                                         <span v-if="!p.currentChoosenOptions">{{
                                                             $t("Option")
-                                                            }}</span>
+                                                        }}</span>
                                                         <span v-else> {{ $t("Option") }} <br /> </span>
                                                         <div class="chose-option" v-if="p.currentChoosenOptions">
                                                             {{
@@ -504,7 +504,7 @@
                                                                             </button>
                                                                             <span class="quantity-display-so-luong">{{
                                                                                 p.choosenNguoiLon
-                                                                                }}</span>
+                                                                            }}</span>
                                                                             <button class="quantity-btn-so-luong"
                                                                                 @click="increaseNguoiLon(p)">
                                                                                 +
@@ -548,7 +548,7 @@
                                                                             </button>
                                                                             <span class="quantity-display-so-luong">{{
                                                                                 p.choosenTreEm
-                                                                                }}</span>
+                                                                            }}</span>
                                                                             <button class="quantity-btn-so-luong"
                                                                                 @click="increaseTreEm(p)">
                                                                                 +
@@ -590,7 +590,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="cart-icon-booking" @click="onAddToCart()"
                                         :disabled="countPayItems === 0">
-                                        <img src="../assets/images/shopping-cong.png" />
+                                        <img src="/images/shopping-cong.png" />
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow"
                                         :disabled="countPayItems === 0">
@@ -1295,7 +1295,7 @@ onBeforeMount(async () => {
 });
 
 onUnmounted(() => {
-    StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
+    // StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
 });
 watch(
     () => route.params.id,
@@ -1400,6 +1400,11 @@ iframe {
 .optionActive {
     background-color: #03294c !important;
     color: white;
+}
+
+.don-vi {
+    padding-right: 0;
+    font-size: 19px;
 }
 
 .optionDisable {

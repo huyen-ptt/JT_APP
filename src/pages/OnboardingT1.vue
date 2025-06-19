@@ -3,7 +3,7 @@
     <Swiper :modules="[Autoplay]" :slides-per-view="1" :allow-touch-move="true" :autoplay="false"
       @slideChange="onSlideChange" @swiper="onSwiper" class="swiper-container-ab">
       <SwiperSlide >
-        <img class="pb-4 img-onb" src="../assets/images/abroad.png" alt="JOY TIME" />
+        <img class="pb-4 img-onb" src="/images/abroad.png" alt="JOY TIME" />
         <h1 class="welcome text-center">{{ $t('onboard_welcome_title') }}</h1>
         <div class="add-btn-booking text-center">
           {{ $t('onboard_welcome_desc') }}
@@ -11,7 +11,7 @@
       </SwiperSlide>
 
       <SwiperSlide>
-        <img class="pb-4 img-onb" src="../assets/images/abroad-2.png" alt="Slide 2" />
+        <img class="pb-4 img-onb" src="/images/abroad-2.png" alt="Slide 2" />
         <h1 class="welcome text-center">{{ $t('onboard_support_title') }}</h1>
         <p class="add-btn-booking text-center">
           {{ $t('onboard_support_desc') }}
@@ -19,7 +19,7 @@
       </SwiperSlide>
 
       <SwiperSlide>
-        <img class="pb-5 img-onb" src="../assets/images/hero-illustrations.png" alt="Slide 3" />
+        <img class="pb-5 img-onb" src="/images/hero-illustrations.png" alt="Slide 3" />
         <h1 class="welcome text-center">{{ $t('onboard_journey_title') }}</h1>
         <p class="add-btn-booking text-center">
           {{ $t('onboard_journey_desc') }}

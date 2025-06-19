@@ -29,10 +29,7 @@
                     </swiper>
                 </div>
             </ClientOnly>
-
-
             <!-- Services Section -->
-
             <ClientOnly>
                 <div class="mt-2">
                     <div class="title mb-1">{{ $t('service') }}</div>

@@ -25,9 +25,7 @@
                     <small class="error-message" v-if="totalValid == false && !confirmPassword">{{$t('CONFIRM_PASSWORD_REQUIRED')}}</small>
                     <small class="error-message" v-if="totalValid == false && password !== confirmPassword && confirmPassword">{{$t('CONFIRM_PASSWORD_MUST_SAME_PASSWORD')}}</small>
                 </div>
-
             </div>
-
             <div class="bottom-menu menu-search bo-goc">
                 <a @click="onChangePassword()" class="btn-search">
                     <button class="search-button btn-search" id="search">
@@ -37,14 +35,13 @@
             </div>
         </div>
     </div>
-
 </template>
 <script setup>
 import { ref, onBeforeMount, onMounted, computed, onUnmounted } from "vue";
 
 import HeaderTitle from '../components/HeaderTitle.vue';
 import { useAuthStore } from '../stores/authStore';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n' 
 import { useHelper } from "../composables/helper";
 import { RouterLink, useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth';

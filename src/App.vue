@@ -14,6 +14,8 @@ import { computed, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authStore'
 import { useLanguageStore } from './stores/languageStore'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
+import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 const router = useRouter();
 const authStore = useAuthStore()
@@ -24,9 +26,13 @@ const langStore = useLanguageStore()
 
 langStore.loadDefaulLanguage()
 
+// Khóa portrait
+ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
+
 onMounted(async () => {
 
-  StatusBar.setOverlaysWebView({ overlay: false });
+  // Kiểm tra iphone cho overlay là true
+  StatusBar.setOverlaysWebView({ overlay: true });
   // StatusBar.setBackgroundColor({ color: '#F8F9FA' });
   // 🧠 Kiểm tra Android version
   const ua = navigator.userAgent || '';
@@ -80,6 +86,9 @@ onMounted(async () => {
 .app-container {
   background-color: #ffffff;
   min-height: 100vh;
+  padding-top: env(safe-area-inset-top); /* đảm bảo tránh notch */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 :root {

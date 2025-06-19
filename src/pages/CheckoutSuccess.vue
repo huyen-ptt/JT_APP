@@ -4,7 +4,7 @@
 
     <div class="nd-checkout">
         <div class="form-container">
-            <img class="d-flex icon-success pb-4" src="../assets/images/ss.png" />
+            <img class="d-flex icon-success pb-4" src="/images/ss.png" />
             <div class="icon-success text-center title-sl">{{ $t('Thank_You_For_Your_Order') }}</div>
             <div class="icon-success text-center dia-chi-product pb-4">
                 {{ $t('Please_Check_Your_Email') }}
