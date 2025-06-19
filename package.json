@@ -16,16 +16,12 @@
     "@capacitor/cli": "^7.0.1",
     "@capacitor/core": "^7.0.1",
     "@capacitor/ios": "^7.2.0",
-<<<<<<< HEAD
-    "@capacitor/status-bar": "^7.0.0",
-=======
     "@capacitor/push-notifications": "^7.0.1",
     "@capacitor/splash-screen": "^7.0.1",
     "@capacitor/status-bar": "^7.0.1",
     "@capawesome/capacitor-android-edge-to-edge-support": "^7.2.2",
     "@capawesome/capacitor-screen-orientation": "^7.0.1",
     "@microsoft/signalr": "^8.0.7",
->>>>>>> master
     "@primeuix/themes": "^1.0.0",
     "axios": "^1.8.2",
     "bootstrap": "^5.3.6",

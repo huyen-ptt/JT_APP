@@ -11,6 +11,28 @@ export const useHelper = () => {
   // const getImageCMS = (url) => {
   //   return `${runtimeConfig.public.imageBaseUrl}${url}`
   // }
+
+  const getPlatformInfo = () => {
+    const ua = navigator.userAgent || '';
+    const isAndroid = /Android/i.test(ua);
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+    let androidVersion = 0;
+    if (isAndroid) {
+      const versionMatch = ua.match(/Android\s([\d.]+)/);
+      androidVersion = versionMatch ? parseFloat(versionMatch[1]) : 0;
+    }
+
+    return {
+      isAndroid,
+      isIOS,
+      androidVersion,
+      isAndroid15Plus: isAndroid && androidVersion >= 15,
+      isAndroidBelow14: isAndroid && androidVersion > 0 && androidVersion < 14,
+    };
+  }
+
+
   const getImageCMS = (url) => {
     // Đảm bảo rằng ảnh có định dạng `.webp`
     const webpUrl = url.replace(/\.[^/.]+$/, ".webp");
@@ -22,23 +44,23 @@ export const useHelper = () => {
   const getImageThumbCMS = (url) => {
     // Đảm bảo rằng ảnh có định dạng `.webp`
     const webpUrl = url.replace(/\.[^/.]+$/, ".webp");
-  return `${import.meta.env.VITE_IMAGE_BASE_URL}${webpUrl}`;
+    return `${import.meta.env.VITE_IMAGE_BASE_URL}${webpUrl}`;
   }
   const getCultureByCode = (cultures, code, isHtml) => {
     const finded = cultures.find(r => r.title == code)
-      if (finded) {
-        if (isHtml) {
-          return finded.description;
+    if (finded) {
+      if (isHtml) {
+        return finded.description;
+      } else {
+        if (finded && typeof finded.description === 'string') {
+          return finded.description.replace(/<\/?[^>]+(>|$)/g, "");
         } else {
-          if (finded && typeof finded.description === 'string') {
-            return finded.description.replace(/<\/?[^>]+(>|$)/g, "");
-          } else {
-            // Handle the case where finded or finded.description is undefined or not a string
-            // For example, return an empty string or a default message
-            return "";
-          }
+          // Handle the case where finded or finded.description is undefined or not a string
+          // For example, return an empty string or a default message
+          return "";
         }
       }
+    }
 
   }
   const formatNumberAsK = (number) => {
@@ -51,10 +73,10 @@ export const useHelper = () => {
     return (number / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
   }
   const formatISODate = (date) => {
-    if(date){
+    if (date) {
       return format(new Date(date), 'dd/MM/yyyy');
     }
-    
+
   }
 
   const formatDateToDateString = (date) => {
@@ -63,28 +85,28 @@ export const useHelper = () => {
       'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
       'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
     ];
-  
+
     // Tách chuỗi ngày/tháng/năm
     const [dayStr, monthStr, yearStr] = date.split('/');
-  
+
     // Chuyển thành số nguyên
     const day = parseInt(dayStr, 10);
     const monthIndex = parseInt(monthStr, 10) - 1; // vì tháng trong JS là 0-11
-  
+
     // Trả về object theo yêu cầu
     return {
       month: t(`${monthNames[monthIndex]}`),
       day: day
     };
   };
-  
+
   const setStyleOrderStatus = (orderStatus) => {
     let result = {
       bgColor: '',
       borderColor: '',
       textColor: ''
     };
-  
+
     switch (orderStatus) {
       case 'TAO_MOI':
         // Xanh da trời dịu
@@ -94,7 +116,7 @@ export const useHelper = () => {
           textColor: '#1976d2'      // chữ xanh đậm
         };
         break;
-  
+
       case 'CHAP_NHAN_DICH_VU':
         // Xanh lá cây dịu
         result = {
@@ -103,7 +125,7 @@ export const useHelper = () => {
           textColor: '#388e3c'
         };
         break;
-  
+
       case 'DA_SU_DUNG_DICH_VU':
         // Cam dịu
         result = {
@@ -112,7 +134,7 @@ export const useHelper = () => {
           textColor: '#ef6c00'
         };
         break;
-  
+
       case 'TU_CHOI_DICH_VU':
       case 'YEU_CAU_HUY':
       case 'DA_HUY':
@@ -123,7 +145,7 @@ export const useHelper = () => {
           textColor: '#c62828'
         };
         break;
-  
+
       default:
         // Trạng thái không xác định
         result = {
@@ -133,12 +155,12 @@ export const useHelper = () => {
         };
         break;
     }
-  
+
     return result;
   };
 
   // Output: { month: "t('SEP')", day: 3 }
-  
+
   const getWeatherIcon = (weatherCode, isDay) => {
     const weatherArray = [
       {
@@ -312,5 +334,5 @@ export const useHelper = () => {
     return date.toLocaleDateString('en-CA', options); // 'en-CA' để định dạng YYYY-MM-DD
   }
 
-  return { getImageCMS, getCultureByCode, formatNumberAsK, formatISODate, getImageThumbCMS, getWeatherIcon, convertDateString, formatDateToDateString, setStyleOrderStatus }
+  return { getImageCMS, getCultureByCode, formatNumberAsK, formatISODate, getImageThumbCMS, getWeatherIcon, convertDateString, formatDateToDateString, setStyleOrderStatus, getPlatformInfo }
 }

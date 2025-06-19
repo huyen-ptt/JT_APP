@@ -1280,7 +1280,7 @@ const setupCurrentDate = () => {
 // Lifecycle hook
 onMounted(async () => {
     setupCurrentDate();
-
+    
     StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
     // console.log(productDetail.value, "productDetail.value");
     // await onLoadPackage();
@@ -1295,7 +1295,7 @@ onBeforeMount(async () => {
 });
 
 onUnmounted(() => {
-    // StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
+    StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
 });
 watch(
     () => route.params.id,

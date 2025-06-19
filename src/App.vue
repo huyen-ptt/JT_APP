@@ -16,10 +16,16 @@ import { useLanguageStore } from './stores/languageStore'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
 import { SplashScreen } from '@capacitor/splash-screen';
+import {useHelper} from '@/composables/helper';
+
+
 
 const router = useRouter();
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth)
+const helper = useHelper()
+
+
 // Force status bar không overlay (optional)
 
 const langStore = useLanguageStore()
@@ -29,28 +35,44 @@ langStore.loadDefaulLanguage()
 // Khóa portrait
 ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
 
+// const lastScrollTop = ref(0);
+
+// const handleScrollChange = async () => {
+//   const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+//   if (scrollTop === 0 && lastScrollTop.value !== 0) {
+//     // Cuộn về top
+//     await StatusBar.setOverlaysWebView({ overlay: true });
+//   } else if (scrollTop > 10 && lastScrollTop.value === 0) {
+//     // Bắt đầu cuộn xuống
+//     await StatusBar.setOverlaysWebView({ overlay: false });
+//   }
+
+//   lastScrollTop.value = scrollTop;
+// }
+
+
 onMounted(async () => {
 
-  // Kiểm tra iphone cho overlay là true
-  StatusBar.setOverlaysWebView({ overlay: true });
-  // StatusBar.setBackgroundColor({ color: '#F8F9FA' });
-  // 🧠 Kiểm tra Android version
-  const ua = navigator.userAgent || '';
-  const versionMatch = ua.match(/Android\s([\d.]+)/);
-  const androidVersion = versionMatch ? parseFloat(versionMatch[1]) : 0;
-  const isAndroid15 = /Android/i.test(ua) && androidVersion >= 15;
-  console.log(androidVersion)
+  // Kiem tra phien ban
+  const platform = helper.getPlatformInfo();
+  if(platform.isIOS){
+    StatusBar.setOverlaysWebView({ overlay: false });
 
-  if (isAndroid15) {
-    // ✔️ Android 15: set màu và style để tránh bị trong suốt không mong muốn
+    StatusBar.setBackgroundColor({ color: '#F8F9FA' });
+    // window.addEventListener('scroll', handleScrollChange, { passive: true });
+  } else if (platform.isAndroid15Plus){
+    StatusBar.setOverlaysWebView({ overlay: false });
     try {
       await EdgeToEdge.setBackgroundColor({ color: '#000000' }); // hoặc '#ffffff'
       await StatusBar.setStyle({ style: Style.Light }); // chữ trắng
     } catch (err) {
       console.warn('Lỗi set EdgeToEdge:', err);
     }
-  }
 
+  }
+  // Kiểm tra iphone cho overlay là true
+  
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     const styleSheets = document.styleSheets;
     for (const sheet of styleSheets) {
