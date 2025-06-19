@@ -32,6 +32,7 @@ import Onboarding from '@/pages/Onboarding.vue';
 import OnboardingT1 from '@/pages/OnboardingT1.vue';
 import ChatBox from '@/pages/ChatBox.vue';
 import LanguagesOnboading from '@/pages/LanguagesOnboading.vue';
+import  Notification from '@/pages/Notification.vue';
 
 
 const routes = [
@@ -76,7 +77,7 @@ const routes = [
         component: Promotion,
     },
     {
-        path: "/promotion-detail",
+        path: "/promotion-detail/:id",
         name: "PromotionDetail",
         component: PromotionDetail,
     },
@@ -200,12 +201,40 @@ const routes = [
         name: "ChatBox",
         component: ChatBox,
     },
+     {
+        path: "/notification",
+        name: "Notification",
+        component: Notification,
+    },
 
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
+     scrollBehavior(to, from, savedPosition) {
+    return { left: 0, top: 0 }
+  }
 });
+router.beforeEach((to, from, next) => {
+  const hasSeen = localStorage.getItem('hasSeenOnboarding') === 'true'
 
+  if (!hasSeen) {
+    if (to.path !== '/languagesonboading' && to.path !== '/onboarding1') {
+      // Truy cập đầu tiên thì luôn đưa về trang chọn ngôn ngữ
+      return next('/languagesonboading')
+    }
+
+    // Đã ở onboarding flow thì cho đi tiếp
+    return next()
+  }
+
+  // Đã xem rồi, mà vẫn vào lại onboarding => redirect về home
+  if (hasSeen && (to.path === '/languagesonboading' || to.path === '/onboarding1')) {
+    return next('/')
+  }
+
+  // Bình thường
+  return next()
+})
 export default router;

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pt-2">
         <router-link to="/" class="header-search">
             <div class="close"><i class="fa-solid fa-xmark"></i></div>
         </router-link>
@@ -26,7 +26,7 @@
                     </div>
 
                     <button class="read-more-btn" @click="toggleExpand">
-                        {{ isExpanded ? 'Show Less' : 'Read More' }}
+                        {{ isExpanded ? $t('READ_LESS') : $t('READ_MORE') }}
                     </button>
                 </div>
             </div>
@@ -181,6 +181,11 @@ const clearAllSelected = () => {
 .button-grid {
     display: flex;
     flex-wrap: wrap;
+}
+
+.header-search {
+    margin: 0;
+    padding: 10px 0;
 }
 
 .filter-button {

@@ -2,16 +2,16 @@
 
     <div class="container p-0" style="max-width: 480px;">
         <!-- Header -->
-        <HeaderTitle :title="$t('SETTING_ACCOUNT')"></HeaderTitle>
+        <HeaderTitle :title="$t('SETTING_ACCOUNT')" :uri="`/`"></HeaderTitle>
 
         <!-- Profile Section -->
-        <div class="px-3 mt-3 infomation-profile">
+        <div class="px-3 infomation-profile">
             <div class="profile-card d-flex align-items-center" v-if="auth.id > 0">
                 <div class="profile-img me-3">
                     <i class="fas fa-user text-primary"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 name">{{ `${auth.firstName} ${auth.lastName}` }}</h6>
+                    <h6 class="mb-0 name">{{ `${auth.firstName ?? ""} ${auth.lastName ?? ""}` }}</h6>
                     <small class="email-me">{{ auth.email }}</small>
                 </div>
             </div>
@@ -25,32 +25,32 @@
             <!-- Order Section -->
             <div class="d-flex justify-content-between align-items-center mb-2" v-if="auth.id > 0">
                 <h6 class="m-0 promo-title">{{ $t('MY_ORDER_ACCOUNT') }}</h6>
-                <small class="news-link-blogg" @click="onRedirectMyOrder()">{{ $t('VIEW_HISTORY_ACCOUNT') }}</small>
+                <small class="news-link-blogg" @click="onRedirectMyOrder(1)">{{ $t('VIEW_HISTORY_ACCOUNT') }}</small>
             </div>
 
             <div class="order-card" v-if="auth.id > 0">
                 <div class="order-icons">
                     <div class="order-icon" @click="onRedirectMyOrder(1)">
                         <div class="icon-circle">
-                            <img src="../assets/images/Layer_1.png">
+                            <img src="/images/Layer_1.png">
                         </div>
                         <span class="service-text">{{ $t('NEW_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon" @click="onRedirectMyOrder(2)">
                         <div class="icon-circle">
-                            <img src="../assets/images/Vector.png">
+                            <img src="/images/Vector.png">
                         </div>
                         <span class="service-text">{{ $t('READY_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon" @click="onRedirectMyOrder(3)">
                         <div class="icon-circle">
-                            <img src="../assets/images/user.png">
+                            <img src="/images/user.png">
                         </div>
                         <span class="service-text">{{ $t('USED_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon" @click="onRedirectMyOrder(4)">
                         <div class="icon-circle">
-                            <img src="../assets/images/pendding.png">
+                            <img src="/images/pendding.png">
                         </div>
                         <span class="service-text">{{ $t('PENDING_ACCOUNT') }}</span>
                     </div>
@@ -63,7 +63,7 @@
                 <div class="settings-item" v-if="auth.id > 0" @click="onRedirectUpdatePassword()">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/password-check.png" />
+                            <img src="/images/password-check.png" />
                         </div>
                         <span class="title145">{{ $t('UPDATE_PASSWORD_ACCOUNT') }}</span>
                     </div>
@@ -72,7 +72,7 @@
                 <router-link to="/languages" class="settings-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/language-circle.png" />
+                            <img src="/images/language-circle.png" />
                         </div>
                         <span class="title145">{{ $t('LANGUAGES_ACCOUNT') }}</span>
                     </div>
@@ -85,7 +85,7 @@
                 <router-link to="/currency" class="settings-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/money-send.png" />
+                            <img src="/images/money-send.png" />
                         </div>
                         <span class="title145">{{ $t('CURRENCY_ACCOUNT') }}</span>
                     </div>
@@ -102,7 +102,7 @@
                 <!-- <div class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/book.png" />
+                            <img src="/images/book.png" />
                         </div>
                         <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
@@ -111,7 +111,7 @@
                 <router-link to="/introduce" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/book.png" />
+                            <img src="/images/book.png" />
                         </div>
                         <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
@@ -121,7 +121,7 @@
                 <router-link to="/contact" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/call-calling.png" />
+                            <img src="/images/call-calling.png" />
                         </div>
                         <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
                     </div>
@@ -131,7 +131,7 @@
                 <router-link to="/faqs" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/re.png" />
+                            <img src="/re.png" />
                         </div>
                         <span class="title145">{{ $t('FAQS_ACCOUNT') }}</span>
                     </div>
@@ -141,7 +141,7 @@
                 <router-link to="/becomeapartner" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="../assets/images/re.png" />
+                            <img src="/iconn-03.png" />
                         </div>
                         <span class="title145">{{ $t('become_a_partner') }}</span>
                     </div>
@@ -152,23 +152,47 @@
                         <div class="icon-circle me-3">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </div>
-                        <span  class="title145">{{ $t('LOGOUT_ACCOUNT') }}</span>
+                        <span class="title145">{{ $t('LOGOUT_ACCOUNT') }}</span>
                         <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }" class="modal-logout1">
                             <div class="logout-dialog-logoutt">
                                 <div class="text-center back-icon-logoutt">
-                                    <img src="../assets/images/logout.png">
+                                    <img src="/images/logout.png">
                                 </div>
                                 <h2 class="promotion-title-lon text-center">{{ $t('LOGOUT_ACCOUNT') }}</h2>
                                 <p class="dia-chi-product text-center pb-3">{{ $t('CONFIRM_SIGN_OUT_ACCOUNT') }}</p>
                                 <div class="buttons-container-logoutt">
                                     <button class="btn btn-cancel-logoutt" @click="visible = false">{{
                                         $t('CANCEL_ACCOUNT') }}</button>
-                                    <button class="btn btn-logout-logoutt" @click="onLogout()">{{ $t('LOG_OUT_ACCOUNT') }}</button>
+                                    <button class="btn btn-logout-logoutt" @click="onLogout()">{{ $t('LOG_OUT_ACCOUNT')
+                                    }}</button>
                                 </div>
                             </div>
                         </Dialog>
                     </div>
                     <i class="fas fa-chevron-right "></i>
+                </div>
+                <div v-if="auth.id > 0" @click="visibleDeleteAcc = true" class="about-item">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-circle me-3">
+                            <img src="/iconn-02.png" />
+                        </div>
+                        <span class="title145" style="color: red;">{{ $t('DELETE_ACCOUNT') }}</span>
+                    </div>
+                    <Dialog v-model:visible="visibleDeleteAcc" modal :style="{ width: '25rem' }" class="modal-logout1">
+                        <div class="logout-dialog-logoutt">
+
+                            <h2 class="promotion-title-lon text-center">{{ $t('DELETE_ACCOUNT') }}</h2>
+                            <p class="dia-chi-product text-center pb-3">{{ $t('CONFIRM_DELETE_ACCOUNT') }}</p>
+                            <div class="buttons-container-logoutt">
+                                <button class="btn btn-cancel-logoutt" @click="visibleDeleteAcc = false">{{
+                                    $t('CANCEL_ACCOUNT')
+                                }}</button>
+                                <button class="btn btn-logout-logoutt" @click="onDeleteAccount()">{{ $t('CONFIRM')
+                                    }}</button>
+                            </div>
+                        </div>
+                    </Dialog>
+                    <!-- <i class="fas fa-chevron-right " style="color: red;"></i> -->
                 </div>
             </div>
         </div>
@@ -190,16 +214,20 @@ import { useHelper } from "../composables/helper";
 
 import { useLanguageStore } from "../stores/languageStore";
 import { useCurrencyStore } from "../stores/currencyStore";
+import { useAuth } from "../composables/auth";
 
 
 const router = useRouter();
 
 const userComposable = useUser();
 const helper = useHelper()
+const authComposable = useAuth()
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth);
 
 const visible = ref(false);
+const visibleDeleteAcc = ref(false);
+
 const visibleBottom = ref(false);
 
 const languageStore = useLanguageStore();
@@ -211,7 +239,7 @@ const fCurrency = computed(() => currencyStore.fCurrency)
 
 
 const onRedirectMyOrder = (index) => {
-    router.push('/myorder?v='+index);
+    router.push('/myorder?v=' + index);
 }
 
 const onLogout = () => {
@@ -223,7 +251,18 @@ const onRedirectUpdatePassword = () => {
 }
 
 
+const onDeleteAccount = () => {
+    var data = {
+        email: auth.value.email
+    }
+    console.log("auuuuuuuuuuuuuuuu", auth.value.email);
 
+    authComposable.DeleteAccount(data).then(res => {
+        console.log(res)
+        visibleDeleteAcc.value = false
+         authStore.onRemoveAuth();
+    });
+}
 </script>
 <style scoped>
 .header {
@@ -254,7 +293,7 @@ const onRedirectUpdatePassword = () => {
 .profile-card {
     background-color: white;
     border-radius: 12px;
-    padding: 25px 15px;
+    padding: 10px 0;
     margin-bottom: 20px;
 }
 

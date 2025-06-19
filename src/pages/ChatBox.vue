@@ -1,6 +1,6 @@
 <template>
 
-    <div class="container p-0" style="max-width: 480px;">
+    <div class="container p-0">
 
         <div class="chat-container-chat">
             <!-- Header -->
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <!-- <div class="menu-button-chat">⋯</div>
-                <img src="../assets/images/more.png" class="" /> -->
+                <img src="/images/more.png" class="" /> -->
             </div>
 
             <!-- Messages Area -->
@@ -38,6 +38,7 @@
                         </div>
                     </div>
                 </div>
+               
             </div>
 
 
@@ -45,13 +46,13 @@
                 <div class="input-container-chat">
                     <input type="text" class="text-input-chat" :placeholder="$t('inputPlaceholder')"
                         v-model="chatInput">
-                    <!-- <img src="../assets/images/happy.png" /> -->
+                    <!-- <img src="/images/happy.png" /> -->
                 </div>
                 <button class="send-button-chat" @click="onSendChat()" v-if="!loadingChat">
-                    <img src="../assets/images/send-2.png" />
+                    <img src="/images/send-2.png" />
                 </button>
                 <ProgressSpinner style="width: 40px; height: 40px" strokeWidth="8" fill="transparent"
-                    animationDuration=".5s" aria-label="Custom ProgressSpinner"v-else />
+                    animationDuration=".5s" aria-label="Custom ProgressSpinner" v-else />
             </div>
         </div>
         <!-- <Footer></Footer> -->
@@ -164,4 +165,10 @@ onMounted(() => {
 })
 
 </script>
-<style scoped></style>
+<style scoped>
+.chat-header-chat{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+</style>

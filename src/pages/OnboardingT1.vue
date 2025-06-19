@@ -3,7 +3,7 @@
     <Swiper :modules="[Autoplay]" :slides-per-view="1" :allow-touch-move="true" :autoplay="false"
       @slideChange="onSlideChange" @swiper="onSwiper" class="swiper-container-ab">
       <SwiperSlide >
-        <img class="pb-4 img-onb" src="../assets/images/abroad.png" alt="JOY TIME" />
+        <img class="pb-4 img-onb" src="/images/abroad.png" alt="JOY TIME" />
         <h1 class="welcome text-center">{{ $t('onboard_welcome_title') }}</h1>
         <div class="add-btn-booking text-center">
           {{ $t('onboard_welcome_desc') }}
@@ -11,7 +11,7 @@
       </SwiperSlide>
 
       <SwiperSlide>
-        <img class="pb-4 img-onb" src="../assets/images/abroad-2.png" alt="Slide 2" />
+        <img class="pb-4 img-onb" src="/images/abroad-2.png" alt="Slide 2" />
         <h1 class="welcome text-center">{{ $t('onboard_support_title') }}</h1>
         <p class="add-btn-booking text-center">
           {{ $t('onboard_support_desc') }}
@@ -19,7 +19,7 @@
       </SwiperSlide>
 
       <SwiperSlide>
-        <img class="pb-5 img-onb" src="../assets/images/hero-illustrations.png" alt="Slide 3" />
+        <img class="pb-5 img-onb" src="/images/hero-illustrations.png" alt="Slide 3" />
         <h1 class="welcome text-center">{{ $t('onboard_journey_title') }}</h1>
         <p class="add-btn-booking text-center">
           {{ $t('onboard_journey_desc') }}
@@ -47,18 +47,20 @@
 
       <!-- Footer cho slide 2 -->
       <div class="get-start-wrapper-ab" v-else>
-        <button class="get-start-btn-ab" @click="finish">{{ $t('getStarted') }}</button>
+        <button class="get-start-btn-ab" @click="finish()">{{ $t('getStarted') }}</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, nextTick  } from 'vue'
+
+
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
-import { useRouter } from 'vue-router'
+import { useRouter, onBeforeRouteLeave } from 'vue-router'
 import { markOnboardingSeen } from '../utils/onboarding'
 const currentSlide = ref(0)
 const totalLength = 339.29
@@ -110,8 +112,9 @@ function skipAb() {
   }
 }
 
-function finish() {
+async function finish() {
   markOnboardingSeen()
+  await nextTick();
   router.replace('/')
 }
 
@@ -128,6 +131,10 @@ watch(currentSlide, (val) => {
       finish()
     }, duration)
   }
+})
+
+onBeforeRouteLeave(() => {
+  markOnboardingSeen()
 })
 </script>
 

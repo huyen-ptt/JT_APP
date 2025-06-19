@@ -10,24 +10,28 @@
         <form @submit.prevent="handleSubmit" class="space-y-4">
           <div class="mb-3">
             <label for="email" class="form-label title-con">{{ $t('emailLabel_login') }}</label>
-            <input id="email" type="email" :placeholder="$t('emailPlaceholder_login')" v-model="email" class="form-control rounded-3 input-login" required />
+            <input id="email" type="email" :placeholder="$t('emailPlaceholder_login')" v-model="email"
+              class="form-control rounded-3 input-login" required />
           </div>
           <div class="mb-3">
             <label for="phone" class="form-label title-con">{{ $t('phoneLabel_dki') }}</label>
-            <input id="phone" type="number" :placeholder="$t('phonePlaceholder_dki')" class="form-control rounded-3 input-login" required />
+            <input id="phone" type="number" :placeholder="$t('phonePlaceholder_dki')"
+              class="form-control rounded-3 input-login" required />
           </div>
 
           <div class="mb-3">
             <label for="password" class="form-label title-con">{{ $t('passwordLabel_login') }}</label>
             <div class="position-relative">
-              <input id="password" :type="showPassword ? 'text' : 'password'" :placeholder="$t('passwordPlaceholder_login')" v-model="password" class="form-control rounded-3 input-login" required />
+              <input id="password" :type="showPassword ? 'text' : 'password'"
+                :placeholder="$t('passwordPlaceholder_login')" v-model="password"
+                class="form-control rounded-3 input-login" required />
             </div>
             <div class="d-flex justify-content-end">
               <div class="form-check pt-4">
                 <input class="form-check-input" type="checkbox" id="consentCheckbox">
                 <label class="form-check-label consent-text title-con" for="consentCheckbox">
                   {{ $t('consentText_dki') }}
-                  <RouterLink href="/csdk" class="fogot-pass">{{ $t('Policies_And_Terms') }}</RouterLink> 
+                  <RouterLink href="/csdk" class="fogot-pass">{{ $t('Policies_And_Terms') }}</RouterLink>
                 </label>
               </div>
             </div>
@@ -48,6 +52,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuth } from '../composables/auth'
+import { useAuthStore } from '../stores/authStore';
 
 // Reactive state for form fields
 const email = ref('')
@@ -55,6 +61,8 @@ const password = ref('')
 const showPassword = ref(false)
 
 const router = useRouter()
+const authStore = useAuthStore()
+const authComposable = useAuth();
 
 // Toggle password visibility
 const togglePassword = () => {
@@ -62,12 +70,18 @@ const togglePassword = () => {
 }
 
 // Handle form submission
-const handleSubmit = () => {
-  // Add login logic here (e.g., API call)
-  console.log('Email:', email.value)
-  console.log('Password:', password.value)
-  // Navigate to another route if needed
-  router.push('/dashboard') // Example: navigate to the dashboard page
+const  handleSubmit = async () => {
+  const data = {
+    email: email.value,
+  password: password.value,
+  };
+  try {
+    const response = await authComposable.onSignUp(data);
+    console.log("response ==>",response.data);
+    router.push('/signin');
+  } catch (error) {
+    console.error('ERROR:', error);
+  }
 }
 </script>
 

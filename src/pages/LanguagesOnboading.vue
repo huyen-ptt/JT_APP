@@ -21,7 +21,6 @@
                 </button></router-link>
         </div>
     </div>
-
 </template>
 
 <script setup>

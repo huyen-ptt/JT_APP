@@ -4,19 +4,22 @@
          <div class="header-container">
             <div class="search-h d-flex justify-content-between align-items-center" style="gap:12px">
                <div class="logo-container">
-                  <img src="../assets/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
+                  <img src="/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
                </div>
                <RouterLink class="search-box-container" :to="`/search`" style="text-decoration: none;">
-                  <div class="search-box-items"></div>
-                  <img src="../assets/images/search-normal.png">
-                  <span style="color: #8A929E;">{{ $t('place_to_go') }}</span>
+                  <!-- <div class="search-box-items"></div> -->
+                  <img src="/images/search-normal.png" style="object-fit: cover">
+                  <span style="color: #8A929E; font-size: 14px;">{{ $t('place_to_go') }}</span>
                </RouterLink>
                <!-- Icons on the right -->
                <div class="icons-container gap-2 d-flex ">
                   <RouterLink to="/cart">
-                     <img class="icon-cart" src="../assets/images/shopping-cart.png" alt="Cart" />
+                     <img class="icon-cart" src="/images/shopping-cart.png" alt="Cart" />
                   </RouterLink>
-                  <!-- <img class="icon-cart " src="../assets/images/Icon.png" /> -->
+                  <!-- <RouterLink to="/notification">
+                     <img class="icon-cart" src="/images/tbb.png" alt="Cart" />
+                  </RouterLink> -->
+                  <!-- <img class="icon-cart " src="/images/Icon.png" /> -->
                </div>
             </div>
          </div>
@@ -37,7 +40,7 @@
             </div>
             <div class="col s__col__item" @click="modalStore.open()">
                <div class="icon-circle all-icon">
-                  <img class="icon-services" src="../assets/images/Frame.png" />
+                  <img class="icon-services" src="/images/Frame.png" />
 
                </div>
                <span class="service-text">{{ $t('ALL') }}</span>
@@ -55,14 +58,14 @@
                      disableOnInteraction: false
                   }" :pagination="{ clickable: true }" class="promo-carousel" style="padding-bottom: 40px;">
                      <swiper-slide v-for="(p, index) in promotions" :key="index" v-if="!onLoadPromotions">
-                        <div class="">
+                        <RouterLink :to="`/promotion-detail/${p.id}`">
                            <img :src="helper.getImageCMS(p.avatar)" width="100%" class="img-ho" :alt="p.title" />
-                        </div>
+                        </RouterLink>
                      </swiper-slide>
 
                      <swiper-slide v-for="index in 5" :key="`skeleton-${index}`" v-if="onLoadPromotions">
                         <div class="">
-                           <Skeleton height="160px" borderRadius="12px" />
+                           <Skeleton height="160px" width="350px" borderRadius="12px" />
                         </div>
                      </swiper-slide>
                   </swiper>
@@ -75,8 +78,10 @@
          <div class="recently-container">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('TOP_TRENDS') }}</h2>
-               <router-link to="/" class="view-all"> {{ $t('VIEW_All') }}</router-link>
-
+               <!-- <router-link to="/list-results" class="view-all"> {{ $t('VIEW_All') }}</router-link> -->
+               <a @click="handleSearch('TOP_TRENDS')" class="view-all">
+                     {{ $t('VIEW_All') }}
+                 </a>
             </div>
             <div class="">
                <ul class="nav nav-tabs pb-2" id="tourTabs" role="tablist" v-if="!onLoadRegions">
@@ -115,7 +120,9 @@
          <div class="recently-container mb-3" v-if="currentSeen.length > 0">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('RECENTLY_VIEWED') }}</h2>
-               <a href="#" class="view-all">{{ $t('VIEW_All') }}</a>
+                 <a @click="handleSearch('RECENTLY_VIEWED')" class="view-all">
+                     {{ $t('VIEW_All') }}
+                 </a>
             </div>
             <ClientOnly>
                <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"
@@ -207,22 +214,23 @@
             <RouterLink to="/csdk" class="csdk">{{ $t('Policies_And_Terms') }}</RouterLink>
          </div>
          <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
-         <!-- <div ref="triggerPoint" style="height: 100px;"></div>
-         <div class="logo-end" :class="{ show: showLogo }">
-            <img src="../assets/images/logo-end.png" width="120" alt="JOY TIME" class="logo-img" />
-         </div> -->
+
+         <div class="logo-end pt-2">
+            <img src="/images/lot.png" width="100" alt="JOY TIME" class="logo-img" />
+         </div>
+
          <Footer></Footer>
          <div class="floating-icons">
             <!-- Robot Icon -->
             <div class="icon-container">
                <RouterLink to="/chat" class="floating-icon icon-robot">
-                  <img src="../assets/images/robot.png">
+                  <img src="/images/robot.png">
                </RouterLink>
             </div>
             <!-- Map Icon with connector dot -->
             <!-- <div class="icon-container">
                <div class="floating-icon icon-robot  ban-do">
-                  <img src="../assets/images/map.png">
+                  <img src="/images/map.png">
                </div>
             </div> -->
          </div>
@@ -230,7 +238,7 @@
    </div>
 </template>
 <script setup>
-import { ref, onBeforeMount, onMounted, computed, onUnmounted } from "vue";
+import { ref, onBeforeMount, onMounted, computed, onUnmounted, nextTick } from "vue";
 import Footer from "@/components/Footer.vue";
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -262,49 +270,29 @@ const currentfCurrency = computed(() => currencyStore.fCurrency)
 const modalStore = useModalStore();
 const searchTerm = ref('')
 const router = useRouter()
-onMounted(() => {
-  if (hasSeenOnboarding()) {
-    router.replace('/')
-  } else {
-    router.replace('/onboarding')
-  }
-})
+
 const homeComposable = useHome();
 const productComposable = useProduct();
 const searchStore = useSearchStore();
 
-const showLogo = ref(false)
-const triggerPoint = ref(null)
-
-const checkScroll = () => {
-   if (!triggerPoint.value) return
-
-   const rect = triggerPoint.value.getBoundingClientRect()
-   const screenHeight = window.innerHeight
-
-   if (rect.top < screenHeight) {
-      showLogo.value = true
-   } else {
-      showLogo.value = false
-   }
-}
-
-onMounted(() => {
-   window.addEventListener('scroll', checkScroll)
-})
-
-onUnmounted(() => {
-   window.removeEventListener('scroll', checkScroll)
-})
 
 const helper = useHelper();
 
-const handleSearch = () => {
-   // Chuyển hướng đến trang /search với query parameter
-   router.push({
-      path: '/search',
-      query: searchTerm.value ? { q: searchTerm.value } : {}
-   })
+const handleSearch = (code) => {
+   searchStore.onClearSearchItem();
+   if(code=="TOP_TRENDS"){
+      //1. Lay region active
+      var affected = listRegions.value.find(r => r.isActive == true);
+      if(affected){
+         searchStore.onAddSearchItem(affected);
+         router.push('/list-results');
+      }
+      
+   }else{
+      const productIDs = currentSeen.value.map(item => item.productId)
+      searchStore.onAddSearchItem({lstId:productIDs,type:99,name:"Recently Viewed"}); // Fix cuwngs giai thich tai sao lai fix nhu nay
+   }
+   
 }
 
 const onLoadProductInRegion = ref(true);
@@ -345,15 +333,13 @@ const onClickRegion = async (region) => {
    })
    //2: Gan hien tai  = true
    region.isActive = true;
+   listRegions.value.forEach(r => {
+      console.log(r)
+   })
    let regionId = region.id;
    await onRequestProductsInRegion(regionId)
    // listProductInRegion.value = await homeComposable.getListProductInRegion(regionId);
-
-
 }
-
-
-
 const onRequestServices = async () => {
    try {
       onLoadServices.value = true
@@ -365,7 +351,7 @@ const onRequestServices = async () => {
       first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
    } catch (error) {
       console.log(error);
-   } finally {
+   } finally {   
       onLoadServices.value = false;
    }
 
@@ -394,7 +380,7 @@ const onRequestRegions = async () => {
             }
             else {
                listRegions.value[i].isActive = false;
-            }
+            } 
          }
          console.log(listRegions.value);
 
@@ -462,11 +448,12 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
+
    await onRequestServices();
    await onRequestPromotions();
    await onRequestRegions();
    currentSeen.value = await homeComposable.getProductsLastSeen();
-   await onRequestLoadDestinations();
+   await onRequestLoadDestinations();  
 })
 </script>
 <style scoped>
@@ -494,6 +481,18 @@ onMounted(async () => {
    /* margin-bottom: 4px; */
 }
 
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .fa-star {
    width: 12px;
    height: 12px;
@@ -543,9 +542,9 @@ onMounted(async () => {
 .search-box-container {
    display: flex;
    gap: 10px;
-   padding: 10px 15px;
+   padding: 12px 16px;
    align-items: center;
-   border-radius: 10px;
+   border-radius: 16px;
    width: 100%;
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
    /* nhẹ nhàng, tinh tế */

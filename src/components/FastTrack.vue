@@ -18,7 +18,7 @@
                             <div class="title145 pb-2">
                                 Service date: 25/2/2025
                             </div>
-                            <img src="../assets/images/edit-2.png" alt="" style="object-fit: contain;">
+                            <img src="/images/edit-2.png" alt="" style="object-fit: contain;">
                         </div>
 
                         <!-- Time Selection -->
