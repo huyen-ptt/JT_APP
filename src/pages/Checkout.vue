@@ -769,7 +769,7 @@ const onRequestPayOnePay = async () => {
                             } catch (error) {
                                 alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
                             } finally {
-                                StatusBar.setOverlaysWebView({ overlay: true });
+                                // StatusBar.setOverlaysWebView({ overlay: true });
 
                             }
 
