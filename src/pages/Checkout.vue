@@ -730,7 +730,7 @@ const onRequestPayOnePay = async () => {
             try {
                 const response = await payComposable.onRequestOnepay(data);
                 if (response && response.data.returnUrl) {
-
+                    StatusBar.setOverlaysWebView({ overlay: false });
                     // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
                     // StatusBar.setOverlaysWebView({ overlay: false });
                     const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
@@ -768,6 +768,9 @@ const onRequestPayOnePay = async () => {
                                 }
                             } catch (error) {
                                 alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
+                            } finally {
+                                StatusBar.setOverlaysWebView({ overlay: true });
+
                             }
 
                         }

@@ -1295,7 +1295,7 @@ onBeforeMount(async () => {
 });
 
 onUnmounted(() => {
-    StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
+    // StatusBar.setOverlaysWebView({ overlay: false }); // Khi thoát trang: trả statusbar về bình thường
 });
 watch(
     () => route.params.id,

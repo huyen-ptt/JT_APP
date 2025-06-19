@@ -6,6 +6,14 @@
   "plugins": {
     "App": {
       "urlScheme": "joytime"
+    },
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#ffffffff",
+      "androidSplashResourceName": "splash",
+      "iosSplashResourceName": "splash",
+      "showSpinner": false
     }
   }
 }
