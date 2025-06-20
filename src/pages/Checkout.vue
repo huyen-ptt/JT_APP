@@ -305,16 +305,15 @@
                         {{ $t("Promo_Instruction_CHECKOUT") }}
                     </p>
 
-                    <div class="payment-options">
-                        <button class="payment-option active" @click="onChoosePaymentMethod('ONEPAY')">
-                            <img src="/images/atm.png" alt="OnePay" class="payment-icon" />
-                            <span class="payment-label">{{ $t("Credit_Debit_Card_CHECKOUT") }}</span>
+                    <div class="payment-options row justify-content-center">
+                        <button v-for="(p, index) in paymentMethods" :key="p" class="payment-option col-5 "
+                            @click="onChoosePaymentMethod(p)">
+                            <img :src="p.icon" alt="OnePay" class="payment-icon" />
+                            <span class="payment-label">{{ p.name }}</span>
                         </button>
-
-                        <button class="payment-option" @click="onChoosePaymentMethod('PAYPAL')">
-                            <img src="/images/atm1.png" alt="PayPal" class="payment-icon" />
-                            <span class="payment-label">{{ $t("PAYMENT_CHECKOUT_PAYPAL") }}</span>
-                        </button>
+                    </div>
+                    <div class="error-message" v-if="triggerValidateAuth && choosenPayment == ''">
+                        <small>{{ $t('ERRPR_MISSING_PAYMENT_METHOD') }}</small>
                     </div>
                 </div>
 
@@ -370,6 +369,7 @@ import NoteTimeComponent from '@/components/NoteTimeComponent.vue'
 import HeaderTitle from '../components/HeaderTitle.vue';
 
 import { ref, onBeforeMount, computed, onMounted } from "vue";
+import { Capacitor } from '@capacitor/core';
 
 import { useHelper } from "../composables/helper";
 import { useCurrencyStore } from "../stores/currencyStore";
@@ -622,7 +622,14 @@ const checkValidateAuth = () => {
 
     return checker;
 }
-
+const checkValidatePayment = () => {
+    let checker = true;
+    if (!choosenPayment.value) {
+        checker = false;
+    }
+    console.log(checker)
+    return checker;
+}
 const randomString = (length = 10) => {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let result = '';
@@ -688,17 +695,46 @@ const onCheckCouponCode = async (pay) => {
 
 }
 
-const choosenPayment = ref('ONEPAY');
-const onChoosePaymentMethod = (method) => {
-    choosenPayment.value = method
+const paymentMethods = ref([
+    {
+        icon: "/images/atm.png",
+        name: t("Credit_Debit_Card_CHECKOUT"),
+        method: "ONEPAY",
+        vpc: "INTERCARD"
+    },
+    {
+        icon: "/images/paypal-logo.svg",
+        name: "PAYPAL",
+        method: "PAYPAL",
+        vpc: "INTERCARD"
+    },
+
+])
+
+const choosenPayment = ref('');
+const choosenVpc = ref('');
+
+const onChoosePaymentMethod = (p) => {
+    choosenPayment.value = p.method;
+    choosenVpc.value = p.vpc;
 }
 const onRequestPay = async () => {
-    if (choosenPayment.value === "ONEPAY") {
-        await onRequestPayOnePay();
+    onTriggerValidate();
+    let validatePayment = checkValidatePayment();
+    const validStep2 = scrollToFirstVisibleError();
+    if (validatePayment) {
+        if (!validStep2) return;
+        else {
+            if (choosenPayment.value === "ONEPAY") {
+                await onRequestPayOnePay();
+            }
+            if (choosenPayment.value === "PAYPAL") {
+                await onRequestPayPayPal();
+            }
+        }
+
     }
-    if (choosenPayment.value === "PAYPAL") {
-        await onRequestPayPayPal();
-    }
+
 }
 
 const onRequestPayOnePay = async () => {
@@ -706,13 +742,12 @@ const onRequestPayOnePay = async () => {
 
     let validPayNotes = checkValidateNote();
     let validAuth = checkValidateAuth();
-    console.log(validPayNotes, validAuth)
+    let validatePayment = checkValidatePayment();
+    console.log(validatePayment);
     activeMainAccordion.value = ['0', '1'];
     activeSubNoteAccordion.value = ['4'];
     const validStep2 = scrollToFirstVisibleError();
-    if (validPayNotes == true && validAuth == true) {
-
-
+    if (validPayNotes == true && validAuth == true && validatePayment == true) {
         if (!validStep2) return;
         else {
             auth.value.pcname = randomString(10);
@@ -723,7 +758,8 @@ const onRequestPayOnePay = async () => {
                 i18Code: locale.value,
                 orderNotes: orderNote.value,
                 paymentMethod: 'TEST_APP',
-                sourceOrder: 'MOBILE_APP'
+                sourceOrder: 'MOBILE_APP',
+                vpc: choosenVpc.value
 
             }
 
@@ -916,7 +952,25 @@ const onApplyCoupon = async (coupon, pay) => {
 }
 
 onMounted(() => {
+    const platform = Capacitor.getPlatform();
 
+    if (platform === 'ios' || platform === 'web') {
+        paymentMethods.value.push({
+            icon: "/images/apple-pay-logo.svg",
+            name: "Apple Pay",
+            method: "ONEPAY",
+            vpc: "APPLEPAY"
+        });
+    }
+
+    if (platform === 'android' || platform === 'web') {
+        paymentMethods.value.push({
+            icon: "/images/google-pay-logo.svg",
+            name: "Google Pay",
+            method: "ONEPAY",
+            vpc: "GOOGLEPAY"
+        });
+    }
     pays.value.forEach(pay => {
         pay.totalPrice = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
         pay.visibleCouponDialog = false

@@ -21,7 +21,6 @@ import { useHelper } from "./composables/helper";
 import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
 import { SplashScreen } from '@capacitor/splash-screen';
 const { t } = useI18n();
-import { useHelper } from '@/composables/helper';
 
 
 
