@@ -38,3 +38,4 @@ ios
 android
 capacitor.config.json
 vite.config.js
+.env
