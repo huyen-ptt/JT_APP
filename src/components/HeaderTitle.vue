@@ -35,7 +35,7 @@ const goBack = () => {
   }
 }
 </script>
-<style>
+<style scoped>
 .top-bar-product{
   padding: 10px 15px;
 }

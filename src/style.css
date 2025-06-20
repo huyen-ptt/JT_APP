@@ -122,7 +122,9 @@ body {
   color: #03294C;
   font-size: 20px;
 }
-
+.so-luong-mua1 .p-drawer-header{
+    padding: 20px 10px 10px !important;
+}
 .service-icons {
   display: flex;
   justify-content: space-between;
@@ -1074,15 +1076,21 @@ img {
 
 
 }
-
+.custom-paragraph img {
+  height: 200px !important;
+}
+.mi{
+  height: 200px;
+  overflow: auto;
+}
 .fraction-pagination {
   position: absolute;
   bottom: 10px;
-  font-size: 12px;
+  font-size: 10px;
   right: 10px !important;
   left: unset !important;
   background: rgba(226, 222, 222, 0.3);
-  padding: 4px 10px;
+  padding: 4px 1px;
   border-radius: 15px;
   color: #fff !important;
 
@@ -1600,7 +1608,7 @@ img {
 }
 
 .icon {
-  top: 50px;
+  top: 31px;
   z-index: 2;
 }
 

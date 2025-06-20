@@ -18,7 +18,7 @@
                     <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                     <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true })
                         }}</span>
-                    <div> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
+                    <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
                                 {{ currentfCurrency.code }}</span>{{
                                     (product.price / currentfCurrency.exchange)
                                         .toFixed(1)
