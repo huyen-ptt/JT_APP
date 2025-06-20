@@ -27,7 +27,7 @@
                     <option v-for="m in minutes" :value="m" :key="m">{{ m.toString().padStart(2, '0') }}</option>
                 </select>
             </div> -->
-            <div class="col-12 mb-3">
+            <div class="col-6 mb-3">
                 <label class="form-label title-con">
                     {{ $t('HOUR') }}<span class="required-mark">*</span>
                 </label>
@@ -36,7 +36,7 @@
                         data-bs-toggle="dropdown">
                         {{ selectedHour !== '' ? selectedHour : $t('SELECT_HOUR') }}
                     </button>
-                    <ul class="dropdown-menu w-100">
+                    <ul class="dropdown-menu mi">
                         <li v-for="h in hours" :key="h">
                             <a class="dropdown-item" href="#" @click.prevent="selectedHour = h; updateMinutes()">
                                 {{ h }}
@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="col-12 mb-3">
+            <div class="col-6 mb-3">
                 <label class="form-label">
                     {{ $t('MINUTE') }}<span class="required-mark">*</span>
                 </label>
@@ -55,7 +55,7 @@
                         data-bs-toggle="dropdown" :disabled="minutes.length === 0">
                         {{ selectedMinute !== '' ? selectedMinute.toString().padStart(2, '0') : $t('SELECT_MINUTE') }}
                     </button>
-                    <ul class="dropdown-menu w-100" v-if="minutes.length > 0">
+                    <ul class="dropdown-menu mi" v-if="minutes.length > 0">
                         <li v-for="m in minutes" :key="m">
                             <a class="dropdown-item" href="#" @click.prevent="selectedMinute = m; validate()">
                                 {{ m.toString().padStart(2, '0') }}

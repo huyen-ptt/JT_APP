@@ -1,9 +1,9 @@
     <template>
-        <div class="introduce">
+        <div class="introduce" style="padding-bottom: 10px;">
 
             <HeaderTitle :title="$t('Introduce')"></HeaderTitle>
 
-            <div class="card  p-3">
+            <div class="card p-3">
                 <Accordion value="0">
                     <AccordionPanel value="0" class="our-story mb-3">
                         <AccordionHeader>
@@ -64,3 +64,8 @@ import HeaderTitle from '../components/HeaderTitle.vue';
 import Footer from "@/components/Footer.vue";
 
 </script>
+<style scoped>
+.card{
+    margin-bottom: 35px;
+}
+</style>

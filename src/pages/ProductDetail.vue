@@ -54,7 +54,7 @@
                             }" class="mySwiper">
                             <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
                                 <img :src="helper.getImageCMS(image)" class="d-block w-100"
-                                    style="height: 280px; object-fit: cover" />
+                                    style="height: 220px; object-fit: cover" />
                             </swiper-slide>
 
                             <!-- Hiển thị số đếm dạng 1/5 -->
@@ -233,14 +233,12 @@
                                         <span class="price-text">{{ $t("PRICE_FROM") }}</span>
                                         <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
                                         <span class="me-1"></span>
-                                        <p class="menu-text" style="margin: 0">
-                                            <span class="me-1 menu-text">~USD</span>
-                                            {{
-                                                (product.price / currentfCurrency.exchange)
-                                                    .toFixed(1)
-                                                    .toLocaleString("en-US")
-                                            }}
-                                        </p>
+                                        <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
+                                {{ currentfCurrency.code }}</span>{{
+                                    (product.price / currentfCurrency.exchange)
+                                        .toFixed(1)
+                                        .toLocaleString("en-US")
+                            }}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -296,14 +294,14 @@
                                     {{ $t("VIEW_DETAIL") }}
                                     <i class="fa-solid fa-chevron-down"></i>
                                     <Drawer v-model:visible="visibleBottom" :header="$t('detail')" position="bottom"
-                                        style="height: auto" class="bo-goc so-luong-mua">
+                                        style="height: auto" class="bo-goc so-luong-mua so-luong-mua1">
                                         <div class="container detail-see pb-4">
                                             <div class="tour-card-see-detail">
                                                 <h2 class="tour-title-see-detail">
                                                     {{ p.currentPackage.title }}
                                                 </h2>
 
-                                                <div class="price-text-see-detail pb-3">
+                                                <!-- <div class="price-text-see-detail pb-3">
                                                     <span class="me-1">{{ $t("PRICE_FROM") }}</span>
                                                     <span class="price-value-booking"><span class="me-1">{{
                                                         currentfCurrency.code
@@ -315,7 +313,7 @@
                                                                     .toFixed(1)
                                                                     .toLocaleString("en-US")
                                                             }}</span>
-                                                </div>
+                                                </div> -->
 
                                                 <p class="dia-chi-product" v-html="p.currentPackage.description"></p>
                                             </div>

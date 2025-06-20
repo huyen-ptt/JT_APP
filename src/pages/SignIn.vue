@@ -118,5 +118,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Add any custom styling here */
+.form-control {
+    background-color: #f1f1f1 !important;
+
+}
 </style>

@@ -94,12 +94,15 @@ onBeforeMount(async () => {
 
 .promotion-title {
     max-width: unset;
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 13px;
+    margin-bottom: 3px;
 }
 
 .tour-image {
 
     border-radius: 20px;
+}
+.title-con {
+    font-size: 12px;
 }
 </style>

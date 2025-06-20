@@ -14,12 +14,10 @@ import { computed, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/authStore'
 import { useLanguageStore } from './stores/languageStore'
 import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
-import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
-import { SplashScreen } from '@capacitor/splash-screen';
-import {useHelper} from '@/composables/helper';
-
-
-
+import { App } from '@capacitor/app';
+import { useI18n } from 'vue-i18n';
+import Swal from 'sweetalert2'
+const { t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth)
@@ -52,6 +50,23 @@ ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
 // }
 
 
+onMounted(() => {
+  
+App.addListener('backButton', async ({ canGoBack }) => {
+  if (!canGoBack) {
+    const res = await Swal.fire({
+      title: t('EXIT_TITLE'),
+      text: t('EXIT_TEXT'),
+      showCancelButton: true,
+      confirmButtonText: t('EXIT_OK'),
+      cancelButtonText: t('EXIT_CANCEL'),
+    });
+    if (res.isConfirmed) App.exitApp();
+  } else {
+    window.history.back();
+  }
+});
+});
 onMounted(async () => {
 
   // Kiem tra phien ban

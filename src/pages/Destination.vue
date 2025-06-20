@@ -31,13 +31,13 @@
             </ClientOnly>
             <!-- Services Section -->
             <ClientOnly>
-                <div class="mt-2">
+                <div class="mt-2" style="height: 180px;">
                     <div class="title mb-1">{{ $t('service') }}</div>
                     <swiper :modules="[Pagination, Autoplay]" :slides-per-view="4" :space-between="8" :autoplay="{
                         delay: 5000,
                         disableOnInteraction: false
                     }" :pagination="{ clickable: true }" class="service-icons">
-                        <swiper-slide class="service-item pb-4" v-for="(s, index) in services" :key="index">
+                        <swiper-slide class="service-item pb-4" v-for="(s, index) in services" :key="index" style="height: 130px;">
                             <div class="service-icon">
                                 <img :src="helper.getImageCMS(s.icon)" alt="Combo">
                             </div>
@@ -48,7 +48,7 @@
             </ClientOnly>
 
             <!-- Tips Section -->
-            <div class="tips-section rounded-4">
+            <div class="tips-section rounded-4 mt-2">
                 <div class="mb-3 title">{{ $t('tips') }}</div>
                 <div class="small text-muted" v-html="currentDestinationSelected.content">
                 </div>

@@ -8,7 +8,7 @@
                </div>
                <RouterLink class="search-box-container" :to="`/search`" style="text-decoration: none;">
                   <!-- <div class="search-box-items"></div> -->
-                  <img src="/images/search-normal.png" style="object-fit: cover">
+                  <img src="/images/search-normal.png" style="object-fit: cover; width: 16px;">
                   <span style="color: #8A929E; font-size: 14px;">{{ $t('place_to_go') }}</span>
                </RouterLink>
                <!-- Icons on the right -->
@@ -125,7 +125,7 @@
                  </a>
             </div>
             <ClientOnly>
-               <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"
+               <swiper :modules="[Autoplay]" :slides-per-view="2" :space-between="16"
                   :pagination="{ clickable: true }" class="recently-carousel" style="padding-bottom: 40px;">
                   <swiper-slide v-for="product in currentSeen" :key="product.productId">
                      <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1">
@@ -146,10 +146,12 @@
                                  <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                                  <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
                                  <span class="me-1"></span>
-                                 <p class="menu-text" style="margin: 0;">
-                                    <span class="me-1 menu-text">~USD</span>
-                                    {{ (product.price / currentfCurrency.exchange).toFixed(1).toLocaleString("en-US") }}
-                                 </p>
+                                 <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
+                                {{ currentfCurrency.code }}</span>{{
+                                    (product.price / currentfCurrency.exchange)
+                                        .toFixed(1)
+                                        .toLocaleString("en-US")
+                            }}</span></div>
                               </div>
                            </div>
                         </div>
@@ -216,7 +218,7 @@
          <!-- Điểm vô hình dùng để kích hoạt hiện logo -->
 
          <div class="logo-end pt-2">
-            <img src="/images/lot.png" width="100" alt="JOY TIME" class="logo-img" />
+            <img src="/images/lot.png" width="80" alt="JOY TIME" class="logo-img" />
          </div>
 
          <Footer></Footer>
