@@ -17,6 +17,9 @@ import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 import { App } from '@capacitor/app';
 import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2'
+import { useHelper } from "./composables/helper";
+import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
+import { SplashScreen } from '@capacitor/splash-screen';
 const { t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore()
