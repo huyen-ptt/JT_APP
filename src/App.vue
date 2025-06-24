@@ -37,7 +37,7 @@ const langStore = useLanguageStore()
 langStore.loadDefaulLanguage()
 
 // Khóa portrait
-ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
+// ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
 
 // const lastScrollTop = ref(0);
 

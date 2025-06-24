@@ -2,63 +2,90 @@
 
     <HeaderTitle :title="$t('THONG_BAO')"></HeaderTitle>
 
-    <div class="notifications-list-tb">
-        <div class="notification-item-tb border-bottom">
-            <div class="notification-icon-tb">📋</div>
-            <div class="notification-content-tb">
-                <div class="notification-title-tb">MYPARTNER THÔNG BÁO</div>
-                <div class="notification-text-tb">myPartner thay đổi về nội dung xuất hóa đơn bắt đầu từ ngày
-                    01/06/2025!</div>
-                <div class="notification-time-tb">19:00 26/05</div>
-            </div>
-            <button class="star-btn-tb">☆</button>
-        </div>
+    <div v-if="currentAuth.id > 0">
+        <div class="notifications-list-tb">
+            <div class="notification-item-tb border-bottom" v-for="noti in notifications">
+                <div v-if="parseInt(noti.notificationBannerCode)">
 
-        <div class="notification-item-tb border-bottom promo-item-tb">
-            <div class="notification-icon-tb">🏨</div>
-            <div class="notification-content-tb">
-                <div class="notification-title-tb">Radisson Blu Resort Cam Ranh</div>
-                <div class="notification-text-tb">Ưu đãi chỉ từ 2.524.000đ/phòng/đêm và miễn phí hàng loạt dịch vụ khi
-                    đặt phòng tại khách sạn. Chốt deal ngay hôm nay!</div>
-                <div class="notification-time-tb">18:30 26/05</div>
-            </div>
-            <button class="star-btn-tb">☆</button>
-        </div>
+                </div>
+                <div v-else>
+                    <div class="notification-icon-tb">
+                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_NEW_ORDER'">🏨</span>
+                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_CONFIRM_ORDER'">🏨</span>
+                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_COMPLETE_ORDER'">🏨</span>
+                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_PENDING_CANCEL_ORDER'">🏨</span>
+                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_CANCELED_ORDER'">🏨</span>
+                    </div>
+                    <div class="notification-content-tb">
+                        <div class="notification-title-tb">
+                            <span>{{ $t(noti.notificationBannerCode) }}</span>
+                        </div>
+                        <div class="notification-text-tb">
+                            <span>{{ $t(`${noti.notificationBannerCode}_DESCRIPTION`) }} {{ noti.orderCode }}</span>
+                        </div>
+                        <div class="notification-time-tb">{{ noti.creationTime }}</div>
+                    </div>
+                    <button class="star-btn-tb" v-if="!noti.isReaded">☆</button>
+                    <button class="star-btn-tb" v-else></button>
+                </div>
 
-        <div class="notification-item-tb border-bottom travel-item-tb">
-            <div class="notification-icon-tb">🏖️</div>
-            <div class="notification-content-tb">
-                <div class="notification-title-tb">Hồ Tràm Beach Boutique Resort & Spa</div>
-                <div class="notification-text-tb">Ưu đãi đặc biệt chỉ từ 1.751.000đ/ 2 khách/đêm - Bao gồm ăn sáng, VAT
-                    và nhiều tiện ích miễn phí (trừ Pool Villa)!</div>
-                <div class="notification-time-tb">17:45 25/05</div>
             </div>
-            <button class="star-btn-tb">☆</button>
-        </div>
 
-        <div class="notification-item-tb border-bottom travel-item-tb">
-            <div class="notification-icon-tb">🦩</div>
-            <div class="notification-content-tb">
-                <div class="notification-title-tb">Flamingo Resort Đại Lải</div>
-                <div class="notification-text-tb">Ưu đãi miễn phí năng hàng phòng và các dịch vụ cao cấp tại Flamingo
-                    Resort Đại Lải. Đặt phòng ngay hôm nay!</div>
-                <div class="notification-time-tb">16:30 22/05</div>
+            <!-- <div class="notification-item-tb border-bottom promo-item-tb">
+                <div class="notification-icon-tb">🏨</div>
+                <div class="notification-content-tb">
+                    <div class="notification-title-tb">Radisson Blu Resort Cam Ranh</div>
+                    <div class="notification-text-tb">Ưu đãi chỉ từ 2.524.000đ/phòng/đêm và miễn phí hàng loạt dịch vụ
+                        khi
+                        đặt phòng tại khách sạn. Chốt deal ngay hôm nay!</div>
+                    <div class="notification-time-tb">18:30 26/05</div>
+                </div>
+                <button class="star-btn-tb">☆</button>
             </div>
-            <button class="star-btn-tb">☆</button>
-        </div>
 
-        <div class="notification-item-tb border-bottom travel-item-tb">
-            <div class="notification-icon-tb">🏖️</div>
-            <div class="notification-content-tb">
-                <div class="notification-title-tb">Hồ Tràm Beach Boutique Resort & Spa</div>
-                <div class="notification-text-tb">Ưu đãi đặc biệt chỉ từ 1.751.000đ/ 2 khách/đêm - Bao gồm ăn sáng, VAT
-                    và nhiều tiện ích miễn phí (trừ Pool Villa)!</div>
-                <div class="notification-time-tb">17:45 25/05</div>
+            <div class="notification-item-tb border-bottom travel-item-tb">
+                <div class="notification-icon-tb">🏖️</div>
+                <div class="notification-content-tb">
+                    <div class="notification-title-tb">Hồ Tràm Beach Boutique Resort & Spa</div>
+                    <div class="notification-text-tb">Ưu đãi đặc biệt chỉ từ 1.751.000đ/ 2 khách/đêm - Bao gồm ăn sáng,
+                        VAT
+                        và nhiều tiện ích miễn phí (trừ Pool Villa)!</div>
+                    <div class="notification-time-tb">17:45 25/05</div>
+                </div>
+                <button class="star-btn-tb">☆</button>
             </div>
-            <button class="star-btn-tb">☆</button>
-        </div>
 
+            <div class="notification-item-tb border-bottom travel-item-tb">
+                <div class="notification-icon-tb">🦩</div>
+                <div class="notification-content-tb">
+                    <div class="notification-title-tb">Flamingo Resort Đại Lải</div>
+                    <div class="notification-text-tb">Ưu đãi miễn phí năng hàng phòng và các dịch vụ cao cấp tại
+                        Flamingo
+                        Resort Đại Lải. Đặt phòng ngay hôm nay!</div>
+                    <div class="notification-time-tb">16:30 22/05</div>
+                </div>
+                <button class="star-btn-tb">☆</button>
+            </div>
+
+            <div class="notification-item-tb border-bottom travel-item-tb">
+                <div class="notification-icon-tb">🏖️</div>
+                <div class="notification-content-tb">
+                    <div class="notification-title-tb">Hồ Tràm Beach Boutique Resort & Spa</div>
+                    <div class="notification-text-tb">Ưu đãi đặc biệt chỉ từ 1.751.000đ/ 2 khách/đêm - Bao gồm ăn sáng,
+                        VAT
+                        và nhiều tiện ích miễn phí (trừ Pool Villa)!</div>
+                    <div class="notification-time-tb">17:45 25/05</div>
+                </div>
+                <button class="star-btn-tb">☆</button>
+            </div> -->
+
+        </div>
     </div>
+    <div v-else>
+        PLEASE LOGIN FOR SEE NOTIFICATION
+    </div>
+
+
     <Footer></Footer>
 
 </template>
@@ -71,16 +98,31 @@ import { useI18n } from 'vue-i18n'
 import { useHelper } from "../composables/helper";
 import { RouterLink, useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth';
+import { useNotification } from "../composables/notification";
 const { locale, t } = useI18n();
 
 
 const authComposable = useAuth();
+const notificationComposable = useNotification();
 import Footer from "@/components/Footer.vue";
 
 const router = useRouter()
 const authStore = useAuthStore();
 const currentAuth = computed(() => authStore.auth);
+const notifications = ref([]);
 
+
+
+onMounted(async () => {
+
+    if (currentAuth.value.id > 0) {
+        const response = await notificationComposable.getNotificationsByEmail(currentAuth.value.email);
+        console.log(response)
+        if (response) {
+            notifications.value = response.data;
+        }
+    }
+})
 
 
 </script>
@@ -135,9 +177,11 @@ const currentAuth = computed(() => authStore.auth);
     padding: 12px 16px;
     border-bottom: 1px solid #e0e0e0;
 }
-.notifications-list-tb{
+
+.notifications-list-tb {
     padding-bottom: 60px;
 }
+
 .filter-row-tb {
     display: flex;
     justify-content: space-between;

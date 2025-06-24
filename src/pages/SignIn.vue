@@ -111,7 +111,8 @@ const handleSubmit = async () => {
 
 }
 onMounted(() => {
-  if (auth.value.email) {
+  
+  if (auth.value.id > 0) {
     router.replace('/account');
   }
 })

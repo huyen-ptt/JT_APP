@@ -52,10 +52,12 @@ export function initFCM(email) {
         console.log("🔍 Clicked notification:", notification);
 
         const route = notification.notification?.data?.route;
-        if (route && router) {
-            router.push(route); // ví dụ: /orders
-        } else if (router) {
-            router.push('/');
-        }
+        router.push('/notification');
+
+        // if (route && router) {
+        //     router.push(route); // ví dụ: /orders
+        // } else if (router) {
+        //     router.push('/notification');
+        // }
     });
 }

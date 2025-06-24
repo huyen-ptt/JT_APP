@@ -35,7 +35,8 @@ export const useHelper = () => {
 
   const getImageCMS = (url) => {
     // Đảm bảo rằng ảnh có định dạng `.webp`
-    const webpUrl = url.replace(/\.[^/.]+$/, ".webp");
+    // const webpUrl = url.replace(/\.[^/.]+$/, ".webp");
+    const webpUrl = url;
     return `${import.meta.env.VITE_IMAGE_BASE_URL}${webpUrl}`;
   }
   // const getImageThumbCMS = (url) => {

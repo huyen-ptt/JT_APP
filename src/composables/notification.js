@@ -2,10 +2,11 @@ import axios from "axios";
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n';
 import { computed } from 'vue';
-export const useSeo = () => {
+export const useNotification = () => {
   const route = useRoute();
-  const runtimeConfig = useRuntimeConfig();
-  const uri = runtimeConfig.public.apiBaseUrl;
+  const apiUrl = import.meta.env.VITE_API_URI
+  // const runtimeConfig = useRuntimeConfig();
+  const uri = import.meta.env.VITE_API_URI;
   let _cultureCode = '';
 
   const { locale } = useI18n();
@@ -21,24 +22,25 @@ export const useSeo = () => {
     case 'zh':
       _cultureCode = 'zh-CN';
       break;
-      case 'ko':
-        _cultureCode = 'ko-KR';
-        break;
+    case 'ko':
+      _cultureCode = 'ko-KR';
+      break;
   }
 
-  const getDynamicSeo = async () => {
+
+  const getNotificationsByEmail = async (email) => {
     try {
-      const url = `${uri}/api/Seos/GetDynamicSiteMap`;
-      const response = await useFetch(url, {
-        method: 'get',
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
+      let data = {
+        email: email,
+        index: 1,
+        size: 1000
+      }
+      const url = `${uri}/api/Notifications/GetNotificationsByEmail`;
+      const response = await axios.post(url, data)
       if (response) {
         return response;
       }
-      else{
+      else {
         return null;
       }
 
@@ -46,8 +48,7 @@ export const useSeo = () => {
       console.log(error);
       return null;
     }
-
   }
 
-  return {getDynamicSeo}
+  return { getNotificationsByEmail }
 }

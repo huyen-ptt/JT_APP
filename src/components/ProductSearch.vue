@@ -28,12 +28,13 @@
                 </div>
 
             </div>
-            <!-- <div class="bieu-tuong">
+            <div class="bieu-tuong" v-if="product.iconCornerTag || product.textCornerTag" :style="product.colorCornerTag ? {backgroundColor: product.colorCornerTag} : '#67c7c5'">
 
-                <div class="flight-icon">
-                    <img src="/images/airplane.png" />
+                <div class="flight-icon" >
+                    <img :src="helper.getImageCMS(product.iconCornerTag)" v-if="product.iconCornerTag" />
+                    <span class="text-corner-tag" >{{ product.textCornerTag }}</span>
                 </div>
-            </div> -->
+            </div>
         </div>
     </RouterLink>
 
