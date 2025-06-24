@@ -191,8 +191,7 @@
                         <!-- <img src="/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
                             height="40" /> -->
                         <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
-                        <img class="rounded-circle" width="40" height="40" v-else
-                            src="/images/icon-user.png" />
+                        <img class="rounded-circle" width="40" height="40" v-else src="/images/icon-user.png" />
                         <div>
                             <p class="mb-0 name-rv">{{ r.userName }}</p>
                             <div class="d-flex text-warning bao-sao">
@@ -233,12 +232,13 @@
                                         <span class="price-text">{{ $t("PRICE_FROM") }}</span>
                                         <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
                                         <span class="me-1"></span>
-                                        <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
-                                {{ currentfCurrency.code }}</span>{{
-                                    (product.price / currentfCurrency.exchange)
-                                        .toFixed(1)
-                                        .toLocaleString("en-US")
-                            }}</span></div>
+                                        <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span
+                                                class="menu-text"><span class="me-1 menu-text">~
+                                                    {{ currentfCurrency.code }}</span>{{
+                                                        (product.price / currentfCurrency.exchange)
+                                                            .toFixed(1)
+                                                            .toLocaleString("en-US")
+                                                    }}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -444,20 +444,16 @@
                                             <div class="lichh">
                                                 <AccordionHeader class="mb-2"
                                                     style="width: 100%; color: rgb(3, 41, 76); padding: 0">
-                                                    <div v-if="!p.choosenNguoiLon && !p.choosenTreEm"
-                                                        class="section-title-booking">
-                                                        {{ $t("Guest") }}
-                                                    </div>
-                                                    <div v-if="p.choosenNguoiLon" class="section-title-booking">
+                                                    <div class="section-title-booking">
                                                         {{ $t("Guest") }}<br />
-                                                        <div class="chose-option">
-                                                            {{ $t("Adult") }} : {{ p.choosenNguoiLon }}
+                                                        <div v-if="p.currentPackage.unit" class="chose-option">
+                                                           {{ p.currentPackage.unit }}: {{ p.choosenNguoiLon }}
                                                         </div>
-                                                    </div>
-                                                    <div v-else="p.choosenTreEm" class="section-title-booking">
-                                                        {{ $t("Guest") }}<br />
-                                                        <div class="chose-option">
-                                                            {{ $t("Adult") }} : {{ p.choosenTreEm }}
+                                                        <div v-else class="chose-option">
+                                                            <span v-if="p.choosenNguoiLon">{{ $t("Adult") }}: {{
+                                                                p.choosenNguoiLon }}</span>
+                                                            <span v-if="p.choosenTreEm"> | {{ $t("Child") }}: {{
+                                                                p.choosenTreEm }}</span>
                                                         </div>
                                                     </div>
                                                 </AccordionHeader>
