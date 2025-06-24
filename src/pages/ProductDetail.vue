@@ -173,7 +173,7 @@
                     <div class="mb-3 border-bottom">
                         <div class="position-relative d-flex pb-3">
                             <div>
-                                <img class="rounded-circle" width="20" src="/images/phay.png" />
+                                <img class="rounded-circle" width="20" src="/images/phay1.png" />
                             </div>
                             <div>
                                 <p class="ms-4 text-rv" style="font-size: 14px" v-html="r.isExpanded ? r.content : r.content?.slice(0, 50) + '...'
@@ -266,7 +266,7 @@
             </div>
             <div class="d-flex">
                 <div class="gio-hang-pr" @click="onClickBuyNowParent()">
-                    <img src="/images/shopping-cart.png" />
+                    <img width="24" src="/images/shopping-cart.png" />
                 </div>
                 <a>
                     <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
@@ -588,7 +588,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="cart-icon-booking" @click="onAddToCart()"
                                         :disabled="countPayItems === 0">
-                                        <img src="/images/shopping-cong.png" />
+                                        <img width="48" src="/images/shopping-cong.png" />
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow"
                                         :disabled="countPayItems === 0">
@@ -1372,8 +1372,8 @@ iframe {
 .nd-rv {
     flex: 0 0 auto;
     /* Prevent reviews from shrinking or growing */
-    width: 70%;
-    /* This will make the first review take more than half the screen */
+    width: 76%;
+    /* This will make the first review take more than half the screen */                                                                                                             
     margin-right: 20px;
     /* Add space between reviews */
 }
@@ -1383,8 +1383,8 @@ iframe {
     width: 230px;
     padding: 0;
     position: relative;
-    border: 1px solid #edf1f7;
-    border-radius: 12px;
+    border: 1px solid #edf1f7;  
+    border-radius: 12px; 
     overflow: hidden;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     background-color: white;

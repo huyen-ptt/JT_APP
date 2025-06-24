@@ -4,7 +4,7 @@
          <div class="header-container">
             <div class="search-h d-flex justify-content-between align-items-center" style="gap:12px">
                <div class="logo-container">
-                  <img src="/images/new_logo 1.png" alt="JOY TIME" class="logo-img">
+                  <img src="/images/1234.png" width="40" alt="JOY TIME" class="logo-img">
                </div>
                <RouterLink class="search-box-container" :to="`/search`" style="text-decoration: none;">
                   <!-- <div class="search-box-items"></div> -->
@@ -14,7 +14,7 @@
                <!-- Icons on the right -->
                <div class="icons-container gap-2 d-flex ">
                   <RouterLink to="/cart">
-                     <img class="icon-cart" src="/images/shopping-cart.png" alt="Cart" />
+                     <img class="icon-cart" src="/images/shopping-cart-031.png" alt="Cart" />
                   </RouterLink>
                   <!-- <RouterLink to="/notification">
                      <img class="icon-cart" src="/images/tbb.png" alt="Cart" />
@@ -40,7 +40,7 @@
             </div>
             <div class="col s__col__item" @click="modalStore.open()">
                <div class="icon-circle all-icon">
-                  <img class="icon-services" src="/images/Frame.png" />
+                  <img class="icon-services" height="22" src="/images/Frame1.png" />
 
                </div>
                <span class="service-text">{{ $t('ALL') }}</span>
@@ -226,7 +226,7 @@
             <!-- Robot Icon -->
             <div class="icon-container">
                <RouterLink to="/chat" class="floating-icon icon-robot">
-                  <img src="/images/robot.png">
+                  <img width="26" src="/images/robot1.png">
                </RouterLink>
             </div>
             <!-- Map Icon with connector dot -->

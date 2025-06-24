@@ -17,7 +17,6 @@ import './style.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'primeicons/primeicons.css'
-
 // import 'primevue/resources/themes/saga-blue/theme.css'; // theme sáng
 
 const app = createApp(App);
