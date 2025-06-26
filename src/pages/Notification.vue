@@ -2,7 +2,7 @@
 
     <HeaderTitle :title="$t('THONG_BAO')"></HeaderTitle>
 
-    <div v-if="currentAuth.id > 0">
+    <div v-if="currentAuth.id > 0" class="notifications-list-tb1">
         <div class="notifications-list-tb">
             <div class="notification-item-tb border-bottom" v-for="noti in notifications">
                 <div v-if="parseInt(noti.notificationBannerCode)">
@@ -23,66 +23,17 @@
                         <div class="notification-text-tb">
                             <span>{{ $t(`${noti.notificationBannerCode}_DESCRIPTION`) }} {{ noti.orderCode }}</span>
                         </div>
-                        <div class="notification-time-tb">{{ noti.creationTime }}</div>
+                        <!-- <div class="notification-time-tb">{{ noti.creationTime }}</div> -->
+                         <div class="notification-time-tb">{{helper.convertDateString(noti.creationTime)}}</div>
                     </div>
                     <button class="star-btn-tb" v-if="!noti.isReaded">☆</button>
                     <button class="star-btn-tb" v-else></button>
                 </div>
-
             </div>
-
-            <!-- <div class="notification-item-tb border-bottom promo-item-tb">
-                <div class="notification-icon-tb">🏨</div>
-                <div class="notification-content-tb">
-                    <div class="notification-title-tb">Radisson Blu Resort Cam Ranh</div>
-                    <div class="notification-text-tb">Ưu đãi chỉ từ 2.524.000đ/phòng/đêm và miễn phí hàng loạt dịch vụ
-                        khi
-                        đặt phòng tại khách sạn. Chốt deal ngay hôm nay!</div>
-                    <div class="notification-time-tb">18:30 26/05</div>
-                </div>
-                <button class="star-btn-tb">☆</button>
-            </div>
-
-            <div class="notification-item-tb border-bottom travel-item-tb">
-                <div class="notification-icon-tb">🏖️</div>
-                <div class="notification-content-tb">
-                    <div class="notification-title-tb">Hồ Tràm Beach Boutique Resort & Spa</div>
-                    <div class="notification-text-tb">Ưu đãi đặc biệt chỉ từ 1.751.000đ/ 2 khách/đêm - Bao gồm ăn sáng,
-                        VAT
-                        và nhiều tiện ích miễn phí (trừ Pool Villa)!</div>
-                    <div class="notification-time-tb">17:45 25/05</div>
-                </div>
-                <button class="star-btn-tb">☆</button>
-            </div>
-
-            <div class="notification-item-tb border-bottom travel-item-tb">
-                <div class="notification-icon-tb">🦩</div>
-                <div class="notification-content-tb">
-                    <div class="notification-title-tb">Flamingo Resort Đại Lải</div>
-                    <div class="notification-text-tb">Ưu đãi miễn phí năng hàng phòng và các dịch vụ cao cấp tại
-                        Flamingo
-                        Resort Đại Lải. Đặt phòng ngay hôm nay!</div>
-                    <div class="notification-time-tb">16:30 22/05</div>
-                </div>
-                <button class="star-btn-tb">☆</button>
-            </div>
-
-            <div class="notification-item-tb border-bottom travel-item-tb">
-                <div class="notification-icon-tb">🏖️</div>
-                <div class="notification-content-tb">
-                    <div class="notification-title-tb">Hồ Tràm Beach Boutique Resort & Spa</div>
-                    <div class="notification-text-tb">Ưu đãi đặc biệt chỉ từ 1.751.000đ/ 2 khách/đêm - Bao gồm ăn sáng,
-                        VAT
-                        và nhiều tiện ích miễn phí (trừ Pool Villa)!</div>
-                    <div class="notification-time-tb">17:45 25/05</div>
-                </div>
-                <button class="star-btn-tb">☆</button>
-            </div> -->
-
         </div>
     </div>
-    <div v-else>
-        PLEASE LOGIN FOR SEE NOTIFICATION
+    <div v-else class="text-center">
+        {{ $t('PLEASE_LOGIN_TO_SEE_NOTIFICATION') }}
     </div>
 
 
@@ -100,6 +51,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth';
 import { useNotification } from "../composables/notification";
 const { locale, t } = useI18n();
+const helper = useHelper()
 
 
 const authComposable = useAuth();
@@ -127,164 +79,80 @@ onMounted(async () => {
 
 </script>
 <style scoped>
-.header-tb {
-    background-color: white;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.header-left-tb {
-    display: flex;
-    align-items: center;
-}
-
-.back-btn-tb {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #007AFF;
-    margin-right: 16px;
-    cursor: pointer;
-}
-
-.title-tb {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-}
-
-.header-right-tb {
-    display: flex;
-    gap: 16px;
-}
-
-.icon-btn-tb {
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #007AFF;
-    cursor: pointer;
-}
-
-.filter-section-tb {
-    background-color: white;
-    padding: 12px 16px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
 .notifications-list-tb {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+.notifications-list-tb1{
     padding-bottom: 60px;
 }
-
-.filter-row-tb {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.checkbox-container-tb {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.checkbox-tb {
-    width: 18px;
-    height: 18px;
-    accent-color: #007AFF;
-}
-
-.select-all-tb {
-    color: #666;
-    font-size: 14px;
-}
-
-.dropdown-tb {
-    background: none;
-    border: none;
-    color: #007AFF;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-
-
 .notification-item-tb {
-    background-color: white;
-    margin: 8px 0;
-    padding: 16px;
-    display: flex;
-    gap: 12px;
+  display: flex;
+  align-items: flex-start;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: background-color 0.2s;
+  position: relative;
+}
 
+.notification-item-tb:hover {
+  background-color: #f8f9fa;
 }
 
 .notification-icon-tb {
-    width: 24px;
-    height: 24px;
-    background-color: #007AFF;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 12px;
-    flex-shrink: 0;
+  font-size: 28px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-bottom: 6px;
 }
 
 .notification-content-tb {
-    flex: 1;
+  flex: 1;
 }
 
-.notification-title-tb {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 4px;
-    font-size: 14px;
+.notification-title-tb span {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+  display: block;
 }
 
-.notification-text-tb {
-    color: #666;
-    font-size: 13px;
-    line-height: 1.4;
-    margin-bottom: 8px;
+.notification-text-tb span {
+  font-size: 14px;
+  color: #555;
+  display: block;
+  word-break: break-word;
 }
 
 .notification-time-tb {
-    color: #999;
-    font-size: 12px;
+  font-size: 12px;
+  color: #999;
+  /* margin-top: 8px; */
 }
 
 .star-btn-tb {
-    background: none;
-    border: none;
-    color: #ccc;
-    font-size: 20px;
-    cursor: pointer;
-    flex-shrink: 0;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #ccc;
+  cursor: pointer;
+  padding: 0 8px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
 }
 
 .star-btn-tb:hover {
-    color: #ffb400;
+  color: gold;
 }
 
-.promo-item-tb .notification-icon-tb {
-    background-color: #34C759;
+.star-btn-tb:focus {
+  outline: none;
 }
 
-.travel-item-tb .notification-icon-tb {
-    background-color: #FF9500;
-}
-
-.order-item-tb .notification-icon-tb {
-    background-color: #FF3B30;
-}
 </style>

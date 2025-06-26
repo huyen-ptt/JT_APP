@@ -2,7 +2,7 @@
 
     <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1" v-if="product && !onLoading">
         <img :src="helper.getImageCMS(product.avatar)" class="tour-image">
-        <div class="tour-content" >
+        <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
             <div class="tour-location tour-price">
                 <div>
@@ -17,22 +17,24 @@
                 <div class="linee-h">
                     <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                     <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true })
-                        }}</span>
-                    <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
+                    }}</span>
+                    <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span
+                            class="menu-text"><span class="me-1 menu-text">~
                                 {{ currentfCurrency.code }}</span>{{
                                     (product.price / currentfCurrency.exchange)
                                         .toFixed(1)
                                         .toLocaleString("en-US")
-                            }}</span></div>
+                                }}</span></div>
                     <!-- <span class="price-as-currency"></span> -->
                 </div>
 
             </div>
-            <div class="bieu-tuong" v-if="product.iconCornerTag || product.textCornerTag" :style="product.colorCornerTag ? {backgroundColor: product.colorCornerTag} : '#67c7c5'">
+            <div class="bieu-tuong" v-if="product.iconCornerTag || product.textCornerTag"
+                :style="product.colorCornerTag ? { backgroundColor: product.colorCornerTag } : '#67c7c5'">
 
-                <div class="flight-icon" >
+                <div class="flight-icon">
                     <img :src="helper.getImageCMS(product.iconCornerTag)" v-if="product.iconCornerTag" />
-                    <span class="text-corner-tag" >{{ product.textCornerTag }}</span>
+                    <span class="text-corner-tag">{{ product.textCornerTag }}</span>
                 </div>
             </div>
         </div>
