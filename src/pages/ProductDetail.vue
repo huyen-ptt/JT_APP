@@ -191,8 +191,7 @@
                         <!-- <img src="/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
                             height="40" /> -->
                         <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
-                        <img class="rounded-circle" width="40" height="40" v-else
-                            src="/images/icon-user.png" />
+                        <img class="rounded-circle" width="40" height="40" v-else src="/images/icon-user.png" />
                         <div>
                             <p class="mb-0 name-rv">{{ r.userName }}</p>
                             <div class="d-flex text-warning bao-sao">
@@ -233,12 +232,13 @@
                                         <span class="price-text">{{ $t("PRICE_FROM") }}</span>
                                         <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
                                         <span class="me-1"></span>
-                                        <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
-                                {{ currentfCurrency.code }}</span>{{
-                                    (product.price / currentfCurrency.exchange)
-                                        .toFixed(1)
-                                        .toLocaleString("en-US")
-                            }}</span></div>
+                                        <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span
+                                                class="menu-text"><span class="me-1 menu-text">~
+                                                    {{ currentfCurrency.code }}</span>{{
+                                                        (product.price / currentfCurrency.exchange)
+                                                            .toFixed(1)
+                                                            .toLocaleString("en-US")
+                                                    }}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -256,13 +256,14 @@
                 <div class="price-usd">
                     ~ {{ currentfCurrency.code }}
                     {{
-                        (productDetail.price / currentfCurrency.exchange)
-                            .toFixed(1)
-                            .toLocaleString("en-US")
+                        currentfCurrency.code === 'VND'
+                            ? productDetail.price.toLocaleString()
+                            : new Intl.NumberFormat('en-US', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1
+                            }).format(productDetail.price / currentfCurrency.exchange)
                     }}
                 </div>
-
-                <!-- <div class="price-pr">{{ productDetail.price.toLocaleString() }}</div> -->
             </div>
             <div class="d-flex">
                 <div class="gio-hang-pr" @click="onClickBuyNowParent()">
@@ -336,11 +337,13 @@
                                         <div class="packages-count-booking">
                                             ~ {{ currentfCurrency.code }}
                                             {{
-                                                (p.currentPackage.price / currentfCurrency.exchange)
-                                                    .toFixed(1)
-                                                    .toLocaleString("en-US")
+                                                new Intl.NumberFormat('en-US', {
+                                                    minimumFractionDigits: 1,
+                                                    maximumFractionDigits: 1
+                                                }).format(p.currentPackage.price / currentfCurrency.exchange)
                                             }}
                                         </div>
+
                                     </div>
                                     <button class="book-btn-booking" @click="onClickBookPackage(p)">
                                         {{ p.isActive ? $t("CLOSE") : $t("BOOK") }}
@@ -579,12 +582,14 @@
                                     <div class="packages-count-booking">
                                         ~ {{ currentfCurrency.code }}
                                         {{
-                                            (totalPrice / currentfCurrency.exchange)
-                                                .toFixed(1)
-                                                .toLocaleString("enb-US")
+                                            new Intl.NumberFormat('en-US', {
+                                                minimumFractionDigits: 1,
+                                                maximumFractionDigits: 1
+                                            }).format(totalPrice / currentfCurrency.exchange)
                                         }}
                                     </div>
                                 </div>
+
                                 <div class="d-flex align-items-center">
                                     <div class="cart-icon-booking" @click="onAddToCart()"
                                         :disabled="countPayItems === 0">
@@ -1278,7 +1283,7 @@ const setupCurrentDate = () => {
 // Lifecycle hook
 onMounted(async () => {
     setupCurrentDate();
-    
+
     StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
     // console.log(productDetail.value, "productDetail.value");
     // await onLoadPackage();
@@ -1373,7 +1378,7 @@ iframe {
     flex: 0 0 auto;
     /* Prevent reviews from shrinking or growing */
     width: 76%;
-    /* This will make the first review take more than half the screen */                                                                                                             
+    /* This will make the first review take more than half the screen */
     margin-right: 20px;
     /* Add space between reviews */
 }
@@ -1383,8 +1388,8 @@ iframe {
     width: 230px;
     padding: 0;
     position: relative;
-    border: 1px solid #edf1f7;  
-    border-radius: 12px; 
+    border: 1px solid #edf1f7;
+    border-radius: 12px;
     overflow: hidden;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     background-color: white;

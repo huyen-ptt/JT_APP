@@ -21,6 +21,9 @@ import { useHelper } from "./composables/helper";
 import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
 import { SplashScreen } from '@capacitor/splash-screen';
 const { t } = useI18n();
+
+
+
 const router = useRouter();
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth)
@@ -52,34 +55,29 @@ ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
 //   lastScrollTop.value = scrollTop;
 // }
 
-
-onMounted(() => {
-  
-App.addListener('backButton', async ({ canGoBack }) => {
-  if (!canGoBack) {
-    const res = await Swal.fire({
-      title: t('EXIT_TITLE'),
-      text: t('EXIT_TEXT'),
-      showCancelButton: true,
-      confirmButtonText: t('EXIT_OK'),
-      cancelButtonText: t('EXIT_CANCEL'),
-    });
-    if (res.isConfirmed) App.exitApp();
-  } else {
-    window.history.back();
-  }
-});
-});
 onMounted(async () => {
-
+  App.addListener('backButton', async ({ canGoBack }) => {
+    if (!canGoBack) {
+      const res = await Swal.fire({
+        title: t('EXIT_TITLE'),
+        text: t('EXIT_TEXT'),
+        showCancelButton: true,
+        confirmButtonText: t('EXIT_OK'),
+        cancelButtonText: t('EXIT_CANCEL'),
+      });
+      if (res.isConfirmed) App.exitApp();
+    } else {
+      window.history.back();
+    }
+  });
   // Kiem tra phien ban
   const platform = helper.getPlatformInfo();
-  if(platform.isIOS){
+  if (platform.isIOS) {
     StatusBar.setOverlaysWebView({ overlay: true });
 
     // StatusBar.setBackgroundColor({ color: '#F8F9FA' });
     // window.addEventListener('scroll', handleScrollChange, { passive: true });
-  } else if (platform.isAndroid15Plus){
+  } else if (platform.isAndroid15Plus) {
     StatusBar.setOverlaysWebView({ overlay: false });
     try {
       await EdgeToEdge.setBackgroundColor({ color: '#000000' }); // hoặc '#ffffff'
@@ -90,7 +88,7 @@ onMounted(async () => {
 
   }
   // Kiểm tra iphone cho overlay là true
-  
+
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     const styleSheets = document.styleSheets;
     for (const sheet of styleSheets) {
@@ -126,7 +124,8 @@ onMounted(async () => {
 .app-container {
   background-color: #ffffff;
   min-height: 100vh;
-  padding-top: env(safe-area-inset-top); /* đảm bảo tránh notch */
+  padding-top: env(safe-area-inset-top);
+  /* đảm bảo tránh notch */
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }

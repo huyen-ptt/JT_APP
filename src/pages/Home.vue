@@ -80,8 +80,8 @@
                <h2 class="promo-title">{{ $t('TOP_TRENDS') }}</h2>
                <!-- <router-link to="/list-results" class="view-all"> {{ $t('VIEW_All') }}</router-link> -->
                <a @click="handleSearch('TOP_TRENDS')" class="view-all">
-                     {{ $t('VIEW_All') }}
-                 </a>
+                  {{ $t('VIEW_All') }}
+               </a>
             </div>
             <div class="">
                <ul class="nav nav-tabs pb-2" id="tourTabs" role="tablist" v-if="!onLoadRegions">
@@ -120,14 +120,14 @@
          <div class="recently-container mb-3" v-if="currentSeen.length > 0">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('RECENTLY_VIEWED') }}</h2>
-                 <a @click="handleSearch('RECENTLY_VIEWED')" class="view-all">
-                     {{ $t('VIEW_All') }}
-                 </a>
+               <a @click="handleSearch('RECENTLY_VIEWED')" class="view-all">
+                  {{ $t('VIEW_All') }}
+               </a>
             </div>
             <ClientOnly>
-               <swiper :modules="[Autoplay]" :slides-per-view="2" :space-between="16"
+               <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"
                   :pagination="{ clickable: true }" class="recently-carousel" style="padding-bottom: 40px;">
-                  <swiper-slide v-for="product in currentSeen" :key="product.productId">
+                  <swiper-slide v-for="product in currentSeen.slice(-5)" :key="product.productId">
                      <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1">
                         <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image">
                         <div class="tour-content">
@@ -146,12 +146,13 @@
                                  <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                                  <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
                                  <span class="me-1"></span>
-                                 <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span class="menu-text"><span class="me-1 menu-text">~
-                                {{ currentfCurrency.code }}</span>{{
-                                    (product.price / currentfCurrency.exchange)
-                                        .toFixed(1)
-                                        .toLocaleString("en-US")
-                            }}</span></div>
+                                 <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span
+                                       class="menu-text"><span class="me-1 menu-text">~
+                                          {{ currentfCurrency.code }}</span>{{
+                                             (product.price / currentfCurrency.exchange)
+                                                .toFixed(1)
+                                                .toLocaleString("en-US")
+                                       }}</span></div>
                               </div>
                            </div>
                         </div>
@@ -284,19 +285,19 @@ const helper = useHelper();
 
 const handleSearch = (code) => {
    searchStore.onClearSearchItem();
-   if(code=="TOP_TRENDS"){
+   if (code == "TOP_TRENDS") {
       //1. Lay region active
       var affected = listRegions.value.find(r => r.isActive == true);
-      if(affected){
+      if (affected) {
          searchStore.onAddSearchItem(affected);
          router.push('/list-results');
       }
-      
-   }else{
+
+   } else {
       const productIDs = currentSeen.value.map(item => item.productId)
-      searchStore.onAddSearchItem({lstId:productIDs,type:99,name:"Recently Viewed"}); // Fix cuwngs giai thich tai sao lai fix nhu nay
+      searchStore.onAddSearchItem({ lstId: productIDs, type: 99, name: "Recently Viewed" }); // Fix cuwngs giai thich tai sao lai fix nhu nay
    }
-   
+
 }
 
 const onLoadProductInRegion = ref(true);
@@ -355,7 +356,7 @@ const onRequestServices = async () => {
       first4Services.value = JSON.parse(JSON.stringify(services.value)).slice(0, 4)
    } catch (error) {
       console.log(error);
-   } finally {   
+   } finally {
       onLoadServices.value = false;
    }
 
@@ -384,7 +385,7 @@ const onRequestRegions = async () => {
             }
             else {
                listRegions.value[i].isActive = false;
-            } 
+            }
          }
          console.log(listRegions.value);
 
@@ -457,7 +458,7 @@ onMounted(async () => {
    await onRequestPromotions();
    await onRequestRegions();
    currentSeen.value = await homeComposable.getProductsLastSeen();
-   await onRequestLoadDestinations();  
+   await onRequestLoadDestinations();
 })
 </script>
 <style scoped>
@@ -488,15 +489,17 @@ onMounted(async () => {
 
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+   from {
+      opacity: 0;
+      transform: translateY(12px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
 }
+
 .fa-star {
    width: 12px;
    height: 12px;

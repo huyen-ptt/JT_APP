@@ -1,16 +1,11 @@
 <template>
     <div class="container forgot-password-container">
-       
-
         <div class="nd-checkout">
             <div class="form-container">
                 <img class="d-flex icon-success pb-4" src="/images/searchh.png" />
                 <div class="icon-success text-center title-sl">{{ $t('NO_RESULTS') }}</div>
                 <div class=" icon-success text-center dia-chi-product  pb-4">{{ $t('NO_ITEMS') }}<br> {{ $t('TRY_ANOTHER_PAGE') }}</div>
-
                 <button type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</button>
-
-
             </div>
         </div>
     </div>

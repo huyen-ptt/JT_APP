@@ -59,18 +59,18 @@ const selectedCurrency = computed(() => currencyStore.fCurrency);
 
 // Liste des devises
 const currencies = ref([
-    { name: 'Euro', code: 'EUR', symbol: '€', flagUrl: 'https://flagcdn.com/w40/eu.png', exchange: 25000 },
-    { name: 'British Pound', code: 'GBP', symbol: '£', flagUrl: 'https://flagcdn.com/w40/gb.png', exchange: 30000 },
-    { name: 'Canadian Dollar', code: 'CAD', symbol: 'C$', flagUrl: 'https://flagcdn.com/w40/ca.png', exchange: 18000 },
-    { name: 'Australian Dollar', code: 'AUD', symbol: 'A$', flagUrl: 'https://flagcdn.com/w40/au.png', exchange: 17000 },
-    { name: 'US Dollar', code: 'USD', symbol: '$', flagUrl: 'https://flagcdn.com/w40/us.png', exchange: 25200 },
-    { name: 'Japanese Yen', code: 'JPY', symbol: '¥', flagUrl: 'https://flagcdn.com/w40/jp.png', exchange: 200 },
-    { name: 'Indian Rupee', code: 'INR', symbol: '₹', flagUrl: 'https://flagcdn.com/w40/in.png', exchange: 300 },
-    { name: 'New Zealand Dollar', code: 'NZD', symbol: 'NZ$', flagUrl: 'https://flagcdn.com/w40/nz.png', exchange: 16000 },
-    { name: 'Vietnamese Dong', code: 'VND', symbol: '₫', flagUrl: 'https://flagcdn.com/w40/vn.png', exchange: 1 },
-    { name: 'South African Rand', code: 'ZAR', symbol: 'R', flagUrl: 'https://flagcdn.com/w40/za.png', exchange: 1500 },
-    { name: 'Russian Ruble', code: 'RUB', symbol: '₽', flagUrl: 'https://flagcdn.com/w40/ru.png', exchange: 300 },
-    { name: 'Bulgarian Lev', code: 'BGN', symbol: 'лв', flagUrl: 'https://flagcdn.com/w40/bg.png', exchange: 12000 }
+    { name: 'Euro', code: 'EUR', symbol: '€', flagUrl: '/images/europe-flag-jpg-xl.jpg', exchange: 25000 },
+    { name: 'British Pound', code: 'GBP', symbol: '£', flagUrl: '/images/gb.png', exchange: 30000 },
+    { name: 'Canadian Dollar', code: 'CAD', symbol: 'C$', flagUrl: '/images/ca.jpg', exchange: 18000 },
+    { name: 'Australian Dollar', code: 'AUD', symbol: 'A$', flagUrl: '/images/au.jpg', exchange: 17000 },
+    { name: 'US Dollar', code: 'USD', symbol: '$', flagUrl: '/images/us.jpg', exchange: 25200 },
+    { name: 'Japanese Yen', code: 'JPY', symbol: '¥', flagUrl: '/images/ja.jpg', exchange: 200 },
+    { name: 'Indian Rupee', code: 'INR', symbol: '₹', flagUrl: '/images/in.jpg', exchange: 300 },
+    { name: 'New Zealand Dollar', code: 'NZD', symbol: 'NZ$', flagUrl: '/images/nz.webp', exchange: 16000 },
+    { name: 'Vietnamese Dong', code: 'VND', symbol: '₫', flagUrl: '/images/vn.jpg', exchange: 1 },
+    { name: 'South African Rand', code: 'ZAR', symbol: 'R', flagUrl: '/images/artwork.png', exchange: 1500 },
+    { name: 'Russian Ruble', code: 'RUB', symbol: '₽', flagUrl: '/images/rr.png', exchange: 300 },
+    { name: 'Bulgarian Lev', code: 'BGN', symbol: 'лв', flagUrl: '/images/bl.png', exchange: 12000 }
 ]);
 // Computed property pour filtrer les devises
 const filteredCurrencies = computed(() => {
