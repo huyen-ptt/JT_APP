@@ -1,37 +1,37 @@
 <template>
+    <div class="notification-bao">
+        <HeaderTitle :title="$t('THONG_BAO')"></HeaderTitle>
 
-    <HeaderTitle :title="$t('THONG_BAO')"></HeaderTitle>
+        <div v-if="currentAuth.id > 0">
+            <div class="notifications-list-tb">
+                <div class="notification-item-tb border-bottom" v-for="noti in notifications">
+                    <div v-if="parseInt(noti.notificationBannerCode)">
 
-    <div v-if="currentAuth.id > 0">
-        <div class="notifications-list-tb">
-            <div class="notification-item-tb border-bottom" v-for="noti in notifications">
-                <div v-if="parseInt(noti.notificationBannerCode)">
+                    </div>
+                    <div v-else>
+                        <div class="notification-icon-tb">
+                            <span v-if="noti.notificationBannerCode === 'NOTI_APP_NEW_ORDER'">🏨</span>
+                            <span v-if="noti.notificationBannerCode === 'NOTI_APP_CONFIRM_ORDER'">🏨</span>
+                            <span v-if="noti.notificationBannerCode === 'NOTI_APP_COMPLETE_ORDER'">🏨</span>
+                            <span v-if="noti.notificationBannerCode === 'NOTI_APP_PENDING_CANCEL_ORDER'">🏨</span>
+                            <span v-if="noti.notificationBannerCode === 'NOTI_APP_CANCELED_ORDER'">🏨</span>
+                        </div>
+                        <div class="notification-content-tb">
+                            <div class="notification-title-tb">
+                                <span>{{ $t(noti.notificationBannerCode) }}</span>
+                            </div>
+                            <div class="notification-text-tb">
+                                <span>{{ $t(`${noti.notificationBannerCode}_DESCRIPTION`) }} {{ noti.orderCode }}</span>
+                            </div>
+                            <div class="notification-time-tb">{{ noti.creationTime }}</div>
+                        </div>
+                        <button class="star-btn-tb" v-if="!noti.isReaded">☆</button>
+                        <button class="star-btn-tb" v-else></button>
+                    </div>
 
                 </div>
-                <div v-else>
-                    <div class="notification-icon-tb">
-                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_NEW_ORDER'">🏨</span>
-                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_CONFIRM_ORDER'">🏨</span>
-                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_COMPLETE_ORDER'">🏨</span>
-                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_PENDING_CANCEL_ORDER'">🏨</span>
-                        <span v-if="noti.notificationBannerCode === 'NOTI_APP_CANCELED_ORDER'">🏨</span>
-                    </div>
-                    <div class="notification-content-tb">
-                        <div class="notification-title-tb">
-                            <span>{{ $t(noti.notificationBannerCode) }}</span>
-                        </div>
-                        <div class="notification-text-tb">
-                            <span>{{ $t(`${noti.notificationBannerCode}_DESCRIPTION`) }} {{ noti.orderCode }}</span>
-                        </div>
-                        <div class="notification-time-tb">{{ noti.creationTime }}</div>
-                    </div>
-                    <button class="star-btn-tb" v-if="!noti.isReaded">☆</button>
-                    <button class="star-btn-tb" v-else></button>
-                </div>
 
-            </div>
-
-            <!-- <div class="notification-item-tb border-bottom promo-item-tb">
+                <!-- <div class="notification-item-tb border-bottom promo-item-tb">
                 <div class="notification-icon-tb">🏨</div>
                 <div class="notification-content-tb">
                     <div class="notification-title-tb">Radisson Blu Resort Cam Ranh</div>
@@ -79,19 +79,20 @@
                 <button class="star-btn-tb">☆</button>
             </div> -->
 
+            </div>
         </div>
-    </div>
-    <div v-else>
-        PLEASE LOGIN FOR SEE NOTIFICATION
+        <div v-else>
+            {{ $t('PLEASE_LOGIN_FOR_SEE_NOTIFICATION') }}
+        </div>
+
+        <Footer></Footer>
     </div>
 
 
-    <Footer></Footer>
 
 </template>
 <script setup>
 import { ref, onBeforeMount, onMounted, computed, onUnmounted } from "vue";
-
 import HeaderTitle from '../components/HeaderTitle.vue';
 import { useAuthStore } from '../stores/authStore';
 import { useI18n } from 'vue-i18n'
@@ -99,12 +100,13 @@ import { useHelper } from "../composables/helper";
 import { RouterLink, useRouter } from 'vue-router'
 import { useAuth } from '../composables/auth';
 import { useNotification } from "../composables/notification";
+import Footer from "@/components/Footer.vue";
 const { locale, t } = useI18n();
 
 
 const authComposable = useAuth();
 const notificationComposable = useNotification();
-import Footer from "@/components/Footer.vue";
+
 
 const router = useRouter()
 const authStore = useAuthStore();

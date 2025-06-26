@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <transition name="fade" mode="out-in">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </transition>
   </div>
 </template>
@@ -119,13 +119,15 @@ onMounted(async () => {
 .fade-leave-to {
   opacity: 0;
 }
-
+.fade-leave-from {
+  opacity: 1;
+}
 /* Add nền trắng + full màn hình */
 .app-container {
   background-color: #ffffff;
   min-height: 100vh;
   padding-top: env(safe-area-inset-top);
-  /* đảm bảo tránh notch */
+  
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }

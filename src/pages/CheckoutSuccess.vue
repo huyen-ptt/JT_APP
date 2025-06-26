@@ -24,7 +24,7 @@ import HeaderTitle from '../components/HeaderTitle.vue';
 const router = useRouter()
 
 const redirectMyOrder = () => {
-    router.push('/myorder')
+    router.push('/myorder?v=1')
 }
 
 </script>
