@@ -43,7 +43,7 @@
   <Dialog v-model:visible="visibleLoginSuccess" modal :style="{ width: '25rem' }" class="modal-login-success login-ss">
     <div class="container">
       <div class="form-container">
-        <img class="d-flex icon-success pb-4 pt-3" src="/images/verify.png" />
+        <img class="d-flex icon-success pb-4 pt-3" width="50" src="/images/verify.png" />
         <div class="icon-success text-center title-sl">
           {{ $t('LOGIN_SUCCESS') }}
         </div>

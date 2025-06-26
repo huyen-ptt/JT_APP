@@ -173,7 +173,7 @@
                     <div class="mb-3 border-bottom">
                         <div class="position-relative d-flex pb-3">
                             <div>
-                                <img class="rounded-circle" width="20" src="/images/phay.png" />
+                                <img class="rounded-circle" width="20" src="/images/phay1.png" />
                             </div>
                             <div>
                                 <p class="ms-4 text-rv" style="font-size: 14px" v-html="r.isExpanded ? r.content : r.content?.slice(0, 50) + '...'
@@ -256,17 +256,18 @@
                 <div class="price-usd">
                     ~ {{ currentfCurrency.code }}
                     {{
-                        (productDetail.price / currentfCurrency.exchange)
-                            .toFixed(1)
-                            .toLocaleString("en-US")
+                        currentfCurrency.code === 'VND'
+                            ? productDetail.price.toLocaleString()
+                            : new Intl.NumberFormat('en-US', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1
+                            }).format(productDetail.price / currentfCurrency.exchange)
                     }}
                 </div>
-
-                <!-- <div class="price-pr">{{ productDetail.price.toLocaleString() }}</div> -->
             </div>
             <div class="d-flex">
                 <div class="gio-hang-pr" @click="onClickBuyNowParent()">
-                    <img src="/images/shopping-cart.png" />
+                    <img width="24" src="/images/shopping-cart.png" />
                 </div>
                 <a>
                     <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
@@ -336,11 +337,13 @@
                                         <div class="packages-count-booking">
                                             ~ {{ currentfCurrency.code }}
                                             {{
-                                                (p.currentPackage.price / currentfCurrency.exchange)
-                                                    .toFixed(1)
-                                                    .toLocaleString("en-US")
+                                                new Intl.NumberFormat('en-US', {
+                                                    minimumFractionDigits: 1,
+                                                    maximumFractionDigits: 1
+                                                }).format(p.currentPackage.price / currentfCurrency.exchange)
                                             }}
                                         </div>
+
                                     </div>
                                     <button class="book-btn-booking" @click="onClickBookPackage(p)">
                                         {{ p.isActive ? $t("CLOSE") : $t("BOOK") }}
@@ -575,16 +578,18 @@
                                     <div class="packages-count-booking">
                                         ~ {{ currentfCurrency.code }}
                                         {{
-                                            (totalPrice / currentfCurrency.exchange)
-                                                .toFixed(1)
-                                                .toLocaleString("enb-US")
+                                            new Intl.NumberFormat('en-US', {
+                                                minimumFractionDigits: 1,
+                                                maximumFractionDigits: 1
+                                            }).format(totalPrice / currentfCurrency.exchange)
                                         }}
                                     </div>
                                 </div>
+
                                 <div class="d-flex align-items-center">
                                     <div class="cart-icon-booking" @click="onAddToCart()"
                                         :disabled="countPayItems === 0">
-                                        <img src="/images/shopping-cong.png" />
+                                        <img width="48" src="/images/shopping-cong.png" />
                                     </div>
                                     <button class="buy-btn-booking px-4" @click="buyNow"
                                         :disabled="countPayItems === 0">
@@ -1274,7 +1279,7 @@ const setupCurrentDate = () => {
 // Lifecycle hook
 onMounted(async () => {
     setupCurrentDate();
-    
+
     StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
     // console.log(productDetail.value, "productDetail.value");
     // await onLoadPackage();
@@ -1368,7 +1373,7 @@ iframe {
 .nd-rv {
     flex: 0 0 auto;
     /* Prevent reviews from shrinking or growing */
-    width: 70%;
+    width: 76%;
     /* This will make the first review take more than half the screen */
     margin-right: 20px;
     /* Add space between reviews */

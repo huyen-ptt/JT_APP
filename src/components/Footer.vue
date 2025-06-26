@@ -90,14 +90,17 @@ const modalStore = useModalStore();
 .promotion-icon {
     content: url('/images/gift.png');
 }
-
+.menu-icon img{
+    width: 24px;
+    height: 24px;
+}
 .router-link-exact-active .promotion-icon {
     content: url('/images/gift-active.png');
 }
 
 .home-icon {
     content: url('/images/home-2.png');
-
+ 
 }
 
 .router-link-exact-active .home-icon {
@@ -119,6 +122,6 @@ const modalStore = useModalStore();
 }
 
 .router-link-exact-active .account-icon {
-    content: url('/images/user-square-active.png');
+    content: url('/images/user-square-active1.png');
 }
 </style>

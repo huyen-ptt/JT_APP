@@ -338,11 +338,18 @@
         <div class="bottom-menu menu-search d-flex bo-goc">
             <div>
                 <div class="don-vi" id="clear-all">VND {{ totalPrice.toLocaleString() }}</div>
-                <div class="price-text">~ USD {{
-                    (totalPrice / currentfCurrency.exchange)
-                        .toFixed(1)
-                        .toLocaleString("en-US")
-                }}</div>
+                <div class="price-text">
+                    <span class="me-1 menu-text">~ {{ currentfCurrency.code }}</span>
+                    {{
+                        currentfCurrency.code === 'VND'
+                            ? totalPrice.toLocaleString()
+                            : new Intl.NumberFormat('en-US', {
+                                minimumFractionDigits: 1,
+                                maximumFractionDigits: 1
+                            }).format(totalPrice / currentfCurrency.exchange)
+                    }}
+                </div>
+
             </div>
             <div class="d-flex">
                 <button class="search-button" @click="onRequestPay()" id="search">
@@ -525,6 +532,7 @@ const countries = ref([
     { name: t("Yemen"), code: 'YE' },
     { name: t("Zimbabwe"), code: 'ZW' },
 ]);
+const selectedMethod = ref(null)
 
 const orderNote = ref({
     noteSpecial: "",

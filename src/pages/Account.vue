@@ -32,25 +32,25 @@
                 <div class="order-icons">
                     <div class="order-icon" @click="onRedirectMyOrder(1)">
                         <div class="icon-circle">
-                            <img src="/images/Layer_1.png">
+                            <img src="/images/Layer_12.png">
                         </div>
                         <span class="service-text">{{ $t('NEW_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon" @click="onRedirectMyOrder(2)">
                         <div class="icon-circle">
-                            <img src="/images/Vector.png">
+                            <img src="/images/Vector1.png">
                         </div>
                         <span class="service-text">{{ $t('READY_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon" @click="onRedirectMyOrder(3)">
                         <div class="icon-circle">
-                            <img src="/images/user.png">
+                            <img src="/images/user1.png">
                         </div>
                         <span class="service-text">{{ $t('USED_ACCOUNT') }}</span>
                     </div>
                     <div class="order-icon" @click="onRedirectMyOrder(4)">
                         <div class="icon-circle">
-                            <img src="/images/pendding.png">
+                            <img src="/images/Pendding1.png">
                         </div>
                         <span class="service-text">{{ $t('PENDING_ACCOUNT') }}</span>
                     </div>
@@ -63,7 +63,7 @@
                 <div class="settings-item" v-if="auth.id > 0" @click="onRedirectUpdatePassword()">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="/images/password-check.png" />
+                            <img src="/images/password-check1.png" />
                         </div>
                         <span class="title145">{{ $t('UPDATE_PASSWORD_ACCOUNT') }}</span>
                     </div>
@@ -121,7 +121,7 @@
                 <router-link to="/contact" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="/images/call-calling.png" />
+                            <img src="/images/call-calling1.png" />
                         </div>
                         <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
                     </div>
@@ -131,7 +131,7 @@
                 <router-link to="/faqs" class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="/re.png" />
+                            <img src="/images/message-question1.png" />
                         </div>
                         <span class="title145">{{ $t('FAQS_ACCOUNT') }}</span>
                     </div>
@@ -156,7 +156,7 @@
                         <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }" class="modal-logout1">
                             <div class="logout-dialog-logoutt">
                                 <div class="text-center back-icon-logoutt">
-                                    <img src="/images/logout.png">
+                                    <img width="40" src="/images/logout.png">
                                 </div>
                                 <h2 class="promotion-title-lon text-center">{{ $t('LOGOUT_ACCOUNT') }}</h2>
                                 <p class="dia-chi-product text-center pb-3">{{ $t('CONFIRM_SIGN_OUT_ACCOUNT') }}</p>

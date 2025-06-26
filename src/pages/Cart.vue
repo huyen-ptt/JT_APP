@@ -60,7 +60,7 @@
                                                                 :disabled="cart.combination.minimumNguoiLon >= cart.numberOfAldut">−</button>
                                                             <span class="quantity-display-so-luong">{{
                                                                 cart.numberOfAldut
-                                                            }}</span>
+                                                                }}</span>
                                                             <button class="quantity-btn-so-luong"
                                                                 @click="cart.numberOfAldut++">+</button>
                                                         </div>
@@ -84,7 +84,7 @@
                                                                 :disabled="cart.combination.minimumTreEm >= cart.numberOfChildrend">−</button>
                                                             <span class="quantity-display-so-luong">{{
                                                                 cart.numberOfChildrend
-                                                            }}</span>
+                                                                }}</span>
                                                             <button class="quantity-btn-so-luong"
                                                                 @click="cart.numberOfChildrend++">+</button>
                                                         </div>
@@ -110,13 +110,20 @@
                                         <!-- Price Information -->
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
-                                                <p class="price-vnd">VND {{ cart.totalPrice.toLocaleString() }}</p>
-                                                <p class="price-usd">~ {{ fCurrency.code }} {{ (cart.totalPrice /
-                                                    fCurrency.exchange).toFixed(1) }}</p>
+                                                <p class="price-vnd">
+                                                    VND {{ cart.totalPrice.toLocaleString() }}
+                                                </p>
+                                                <p class="price-usd">
+                                                    ~ {{ fCurrency.code }}
+                                                    {{
+                                                        new Intl.NumberFormat('en-US', {
+                                                            minimumFractionDigits: 1,
+                                                            maximumFractionDigits: 1
+                                                        }).format(cart.totalPrice / fCurrency.exchange)
+                                                    }}
+                                                </p>
                                             </div>
-
                                             <!-- Delete Button -->
-
                                         </div>
 
                                     </div>
@@ -140,12 +147,21 @@
         </div>
         <div class="bottom-menu menu-search d-flex bo-goc">
             <div>
-                <div class="packages-count-booking">{{ countCartChecked }}
-                    {{ $t('PACKAGES') }}</div>
-                <div class="total-price-booking">VND {{ cartTotalPrice.toLocaleString() }}</div>
-                <div class="packages-count-booking">~ {{ fCurrency.code }} {{ (cartTotalPrice /
-                    fCurrency.exchange).toFixed(1).toLocaleString("enb-US") }}</div>
-
+                <div class="packages-count-booking">
+                    {{ countCartChecked }} {{ $t('PACKAGES') }}
+                </div>
+                <div class="total-price-booking">
+                    VND {{ cartTotalPrice.toLocaleString() }}
+                </div>
+                <div class="packages-count-booking">
+                    ~ {{ fCurrency.code }}
+                    {{
+                        new Intl.NumberFormat('en-US', {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 1
+                        }).format(cartTotalPrice / fCurrency.exchange)
+                    }}
+                </div>
             </div>
             <div class="d-flex">
 

@@ -3,7 +3,7 @@
         <HeaderTitle :title="$t('Forgot_Password')"></HeaderTitle>
         <div class="container">
             <div class="form-container">
-                <img class="d-flex icon-success pb-4" src="/images/verify.png" />
+                <img class="d-flex icon-success pb-4" width="50" src="/images/verify.png" />
                 <div class="icon-success text-center title-sl">
                     {{ $t('Password_Reset_Email_Sent_SS') }}
                 </div>

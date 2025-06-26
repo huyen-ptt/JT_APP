@@ -28,7 +28,16 @@
 
                 <!-- Hiển thị khi không có kết quả -->
                 <div v-if="products.length === 0 && searchTerm" class="no-results">
-                    {{ $t('NO_RESULTS_FOUND') }}
+                  <div class="container forgot-password-container">
+        <div class="">
+            <div class="form-container">
+                <img class="d-flex icon-success pb-4" width="100"  src="/images/searchh2.png" />
+                <div class="icon-success text-center title-sl">{{ $t('NO_RESULTS') }}</div>
+                <div class=" icon-success text-center dia-chi-product  pb-4">{{ $t('NO_ITEMS') }}<br> {{ $t('TRY_ANOTHER_PAGE') }}</div>
+                 <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</RouterLink>
+            </div>
+        </div>
+    </div>
                 </div>
             </div>
         </div>

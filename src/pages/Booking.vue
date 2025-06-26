@@ -228,7 +228,7 @@
                 </div>
                 <div class="d-flex align-items-center">
                     <div class="cart-icon-booking">
-                        <img src="/images/shopping-cong.png">
+                        <img width="48" src="/images/shopping-cong.png">
                     </div>
                     <button class="buy-btn-booking px-4" @click="buyNow">{{ $t('BUY_NOW') }} ({{ selectedCount
                         }})</button>
