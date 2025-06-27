@@ -54,7 +54,7 @@
                                     type: 'fraction',
                                 }" class="mySwiper">
                                 <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
-                                    <img :src="helper.getImageCMS(image)" class="d-block w-100"
+                                    <img :src="helper.getImageCMS(image)" class="d-block w-100" 
                                         style="height: 220px; object-fit: cover" />
                                 </swiper-slide>
 
@@ -143,7 +143,7 @@
                 </div>
                 <div>
                     <div class="position-relative h-100">
-                        <div className="position-relative mt-3" style="height: 240px">
+                        <div className="position-relative mt-3" style="height: 200px">
                             <iframe :src="productDetail.locationIframe" width="100%" height="100%"
                                 allowFullScreen="{false}" loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"></iframe>
@@ -151,18 +151,18 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid p-4 review-product border-bottom">
+            <div class="container-fluid p-3 review-product border-bottom">
                 <!-- Rating Header -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center gap-4">
+                    <div class="d-flex align-items-start gap-4">
                         <h2 class="display-6 fw-bold mb-0 so-review">
                             {{ productDetail.rateAVG?.toFixed(1) }}
                         </h2>
-                        <div class="d-flex text-warning">
+                        <div class="d-flex text-warning" style="padding: 3px 0;">
                             <i v-for="n in Math.floor(productDetail.rateAVG)" :key="n" class="fas fa-star"
-                                style="font-size: 24px"></i>
+                                style="font-size: 21px"></i>
                             <i v-if="productDetail.rateAVG % 1 >= 0.5" class="fas fa-star-half-alt"
-                                style="font-size: 24px"></i>
+                                style="font-size: 21px"></i>
                         </div>
                     </div>
 
@@ -180,10 +180,10 @@
                                     <img class="rounded-circle" width="20" src="/images/phay1.png" />
                                 </div>
                                 <div>
-                                    <p class="ms-4 text-rv" style="font-size: 14px" v-html="r.isExpanded ? r.content : r.content?.slice(0, 50) + '...'
+                                    <p class="ms-4 text-rv" style="font-size: 13px" v-html="r.isExpanded ? r.content : r.content?.slice(0, 50) + '...'
                                         "></p>
                                     <a v-if="r.content?.length > 100" href="#" class="ms-4 read-more-pr"
-                                        style="font-size: 14px" @click.prevent="toggleReadMore(r)">
+                                        style="font-size: 12px" @click.prevent="toggleReadMore(r)">
                                         {{ r.isExpanded ? $t("READ_LESS") : $t("READ_MORE") }}
                                     </a>
                                 </div>
@@ -199,7 +199,7 @@
                             <div>
                                 <p class="mb-0 name-rv">{{ r.userName }}</p>
                                 <div class="d-flex text-warning bao-sao">
-                                    <i class="fas fa-star" v-for="i in r.startNumber" style="font-size: 14px"></i>
+                                    <i class="fas fa-star" v-for="i in r.startNumber" style="font-size: 11px"></i>
                                 </div>
                             </div>
                         </div>
@@ -1458,4 +1458,5 @@ iframe {
     color: #999;
     cursor: not-allowed;
 }
+
 </style>
