@@ -307,6 +307,7 @@
 
                     <div class="payment-options row justify-content-center">
                         <button v-for="(p, index) in paymentMethods" :key="p" class="payment-option col-5 "
+                            :class="{ active: selectedMethod === p.name }"
                             @click="onChoosePaymentMethod(p)">
                             <img :src="p.icon" alt="OnePay" class="payment-icon" />
                             <span class="payment-label">{{ p.name }}</span>
@@ -725,6 +726,7 @@ const choosenVpc = ref('');
 const onChoosePaymentMethod = (p) => {
     choosenPayment.value = p.method;
     choosenVpc.value = p.vpc;
+    selectedMethod.value = p.name; //để name vì các method đang trỏ về onePay
 }
 const onRequestPay = async () => {
     onTriggerValidate();
