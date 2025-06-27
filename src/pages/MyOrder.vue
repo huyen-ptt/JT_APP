@@ -1,130 +1,137 @@
 <template>
-<div>
-    <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
-    <div class="container-fluid p-0">
-        <ul class="nav nav-tabs custom-tabs justify-content-center m-3" id="productTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link ac custom-tab-link" :class="v === 1 ? 'active' : ''" id="product-detail-tab"
-                    data-bs-toggle="tab" data-bs-target="#product-detail" type="button" role="tab"
-                    aria-controls="product-detail" aria-selected="true">
-                    {{ $t('Tab_NewlyCreated_MyOrder') }}
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
-                    :class="v === 2 ? 'active' : ''" data-bs-target="#description" type="button" role="tab"
-                    aria-controls="description" aria-selected="false">
-                    {{ $t('Tab_Ready_MyOrder') }}
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
-                    :class="v === 3 ? 'active' : ''" data-bs-target="#terms" type="button" role="tab"
-                    aria-controls="terms" aria-selected="false">
-                    {{ $t('Tab_Used_MyOrder') }}
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link custom-tab-link" id="pending" data-bs-toggle="tab"
-                    :class="v === 4 ? 'active' : ''" data-bs-target="#cancel" type="button" role="tab"
-                    aria-controls="terms" aria-selected="false">
-                    {{ $t('Tab_PendingCancelled_MyOrder') }}
-                </button>
-            </li>
-        </ul>
+    <div>
+        <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
+        <div class="container-fluid p-0">
+            <ul class="nav nav-tabs custom-tabs justify-content-center m-3" id="productTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link ac custom-tab-link" :class="v === 1 ? 'active' : ''" id="product-detail-tab"
+                        data-bs-toggle="tab" data-bs-target="#product-detail" type="button" role="tab"
+                        aria-controls="product-detail" aria-selected="true">
+                        {{ $t('Tab_NewlyCreated_MyOrder') }}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
+                        :class="v === 2 ? 'active' : ''" data-bs-target="#description" type="button" role="tab"
+                        aria-controls="description" aria-selected="false">
+                        {{ $t('Tab_Ready_MyOrder') }}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
+                        :class="v === 3 ? 'active' : ''" data-bs-target="#terms" type="button" role="tab"
+                        aria-controls="terms" aria-selected="false">
+                        {{ $t('Tab_Used_MyOrder') }}
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link custom-tab-link" id="pending" data-bs-toggle="tab"
+                        :class="v === 4 ? 'active' : ''" data-bs-target="#cancel" type="button" role="tab"
+                        aria-controls="terms" aria-selected="false">
+                        {{ $t('Tab_PendingCancelled_MyOrder') }}
+                    </button>
+                </li>
+            </ul>
 
-        <div class="tab-content custom-tab-content list-orderrs" id="productTabsContent">
-            <!-- Tab 1 -->
-            <div class="tab-pane fade p-3" :class="v === 1 ? 'show active' : ''" id="product-detail" role="tabpanel"
-                aria-labelledby="product-detail-tab">
-                <template v-if="pendingOrder.length === 0">
-                    <div class="container forgot-password-container">
-                        <div class="">
-                            <div class="form-container">
-                                <img class="d-flex icon-success pb-4" width="100" src="/images/xe.png" />
-                                <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
-                                <div class="icon-success text-center dia-chi-product pb-4">
-                                    {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+            <div class="tab-content custom-tab-content list-orderrs" id="productTabsContent">
+                <!-- Tab 1 -->
+                <div class="tab-pane fade p-3" :class="v === 1 ? 'show active' : ''" id="product-detail" role="tabpanel"
+                    aria-labelledby="product-detail-tab">
+                    <template v-if="pendingOrder.length === 0">
+                        <div class="container forgot-password-container">
+                            <div class="">
+                                <div class="form-container">
+                                    <img class="d-flex icon-success pb-4" width="100" src="/images/xe.png" />
+                                    <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
+                                    <div class="icon-success text-center dia-chi-product pb-4">
+                                        {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+                                    </div>
+                                    <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{
+                                        $t('EXPLORE') }}</RouterLink>
                                 </div>
-                                 <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</RouterLink>
                             </div>
                         </div>
+                    </template>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in pendingOrder"
+                        :key="order.id">
+                        <MyOrderItemComponent :order="order" />
                     </div>
-                </template>
-                <div class="order-card-myorder position-relative mb-3" v-for="order in pendingOrder" :key="order.id">
-                    <MyOrderItemComponent :order="order" />
                 </div>
-            </div>
 
-            <!-- Tab 2 -->
-            <div class="tab-pane fade p-3" id="description" :class="v === 2 ? 'show active' : ''" role="tabpanel"
-                aria-labelledby="description-tab">
-                <template v-if="onReadyOrder.length === 0">
-                    <div class="container forgot-password-container">
-                        <div class="">
-                            <div class="form-container">
-                                <img class="d-flex icon-success pb-4"  width="100" src="/images/xe.png" />
-                                <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
-                                <div class="icon-success text-center dia-chi-product pb-4">
-                                    {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+                <!-- Tab 2 -->
+                <div class="tab-pane fade p-3" id="description" :class="v === 2 ? 'show active' : ''" role="tabpanel"
+                    aria-labelledby="description-tab">
+                    <template v-if="onReadyOrder.length === 0">
+                        <div class="container forgot-password-container">
+                            <div class="">
+                                <div class="form-container">
+                                    <img class="d-flex icon-success pb-4" width="100" src="/images/xe.png" />
+                                    <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
+                                    <div class="icon-success text-center dia-chi-product pb-4">
+                                        {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+                                    </div>
+                                    <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{
+                                        $t('EXPLORE') }}</RouterLink>
                                 </div>
-                                <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</RouterLink>
                             </div>
                         </div>
+                    </template>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in onReadyOrder"
+                        :key="order.id">
+                        <MyOrderItemComponent :order="order" />
                     </div>
-                </template>
-                <div class="order-card-myorder position-relative mb-3" v-for="order in onReadyOrder" :key="order.id">
-                    <MyOrderItemComponent :order="order" />
                 </div>
-            </div>
 
-            <!-- Tab 3 -->
-            <div class="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab"
-                :class="v === 3 ? 'show active' : ''">
-                <template v-if="completeOrder.length === 0">
-                    <div class="container forgot-password-container">
-                        <div class="">
-                            <div class="form-container">
-                                <img class="d-flex icon-success pb-4"  width="100" src="/images/xe.png" />
-                                <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
-                                <div class="icon-success text-center dia-chi-product pb-4">
-                                    {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+                <!-- Tab 3 -->
+                <div class="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab"
+                    :class="v === 3 ? 'show active' : ''">
+                    <template v-if="completeOrder.length === 0">
+                        <div class="container forgot-password-container">
+                            <div class="">
+                                <div class="form-container">
+                                    <img class="d-flex icon-success pb-4" width="100" src="/images/xe.png" />
+                                    <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
+                                    <div class="icon-success text-center dia-chi-product pb-4">
+                                        {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+                                    </div>
+                                    <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{
+                                        $t('EXPLORE') }}</RouterLink>
                                 </div>
-                                 <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</RouterLink>
                             </div>
                         </div>
+                    </template>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in completeOrder"
+                        :key="order.id">
+                        <MyOrderItemComponent :order="order" />
                     </div>
-                </template>
-                <div class="order-card-myorder position-relative mb-3" v-for="order in completeOrder" :key="order.id">
-                    <MyOrderItemComponent :order="order" />
                 </div>
-            </div>
 
-            <!-- Tab 4 -->
-            <div class="tab-pane fade p-3" id="cancel" role="tabpanel" aria-labelledby="pending"
-                :class="v === 4 ? 'show active' : ''">
-                <template v-if="cancelOrder.length === 0">
-                    <div class="container forgot-password-container">
-                        <div class="">
-                            <div class="form-container">
-                                <img class="d-flex icon-success pb-4"  width="100" src="/images/xe.png" />
-                                <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
-                                <div class="icon-success text-center dia-chi-product pb-4">
-                                    {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+                <!-- Tab 4 -->
+                <div class="tab-pane fade p-3" id="cancel" role="tabpanel" aria-labelledby="pending"
+                    :class="v === 4 ? 'show active' : ''">
+                    <template v-if="cancelOrder.length === 0">
+                        <div class="container forgot-password-container">
+                            <div class="">
+                                <div class="form-container">
+                                    <img class="d-flex icon-success pb-4" width="100" src="/images/xe.png" />
+                                    <div class="icon-success text-center title-sl">{{ $t('NO_ORDERS_YET') }}</div>
+                                    <div class="icon-success text-center dia-chi-product pb-4">
+                                        {{ $t('SHOP_NOW') }}<br> {{ $t('DISCOUNT_APPLIED') }}
+                                    </div>
+                                    <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{
+                                        $t('EXPLORE') }}</RouterLink>
                                 </div>
-                                 <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{ $t('EXPLORE') }}</RouterLink>
                             </div>
                         </div>
+                    </template>
+                    <div class="order-card-myorder position-relative mb-3" v-for="order in cancelOrder" :key="order.id">
+                        <MyOrderItemComponent :order="order" />
                     </div>
-                </template>
-                <div class="order-card-myorder position-relative mb-3" v-for="order in cancelOrder" :key="order.id">
-                    <MyOrderItemComponent :order="order" />
                 </div>
             </div>
         </div>
+        <Footer />
     </div>
-    <Footer />
-</div>
 
 
 </template>

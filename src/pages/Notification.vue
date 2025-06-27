@@ -81,15 +81,15 @@
 
             </div>
         </div>
-        <div v-else>
-            {{ $t('PLEASE_LOGIN_FOR_SEE_NOTIFICATION') }}
+        <div v-else class="text-center">
+            {{ $t('PLEASE_LOGIN_TO_SEE_NOTIFICATION') }}
         </div>
 
         <Footer></Footer>
     </div>
 
 
-
+ 
 </template>
 <script setup>
 import { ref, onBeforeMount, onMounted, computed, onUnmounted } from "vue";

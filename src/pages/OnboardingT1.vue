@@ -2,7 +2,7 @@
   <div class="">
     <Swiper :modules="[Autoplay]" :slides-per-view="1" :allow-touch-move="true" :autoplay="false"
       @slideChange="onSlideChange" @swiper="onSwiper" class="swiper-container-ab">
-      <SwiperSlide >
+      <SwiperSlide>
         <img class="pb-4 img-onb" src="/images/abroad.png" alt="JOY TIME" />
         <h1 class="welcome text-center">{{ $t('onboard_welcome_title') }}</h1>
         <div class="add-btn-booking text-center">
@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick  } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
 
 
 import { Swiper, SwiperSlide } from 'swiper/vue'

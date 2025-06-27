@@ -70,14 +70,14 @@ const togglePassword = () => {
 }
 
 // Handle form submission
-const  handleSubmit = async () => {
+const handleSubmit = async () => {
   const data = {
     email: email.value,
-  password: password.value,
+    password: password.value,
   };
   try {
     const response = await authComposable.onSignUp(data);
-    console.log("response ==>",response.data);
+    console.log("response ==>", response.data);
     router.push('/signin');
   } catch (error) {
     console.error('ERROR:', error);
@@ -87,7 +87,7 @@ const  handleSubmit = async () => {
 
 <style scoped>
 .form-control {
-    background-color: #f1f1f1 !important;
+  background-color: #f1f1f1 !important;
 
 }
 </style>

@@ -1,142 +1,146 @@
 <template>
-    <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
+    <div>
+        <HeaderTitle :title="$t('My_Order')"></HeaderTitle>
 
-    <div class="container-order-detail m-3" v-if="orderItemDetail">
-        <div>
+        <div class="container-order-detail m-3" v-if="orderItemDetail">
+            <div>
 
 
-            <div class="card-order-detail border mb-3">
-                <div class="card-header-order-detail">
-                    <span class="title145">{{ $t('Order_Status_ORD') }}</span>
-                    <span class="status-badge-order-detail" :style="{
-                        backgroundColor: helper.setStyleOrderStatus(orderItemDetail.activeStatus).bgColor,
-                        border: '1px solid ' + helper.setStyleOrderStatus(orderItemDetail.activeStatus).borderColor,
-                        color: helper.setStyleOrderStatus(orderItemDetail.activeStatus).textColor,
-                    }">
-                        {{ $t(orderItemDetail.activeStatus) }}
-                    </span>
-                </div>
-
-                <div class="order-info-order-detail px-3 py-3">
-                    <div class="title145">{{ $t('Order_ID_ORD') }} <b>#{{ orderItemDetail.orderCode }}</b></div>
-                    <div class="order-date-order-detail">{{ $t('Order_Date_ORD') }}: {{
-                        helper.formatISODate(orderItemDetail.createdDate) }}</div>
-
-                    <div class="customer-info-order-detail">
-                        <div class="info-row-order-detail">
-                            <div class="info-label-order-detail">{{ $t('Requestor_ORD') }}</div>
-                            <div class="info-value-order-detail">{{ orderItemDetail.fullName }}</div>
-                        </div>
-                        <div class="info-row-order-detail">
-                            <div class="info-label-order-detail">{{ $t('Email_ORD') }}</div>
-                            <div class="info-value-order-detail">{{ orderItemDetail.email }}</div>
-                        </div>
-                        <div class="info-row-order-detail">
-                            <div class="info-label-order-detail">{{ $t('Phone_Number_ORD') }}</div>
-                            <div class="info-value-order-detail">{{ orderItemDetail.phoneNumber }}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-3">
-                    <button class="action-button-order-detail mb-2">
-                        <img class="pe-2" src="/images/document-download.png" />
-                        {{ $t('Download_ETicket_ORD') }}
-                    </button>
-                    <button class="action-button-order-detail">
-                        <img class="pe-2" src="/images/document-textt.png" />
-                        {{ $t('Invoice_Info_ORD') }}
-                    </button>
-                </div>
-            </div>
-
-            <div class="card-order-detail border">
-                <div>
-                    <img :src="helper.getImageCMS(orderItemDetail.productParentAvatar)" alt="Tour"
-                        class="tour-image-order-detail px-3 py-3">
-                </div>
-                <div class="tour-info-order-detail px-3">
-                    <div class="border-bottom">
-                        <div class="service-time-order-detail">{{ $t('Service_Time_ORD') }}: {{
-                            helper.formatISODate(orderItemDetail.pickingDate) }}</div>
-                        <div class="tour-title-order-detail">{{ orderItemDetail.productParentTitle }}</div>
-                        <div class="tour-description-order-detail">{{ orderItemDetail.productChildTitle }}</div>
+                <div class="card-order-detail border mb-3">
+                    <div class="card-header-order-detail">
+                        <span class="title145">{{ $t('Order_Status_ORD') }}</span>
+                        <span class="status-badge-order-detail" :style="{
+                            backgroundColor: helper.setStyleOrderStatus(orderItemDetail.activeStatus).bgColor,
+                            border: '1px solid ' + helper.setStyleOrderStatus(orderItemDetail.activeStatus).borderColor,
+                            color: helper.setStyleOrderStatus(orderItemDetail.activeStatus).textColor,
+                        }">
+                            {{ $t(orderItemDetail.activeStatus) }}
+                        </span>
                     </div>
 
-                    <div class="tour-details-order-detail">
-                        <div class="detail-row-order-detail d-flex mb-2" style="justify-content: space-between;">
-                            <div class="tour-description-order-detail m-0">{{ $t('Options_ORD') }}</div>
-                            <div class="detail-value-order-detail">
-                                <ul>
-                                    <li v-for="option in orderItemDetail.metaData.currentPickOption">{{
-                                        option.pickItemName }}</li>
-                                </ul>
+                    <div class="order-info-order-detail px-3 py-3">
+                        <div class="title145">{{ $t('Order_ID_ORD') }} <b>#{{ orderItemDetail.orderCode }}</b></div>
+                        <div class="order-date-order-detail">{{ $t('Order_Date_ORD') }}: {{
+                            helper.formatISODate(orderItemDetail.createdDate) }}</div>
+
+                        <div class="customer-info-order-detail">
+                            <div class="info-row-order-detail">
+                                <div class="info-label-order-detail">{{ $t('Requestor_ORD') }}</div>
+                                <div class="info-value-order-detail">{{ orderItemDetail.fullName }}</div>
                             </div>
-                        </div>
-
-                        <div class="detail-row-order-detail d-flex" style="justify-content: space-between;">
-                            <div class="tour-description-order-detail">{{ $t('Quantity_ORD') }}</div>
-                            <div class="detail-value-order-detail">
-                                <span>{{ orderItemDetail.unit ? orderItemDetail.unit : $t('ALDUT') }} x {{
-                                    orderItemDetail.metaData.numberOfAldut }}</span>
-                                <span v-if="orderItemDetail.metaData.numberOfChildrend > 0"> |
-                                    {{ $t('CHILDREND') }} x {{ orderItemDetail.metaData.numberOfChildrend }}</span>
+                            <div class="info-row-order-detail">
+                                <div class="info-label-order-detail">{{ $t('Email_ORD') }}</div>
+                                <div class="info-value-order-detail">{{ orderItemDetail.email }}</div>
+                            </div>
+                            <div class="info-row-order-detail">
+                                <div class="info-label-order-detail">{{ $t('Phone_Number_ORD') }}</div>
+                                <div class="info-value-order-detail">{{ orderItemDetail.phoneNumber }}</div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="px-3 py-3">
+                        <button class="action-button-order-detail mb-2">
+                            <img class="pe-2" src="/images/document-download.png" />
+                            {{ $t('Download_ETicket_ORD') }}
+                        </button>
+                        <button class="action-button-order-detail">
+                            <img class="pe-2" src="/images/document-textt.png" />
+                            {{ $t('Invoice_Info_ORD') }}
+                        </button>
+                    </div>
                 </div>
 
-                <div class="detail-row-order-detail1 mt-3 ">
-                    <div class="tour-description-order-detail total-amount-order-detail">{{ $t('Total_Amount_ORD') }}
+                <div class="card-order-detail border">
+                    <div>
+                        <img :src="helper.getImageCMS(orderItemDetail.productParentAvatar)" alt="Tour"
+                            class="tour-image-order-detail px-3 py-3">
                     </div>
-                    <div class="detail-value-order-detail amount-value-order-detail">
-                        VND {{ orderItemDetail.metaData.totalPrice.toLocaleString() }}
+                    <div class="tour-info-order-detail px-3">
+                        <div class="border-bottom">
+                            <div class="service-time-order-detail">{{ $t('Service_Time_ORD') }}: {{
+                                helper.formatISODate(orderItemDetail.pickingDate) }}</div>
+                            <div class="tour-title-order-detail">{{ orderItemDetail.productParentTitle }}</div>
+                            <div class="tour-description-order-detail">{{ orderItemDetail.productChildTitle }}</div>
+                        </div>
+
+                        <div class="tour-details-order-detail">
+                            <div class="detail-row-order-detail d-flex mb-2" style="justify-content: space-between;">
+                                <div class="tour-description-order-detail m-0">{{ $t('Options_ORD') }}</div>
+                                <div class="detail-value-order-detail">
+                                    <ul>
+                                        <li v-for="option in orderItemDetail.metaData.currentPickOption">{{
+                                            option.pickItemName }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="detail-row-order-detail d-flex" style="justify-content: space-between;">
+                                <div class="tour-description-order-detail">{{ $t('Quantity_ORD') }}</div>
+                                <div class="detail-value-order-detail">
+                                    <span>{{ orderItemDetail.unit ? orderItemDetail.unit : $t('ALDUT') }} x {{
+                                        orderItemDetail.metaData.numberOfAldut }}</span>
+                                    <span v-if="orderItemDetail.metaData.numberOfChildrend > 0"> |
+                                        {{ $t('CHILDREND') }} x {{ orderItemDetail.metaData.numberOfChildrend }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-row-order-detail1 mt-3 ">
+                        <div class="tour-description-order-detail total-amount-order-detail">{{ $t('Total_Amount_ORD')
+                            }}
+                        </div>
+                        <div class="detail-value-order-detail amount-value-order-detail">
+                            VND {{ orderItemDetail.metaData.totalPrice.toLocaleString() }}
+                        </div>
+                    </div>
+                </div>
+                <div className="container-fluid p-0">
+                    <ul className="nav nav-tabs custom-tabs justify-content-center pt-2" id="productTabs"
+                        role="tablist">
+                        <li className="nav-item" role="presentation">
+                            <button className="nav-link active custom-tab-link" id="product-detail-tab"
+                                data-bs-toggle="tab" data-bs-target="#product-detail" type="button" role="tab"
+                                aria-controls="product-detail" aria-selected="true">
+                                {{ $t("Policy_ORDTAB") }}
+                            </button>
+                        </li>
+                        <li className="nav-item" role="presentation">
+                            <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
+                                data-bs-target="#description" type="button" role="tab" aria-controls="description"
+                                aria-selected="false">
+                                {{ $t("Note_ORDTAB") }}
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div className="tab-content custom-tab-content my-r pt-3" id="productTabsContent">
+                        <div className="tab-pane fade show active" id="product-detail" role="tabpanel"
+                            aria-labelledby="product-detail-tab">
+                            <div v-for="note in orderItemDetail.productParentThuTucVisa" v-html="note.noiDung"></div>
+                        </div>
+                        <div className="tab-pane fade p-3" id="description" role="tabpanel"
+                            aria-labelledby="description-tab">
+                            <div v-for="note in orderItemDetail.productThongTinTour" v-html="note.noiDung"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="container-fluid p-0">
-                <ul className="nav nav-tabs custom-tabs justify-content-center pt-2" id="productTabs" role="tablist">
-                    <li className="nav-item" role="presentation">
-                        <button className="nav-link active custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
-                            data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
-                            aria-selected="true">
-                            {{ $t("Policy_ORDTAB") }}
-                        </button>
-                    </li>
-                    <li className="nav-item" role="presentation">
-                        <button className="nav-link custom-tab-link" id="description-tab" data-bs-toggle="tab"
-                            data-bs-target="#description" type="button" role="tab" aria-controls="description"
-                            aria-selected="false">
-                            {{ $t("Note_ORDTAB") }}
-                        </button>
-                    </li>
-                </ul>
-
-                <div className="tab-content custom-tab-content my-r pt-3" id="productTabsContent">
-                    <div className="tab-pane fade show active" id="product-detail" role="tabpanel"
-                        aria-labelledby="product-detail-tab">
-                        <div v-for="note in orderItemDetail.productParentThuTucVisa" v-html="note.noiDung"></div>
-                    </div>
-                    <div className="tab-pane fade p-3" id="description" role="tabpanel"
-                        aria-labelledby="description-tab">
-                        <div v-for="note in orderItemDetail.productThongTinTour" v-html="note.noiDung"></div>
-                    </div>
-                </div>
+            <div class="bottom-menu menu-search bo-goc gap-3">
+                <router-link to="" class="btn-search cancle">
+                    <button class="search-button btn-search" id="search">
+                        {{ $t("Cancel_Order_ORD") }}
+                    </button>
+                </router-link>
+                <router-link to="" class="btn-search">
+                    <button class="search-button btn-search" id="search">
+                        {{ $t("Contact_Support_ORD") }}
+                    </button>
+                </router-link>
             </div>
-        </div>
-        <div class="bottom-menu menu-search bo-goc gap-3">
-            <router-link to="" class="btn-search cancle">
-                <button class="search-button btn-search" id="search">
-                    {{ $t("Cancel_Order_ORD") }}
-                </button>
-            </router-link>
-            <router-link to="" class="btn-search">
-                <button class="search-button btn-search" id="search">
-                    {{ $t("Contact_Support_ORD") }}
-                </button>
-            </router-link>
-        </div>
 
+        </div>
     </div>
 </template>
 <script setup>

@@ -1,308 +1,313 @@
 <template>
-    <div v-if="!productDetail">
-        <div class="p-2">
-            <Skeleton height="240px" borderRadius="12px" class="mb-4" />
+    <div>
+        <div v-if="!productDetail">
+            <div class="p-2">
+                <Skeleton height="240px" borderRadius="12px" class="mb-4" />
 
-            <!-- Tiêu đề -->
-            <Skeleton width="90%" height="24px" class="mb-2" />
-            <Skeleton width="60%" height="20px" class="mb-2" />
+                <!-- Tiêu đề -->
+                <Skeleton width="90%" height="24px" class="mb-2" />
+                <Skeleton width="60%" height="20px" class="mb-2" />
 
-            <!-- Địa điểm + đã đặt -->
-            <div class="flex items-center space-x-2 mb-2">
-                <Skeleton width="20px" height="20px" shape="circle" class="mb-1" />
-                <Skeleton width="120px" height="16px" />
-            </div>
-
-            <!-- Đánh giá -->
-            <div class="flex items-center space-x-2 mb-4">
-                <Skeleton width="16px" height="16px" shape="circle" class="mb-1" />
-                <Skeleton width="40px" height="16px" />
-            </div>
-
-            <!-- Tabs -->
-            <div class="flex space-x-4 mb-4">
-                <Skeleton width="100px" height="30px" borderRadius="8px" class="mb-1" />
-                <Skeleton width="100px" height="30px" borderRadius="8px" class="mb-1" />
-                <Skeleton width="140px" height="30px" borderRadius="8px" class="mb-1" />
-            </div>
-
-            <!-- Mô tả ngắn -->
-            <Skeleton width="100%" height="16px" class="mb-1" />
-            <Skeleton width="80%" height="16px" class="mb-1" />
-            <Skeleton width="60%" height="16px" class="mb-4" />
-
-            <!-- Giá + nút -->
-            <div class="flex items-center justify-between mt-6">
-                <div>
-                    <Skeleton width="100px" height="20px" class="mb-1" />
-                    <Skeleton width="80px" height="18px" class="mb-1" />
+                <!-- Địa điểm + đã đặt -->
+                <div class="flex items-center space-x-2 mb-2">
+                    <Skeleton width="20px" height="20px" shape="circle" class="mb-1" />
+                    <Skeleton width="120px" height="16px" />
                 </div>
-                <Skeleton width="120px" height="40px" borderRadius="8px" class="mb-1" />
-            </div>
-        </div>
-    </div>
-    <div class="product-containerr" v-else>
-        <!-- Main image -->
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="product-slider position-relative">
-                        <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
-                            :autoplay="{ delay: 3000 }" :navigation="true" :pagination="{
-                                el: '.swiper-pagination',
-                                type: 'fraction',
-                            }" class="mySwiper">
-                            <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
-                                <img :src="helper.getImageCMS(image)" class="d-block w-100"
-                                    style="height: 220px; object-fit: cover" />
-                            </swiper-slide>
 
-                            <!-- Hiển thị số đếm dạng 1/5 -->
-                            <div class="swiper-pagination fraction-pagination"></div>
-                        </swiper>
+                <!-- Đánh giá -->
+                <div class="flex items-center space-x-2 mb-4">
+                    <Skeleton width="16px" height="16px" shape="circle" class="mb-1" />
+                    <Skeleton width="40px" height="16px" />
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex space-x-4 mb-4">
+                    <Skeleton width="100px" height="30px" borderRadius="8px" class="mb-1" />
+                    <Skeleton width="100px" height="30px" borderRadius="8px" class="mb-1" />
+                    <Skeleton width="140px" height="30px" borderRadius="8px" class="mb-1" />
+                </div>
+
+                <!-- Mô tả ngắn -->
+                <Skeleton width="100%" height="16px" class="mb-1" />
+                <Skeleton width="80%" height="16px" class="mb-1" />
+                <Skeleton width="60%" height="16px" class="mb-4" />
+
+                <!-- Giá + nút -->
+                <div class="flex items-center justify-between mt-6">
+                    <div>
+                        <Skeleton width="100px" height="20px" class="mb-1" />
+                        <Skeleton width="80px" height="18px" class="mb-1" />
                     </div>
-                    <div class="position-absolute start-0 translate-middle-y p-3 icon">
-                        <button class="back-button-product" @click="$router.go(-1)">
-                            <i class="fas fa-arrow-left" style="color: white"></i>
-                        </button>
-                    </div>
-                    <div class="position-absolute end-0 translate-middle-y p-3 icon">
-                        <router-link :to="`/cart`">
-                            <img height="30" src="/images/shopping-cart-w.png" />
-                        </router-link>
-                    </div>
+                    <Skeleton width="120px" height="40px" borderRadius="8px" class="mb-1" />
                 </div>
             </div>
         </div>
-        <!-- Title section -->
-        <div class="p-3">
-            <div class="title-detail">{{ productDetail.title }}</div>
-            <div class="d-flex align-items-center mt-1 dia-chi-product justify-content-between">
-                <div>
-                    <i class="fas fa-map-marker-alt location-dot"></i>
-                    <span>{{ productDetail.location }} | {{ productDetail.totalSale }}
-                        {{ $t("BOOKED") }}
-                    </span>
-                </div>
-                <div class="rating">
-                    <i class="fas fa-star"></i>
-                    <span class="rating-value">{{
-                        productDetail.rateAVG?.toFixed(2)
-                    }}</span>
-                </div>
-            </div>
-        </div>
+        <div class="product-containerr" v-else>
+            <!-- Main image -->
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="product-slider position-relative">
+                            <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
+                                :autoplay="{ delay: 3000 }" :navigation="true" :pagination="{
+                                    el: '.swiper-pagination',
+                                    type: 'fraction',
+                                }" class="mySwiper">
+                                <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
+                                    <img :src="helper.getImageCMS(image)" class="d-block w-100"
+                                        style="height: 220px; object-fit: cover" />
+                                </swiper-slide>
 
-        <div className="container-fluid p-0">
-            <ul className="nav nav-tabs custom-tabs justify-content-center mr-3 ml-3" id="productTabs" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link active custom-tab-link" id="description-tab" data-bs-toggle="tab"
-                        data-bs-target="#description" type="button" role="tab" aria-controls="description"
-                        aria-selected="false">
-                        {{ $t("DESCRIPTION") }}
-                    </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
-                        data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
-                        aria-selected="true">
-                        {{ $t("PRODUCT_DETAIL") }}
-                    </button>
-                </li>
-
-                <li className="nav-item" role="presentation">
-                    <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
-                        data-bs-target="#terms" type="button" role="tab" aria-controls="terms" aria-selected="false">
-                        {{ $t("TERM_AND_CONDITIONS") }}
-                    </button>
-                </li>
-            </ul>
-
-            <div className="tab-content custom-tab-content" id="productTabsContent">
-                <div className="tab-pane fade  pt-3 px-3" id="product-detail" role="tabpanel"
-                    aria-labelledby="product-detail-tab">
-                    <p className="mb-3 custom-paragraph" v-html="productDetail.content"></p>
-                </div>
-                <div className="tab-pane fade p-3 show active" id="description" role="tabpanel"
-                    aria-labelledby="description-tab">
-                    <p className="mb-3 custom-paragraph" v-html="productDetail.description"></p>
-                </div>
-                <div className="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab">
-                    <p className="mb-3 custom-paragraph" v-for="n in productDetail.policies" :key="n.tieuDe"
-                        v-html="n.noiDung"></p>
-                </div>
-            </div>
-        </div>
-        <!-- Ha Noi Station -->
-        <div class="border-top p-3">
-            <div class="-flex justify-content-between align-items-center">
-                <h2 class="title-map">{{ productDetail.location }}</h2>
-            </div>
-            <div>
-                <div class="position-relative h-100">
-                    <div className="position-relative mt-3" style="height: 240px">
-                        <iframe :src="productDetail.locationIframe" width="100%" height="100%" allowFullScreen="{false}"
-                            loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid p-4 review-product border-bottom">
-            <!-- Rating Header -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center gap-4">
-                    <h2 class="display-6 fw-bold mb-0 so-review">
-                        {{ productDetail.rateAVG?.toFixed(1) }}
-                    </h2>
-                    <div class="d-flex text-warning">
-                        <i v-for="n in Math.floor(productDetail.rateAVG)" :key="n" class="fas fa-star"
-                            style="font-size: 24px"></i>
-                        <i v-if="productDetail.rateAVG % 1 >= 0.5" class="fas fa-star-half-alt"
-                            style="font-size: 24px"></i>
-                    </div>
-                </div>
-
-                <a href="#" class="text-primary text-decoration-none view-all">
-                    {{ $t("VIEW_All") }}
-                </a>
-            </div>
-
-            <div class="review-container">
-                <!-- Review Quote -->
-                <div class="nd-rv" v-for="r in productDetail.reviews" :key="r">
-                    <div class="mb-3 border-bottom">
-                        <div class="position-relative d-flex pb-3">
-                            <div>
-                                <img class="rounded-circle" width="20" src="/images/phay1.png" />
-                            </div>
-                            <div>
-                                <p class="ms-4 text-rv" style="font-size: 14px" v-html="r.isExpanded ? r.content : r.content?.slice(0, 50) + '...'
-                                    "></p>
-                                <a v-if="r.content?.length > 100" href="#" class="ms-4 read-more-pr"
-                                    style="font-size: 14px" @click.prevent="toggleReadMore(r)">
-                                    {{ r.isExpanded ? $t("READ_LESS") : $t("READ_MORE") }}
-                                </a>
-                            </div>
+                                <!-- Hiển thị số đếm dạng 1/5 -->
+                                <div class="swiper-pagination fraction-pagination"></div>
+                            </swiper>
                         </div>
-                    </div>
-
-                    <!-- User Profile -->
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                        <!-- <img src="/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
-                            height="40" /> -->
-                        <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
-                        <img class="rounded-circle" width="40" height="40" v-else src="/images/icon-user.png" />
-                        <div>
-                            <p class="mb-0 name-rv">{{ r.userName }}</p>
-                            <div class="d-flex text-warning bao-sao">
-                                <i class="fas fa-star" v-for="i in r.startNumber" style="font-size: 14px"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="recently-container p-4">
-            <div class="recently-header">
-                <h2 class="promo-title">{{ $t("YOU_MIGHT_ALSO_LIKE") }}</h2>
-            </div>
-
-            <ClientOnly>
-                <swiper :modules="[Autoplay, Pagination]" :slides-per-view="1.5" :space-between="16"
-                    class="recently-carousel">
-                    <swiper-slide v-for="product in productDetail.productSameZones" :key="product.productId"
-                        class="card-like tour-card1 mb-3">
-                        <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1">
-                            <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love" class="tour-image" />
-                            <div class="tour-content">
-                                <h3 class="tour-title">{{ product.title }}</h3>
-                                <div class="tour-location tour-price">
-                                    <div>
-                                        <span class="tour-booked">{{ product.totalSale }} {{ $t("BOOKED") }}</span>
-                                    </div>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <span class="rating-value">{{
-                                            product.rate.toFixed(1)
-                                        }}</span>
-                                    </div>
-                                </div>
-                                <div class="tour-price">
-                                    <div class="linee-h">
-                                        <span class="price-text">{{ $t("PRICE_FROM") }}</span>
-                                        <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
-                                        <span class="me-1"></span>
-                                        <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span
-                                                class="menu-text"><span class="me-1 menu-text">~
-                                                    {{ currentfCurrency.code }}</span>{{
-                                                        (product.price / currentfCurrency.exchange)
-                                                            .toFixed(1)
-                                                            .toLocaleString("en-US")
-                                                    }}</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </RouterLink>
-                    </swiper-slide>
-                </swiper>
-            </ClientOnly>
-        </div>
-        <div class="bottom-menu menu-search d-flex">
-            <div class="">
-                <div class="price-usd">{{ $t("PRICE_FROM") }}</div>
-                <div class="don-vi align-items-center" id="clear-all">
-                    VND {{ productDetail.price.toLocaleString() }}
-                </div>
-                <div class="price-usd">
-                    ~ {{ currentfCurrency.code }}
-                    {{
-                        currentfCurrency.code === 'VND'
-                            ? productDetail.price.toLocaleString()
-                            : new Intl.NumberFormat('en-US', {
-                                minimumFractionDigits: 1,
-                                maximumFractionDigits: 1
-                            }).format(productDetail.price / currentfCurrency.exchange)
-                    }}
-                </div>
-            </div>
-            <div class="d-flex">
-                <div class="gio-hang-pr" @click="onClickBuyNowParent()">
-                    <img width="24" src="/images/shopping-cart.png" />
-                </div>
-                <a>
-                    <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
-                        {{ $t("BUY_NOW") }}
-                    </button></a>
-                <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order pt-4"
-                    :style="{ width: '50vw' }" style="height: 100%; max-height: 100%; border-radius: 0"
-                    :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
-                    <div id="app" class="app-container">
-                        <!-- Header -->
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button class="reset-btn-booking" @click="resetSelection">
-                                <i class="fas fa-redo-alt"></i> {{ $t("RESET_SELECTION") }}
+                        <div class="position-absolute start-0 translate-middle-y p-3 icon">
+                            <button class="back-button-product" @click="$router.go(-1)">
+                                <i class="fas fa-arrow-left" style="color: white"></i>
                             </button>
                         </div>
+                        <div class="position-absolute end-0 translate-middle-y p-3 icon">
+                            <router-link :to="`/cart`">
+                                <img height="30" src="/images/shopping-cart-w.png" />
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Title section -->
+            <div class="p-3">
+                <div class="title-detail">{{ productDetail.title }}</div>
+                <div class="d-flex align-items-center mt-1 dia-chi-product justify-content-between">
+                    <div>
+                        <i class="fas fa-map-marker-alt location-dot"></i>
+                        <span>{{ productDetail.location }} | {{ productDetail.totalSale }}
+                            {{ $t("BOOKED") }}
+                        </span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <span class="rating-value">{{
+                            productDetail.rateAVG?.toFixed(2)
+                            }}</span>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- Main Content -->
-                        <div class="content-wrapper-booking p-3">
-                            <!-- Ticket cards with accordion -->
-                            <div v-for="(p, index) in payItems" :key="index" class="ticket-card-booking mb-3">
-                                <div class="news-title-blogg mb-1">
-                                    {{ p.currentPackage.title }}
+            <div className="container-fluid p-0">
+                <ul className="nav nav-tabs custom-tabs justify-content-center mr-3 ml-3" id="productTabs"
+                    role="tablist">
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link active custom-tab-link" id="description-tab" data-bs-toggle="tab"
+                            data-bs-target="#description" type="button" role="tab" aria-controls="description"
+                            aria-selected="false">
+                            {{ $t("DESCRIPTION") }}
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link custom-tab-link" id="product-detail-tab" data-bs-toggle="tab"
+                            data-bs-target="#product-detail" type="button" role="tab" aria-controls="product-detail"
+                            aria-selected="true">
+                            {{ $t("PRODUCT_DETAIL") }}
+                        </button>
+                    </li>
+
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link custom-tab-link" id="terms-tab" data-bs-toggle="tab"
+                            data-bs-target="#terms" type="button" role="tab" aria-controls="terms"
+                            aria-selected="false">
+                            {{ $t("TERM_AND_CONDITIONS") }}
+                        </button>
+                    </li>
+                </ul>
+
+                <div className="tab-content custom-tab-content" id="productTabsContent">
+                    <div className="tab-pane fade  pt-3 px-3" id="product-detail" role="tabpanel"
+                        aria-labelledby="product-detail-tab">
+                        <p className="mb-3 custom-paragraph" v-html="productDetail.content"></p>
+                    </div>
+                    <div className="tab-pane fade p-3 show active" id="description" role="tabpanel"
+                        aria-labelledby="description-tab">
+                        <p className="mb-3 custom-paragraph" v-html="productDetail.description"></p>
+                    </div>
+                    <div className="tab-pane fade p-3" id="terms" role="tabpanel" aria-labelledby="terms-tab">
+                        <p className="mb-3 custom-paragraph" v-for="n in productDetail.policies" :key="n.tieuDe"
+                            v-html="n.noiDung"></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Ha Noi Station -->
+            <div class="border-top p-3">
+                <div class="-flex justify-content-between align-items-center">
+                    <h2 class="title-map">{{ productDetail.location }}</h2>
+                </div>
+                <div>
+                    <div class="position-relative h-100">
+                        <div className="position-relative mt-3" style="height: 240px">
+                            <iframe :src="productDetail.locationIframe" width="100%" height="100%"
+                                allowFullScreen="{false}" loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid p-4 review-product border-bottom">
+                <!-- Rating Header -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center gap-4">
+                        <h2 class="display-6 fw-bold mb-0 so-review">
+                            {{ productDetail.rateAVG?.toFixed(1) }}
+                        </h2>
+                        <div class="d-flex text-warning">
+                            <i v-for="n in Math.floor(productDetail.rateAVG)" :key="n" class="fas fa-star"
+                                style="font-size: 24px"></i>
+                            <i v-if="productDetail.rateAVG % 1 >= 0.5" class="fas fa-star-half-alt"
+                                style="font-size: 24px"></i>
+                        </div>
+                    </div>
+
+                    <a href="#" class="text-primary text-decoration-none view-all">
+                        {{ $t("VIEW_All") }}
+                    </a>
+                </div>
+
+                <div class="review-container">
+                    <!-- Review Quote -->
+                    <div class="nd-rv" v-for="r in productDetail.reviews" :key="r">
+                        <div class="mb-3 border-bottom">
+                            <div class="position-relative d-flex pb-3">
+                                <div>
+                                    <img class="rounded-circle" width="20" src="/images/phay1.png" />
                                 </div>
-                                <div class="see-detail-booking mb-2" @click="visibleBottom = true">
-                                    {{ $t("VIEW_DETAIL") }}
-                                    <i class="fa-solid fa-chevron-down"></i>
-                                    <Drawer v-model:visible="visibleBottom" :header="$t('detail')" position="bottom"
-                                        style="height: auto" class="bo-goc so-luong-mua so-luong-mua1">
-                                        <div class="container detail-see pb-4">
-                                            <div class="tour-card-see-detail">
-                                                <h2 class="tour-title-see-detail">
-                                                    {{ p.currentPackage.title }}
-                                                </h2>
+                                <div>
+                                    <p class="ms-4 text-rv" style="font-size: 14px" v-html="r.isExpanded ? r.content : r.content?.slice(0, 50) + '...'
+                                        "></p>
+                                    <a v-if="r.content?.length > 100" href="#" class="ms-4 read-more-pr"
+                                        style="font-size: 14px" @click.prevent="toggleReadMore(r)">
+                                        {{ r.isExpanded ? $t("READ_LESS") : $t("READ_MORE") }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
-                                                <!-- <div class="price-text-see-detail pb-3">
+                        <!-- User Profile -->
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <!-- <img src="/images/10.jpg" alt="Tanaka Yuki" class="rounded-circle" width="40"
+                            height="40" /> -->
+                            <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
+                            <img class="rounded-circle" width="40" height="40" v-else src="/images/icon-user.png" />
+                            <div>
+                                <p class="mb-0 name-rv">{{ r.userName }}</p>
+                                <div class="d-flex text-warning bao-sao">
+                                    <i class="fas fa-star" v-for="i in r.startNumber" style="font-size: 14px"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="recently-container p-4">
+                <div class="recently-header">
+                    <h2 class="promo-title">{{ $t("YOU_MIGHT_ALSO_LIKE") }}</h2>
+                </div>
+
+                <ClientOnly>
+                    <swiper :modules="[Autoplay, Pagination]" :slides-per-view="1.5" :space-between="16"
+                        class="recently-carousel">
+                        <swiper-slide v-for="product in productDetail.productSameZones" :key="product.productId"
+                            class="card-like tour-card1 mb-3">
+                            <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1">
+                                <img :src="helper.getImageCMS(product.avatar)" alt="Inter Sweet Love"
+                                    class="tour-image" />
+                                <div class="tour-content">
+                                    <h3 class="tour-title">{{ product.title }}</h3>
+                                    <div class="tour-location tour-price">
+                                        <div>
+                                            <span class="tour-booked">{{ product.totalSale }} {{ $t("BOOKED") }}</span>
+                                        </div>
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <span class="rating-value">{{
+                                                product.rate.toFixed(1)
+                                                }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="tour-price">
+                                        <div class="linee-h">
+                                            <span class="price-text">{{ $t("PRICE_FROM") }}</span>
+                                            <span class="price-value">VND {{ product.price.toLocaleString() }}</span>
+                                            <span class="me-1"></span>
+                                            <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span>
+                                                <span class="menu-text"><span class="me-1 menu-text">~
+                                                        {{ currentfCurrency.code }}</span>{{
+                                                            (product.price / currentfCurrency.exchange)
+                                                                .toFixed(1)
+                                                                .toLocaleString("en-US")
+                                                        }}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </RouterLink>
+                        </swiper-slide>
+                    </swiper>
+                </ClientOnly>
+            </div>
+            <div class="bottom-menu menu-search d-flex">
+                <div class="">
+                    <div class="price-usd">{{ $t("PRICE_FROM") }}</div>
+                    <div class="don-vi align-items-center" id="clear-all">
+                        VND {{ productDetail.price.toLocaleString() }}
+                    </div>
+                    <div class="price-usd">
+                        ~ {{ currentfCurrency.code }}
+                        {{
+                            currentfCurrency.code === 'VND'
+                                ? productDetail.price.toLocaleString()
+                                : new Intl.NumberFormat('en-US', {
+                                    minimumFractionDigits: 1,
+                                    maximumFractionDigits: 1
+                                }).format(productDetail.price / currentfCurrency.exchange)
+                        }}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="gio-hang-pr" @click="onClickBuyNowParent()">
+                        <img width="24" src="/images/shopping-cart.png" />
+                    </div>
+                    <a>
+                        <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
+                            {{ $t("BUY_NOW") }}
+                        </button></a>
+                    <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order pt-4"
+                        :style="{ width: '50vw' }" style="height: 100%; max-height: 100%; border-radius: 0"
+                        :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
+                        <div id="app" class="app-container">
+                            <!-- Header -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="reset-btn-booking" @click="resetSelection">
+                                    <i class="fas fa-redo-alt"></i> {{ $t("RESET_SELECTION") }}
+                                </button>
+                            </div>
+
+                            <!-- Main Content -->
+                            <div class="content-wrapper-booking p-3">
+                                <!-- Ticket cards with accordion -->
+                                <div v-for="(p, index) in payItems" :key="index" class="ticket-card-booking mb-3">
+                                    <div class="news-title-blogg mb-1">
+                                        {{ p.currentPackage.title }}
+                                    </div>
+                                    <div class="see-detail-booking mb-2" @click="visibleBottom = true">
+                                        {{ $t("VIEW_DETAIL") }}
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                        <Drawer v-model:visible="visibleBottom" :header="$t('detail')" position="bottom"
+                                            style="height: auto" class="bo-goc so-luong-mua so-luong-mua1">
+                                            <div class="container detail-see pb-4">
+                                                <div class="tour-card-see-detail">
+                                                    <h2 class="tour-title-see-detail">
+                                                        {{ p.currentPackage.title }}
+                                                    </h2>
+
+                                                    <!-- <div class="price-text-see-detail pb-3">
                                                     <span class="me-1">{{ $t("PRICE_FROM") }}</span>
                                                     <span class="price-value-booking"><span class="me-1">{{
                                                         currentfCurrency.code
@@ -316,23 +321,269 @@
                                                             }}</span>
                                                 </div> -->
 
-                                                <p class="dia-chi-product" v-html="p.currentPackage.description"></p>
+                                                    <p class="dia-chi-product" v-html="p.currentPackage.description">
+                                                    </p>
+                                                </div>
                                             </div>
+                                            <div class="bottom-menu menu-search bo-goc" @click="visibleBottom = false">
+                                                <router-link to="" class="btn-search">
+                                                    <button class="search-button btn-search" id="search">
+                                                        {{ $t("OK") }}
+                                                    </button></router-link>
+                                            </div>
+                                        </Drawer>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="price-booking">
+                                            <div class="d-flex gap-2 align-items-center">
+                                                <span class="tour-booked"> {{ $t("PRICE_FROM") }} </span><span
+                                                    class="price-value-booking">VND {{
+                                                        p.currentPackage.price.toLocaleString() }}</span>
+                                            </div>
+                                            <div class="packages-count-booking">
+                                                ~ {{ currentfCurrency.code }}
+                                                {{
+                                                    new Intl.NumberFormat('en-US', {
+                                                        minimumFractionDigits: 1,
+                                                        maximumFractionDigits: 1
+                                                    }).format(p.currentPackage.price / currentfCurrency.exchange)
+                                                }}
+                                            </div>
+
                                         </div>
-                                        <div class="bottom-menu menu-search bo-goc" @click="visibleBottom = false">
-                                            <router-link to="" class="btn-search">
-                                                <button class="search-button btn-search" id="search">
-                                                    {{ $t("OK") }}
-                                                </button></router-link>
-                                        </div>
-                                    </Drawer>
+                                        <button class="book-btn-booking" @click="onClickBookPackage(p)">
+                                            {{ p.isActive ? $t("CLOSE") : $t("BOOK") }}
+                                        </button>
+                                    </div>
+
+                                    <!-- Accordion content - appears when expanded -->
+                                    <div v-if="p.isActive" class="booking-accordion-content mt-3 border-top">
+                                        <Accordion :value="p.currentAccordionStep">
+                                            <AccordionPanel :value="0" class="modal-lich1">
+                                                <div class="lichh">
+                                                    <AccordionHeader class="mb-2"
+                                                        style="width: 100%; color: rgb(3, 41, 76); padding: 0">
+                                                        <div class="date-card-title-booking1">
+                                                            <span v-if="!p.currentSelectedDate">{{
+                                                                $t("Selected_Date")
+                                                                }}</span>
+                                                            <span v-else>{{ $t("Selected_Date") }}: <br />
+                                                                <div class="chose-option">
+                                                                    {{
+                                                                        helper.formatISODate(p.currentSelectedDate)
+                                                                    }}
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </AccordionHeader>
+                                                    <AccordionContent>
+                                                        <div class="calendar-nav-container-booking">
+                                                            <button class="calendar-nav-booking" @click="prevMonth(p)">
+                                                                <i class="fas fa-chevron-left"></i>
+                                                            </button>
+                                                            <div class="calendar-month-header-booking">
+                                                                {{ p.calendar.currentMonth }}/{{
+                                                                    p.calendar.currentYear
+                                                                }}
+                                                            </div>
+                                                            <button class="calendar-nav-booking" @click="nextMonth(p)">
+                                                                <i class="fas fa-chevron-right"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="calendar-grid-booking">
+                                                            <div class="calendar-day-header-booking" v-for="day in [
+                                                                'Mon',
+                                                                'Tue',
+                                                                'Wed',
+                                                                'Thu',
+                                                                'Fri',
+                                                                'Sat',
+                                                                'Sun',
+                                                            ]" :key="day">
+                                                                {{ day }}
+                                                            </div>
+                                                            <div v-for="(d, index) in p.calendar.items" :key="d"
+                                                                class="calendar-day-booking" :class="{
+                                                                    canClick: d.canClick,
+                                                                    dateActive: d.isActive,
+                                                                }" @click="onChoosenDate(p, index)">
+                                                                <span v-if="d.day == -1"> </span>
+                                                                <span v-else>{{ d.day }}</span>
+                                                                <!-- {{ day.day }} -->
+                                                            </div>
+                                                        </div>
+                                                    </AccordionContent>
+                                                </div>
+                                            </AccordionPanel>
+                                            <AccordionPanel :value="1" class="modal-lich1">
+                                                <div class="lichh">
+                                                    <AccordionHeader class="mb-2"
+                                                        style="width: 100%; color: rgb(3, 41, 76); padding: 0">
+                                                        <div class="date-card-title-booking1">
+                                                            <span v-if="!p.currentChoosenOptions">{{
+                                                                $t("Option")
+                                                                }}</span>
+                                                            <span v-else> {{ $t("Option") }} <br /> </span>
+                                                            <div class="chose-option" v-if="p.currentChoosenOptions">
+                                                                {{
+                                                                    p.currentChoosenOptions
+                                                                        .map((item) => item.name)
+                                                                        .join(", ")
+                                                                }}
+                                                            </div>
+                                                        </div>
+                                                    </AccordionHeader>
+
+                                                    <AccordionContent v-for="option in p.currentListOptions"
+                                                        :key="option">
+                                                        <div class="section-title-booking pb-2">
+                                                            {{ option.zoneParent.name }}
+                                                        </div>
+                                                        <div class="option-btn-booking1"
+                                                            v-for="child in option.zoneChilds" :key="child"
+                                                            @click="onSelectedOptionItem(p, child)" :class="{
+                                                                optionActive: child.isActive,
+                                                                optionDisable: child.isDisable,
+                                                            }">
+                                                            {{ child.name }}
+                                                        </div>
+                                                    </AccordionContent>
+                                                </div>
+                                            </AccordionPanel>
+                                            <AccordionPanel :value="2" class="modal-lich1">
+                                                <div class="lichh">
+                                                    <AccordionHeader class="mb-2"
+                                                        style="width: 100%; color: rgb(3, 41, 76); padding: 0">
+                                                        <div class="section-title-booking">
+                                                            {{ $t("Guest") }}<br />
+                                                            <div v-if="p.currentPackage.unit" class="chose-option">
+                                                                {{ p.currentPackage.unit }}: {{ p.choosenNguoiLon }}
+                                                            </div>
+                                                            <div v-else class="chose-option">
+                                                                <span v-if="p.choosenNguoiLon">{{ $t("Adult") }}: {{
+                                                                    p.choosenNguoiLon }}</span>
+                                                                <span v-if="p.choosenTreEm"> | {{ $t("Child") }}: {{
+                                                                    p.choosenTreEm }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </AccordionHeader>
+                                                    <AccordionContent>
+                                                        <div class="guest-dropdown-booking mt-2">
+                                                            <div>
+                                                                <div class="guest-item-booking border-bottom">
+                                                                    <div class="">
+                                                                        <div
+                                                                            class="price-item-so-luong d-flex justify-content-between align-items-center">
+                                                                            <div v-if="
+                                                                                p.selectedPriceByDate
+                                                                                    ?.priceEachNguoiLon > 0
+                                                                            ">
+                                                                                <div class="price-label-so-luong">
+                                                                                    {{ $t("Adult") }}
+                                                                                </div>
+                                                                                <div class="price-amount-so-luong">
+                                                                                    VND
+                                                                                    {{
+                                                                                        p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
+                                                                                    }}
+                                                                                </div>
+                                                                                <div class="price-text">
+                                                                                    ~ {{ currentfCurrency.code }}
+                                                                                    {{
+                                                                                        (
+                                                                                            p.selectedPriceByDate
+                                                                                                ?.priceEachNguoiLon /
+                                                                                            currentfCurrency.exchange
+                                                                                        )
+                                                                                            .toFixed(1)
+                                                                                            .toLocaleString("en-US")
+                                                                                    }}
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="quantity-controls-so-luong">
+                                                                                <button class="quantity-btn-so-luong"
+                                                                                    @click="decreaseNguoiLon(p)">
+                                                                                    −
+                                                                                </button>
+                                                                                <span
+                                                                                    class="quantity-display-so-luong">{{
+                                                                                        p.choosenNguoiLon
+                                                                                    }}</span>
+                                                                                <button class="quantity-btn-so-luong"
+                                                                                    @click="increaseNguoiLon(p)">
+                                                                                    +
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="">
+                                                                        <div class="price-item-so-luong d-flex justify-content-between align-items-center"
+                                                                            v-if="
+                                                                                p.selectedPriceByDate?.priceEachTreEm > 0
+                                                                            ">
+                                                                            <div>
+                                                                                <div class="price-label-so-luong">
+                                                                                    {{ $t("Child") }}
+                                                                                </div>
+                                                                                <div class="price-amount-so-luong">
+                                                                                    VND
+                                                                                    {{
+                                                                                        p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
+                                                                                    }}
+                                                                                </div>
+                                                                                <div class="price-text">
+                                                                                    ~ {{ currentfCurrency.code }}
+                                                                                    {{
+                                                                                        (
+                                                                                            p.selectedPriceByDate
+                                                                                                ?.priceEachTreEm /
+                                                                                            currentfCurrency.exchange
+                                                                                        )
+                                                                                            .toFixed(1)
+                                                                                            .toLocaleString("en-US")
+                                                                                    }}
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="quantity-controls-so-luong">
+                                                                                <button class="quantity-btn-so-luong"
+                                                                                    @click="decreaseTreEm(p)">
+                                                                                    −
+                                                                                </button>
+                                                                                <span
+                                                                                    class="quantity-display-so-luong">{{
+                                                                                        p.choosenTreEm
+                                                                                    }}</span>
+                                                                                <button class="quantity-btn-so-luong"
+                                                                                    @click="increaseTreEm(p)">
+                                                                                    +
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </AccordionContent>
+                                                </div>
+                                            </AccordionPanel>
+                                        </Accordion>
+                                    </div>
                                 </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="app-footer-booking">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="price-booking">
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <span class="tour-booked"> {{ $t("PRICE_FROM") }} </span><span
-                                                class="price-value-booking">VND {{
-                                                    p.currentPackage.price.toLocaleString() }}</span>
+                                    <div>
+                                        <div class="packages-count-booking">
+                                            {{ productDetail.productChilds.length }}
+                                            {{ $t("PACKAGES") }}
+                                        </div>
+                                        <div class="total-price-booking">
+                                            VND {{ totalPrice.toLocaleString() }}
                                         </div>
                                         <div class="packages-count-booking">
                                             ~ {{ currentfCurrency.code }}
@@ -340,271 +591,31 @@
                                                 new Intl.NumberFormat('en-US', {
                                                     minimumFractionDigits: 1,
                                                     maximumFractionDigits: 1
-                                                }).format(p.currentPackage.price / currentfCurrency.exchange)
+                                                }).format(totalPrice / currentfCurrency.exchange)
                                             }}
                                         </div>
-
                                     </div>
-                                    <button class="book-btn-booking" @click="onClickBookPackage(p)">
-                                        {{ p.isActive ? $t("CLOSE") : $t("BOOK") }}
-                                    </button>
-                                </div>
 
-                                <!-- Accordion content - appears when expanded -->
-                                <div v-if="p.isActive" class="booking-accordion-content mt-3 border-top">
-                                    <Accordion :value="p.currentAccordionStep">
-                                        <AccordionPanel :value="0" class="modal-lich1">
-                                            <div class="lichh">
-                                                <AccordionHeader class="mb-2"
-                                                    style="width: 100%; color: rgb(3, 41, 76); padding: 0">
-                                                    <div class="date-card-title-booking1">
-                                                        <span v-if="!p.currentSelectedDate">{{
-                                                            $t("Selected_Date")
-                                                        }}</span>
-                                                        <span v-else>{{ $t("Selected_Date") }}: <br />
-                                                            <div class="chose-option">
-                                                                {{
-                                                                    helper.formatISODate(p.currentSelectedDate)
-                                                                }}
-                                                            </div>
-                                                        </span>
-                                                    </div>
-                                                </AccordionHeader>
-                                                <AccordionContent>
-                                                    <div class="calendar-nav-container-booking">
-                                                        <button class="calendar-nav-booking" @click="prevMonth(p)">
-                                                            <i class="fas fa-chevron-left"></i>
-                                                        </button>
-                                                        <div class="calendar-month-header-booking">
-                                                            {{ p.calendar.currentMonth }}/{{
-                                                                p.calendar.currentYear
-                                                            }}
-                                                        </div>
-                                                        <button class="calendar-nav-booking" @click="nextMonth(p)">
-                                                            <i class="fas fa-chevron-right"></i>
-                                                        </button>
-                                                    </div>
-
-                                                    <div class="calendar-grid-booking">
-                                                        <div class="calendar-day-header-booking" v-for="day in [
-                                                            'Mon',
-                                                            'Tue',
-                                                            'Wed',
-                                                            'Thu',
-                                                            'Fri',
-                                                            'Sat',
-                                                            'Sun',
-                                                        ]" :key="day">
-                                                            {{ day }}
-                                                        </div>
-                                                        <div v-for="(d, index) in p.calendar.items" :key="d"
-                                                            class="calendar-day-booking" :class="{
-                                                                canClick: d.canClick,
-                                                                dateActive: d.isActive,
-                                                            }" @click="onChoosenDate(p, index)">
-                                                            <span v-if="d.day == -1"> </span>
-                                                            <span v-else>{{ d.day }}</span>
-                                                            <!-- {{ day.day }} -->
-                                                        </div>
-                                                    </div>
-                                                </AccordionContent>
-                                            </div>
-                                        </AccordionPanel>
-                                        <AccordionPanel :value="1" class="modal-lich1">
-                                            <div class="lichh">
-                                                <AccordionHeader class="mb-2"
-                                                    style="width: 100%; color: rgb(3, 41, 76); padding: 0">
-                                                    <div class="date-card-title-booking1">
-                                                        <span v-if="!p.currentChoosenOptions">{{
-                                                            $t("Option")
-                                                        }}</span>
-                                                        <span v-else> {{ $t("Option") }} <br /> </span>
-                                                        <div class="chose-option" v-if="p.currentChoosenOptions">
-                                                            {{
-                                                                p.currentChoosenOptions
-                                                                    .map((item) => item.name)
-                                                                    .join(", ")
-                                                            }}
-                                                        </div>
-                                                    </div>
-                                                </AccordionHeader>
-
-                                                <AccordionContent v-for="option in p.currentListOptions" :key="option">
-                                                    <div class="section-title-booking pb-2">
-                                                        {{ option.zoneParent.name }}
-                                                    </div>
-                                                    <div class="option-btn-booking1" v-for="child in option.zoneChilds"
-                                                        :key="child" @click="onSelectedOptionItem(p, child)" :class="{
-                                                            optionActive: child.isActive,
-                                                            optionDisable: child.isDisable,
-                                                        }">
-                                                        {{ child.name }}
-                                                    </div>
-                                                </AccordionContent>
-                                            </div>
-                                        </AccordionPanel>
-                                        <AccordionPanel :value="2" class="modal-lich1">
-                                            <div class="lichh">
-                                                <AccordionHeader class="mb-2"
-                                                    style="width: 100%; color: rgb(3, 41, 76); padding: 0">
-                                                    <div class="section-title-booking">
-                                                        {{ $t("Guest") }}<br />
-                                                        <div v-if="p.currentPackage.unit" class="chose-option">
-                                                           {{ p.currentPackage.unit }}: {{ p.choosenNguoiLon }}
-                                                        </div>
-                                                        <div v-else class="chose-option">
-                                                            <span v-if="p.choosenNguoiLon">{{ $t("Adult") }}: {{
-                                                                p.choosenNguoiLon }}</span>
-                                                            <span v-if="p.choosenTreEm"> | {{ $t("Child") }}: {{
-                                                                p.choosenTreEm }}</span>
-                                                        </div>
-                                                    </div>
-                                                </AccordionHeader>
-                                                <AccordionContent>
-                                                    <div class="guest-dropdown-booking mt-2">
-                                                        <div>
-                                                            <div class="guest-item-booking border-bottom">
-                                                                <div class="">
-                                                                    <div
-                                                                        class="price-item-so-luong d-flex justify-content-between align-items-center">
-                                                                        <div v-if="
-                                                                            p.selectedPriceByDate
-                                                                                ?.priceEachNguoiLon > 0
-                                                                        ">
-                                                                            <div class="price-label-so-luong">
-                                                                                {{ $t("Adult") }}
-                                                                            </div>
-                                                                            <div class="price-amount-so-luong">
-                                                                                VND
-                                                                                {{
-                                                                                    p.selectedPriceByDate?.priceEachNguoiLon.toLocaleString()
-                                                                                }}
-                                                                            </div>
-                                                                            <div class="price-text">
-                                                                                ~ {{ currentfCurrency.code }}
-                                                                                {{
-                                                                                    (
-                                                                                        p.selectedPriceByDate
-                                                                                            ?.priceEachNguoiLon /
-                                                                                        currentfCurrency.exchange
-                                                                                    )
-                                                                                        .toFixed(1)
-                                                                                        .toLocaleString("en-US")
-                                                                                }}
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="quantity-controls-so-luong">
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="decreaseNguoiLon(p)">
-                                                                                −
-                                                                            </button>
-                                                                            <span class="quantity-display-so-luong">{{
-                                                                                p.choosenNguoiLon
-                                                                            }}</span>
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="increaseNguoiLon(p)">
-                                                                                +
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="">
-                                                                    <div class="price-item-so-luong d-flex justify-content-between align-items-center"
-                                                                        v-if="
-                                                                            p.selectedPriceByDate?.priceEachTreEm > 0
-                                                                        ">
-                                                                        <div>
-                                                                            <div class="price-label-so-luong">
-                                                                                {{ $t("Child") }}
-                                                                            </div>
-                                                                            <div class="price-amount-so-luong">
-                                                                                VND
-                                                                                {{
-                                                                                    p.selectedPriceByDate?.priceEachTreEm.toLocaleString()
-                                                                                }}
-                                                                            </div>
-                                                                            <div class="price-text">
-                                                                                ~ {{ currentfCurrency.code }}
-                                                                                {{
-                                                                                    (
-                                                                                        p.selectedPriceByDate
-                                                                                            ?.priceEachTreEm /
-                                                                                        currentfCurrency.exchange
-                                                                                    )
-                                                                                        .toFixed(1)
-                                                                                        .toLocaleString("en-US")
-                                                                                }}
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="quantity-controls-so-luong">
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="decreaseTreEm(p)">
-                                                                                −
-                                                                            </button>
-                                                                            <span class="quantity-display-so-luong">{{
-                                                                                p.choosenTreEm
-                                                                            }}</span>
-                                                                            <button class="quantity-btn-so-luong"
-                                                                                @click="increaseTreEm(p)">
-                                                                                +
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </AccordionContent>
-                                            </div>
-                                        </AccordionPanel>
-                                    </Accordion>
+                                    <div class="d-flex align-items-center">
+                                        <div class="cart-icon-booking" @click="onAddToCart()"
+                                            :disabled="countPayItems === 0">
+                                            <img width="48" src="/images/shopping-cong.png" />
+                                        </div>
+                                        <button class="buy-btn-booking px-4" @click="buyNow"
+                                            :disabled="countPayItems === 0">
+                                            {{ $t("BUY_NOW") }} ({{ countPayItems }})
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Footer -->
-                        <div class="app-footer-booking">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="packages-count-booking">
-                                        {{ productDetail.productChilds.length }}
-                                        {{ $t("PACKAGES") }}
-                                    </div>
-                                    <div class="total-price-booking">
-                                        VND {{ totalPrice.toLocaleString() }}
-                                    </div>
-                                    <div class="packages-count-booking">
-                                        ~ {{ currentfCurrency.code }}
-                                        {{
-                                            new Intl.NumberFormat('en-US', {
-                                                minimumFractionDigits: 1,
-                                                maximumFractionDigits: 1
-                                            }).format(totalPrice / currentfCurrency.exchange)
-                                        }}
-                                    </div>
-                                </div>
-
-                                <div class="d-flex align-items-center">
-                                    <div class="cart-icon-booking" @click="onAddToCart()"
-                                        :disabled="countPayItems === 0">
-                                        <img width="48" src="/images/shopping-cong.png" />
-                                    </div>
-                                    <button class="buy-btn-booking px-4" @click="buyNow"
-                                        :disabled="countPayItems === 0">
-                                        {{ $t("BUY_NOW") }} ({{ countPayItems }})
-                                    </button>
-                                </div>
-                            </div>
+                        <!-- Spinner toàn màn hình -->
+                        <div class="fullscreen-loading" v-if="loadingPriceOption">
+                            <ProgressSpinner style="width: 60px; height: 60px" strokeWidth="6" fill="transparent"
+                                animationDuration="0.8s" aria-label="Custom ProgressSpinner" />
                         </div>
-                    </div>
-                    <!-- Spinner toàn màn hình -->
-                    <div class="fullscreen-loading" v-if="loadingPriceOption">
-                        <ProgressSpinner style="width: 60px; height: 60px" strokeWidth="6" fill="transparent"
-                            animationDuration="0.8s" aria-label="Custom ProgressSpinner" />
-                    </div>
-                </Dialog>
+                    </Dialog>
+                </div>
             </div>
         </div>
     </div>
