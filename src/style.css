@@ -303,9 +303,11 @@ img {
   position: absolute;
   top: 0;
   border-radius: 0px 0px 11px 11px;
-  background: #F1F5FF;
+  background:#F1F5FF !important;
   right: 10px;
+  color: #03294C;
   padding: 0px 8px;
+  font-size: 12px;
 }
 
 .bieu-tuong-gg {
