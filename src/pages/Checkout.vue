@@ -119,8 +119,7 @@
                                         </Dialog>
                                     </div>
                                     <!-- <FastTrack /> -->
-                                    <Accordion :value="activeSubNoteAccordion"
-                                        v-for="noteGroup in pay.productBookingNoteGroups" multiple>
+                                    <Accordion :value="activeSubNoteAccordion"  v-for="noteGroup in pay.productBookingNoteGroups" multiple>
                                         <AccordionPanel value="4">
                                             <AccordionHeader class="p-0">
                                                 <div class="service-details">
@@ -307,8 +306,7 @@
 
                     <div class="payment-options row justify-content-center">
                         <button v-for="(p, index) in paymentMethods" :key="p" class="payment-option col-5 "
-                            :class="{ active: selectedMethod === p.name }"
-                            @click="onChoosePaymentMethod(p)">
+                            :class="{ active: selectedMethod === p.name }" @click="onChoosePaymentMethod(p)">
                             <img :src="p.icon" alt="OnePay" class="payment-icon" />
                             <span class="payment-label">{{ p.name }}</span>
                         </button>
@@ -730,21 +728,15 @@ const onChoosePaymentMethod = (p) => {
 }
 const onRequestPay = async () => {
     onTriggerValidate();
-    let validatePayment = checkValidatePayment();
-    const validStep2 = scrollToFirstVisibleError();
+    let validatePayment = checkValidatePayment(); //kiểm tra phương thức thanh toán
     if (validatePayment) {
-        if (!validStep2) return;
-        else {
-            if (choosenPayment.value === "ONEPAY") {
-                await onRequestPayOnePay();
-            }
-            if (choosenPayment.value === "PAYPAL") {
-                await onRequestPayPayPal();
-            }
+        if (choosenPayment.value === "ONEPAY") {
+            await onRequestPayOnePay();
         }
-
+        if (choosenPayment.value === "PAYPAL") {
+            await onRequestPayPayPal();
+        }
     }
-
 }
 
 const onRequestPayOnePay = async () => {

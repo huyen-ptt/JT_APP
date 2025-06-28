@@ -1,6 +1,6 @@
 <template>
 
-    <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1" v-if="product && !onLoading">
+    <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1" v-if="product">
         <img :src="helper.getImageCMS(product.avatar)" class="tour-image">
         <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
