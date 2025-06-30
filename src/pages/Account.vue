@@ -90,10 +90,10 @@
                         <span class="title145">{{ $t('CURRENCY_ACCOUNT') }}</span>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
+                          <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
-                </router-link>
+                  </router-link>
             </div>
 
             <!-- About us Section -->
