@@ -10,7 +10,7 @@
             <Accordion :value="activeMainAccordion" multiple>
                 <AccordionPanel class="mb-3" value="0">
                     <AccordionHeader>
-                        <div class="promo-title pb-1">{{ $t('payment_summary') }}
+                        <div class="promo-title">{{ $t('payment_summary') }}
                         </div>
                     </AccordionHeader>
                     <AccordionContent>
@@ -43,7 +43,7 @@
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
                                                     <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
-                                                        }}</span>
+                                                    }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -173,7 +173,7 @@
                         </div>
                     </AccordionContent>
                 </AccordionPanel>
-                <AccordionPanel class="mb-3" value="1">
+                <AccordionPanel class="" value="1">
                     <AccordionHeader>
                         <div>
                             <div class="promo-title pb-1">{{ $t('customer_info') }}</div>
@@ -277,7 +277,7 @@
                             </div>
 
                             <!-- Account Name -->
-                            <div class="mb-3">
+                            <div class="">
                                 <label class="form-label">{{ $t('account_name_ott_app') }}</label>
                                 <input type="text" class="form-control" :placeholder="$t('your_account_name')"
                                     v-model="orderNote.useAppContactValue">
@@ -291,10 +291,10 @@
 
             <div class="rounded shadow-sm">
                 <!-- Note Section -->
-                <div class="mb-4 p-3 bg-white">
+                <div class="p-3 bg-white">
                     <h2 class="promo-title pb-2">{{ $t("Note_And_Other_Request_CHECKOUT") }}</h2>
-                    <textarea class="form-control" rows="3" :placeholder="$t('Note_CHECKOUT')"
-                        v-model="orderNote.noteSpecial"></textarea>
+                    <input class="form-control" rows="3" :placeholder="$t('Note_CHECKOUT')"
+                        v-model="orderNote.noteSpecial" />
                 </div>
 
                 <!-- Payment Method Section -->
@@ -1123,5 +1123,18 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+}
+
+.service-date {
+    margin-bottom: 3px;
+    font-size: 12px;
+}
+
+.top-bar-product {
+
+    margin-bottom: 1px;
+}
+.results-count-product{
+    margin-bottom: 5px;
 }
 </style>

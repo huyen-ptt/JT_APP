@@ -93,7 +93,7 @@ body {
 }
 
 .summary {
-  margin-bottom: 100px;
+  margin-bottom: 90px;
 }
 
 .bao-h {
@@ -424,7 +424,7 @@ img {
 .payment-options {
   display: flex;
   gap: 16px;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 
 .error-message {
@@ -1080,6 +1080,7 @@ img {
 }
 .custom-paragraph img {
   height: 200px !important;
+  border-radius: 20px;
 }
 .mi{
   height: 200px;
@@ -1616,7 +1617,8 @@ img {
 
 .title-detail {
   color: #03294C;
-  font-size: 24px;
+  font-size: 18px;
+  object-fit: cover;
   font-weight: 700;
 }
 
@@ -1647,7 +1649,7 @@ img {
 
 .so-review {
   color: #03294C;
-  font-size: 32px;
+  font-size: 27px;
 }
 
 .view-all {
@@ -1675,7 +1677,7 @@ img {
 }
 
 .name-rv {
-  font-size: 14px;
+  font-size: 13px;
   color: #03294C;
   font-weight: 600;
 }
@@ -3613,7 +3615,7 @@ img {
 .tour-specs {
   background: #F5F7FA;
   border-radius: 12px;
-  padding: 16px;
+    padding: 16px 16px 5px;
 
   /* margin: 20px 0; */
 }
@@ -3714,7 +3716,7 @@ img {
   justify-content: space-between;
   align-items: center;
   padding-top: 15px;
-  padding: 20px;
+  padding: 16px;
   background: #E1E5ED;
   border-radius: 0 0 20px 20px;
 }

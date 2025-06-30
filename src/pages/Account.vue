@@ -58,7 +58,7 @@
             </div>
 
             <!-- Settings Section -->
-            <h6 class="promo-title pb-3">{{ $t('SETTING_ACCOUNT') }}</h6>
+            <h6 class="promo-title">{{ $t('SETTING_ACCOUNT') }}</h6>
             <div class="settings-card">
                 <div class="settings-item" v-if="auth.id > 0" @click="onRedirectUpdatePassword()">
                     <div class="d-flex align-items-center">
@@ -90,14 +90,14 @@
                         <span class="title145">{{ $t('CURRENCY_ACCOUNT') }}</span>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
+                          <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
-                </router-link>
+                  </router-link>
             </div>
 
             <!-- About us Section -->
-            <h6 class="promo-title pb-3">{{ $t('ABOUT_US_ACCOUNT') }}</h6>
+            <h6 class="promo-title">{{ $t('ABOUT_US_ACCOUNT') }}</h6>
             <div class="about-card">
                 <!-- <div class="about-item">
                     <div class="d-flex align-items-center">
@@ -106,7 +106,7 @@
                         </div>
                         <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
-                    <i class="fas fa-chevron-right "></i>
+                      <i class="fas fa-chevron-right "></i>
                 </div> -->
                 <router-link to="/introduce" class="about-item">
                     <div class="d-flex align-items-center">
@@ -293,15 +293,15 @@ const onDeleteAccount = () => {
 .profile-card {
     background-color: white;
     border-radius: 12px;
-    padding: 10px 0;
+    /* padding: 10px 0; */
     margin-bottom: 20px;
 }
 
 .order-card {
     background-color: white;
     border-radius: 12px;
-    padding: 15px 23px;
-    margin-bottom: 20px;
+    padding: 1px 15px;
+    margin-bottom: 10px;
 }
 
 .settings-card,
@@ -314,7 +314,7 @@ const onDeleteAccount = () => {
 
 .settings-item,
 .about-item {
-    padding: 16px;
+    padding: 12px;
     border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
