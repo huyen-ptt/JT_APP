@@ -709,12 +709,12 @@ const paymentMethods = ref([
         method: "ONEPAY",
         vpc: "INTERCARD"
     },
-    {
-        icon: "/images/paypal-logo.svg",
-        name: "PAYPAL",
-        method: "PAYPAL",
-        vpc: "INTERCARD"
-    },
+    // {
+    //     icon: "/images/paypal-logo.svg",
+    //     name: "PAYPAL",
+    //     method: "PAYPAL",
+    //     vpc: "INTERCARD"
+    // },
 
 ])
 
