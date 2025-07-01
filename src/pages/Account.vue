@@ -84,16 +84,16 @@
 
                 <router-link to="/currency" class="settings-item">
                     <div class="d-flex align-items-center">
-                        <div class="icon-circle me-3">
+                        <div class="icon-circle me-3"> 
                             <img src="/images/money-send.png" />
                         </div>
                         <span class="title145">{{ $t('CURRENCY_ACCOUNT') }}</span>
                     </div>
                     <div class="d-flex align-items-center">
-                          <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
+                        <span class="see-detail-booking me-2">{{ fCurrency.code }}</span>
                         <i class="fas fa-chevron-right "></i>
                     </div>
-                  </router-link>
+                </router-link>
             </div>
 
             <!-- About us Section -->
@@ -102,11 +102,11 @@
                 <!-- <div class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="/images/book.png" />
+                            <img src="/images/book.png" />  
                         </div>
                         <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
-                      <i class="fas fa-chevron-right "></i>
+                      <i class="fas fa-chevron-right "></i>`
                 </div> -->
                 <router-link to="/introduce" class="about-item">
                     <div class="d-flex align-items-center">
@@ -125,7 +125,7 @@
                         </div>
                         <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
                     </div>
-                    <i class="fas fa-chevron-right "></i>
+                    <i class="fas fa-chevron-right"></i>
                 </router-link>
 
                 <router-link to="/faqs" class="about-item">
@@ -164,7 +164,7 @@
                                     <button class="btn btn-cancel-logoutt" @click="visible = false">{{
                                         $t('CANCEL_ACCOUNT') }}</button>
                                     <button class="btn btn-logout-logoutt" @click="onLogout()">{{ $t('LOG_OUT_ACCOUNT')
-                                    }}</button>
+                                        }}</button>
                                 </div>
                             </div>
                         </Dialog>
@@ -186,9 +186,9 @@
                             <div class="buttons-container-logoutt">
                                 <button class="btn btn-cancel-logoutt" @click="visibleDeleteAcc = false">{{
                                     $t('CANCEL_ACCOUNT')
-                                }}</button>
-                                <button class="btn btn-logout-logoutt" @click="onDeleteAccount()">{{ $t('CONFIRM')
                                     }}</button>
+                                <button class="btn btn-logout-logoutt" @click="onDeleteAccount()">{{ $t('CONFIRM')
+                                }}</button>
                             </div>
                         </div>
                     </Dialog>
@@ -260,7 +260,7 @@ const onDeleteAccount = () => {
     authComposable.DeleteAccount(data).then(res => {
         console.log(res)
         visibleDeleteAcc.value = false
-         authStore.onRemoveAuth();
+        authStore.onRemoveAuth();
     });
 }
 </script>
