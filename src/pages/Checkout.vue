@@ -136,7 +136,7 @@
                                                         <div class="" v-for="note in noteGroup.noteList">
                                                             <NoteInputBoxComponent :info="note"
                                                                 :trigger="triggerValidateNote"
-                                                                v-if="note.bookingNoteType === 'textarea'">
+                                                                v-if="note.bookingNoteType === 'textarea' || note.bookingNoteType === 'text'">
                                                             </NoteInputBoxComponent>
                                                             <NoteRadioButtonComponent :info="note"
                                                                 :trigger="triggerValidateNote"
@@ -749,6 +749,7 @@ const onRequestPayOnePay = async () => {
     activeMainAccordion.value = ['0', '1'];
     activeSubNoteAccordion.value = ['4'];
     const validStep2 = scrollToFirstVisibleError();
+    console.log(validPayNotes, validAuth, validatePayment)
     if (validPayNotes == true && validAuth == true && validatePayment == true) {
         if (!validStep2) return;
         else {
@@ -768,15 +769,20 @@ const onRequestPayOnePay = async () => {
             try {
                 const response = await payComposable.onRequestOnepay(data);
                 if (response && response.data.returnUrl) {
-                    StatusBar.setOverlaysWebView({ overlay: false });
+                    // StatusBar.setOverlaysWebView({ overlay: false });
                     // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
                     // StatusBar.setOverlaysWebView({ overlay: false });
+                    
+                    await StatusBar.setOverlaysWebView({ overlay: false });
+                    await StatusBar.setBackgroundColor({ color: '#ffffff' });
                     const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
                         location: 'no',        // ✅ Ẩn thanh địa chỉ URL
-                        toolbar: 'yes',        // ✅ Hiện thanh toolbar (dưới statusbar)
+                        toolbar: 'no',        // ✅ Hiện thanh toolbar (dưới statusbar)
                         toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
-                        closebuttoncaption: 'Đóng', // 🛑 Android không hỗ trợ nhưng iOS có
-                        hideurlbar: 'yes',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
+                        closebuttoncaption: 'Close', // 🛑 Android không hỗ trợ nhưng iOS có
+                        hideurlbar: 'no',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
+                          fullscreen: 'no', // 🔥 CHÍNH ĐÂY
+
                     });
 
                     let returnPaymentUrl = "";

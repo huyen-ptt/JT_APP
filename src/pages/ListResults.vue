@@ -94,6 +94,7 @@ const onRemoveSearchTag = async (searchTag) => {
 
 const onLoadListOfSearchTag = async () => {
     listOfSearchTag.value = searchStore.search.searchItems;
+    console.log(JSON.stringify(listOfSearchTag.value))
     await onLoadListOfProducts();
 };
 

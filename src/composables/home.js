@@ -331,14 +331,16 @@ export const useHome = () => {
 
   const getListOrRegions = async () => {
     let data = {
-      parentId: 2431,
+      parentId: 1287,
       cultureCode: _cultureCode
     }
     const url = `${uri}/api/AppHomes/GetListOfRegions`
     try {
       const response = await axios.post(url, data);
       if (response) {
-        return response.data;
+        
+        let dt = response.data.filter(x => x.parentId > 0);
+        return dt;
       }
     } catch (error) {
 
