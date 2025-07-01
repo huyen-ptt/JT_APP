@@ -26,7 +26,10 @@ export const useAiBot = () => {
         case 'ko':
             _cultureCode = 'ko-KR';
             break;
-            
+        case 'ru':
+            _cultureCode = 'ru-RU';
+            break;
+
     }
 
     const sendMessage = async (data) => {

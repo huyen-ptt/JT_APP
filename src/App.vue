@@ -47,13 +47,14 @@ onMounted(async () => {
   });
 
   const platform = helper.getPlatformInfo();
+  StatusBar.setOverlaysWebView({ overlay: false });
   if (platform.isIOS) {
-    StatusBar.setOverlaysWebView({ overlay: true });
+    // StatusBar.setOverlaysWebView({ overlay: true });
   } else if (platform.isAndroid15Plus) {
-    StatusBar.setOverlaysWebView({ overlay: false });
+    // StatusBar.setOverlaysWebView({ overlay: false });
     try {
       await EdgeToEdge.setBackgroundColor({ color: '#000000' });
-      await StatusBar.setStyle({ style: Style.Light });
+      // await StatusBar.setStyle({ style: Style.Light });
     } catch (err) {
       console.warn('Lỗi set EdgeToEdge:', err);
     }

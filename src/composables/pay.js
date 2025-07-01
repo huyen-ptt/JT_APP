@@ -37,6 +37,7 @@ export const usePay = () => {
             const url = `${uri}/api/PageOrder/ProcessPaymentOnePayApp`;
             const respone = axios.post(url, data);
             if (respone) {
+                console.log(respone);
                 return respone;
             }
         } catch (error) {
