@@ -6,7 +6,7 @@
 
         <!-- Profile Section -->
         <div class="px-3 infomation-profile">
-            <div class="profile-card d-flex align-items-center" v-if="auth.id > 0">
+            <div class="profile-card d-flex align-items-center pt-2" v-if="auth.id > 0">
                 <div class="profile-img me-3">
                     <i class="fas fa-user text-primary"></i>
                 </div>

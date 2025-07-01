@@ -278,7 +278,7 @@
                         <button label="Show" @click="onClickBuyNowParent()" class="search-button" id="search">
                             {{ $t("BUY_NOW") }}
                         </button></a>
-                    <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order pt-4"
+                    <Dialog v-model:visible="visibleDrawerPackageList" modal class="modal-order"
                         :style="{ width: '50vw' }" style="height: 100%; max-height: 100%; border-radius: 0"
                         :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
                         <div id="app" class="app-container">
@@ -1423,7 +1423,7 @@ iframe {
 
 .reset-btn-booking {
     position: absolute;
-    top: 48px;
+top: 23px;
     right: 20px;
 }
 
