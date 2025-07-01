@@ -19,6 +19,9 @@ export const useServiceStatic = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
   const route = useRoute();
@@ -140,10 +143,10 @@ export const useServiceStatic = () => {
     const url = `${uri}/api/PageSearch/GetProductByKeywords`;
 
     if (selectedZones.length == 0) {
-      if(_second.value){
+      if (_second.value) {
         selectedZones.push(_second.value);
-        
-      }else{
+
+      } else {
         selectedZones.push(_first.value);
       }
     }
@@ -212,7 +215,7 @@ export const useServiceStatic = () => {
   const getServiceFullDetail = async () => {
     const url = `${uri}/api/PageServices/GetServiceFullDetail`;
     let alias = _first.value;
-    if(_second.value){
+    if (_second.value) {
       alias = _second.value;
     }
     const data = {
@@ -231,28 +234,28 @@ export const useServiceStatic = () => {
       if (response.data.value) {
         // console.log(response.data.value)
         let zoneDetail = response.data.value;
-        
-        if(zoneDetail.comments){
+
+        if (zoneDetail.comments) {
           zoneDetail.comments = JSON.parse(zoneDetail.comments);
-        }else{
+        } else {
           zoneDetail.comments = [];
         }
-        if(zoneDetail.faqs){
+        if (zoneDetail.faqs) {
           zoneDetail.faqs = JSON.parse(zoneDetail.faqs);
-        }else{
+        } else {
           zoneDetail.faqs = [];
         }
 
-        if(zoneDetail.searchTags){
+        if (zoneDetail.searchTags) {
           zoneDetail.searchTags = JSON.parse(zoneDetail.searchTags);
-          if(zoneDetail.searchTags.length > 0){
+          if (zoneDetail.searchTags.length > 0) {
             zoneDetail.searchTags.forEach(r => {
-              if(r.description){
+              if (r.description) {
                 r.tags = r.description.split(',')
               }
             })
           }
-        }else{
+        } else {
           zoneDetail.searchTags = [];
         }
         return zoneDetail

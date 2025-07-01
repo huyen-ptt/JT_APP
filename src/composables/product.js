@@ -27,6 +27,9 @@ export const useProduct = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
 
@@ -40,7 +43,7 @@ export const useProduct = () => {
     console.log(data)
     try {
       const response = await axios.post(url, data)
- 
+
       if (response.data) {
 
         let detail = response.data;
@@ -88,7 +91,7 @@ export const useProduct = () => {
   const getProductOptionsPriceByDate = async (data) => {
     const url = `${uri}/api/PageProduct/GetProductOptionsPriceByDate`
     const respone = await axios.post(url, data);
-    if(respone){
+    if (respone) {
       return respone;
     }
   }
