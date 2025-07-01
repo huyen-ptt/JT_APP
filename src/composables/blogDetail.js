@@ -7,7 +7,7 @@ import { computed } from 'vue';
 
 export const useBlogDetail = () => {
   const route = useRoute();
- 
+
   const uri = import.meta.env.VITE_API_URI;
   let _cultureCode = '';
 
@@ -27,6 +27,9 @@ export const useBlogDetail = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
 
@@ -37,9 +40,9 @@ export const useBlogDetail = () => {
   const getBlogInfomationDetail = async () => {
     const url = `${uri}/api/PageArticles/GetBlogDetailById`;
     const data = { id: parseInt(id.value), cultureCode: _cultureCode };
-    
+
     try {
-      const response = await axios.post(url,data);
+      const response = await axios.post(url, data);
       if (response.data) {
         let detail = response.data;
         return detail;
@@ -52,7 +55,7 @@ export const useBlogDetail = () => {
       // await navigateTo(localePath('/blogs'));
       return null;
     }
-  } 
+  }
   const getBlogParentZone = async (parentChoosen) => {
     let type = 2; // 2 la zone bai viet
     if (_cultureCode) {

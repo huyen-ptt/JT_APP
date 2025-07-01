@@ -26,6 +26,9 @@ export const useArticles = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
 
@@ -41,7 +44,7 @@ export const useArticles = () => {
       try {
         // console.log(url)
         const response = await axios.post(url, data)
-        
+
         if (response.data) {
           let _response = response.data.filter(r => r.parentId > 0);
 

@@ -13,7 +13,8 @@
         </div>
 
         <div class="bottom-menu menu-search bo-goc gap-3">
-            <router-link to="/onboarding1" class="btn-search cancle"> <button class="search-button btn-search" id="search">
+            <router-link to="/onboarding1" class="btn-search cancle"> <button class="search-button btn-search"
+                    id="search">
                     {{ $t('CANCEL_ACCOUNT') }}
                 </button></router-link>
             <router-link to="/onboarding1" class="btn-search"> <button class="search-button btn-search" id="search">
@@ -67,6 +68,12 @@ const languages = ref([
         code: 'zh-CN',
         i18Code: 'zh',
         name: '中文',
+        flag: '/images/flags/zh.svg'
+    },
+    {
+        code: 'ru-RU',
+        i18Code: 'ru',
+        name: 'Русский',
         flag: '/images/flags/zh.svg'
     }
 ])

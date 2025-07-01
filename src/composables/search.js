@@ -30,6 +30,9 @@ export const useSearch = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
   const route = useRoute();
@@ -181,29 +184,29 @@ export const useSearch = () => {
 
   const onSearchProducts = async (pageIndex, pageSort) => {
     const url = `${uri}/api/PageSearch/GetProductByKeywords_V2`;
-    
+
     let keywords = [];
-    if(currentSreach.value.keyword){
+    if (currentSreach.value.keyword) {
       keywords.push(currentSreach.value.keyword)
     }
     let selectedZoneDestinations = [];
     let selectedZoneServices = [];
     let selectedZoneRegions = [];
     let selectedIdProduct = [];
-    if(currentSreach.value.searchItems.length > 0){
+    if (currentSreach.value.searchItems.length > 0) {
       currentSreach.value.searchItems.forEach(r => {
         console.log(r);
-        if(r.type == 5){
+        if (r.type == 5) {
           selectedZoneDestinations.push(r.id)
         }
-        if(r.type == 1){
+        if (r.type == 1) {
           selectedZoneServices.push(r.id)
         }
-        if(r.type == 7){
-          selectedZoneRegions.push(r.id)          
+        if (r.type == 7) {
+          selectedZoneRegions.push(r.id)
         }
-        if(r.type == 99){
-          selectedIdProduct = r.lstId        
+        if (r.type == 99) {
+          selectedIdProduct = r.lstId
         }
       })
     }

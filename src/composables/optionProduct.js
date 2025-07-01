@@ -24,6 +24,9 @@ export const useOptionProduct = () => {
         case 'ko':
             _cultureCode = 'ko-KR';
             break;
+        case 'ru':
+            _cultureCode = 'ru-RU';
+            break;
     }
 
     const id = computed(() => route.params.id);

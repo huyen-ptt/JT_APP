@@ -21,9 +21,12 @@ export const useSeo = () => {
     case 'zh':
       _cultureCode = 'zh-CN';
       break;
-      case 'ko':
-        _cultureCode = 'ko-KR';
-        break;
+    case 'ko':
+      _cultureCode = 'ko-KR';
+      break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
   const getDynamicSeo = async () => {
@@ -38,7 +41,7 @@ export const useSeo = () => {
       if (response) {
         return response;
       }
-      else{
+      else {
         return null;
       }
 
@@ -49,5 +52,5 @@ export const useSeo = () => {
 
   }
 
-  return {getDynamicSeo}
+  return { getDynamicSeo }
 }
