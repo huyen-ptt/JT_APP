@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
-    <transition name="fade" mode="out-in">
+    <!-- Hiệu ứng chuyển trang slide -->
+    <transition name="slide-left" mode="out-in">
       <router-view :key="$route.fullPath" />
     </transition>
   </div>
@@ -20,40 +21,14 @@ import Swal from 'sweetalert2'
 import { useHelper } from "./composables/helper";
 import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
 import { SplashScreen } from '@capacitor/splash-screen';
+
 const { t } = useI18n();
-
-
-
 const router = useRouter();
 const authStore = useAuthStore()
 const auth = computed(() => authStore.auth)
 const helper = useHelper()
-
-
-// Force status bar không overlay (optional)
-
 const langStore = useLanguageStore()
-
 langStore.loadDefaulLanguage()
-
-// Khóa portrait
-// ScreenOrientation.lock({ type: 'PORTRAIT_PRIMARY' });
-
-// const lastScrollTop = ref(0);
-
-// const handleScrollChange = async () => {
-//   const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-
-//   if (scrollTop === 0 && lastScrollTop.value !== 0) {
-//     // Cuộn về top
-//     await StatusBar.setOverlaysWebView({ overlay: true });
-//   } else if (scrollTop > 10 && lastScrollTop.value === 0) {
-//     // Bắt đầu cuộn xuống
-//     await StatusBar.setOverlaysWebView({ overlay: false });
-//   }
-
-//   lastScrollTop.value = scrollTop;
-// }
 
 onMounted(async () => {
   App.addListener('backButton', async ({ canGoBack }) => {
@@ -70,24 +45,19 @@ onMounted(async () => {
       window.history.back();
     }
   });
-  // Kiem tra phien ban
+
   const platform = helper.getPlatformInfo();
   if (platform.isIOS) {
     StatusBar.setOverlaysWebView({ overlay: true });
-
-    // StatusBar.setBackgroundColor({ color: '#F8F9FA' });
-    // window.addEventListener('scroll', handleScrollChange, { passive: true });
   } else if (platform.isAndroid15Plus) {
     StatusBar.setOverlaysWebView({ overlay: false });
     try {
-      await EdgeToEdge.setBackgroundColor({ color: '#000000' }); // hoặc '#ffffff'
-      await StatusBar.setStyle({ style: Style.Light }); // chữ trắng
+      await EdgeToEdge.setBackgroundColor({ color: '#000000' });
+      await StatusBar.setStyle({ style: Style.Light });
     } catch (err) {
       console.warn('Lỗi set EdgeToEdge:', err);
     }
-
   }
-  // Kiểm tra iphone cho overlay là true
 
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     const styleSheets = document.styleSheets;
@@ -104,30 +74,42 @@ onMounted(async () => {
       }
     }
   }
-
-})
+});
 </script>
 
 <style>
-/* Animation fade */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+/* Slide mượt từ phải sang trái khi chuyển trang */
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.slide-left-enter-from {
+  transform: translateX(100%);
 }
-.fade-leave-from {
-  opacity: 1;
+
+.slide-left-enter-to {
+  transform: translateX(0%);
 }
-/* Add nền trắng + full màn hình */
+
+.slide-left-leave-from {
+  transform: translateX(0%);
+}
+   
+.slide-left-leave-to {
+  transform: translateX(-100%);
+}
+
+
+/* Layout mặc định */
 .app-container {
   background-color: #ffffff;
   min-height: 100vh;
   padding-top: env(safe-area-inset-top);
-  
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
@@ -135,7 +117,6 @@ onMounted(async () => {
 :root {
   color-scheme: light;
 }
-
 @media (prefers-color-scheme:dark) {
   :root {
     color-scheme: light !important;

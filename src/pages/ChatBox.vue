@@ -49,7 +49,7 @@
                     <!-- <img src="/images/happy.png" /> -->
                 </div>
                 <button class="send-button-chat" @click="onSendChat()" v-if="!loadingChat">
-                    <img src="/images/send-2.png" />
+                    <img width="24" src="/images/send-2.png" />
                 </button>
                 <ProgressSpinner style="width: 40px; height: 40px" strokeWidth="8" fill="transparent"
                     animationDuration=".5s" aria-label="Custom ProgressSpinner" v-else />
