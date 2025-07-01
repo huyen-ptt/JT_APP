@@ -18,7 +18,7 @@
                         </div>
                         <div class="notification-content-tb">
                             <div class="notification-title-tb">
-                                <span>{{ $t(noti.notificationBannerCode) }}</span>
+                                <span>{{ $t(noti.notificationBannerCode) }}</span> 
                             </div>
                             <div class="notification-text-tb">
                                 <span>{{ $t(`${noti.notificationBannerCode}_DESCRIPTION`) }} {{ noti.orderCode }}</span>

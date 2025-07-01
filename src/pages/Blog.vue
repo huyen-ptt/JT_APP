@@ -3,7 +3,7 @@
         <!-- <h1 class="text-center border-bottom fw-bold pb-4 bg-white title pt-4 mb-4">{{ $t('TRAVEL_SUPPORT') }}</h1> -->
         <HeaderTitle :title="$t('TRAVEL_SUPPORT')":uri="`/`"></HeaderTitle>
 
-        <div class="card">
+        <div class="card pt-2">
             <Tabs value="0">
                 <TabList class="custom-tab-list" v-if="menuBlogs">
                     <Tab value="0" class="custom-tab">{{ $t('LATEST_NEWS') }}</Tab>
