@@ -728,8 +728,19 @@ const onChoosePaymentMethod = (p) => {
 }
 const onRequestPay = async () => {
     onTriggerValidate();
-    let validatePayment = checkValidatePayment(); //kiểm tra phương thức thanh toán
-    if (validatePayment) {
+    //Validate before request
+    let validPayNotes = checkValidateNote();
+    let validAuth = checkValidateAuth();
+    let validatePayment = checkValidatePayment();
+   const validStep2 =  scrollToFirstVisibleError();
+    console.log("validPayNotes:", validPayNotes, "validAuth:", validAuth, "validatePayment:", validatePayment);
+    if(!validPayNotes || !validAuth || !validatePayment || !validStep2){
+        activeMainAccordion.value = ['0', '1']; //open accordion personal info
+        activeSubNoteAccordion.value = ['4']; //open accordion booking note
+        return;
+    }
+    //select payment method
+    if (validPayNotes == true && validatePayment == true && validAuth == true) {
         if (choosenPayment.value === "ONEPAY") {
             await onRequestPayOnePay();
         }
@@ -748,8 +759,8 @@ const onRequestPayOnePay = async () => {
   let validAuth = checkValidateAuth();
   let validatePayment = checkValidatePayment();
 
-  activeMainAccordion.value = ['0', '1'];
-  activeSubNoteAccordion.value = ['4'];
+//   activeMainAccordion.value = ['0', '1'];
+//   activeSubNoteAccordion.value = ['4'];
 
   const validStep2 = scrollToFirstVisibleError();
 
@@ -845,15 +856,10 @@ const onRequestPayOnePay = async () => {
   }
 };
 
-
 const onRequestPayPayPal = async () => {
-    onTriggerValidate();
-    let validPayNotes = checkValidateNote();
-    let validAuth = checkValidateAuth();
-    console.log(validPayNotes, validAuth)
-    if (validPayNotes == true && validAuth == true) {
 
         const validStep2 = scrollToFirstVisibleError();
+        console.log("validStep2:", validStep2);
         if (!validStep2) return;
         else {
             auth.value.pcname = randomString(10);
@@ -926,7 +932,6 @@ const onRequestPayPayPal = async () => {
             }
         }
 
-    }
 }
 
 const onOpenCouponListDialog = async (pay) => {
