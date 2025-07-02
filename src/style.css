@@ -1081,6 +1081,7 @@ img {
 .custom-paragraph img {
   height: 200px !important;
   border-radius: 20px;
+  object-fit: cover;
 }
 .mi{
   height: 200px;

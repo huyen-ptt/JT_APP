@@ -739,102 +739,112 @@ const onRequestPay = async () => {
     }
 }
 
+
+
 const onRequestPayOnePay = async () => {
-    onTriggerValidate();
+  onTriggerValidate();
 
-    let validPayNotes = checkValidateNote();
-    let validAuth = checkValidateAuth();
-    let validatePayment = checkValidatePayment();
-    console.log(validatePayment);
-    activeMainAccordion.value = ['0', '1'];
-    activeSubNoteAccordion.value = ['4'];
-    const validStep2 = scrollToFirstVisibleError();
-    console.log(validPayNotes, validAuth, validatePayment)
-    if (validPayNotes == true && validAuth == true && validatePayment == true) {
-        if (!validStep2) return;
-        else {
-            auth.value.pcname = randomString(10);
-            let data = {
-                pays: pays.value,
-                auth: auth.value,
-                orderCode: `APP_${randomString(8)}`,
-                i18Code: locale.value,
-                orderNotes: orderNote.value,
-                paymentMethod: 'TEST_APP',
-                sourceOrder: 'MOBILE_APP',
-                vpc: choosenVpc.value
+  let validPayNotes = checkValidateNote();
+  let validAuth = checkValidateAuth();
+  let validatePayment = checkValidatePayment();
 
-            }
+  activeMainAccordion.value = ['0', '1'];
+  activeSubNoteAccordion.value = ['4'];
 
-            try {
-                const response = await payComposable.onRequestOnepay(data);
-                if (response && response.data.returnUrl) {
-                    // StatusBar.setOverlaysWebView({ overlay: false });
-                    // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
-                    // StatusBar.setOverlaysWebView({ overlay: false });
-                    
-                    await StatusBar.setOverlaysWebView({ overlay: false });
-                    await StatusBar.setBackgroundColor({ color: '#ffffff' });
-                    const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
-                        location: 'no',        // ✅ Ẩn thanh địa chỉ URL
-                        toolbar: 'no',        // ✅ Hiện thanh toolbar (dưới statusbar)
-                        toolbarcolor: '#ffffff', // ✅ Tuỳ chọn màu thanh
-                        closebuttoncaption: 'Close', // 🛑 Android không hỗ trợ nhưng iOS có
-                        hideurlbar: 'no',     // ✅ Một số thiết bị Android sẽ ẩn hẳn URL
-                          fullscreen: 'no', // 🔥 CHÍNH ĐÂY
+  const validStep2 = scrollToFirstVisibleError();
 
-                    });
+  if (validPayNotes && validAuth && validatePayment && validStep2) {
+    auth.value.pcname = randomString(10);
 
-                    let returnPaymentUrl = "";
-                    // Bắt URL trước khi load
-                    browser.on('loadstart').subscribe(async (event) => {
-                        const url = event.url;
-                        console.log('🔗 Đang chuẩn bị load:', url);
+    const data = {
+      pays: pays.value,
+      auth: auth.value,
+      orderCode: `APP_${randomString(8)}`,
+      i18Code: locale.value,
+      orderNotes: orderNote.value,
+      paymentMethod: 'TEST_APP',
+      sourceOrder: 'MOBILE_APP',
+      vpc: choosenVpc.value
+    };
 
-                        // 👉 Nếu phát hiện redirect về deeplink hoặc 1 URL đặc biệt, bạn có thể xử lý:
-                        if (url.startsWith(import.meta.env.VITE_API_URI)) {
-                            returnPaymentUrl = url;
-                            browser.close(); // đóng InAppBrowser
-                            // alert('✅ Phát hiện deeplink redirect:', url);
-                            // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
-                            // Thực thi url
-                            try {
-                                const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
-                                if (response && response.data) {
-                                    console.log(response.data);
-                                    if (response.data.auth) {
-                                        response.data.auth.isNewUser = false;
-                                        authStore.onChangeAuth(response.data.auth);
-                                    }
-                                    if (response.data.orderCode) {
-                                        router.push('/confirm/payment/success');
-                                    }
-                                }
-                            } catch (error) {
-                                alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
-                            } finally {
-                                // StatusBar.setOverlaysWebView({ overlay: true });
+    try {
+      const response = await payComposable.onRequestOnepay(data);
 
-                            }
+      if (response && response.data.returnUrl) {
+        // ✅ THÊM Swal tại đây
+        await Swal.fire({
+          title: t('PAYMENT_GATEWAY_NOTICE_TITLE'),
+                    html: `
+                        <p>
+                        ${t('PAYMENT_GATEWAY_NOTICE_BODY')}
+                        </p>
+                        <p style="margin-bottom: 10px;">
+                        ${t('PAYMENT_GATEWAY_NOTICE_SECURE')}
+                        </p>
+                            
+                            <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                                <img src="https://onepay.vn/paygate/general/assets/img/secure.svg" alt="Verified by Visa" height="30">
+                            </div>
+                    `,
+                    icon: 'info',
+                    showConfirmButton: true,
+                    confirmButtonText: t('PAYMENT_GATEWAY_CONTINUE'),
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const platform = Capacitor.getPlatform();
 
-                        }
+            if (platform === 'web') {
+              window.location.href = response.data.returnUrl;
+            } else {
+              StatusBar.setOverlaysWebView({ overlay: false });
 
+              const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
+                location: 'no',
+                toolbar: 'yes',
+                toolbarcolor: '#ffffff',
+                closebuttoncaption: 'Đóng',
+                hideurlbar: 'yes',
+              });
 
-                        // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
-                    });
+              let returnPaymentUrl = "";
 
+              browser.on('loadstart').subscribe(async (event) => {
+                const url = event.url;
+
+                if (url.startsWith(import.meta.env.VITE_API_URI)) {
+                  returnPaymentUrl = url;
+                  browser.close();
+
+                  try {
+                    const res2 = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+
+                    if (res2 && res2.data) {
+                      if (res2.data.auth) {
+                        res2.data.auth.isNewUser = false;
+                        authStore.onChangeAuth(res2.data.auth);
+                      }
+                      if (res2.data.orderCode) {
+                        router.push('/confirm/payment/success');
+                      }
+                    }
+                  } catch (error) {
+                    alert(t('PAYMENT_RESULT_FAIL'));
+                  }
                 }
-            } catch (error) {
-                alert(error);
-                // alert(t('PAYMENT_RESULT_FAIL'));
+              });
             }
-            finally {
-                // StatusBar.setOverlaysWebView({ overlay: true });
-            }
-        }
+          }
+        });
+      }
 
+    } catch (error) {
+      alert(error);
+    } finally {
+      // StatusBar.setOverlaysWebView({ overlay: true });
     }
-}
+  }
+};
+
 
 const onRequestPayPayPal = async () => {
     onTriggerValidate();
