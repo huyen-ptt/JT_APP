@@ -480,7 +480,7 @@
                                                                                     ?.priceEachNguoiLon > 0
                                                                             ">
                                                                                 <div class="price-label-so-luong">
-                                                                                    {{ $t("Adult") }}
+                                                                                    {{ p.currentPackage.unit || $t("Adult") }}
                                                                                 </div>
                                                                                 <div class="price-amount-so-luong">
                                                                                     VND
