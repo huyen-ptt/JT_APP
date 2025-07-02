@@ -25,6 +25,9 @@ export const usePromotion = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
   // Giả sử chúng ta muốn lấy userId và postId từ route
   const alias = computed(() => route.params.alias);
@@ -51,7 +54,7 @@ export const usePromotion = () => {
       // selectedZones.push(_second.value);
     }
     let keywords = [];
-    
+
 
     const data = {
       keywords: keywords,
@@ -76,11 +79,11 @@ export const usePromotion = () => {
       throw err;  // Rethrow to let handling be done by `useAsyncData`
     }
   }
-  const checkValuePromotionCodeByProductId = async(data) => {
+  const checkValuePromotionCodeByProductId = async (data) => {
     const url = `${uri}/api/PagePromotion/CheckValuePromotionCodeByProductId`
     try {
       const respone = await axios.post(url, data);
-      if(respone.data){
+      if (respone.data) {
         return respone.data
       }
     } catch (error) {

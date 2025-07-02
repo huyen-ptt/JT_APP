@@ -65,6 +65,12 @@ const languages = ref([
         i18Code: 'zh',
         name: '中文',
         flag: '/images/flags/zh.svg'
+    },
+     {
+        code: 'ru-RU',
+        i18Code: 'ru',
+        name: 'Русский',
+        flag: '/images/flags/zh.svg'
     }
 ])
 

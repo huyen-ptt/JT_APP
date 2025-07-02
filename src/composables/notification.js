@@ -25,6 +25,9 @@ export const useNotification = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+       case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
 

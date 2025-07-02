@@ -88,7 +88,7 @@
 
                   <li class="nav-item" role="presentation" v-for="r in listRegions">
                      <button class="nav-link tab-sp " :class="r.isActive == true ? 'active' : ''"
-                        @click="onClickRegion(r)" type="button" role="tab">{{ r.name }}</button>
+                        @click="onClickRegion(r)" type="button" role="tab">{{ r.appName ? r.appName : r.name  }}</button>
                   </li>
                </ul>
                <ul class="nav nav-tabs" id="tourTabs" role="tablist" v-if="onLoadRegions">
@@ -453,7 +453,7 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
-   StatusBar.setOverlaysWebView({ overlay: true });
+   // StatusBar.setOverlaysWebView({ overlay: true });
    await onRequestServices();
    await onRequestPromotions();
    await onRequestRegions();

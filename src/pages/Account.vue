@@ -6,7 +6,7 @@
 
         <!-- Profile Section -->
         <div class="px-3 infomation-profile">
-            <div class="profile-card d-flex align-items-center" v-if="auth.id > 0">
+            <div class="profile-card d-flex align-items-center pt-2" v-if="auth.id > 0">
                 <div class="profile-img me-3">
                     <i class="fas fa-user text-primary"></i>
                 </div>
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Settings Section -->
-            <h6 class="promo-title pb-3">{{ $t('SETTING_ACCOUNT') }}</h6>
+            <h6 class="promo-title">{{ $t('SETTING_ACCOUNT') }}</h6>
             <div class="settings-card">
                 <div class="settings-item" v-if="auth.id > 0" @click="onRedirectUpdatePassword()">
                     <div class="d-flex align-items-center">
@@ -84,7 +84,7 @@
 
                 <router-link to="/currency" class="settings-item">
                     <div class="d-flex align-items-center">
-                        <div class="icon-circle me-3">
+                        <div class="icon-circle me-3"> 
                             <img src="/images/money-send.png" />
                         </div>
                         <span class="title145">{{ $t('CURRENCY_ACCOUNT') }}</span>
@@ -97,16 +97,16 @@
             </div>
 
             <!-- About us Section -->
-            <h6 class="promo-title pb-3">{{ $t('ABOUT_US_ACCOUNT') }}</h6>
+            <h6 class="promo-title">{{ $t('ABOUT_US_ACCOUNT') }}</h6>
             <div class="about-card">
                 <!-- <div class="about-item">
                     <div class="d-flex align-items-center">
                         <div class="icon-circle me-3">
-                            <img src="/images/book.png" />
+                            <img src="/images/book.png" />  
                         </div>
                         <span class="title145">{{ $t('ABOUT_US_ACCOUNT') }}</span>
                     </div>
-                    <i class="fas fa-chevron-right "></i>
+                      <i class="fas fa-chevron-right "></i>`
                 </div> -->
                 <router-link to="/introduce" class="about-item">
                     <div class="d-flex align-items-center">
@@ -125,7 +125,7 @@
                         </div>
                         <span class="title145">{{ $t('CONTACT_US_ACCOUNT') }}</span>
                     </div>
-                    <i class="fas fa-chevron-right "></i>
+                    <i class="fas fa-chevron-right"></i>
                 </router-link>
 
                 <router-link to="/faqs" class="about-item">
@@ -164,7 +164,7 @@
                                     <button class="btn btn-cancel-logoutt" @click="visible = false">{{
                                         $t('CANCEL_ACCOUNT') }}</button>
                                     <button class="btn btn-logout-logoutt" @click="onLogout()">{{ $t('LOG_OUT_ACCOUNT')
-                                    }}</button>
+                                        }}</button>
                                 </div>
                             </div>
                         </Dialog>
@@ -186,9 +186,9 @@
                             <div class="buttons-container-logoutt">
                                 <button class="btn btn-cancel-logoutt" @click="visibleDeleteAcc = false">{{
                                     $t('CANCEL_ACCOUNT')
-                                }}</button>
-                                <button class="btn btn-logout-logoutt" @click="onDeleteAccount()">{{ $t('CONFIRM')
                                     }}</button>
+                                <button class="btn btn-logout-logoutt" @click="onDeleteAccount()">{{ $t('CONFIRM')
+                                }}</button>
                             </div>
                         </div>
                     </Dialog>
@@ -260,7 +260,7 @@ const onDeleteAccount = () => {
     authComposable.DeleteAccount(data).then(res => {
         console.log(res)
         visibleDeleteAcc.value = false
-         authStore.onRemoveAuth();
+        authStore.onRemoveAuth();
     });
 }
 </script>
@@ -293,15 +293,15 @@ const onDeleteAccount = () => {
 .profile-card {
     background-color: white;
     border-radius: 12px;
-    padding: 10px 0;
+    /* padding: 10px 0; */
     margin-bottom: 20px;
 }
 
 .order-card {
     background-color: white;
     border-radius: 12px;
-    padding: 15px 23px;
-    margin-bottom: 20px;
+    padding: 1px 15px;
+    margin-bottom: 10px;
 }
 
 .settings-card,
@@ -314,7 +314,7 @@ const onDeleteAccount = () => {
 
 .settings-item,
 .about-item {
-    padding: 16px;
+    padding: 12px;
     border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;

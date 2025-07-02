@@ -27,6 +27,9 @@ export const usePay = () => {
         case 'ko':
             _cultureCode = 'ko-KR';
             break;
+        case 'ru':
+            _cultureCode = 'ru-RU';
+            break;
     }
 
     const onRequestOnepay = async (data) => {
@@ -34,6 +37,7 @@ export const usePay = () => {
             const url = `${uri}/api/PageOrder/ProcessPaymentOnePayApp`;
             const respone = axios.post(url, data);
             if (respone) {
+                console.log(respone);
                 return respone;
             }
         } catch (error) {
@@ -42,7 +46,7 @@ export const usePay = () => {
 
     }
 
-    const onRequestPaypal = async (data)  => {
+    const onRequestPaypal = async (data) => {
         try {
             const url = `${uri}/api/PageOrder/ProcessPaymentPayPalApp`;
             const respone = axios.post(url, data);

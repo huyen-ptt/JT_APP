@@ -10,23 +10,21 @@
                     <img class="icon-cart" width="34" src="/images/shopping-cart.png" />
                 </button>
             </div>
-
-            <div class="d-flex align-items-center thanh-loc">
-                <div class="khac" @click="onRedirectSearch">
-                    <div class="filter">
-                        <img width="34" src="/images/Filter.png" />
-                        <span class="filter-counter-product">{{ listOfSearchTag.length }}</span>
-                    </div>
+        </div>
+        <div class="d-flex align-items-center thanh-loc search-header-product p-3">
+            <div class="khac" @click="onRedirectSearch">
+                <div class="filter">
+                    <img width="34" src="/images/Filter.png" />
+                    <span class="filter-counter-product">{{ listOfSearchTag.length }}</span>
                 </div>
-                <div class="filters-container-product">
-                    <div class="filter-badge-product" v-for="l in listOfSearchTag" :key="l.id">
-                        <span class="filter-text-product">{{ l.name }}</span>
-                        <i class="fas fa-times remove-filter-product" @click="onRemoveSearchTag(l)"></i>
-                    </div>
+            </div>
+            <div class="filters-container-product">
+                <div class="filter-badge-product" v-for="l in listOfSearchTag" :key="l.id">
+                    <span class="filter-text-product">{{ l.name }}</span>
+                    <i class="fas fa-times remove-filter-product" @click="onRemoveSearchTag(l)"></i>
                 </div>
             </div>
         </div>
-
         <div class="results-info-product">
             <div class="results-count-product">{{ total }} {{ $t('Results_Count_ProductResult', { count: total }) }}
             </div>
@@ -41,7 +39,7 @@
                 :key="'skeleton-' + i" />
 
             <ProductSearch v-else v-for="p in listOfProducts" :key="p.id" :product="p" />
-        </div> 
+        </div>
         <!-- <div v-if="isLoadingMore" class="text-center py-4">
             <i class="pi pi-spinner pi-spin"></i> {{ $t('LOAD_MORE') }}
         </div> -->
@@ -94,6 +92,7 @@ const onRemoveSearchTag = async (searchTag) => {
 
 const onLoadListOfSearchTag = async () => {
     listOfSearchTag.value = searchStore.search.searchItems;
+    console.log(JSON.stringify(listOfSearchTag.value))
     await onLoadListOfProducts();
 };
 

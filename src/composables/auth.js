@@ -36,6 +36,9 @@ export const useAuth = () => {
         case "ko":
             _cultureCode = "ko-KR";
             break;
+        case 'ru':
+            _cultureCode = 'ru-RU';
+            break;
     }
 
     const onLogin = async (data) => {
@@ -53,7 +56,7 @@ export const useAuth = () => {
             return response;
         }
     };
-                 
+
     const onSignUp = async (data) => {
         const url = `${uri}/api/Auth/DoSignUp`;
         const response = await axios.post(url, data);

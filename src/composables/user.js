@@ -19,9 +19,9 @@ import { useAuthStore } from '../stores/authStore';
 export const useUser = () => {
     const route = useRoute();
     const uri = import.meta.env.VITE_API_URI;
-    
 
-  
+
+
 
     let _cultureCode = '';
 
@@ -40,6 +40,9 @@ export const useUser = () => {
             break;
         case 'ko':
             _cultureCode = 'ko-KR';
+            break;
+        case 'ru':
+            _cultureCode = 'ru-RU';
             break;
     }
 
@@ -60,7 +63,7 @@ export const useUser = () => {
     const checkOrderByEmail = async (data) => {
         const url = `${uri}/api/Auth/CheckOrderDetailByEmail`;
         const response = await axios.post(url, data);
-        if(response) {
+        if (response) {
             return response;
         }
     }
@@ -69,7 +72,7 @@ export const useUser = () => {
         data.cultureCode = _cultureCode;
         const url = `${uri}/api/Auth/GetOrderItemFullDetail`
         const response = await axios.post(url, data);
-        if(response){
+        if (response) {
             return response;
         }
     }

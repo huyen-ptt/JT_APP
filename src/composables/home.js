@@ -27,6 +27,9 @@ export const useHome = () => {
     case 'ko':
       _cultureCode = 'ko-KR';
       break;
+    case 'ru':
+      _cultureCode = 'ru-RU';
+      break;
   }
 
   const getBannerCodes = async () => {
@@ -328,17 +331,19 @@ export const useHome = () => {
 
   const getListOrRegions = async () => {
     let data = {
-      parentId : 2431,
+      parentId: 1287,
       cultureCode: _cultureCode
     }
     const url = `${uri}/api/AppHomes/GetListOfRegions`
     try {
       const response = await axios.post(url, data);
-      if(response){
-        return response.data;
+      if (response) {
+        
+        let dt = response.data.filter(x => x.parentId > 0);
+        return dt;
       }
     } catch (error) {
-      
+
     }
   }
   const getListProductInRegion = async (regionId) => {
@@ -350,19 +355,19 @@ export const useHome = () => {
     const url = `${uri}/api/AppHomes/GetListProductInRegion`
     try {
       const response = await axios.post(url, data);
-      if(response){
+      if (response) {
         return response.data;
       }
     } catch (error) {
-      
+
     }
   }
 
-  
 
-  
 
-  
+
+
+
 
   return { getBannerCodes, getZonesByTypeDichVu, getZonesByTypeDiemDen, getProductsInRegion, getProductsLastSeen, getBlogsHomePage, getZonesByTypeKhuyenMai, getListOrRegions, getListProductInRegion }
 }

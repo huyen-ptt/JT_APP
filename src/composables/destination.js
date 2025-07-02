@@ -24,6 +24,9 @@ export const useDestination = () => {
         case 'ko':
             _cultureCode = 'ko-KR';
             break;
+        case 'ru':
+            _cultureCode = 'ru-RU';
+            break;
     }
 
     const id = computed(() => route.params.id);
@@ -36,9 +39,9 @@ export const useDestination = () => {
             cultureCode: _cultureCode,
         };
         const response = await axios.post(url, data);
-        if(response){
+        if (response) {
             return response
-            
+
         }
     }
 
@@ -51,5 +54,5 @@ export const useDestination = () => {
 
 
 
-    return {getZoneById}
+    return { getZoneById }
 }

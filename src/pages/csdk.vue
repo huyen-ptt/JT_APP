@@ -254,3 +254,4 @@ import HeaderTitle from '../components/HeaderTitle.vue';
 import Footer from "@/components/Footer.vue";
 
 </script>
+ 
