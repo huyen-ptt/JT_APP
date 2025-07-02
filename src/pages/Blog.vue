@@ -13,22 +13,20 @@
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel value="0" class="item-blog">
-
-
+                    <TabPanel value="0" class="item-blog"> 
                         <div class="news-card-blogg" v-for="(b, index) in AllNewestBlog" :key="index">
                             <div class="news-image-blogg">
                                 <img :src="helper.getImageCMS(b.avatar)" />
                             </div>
-                            <div class="news-content-blogg">
-                                <h3 class="news-title-blogg">{{ b.title }}</h3>
+                             <div class="news-content-blogg">
+                                <h3 class="news-title-blogg">{{ b.title }}</h3> 
                                 <p class="news-description-blogg" v-html="b.description"></p>
                                 <div class="news-meta-blogg">
                                     <span class="news-date-blogg">{{ helper.formatISODate(b.createdDate) }}</span>
                                     <RouterLink  class="news-link-blogg" :to="`/blog-detail/${b.id}`">
                                         <!-- :to="`/blog-detail/${b.id}-${b.url}.html`" -->
                                         {{ $t('VIEW_DETAIL') }}
-                                        <div class="arrow-l">
+                                        <div class="arrow-l">  
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round">
