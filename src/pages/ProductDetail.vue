@@ -48,19 +48,57 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="product-slider position-relative">
-                            <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
-                                :autoplay="{ delay: 3000 }" :navigation="true" :pagination="{
-                                    el: '.swiper-pagination',
-                                    type: 'fraction',
-                                }" class="mySwiper">
-                                <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
-                                    <img :src="helper.getImageCMS(image)" class="d-block w-100" 
-                                        style="height: 220px; object-fit: cover" />
-                                </swiper-slide>
+                            <div>
+                                <!-- Swiper chính hiển thị ảnh đơn giản -->
+                                <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
+                                    :autoplay="{ delay: 3000 }" :navigation="true"
+                                    :pagination="{ el: '.swiper-pagination', type: 'fraction' }" class="mySwiper">
+                                    <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
+                                        <!-- Click ảnh để mở modal -->
+                                        <img :src="helper.getImageCMS(image)" class="d-block w-100"
+                                            style="height: 220px; object-fit: cover; cursor: pointer"
+                                            />
+                                    </swiper-slide>
+                                    <div class="swiper-pagination fraction-pagination" data-bs-toggle="modal" data-bs-target="#gallary-modal"></div>
+                                </swiper>
 
-                                <!-- Hiển thị số đếm dạng 1/5 -->
-                                <div class="swiper-pagination fraction-pagination"></div>
-                            </swiper>
+                                <!-- Modal hiển thị gallery chi tiết -->
+                                <Teleport to="body">
+                                    <div class="modal fade" id="gallary-modal" tabindex="-1" aria-hidden="true"
+                                        ref="modalEl">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <button type="button" class="btn-close m-2 ms-auto"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+
+                                                <!-- Swiper chính trong modal -->
+                                                <swiper ref="mainSwiperRef"
+                                                    :modules="[Autoplay, Navigation, Pagination, Thumbs]" :loop="true"
+                                                    :slides-per-view="1" :navigation="true"
+                                                    :thumbs="{ swiper: thumbsSwiper || null }"
+                                                    v-if="productDetail.gallary?.length" class="mySwiper2">
+                                                    <swiper-slide v-for="(p, i) in productDetail.gallary"
+                                                        :key="'main-' + i">
+                                                        <img :src="helper.getImageCMS(p)" class="img-swipper-current" />
+                                                    </swiper-slide>
+
+                                                </swiper>
+
+                                                <!-- Thumbnail Swiper -->
+                                                <swiper :modules="[Autoplay, Navigation, Pagination, Thumbs]"
+                                                    @swiper="setThumbsSwiper" :slides-per-view="3" :spaceBetween="3"
+                                                    watchSlidesProgress class="mySwiper1 mt-3"
+                                                    v-if="productDetail.gallary?.length">
+                                                    <swiper-slide v-for="(p, i) in productDetail.gallary"
+                                                        :key="'thumb-' + i">
+                                                        <img :src="helper.getImageCMS(p)" class="img-swipper-thumb" />
+                                                    </swiper-slide>
+                                                </swiper>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Teleport>
+                            </div>
                         </div>
                         <div class="position-absolute start-0 translate-middle-y p-3 icon">
                             <button class="back-button-product" @click="$router.go(-1)">
@@ -243,7 +281,8 @@
                                                             (product.price / currentfCurrency.exchange)
                                                                 .toFixed(1)
                                                                 .toLocaleString("en-US")
-                                                        }}</span></div>
+                                                        }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -480,7 +519,8 @@
                                                                                     ?.priceEachNguoiLon > 0
                                                                             ">
                                                                                 <div class="price-label-so-luong">
-                                                                                    {{ p.currentPackage.unit || $t("Adult") }}
+                                                                                    {{ p.currentPackage.unit ||
+                                                                                        $t("Adult") }}
                                                                                 </div>
                                                                                 <div class="price-amount-so-luong">
                                                                                     VND
@@ -631,7 +671,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination, Thumbs } from 'swiper/modules'
 import {
     ref,
     onBeforeMount,
@@ -654,6 +694,21 @@ import { RouterLink, useRouter, useRoute } from "vue-router";
 import { StatusBar } from "@capacitor/status-bar";
 import ProgressSpinner from "primevue/progressspinner";
 import Skeleton from "primevue/skeleton";
+const thumbsSwiper = ref(null)
+const setThumbsSwiper = (swiper) => {
+    thumbsSwiper.value = swiper
+}
+const mainSwiperRef = ref(null)
+
+// Gọi update swiper khi modal mở
+onMounted(() => {
+    const modal = document.getElementById('gallary-modal')
+    modal?.addEventListener('shown.bs.modal', () => {
+        setTimeout(() => {
+            mainSwiperRef.value?.swiper?.update()
+        }, 150)
+    })
+})
 
 const uri = import.meta.env.VITE_API_URI;
 
@@ -1423,7 +1478,7 @@ iframe {
 
 .reset-btn-booking {
     position: absolute;
-top: 23px;
+    top: 23px;
     right: 20px;
 }
 
@@ -1459,4 +1514,31 @@ top: 23px;
     cursor: not-allowed;
 }
 
+.mySwiper2 {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.mySwiper2 img {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.mySwiper1 img {
+    padding: 10px 0;
+    height: 90px;
+    width: 100px !important;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.mySwiper1 {
+    margin: 0 !important;
+}
+
+.modal-content {
+    padding: 10px;
+}
 </style>
