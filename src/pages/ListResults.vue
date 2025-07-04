@@ -6,9 +6,9 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h1 class="page-title-product">{{ $t('Product') }}</h1>
-                <button class="cart-button-product">
+                <RouterLink to="/cart" class="cart-button-product">
                     <img class="icon-cart" width="34" src="/images/shopping-cart.png" />
-                </button>
+                </RouterLink>
             </div>
         </div>
         <div class="d-flex align-items-center thanh-loc search-header-product p-3">

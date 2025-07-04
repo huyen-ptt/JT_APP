@@ -393,7 +393,7 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser';
 import router from '../routers';
 import { StatusBar } from '@capacitor/status-bar';
 import { scrollToFirstVisibleError } from '@/utils/scrollToFirstVisibleError';
-
+import ProgressSpinner from 'primevue/progressspinner';
 import { usePromotionStore } from '@/stores/promotionStore';
 import { usePromotion } from '@/composables/promotion';
 import Swal from 'sweetalert2'
@@ -973,7 +973,6 @@ const onApplyCoupon = async (coupon, pay) => {
     await onCheckCouponCode(pay);
 
 }
-
 onMounted(() => {
     const platform = Capacitor.getPlatform();
 

@@ -1210,6 +1210,7 @@ const messages = {
     ALL: "Tất cả",
     use_code: "Dùng mã",
     PROMOTION: "Khuyến mãi",
+    
     TOP_TRENDS: "Xu hướng hàng đầu",
     RECENTLY_VIEWED: "Đã xem gần đây",
     IDEAL_DESTINATION: "Điểm đến lý tưởng",
@@ -2179,7 +2180,7 @@ const messages = {
     EXIT_TEXT: "您确定要退出应用程序吗？",
     EXIT_OK: "退出",
     EXIT_CANCEL: "取消",
-    SignUp: "注册",
+    SignUp: "注册", 
     or: "或",
     service_date: "服务日期",
     enter_promo_code: "输入促销代码",
