@@ -2,6 +2,7 @@ import { createI18n } from 'vue-i18n'
 
 const messages = {
   en: {
+    YOUR_CHOOSEN_DATE_NOT_ALLOW: "The date you selected is currently not available, please choose another date.",
     ADD_DISCOUNT_CODE_TITLE: "Discount code added successfully!",
     ADD_DISCOUNT_CODE_LABEL_LEFT: "You have collected the code",
     ADD_DISCOUNT_CODE_LABEL_RIGHT: "successfully.",
@@ -640,6 +641,7 @@ const messages = {
     LOGIN_MESSAGE: "Login successful!"
   },
   vi: {
+    YOUR_CHOOSEN_DATE_NOT_ALLOW: "Ngày bạn chọn hiện chưa hỗ trợ, vui lòng chọn ngày khác.",
     LOGIN_MESSAGE: "Đăng nhập thành công!",
     AUTH_INVALID: "Tên đăng nhập hoặc mật khẩu không đúng",
     payment_summary: "Tóm tắt thanh toán",
@@ -1281,6 +1283,7 @@ const messages = {
 
   },
   ko: {
+    YOUR_CHOOSEN_DATE_NOT_ALLOW:"您选择的日期当前不可用，请选择其他日期。",
     LOGIN_MESSAGE: "로그인에 성공했습니다!",
     ADD_DISCOUNT_CODE_TITLE: "할인 코드가 성공적으로 추가되었습니다!",
     ADD_DISCOUNT_CODE_LABEL_LEFT: "할인 코드",
@@ -1919,6 +1922,7 @@ const messages = {
 
   },
   zh: {
+    YOUR_CHOOSEN_DATE_NOT_ALLOW:"선택하신 날짜는 현재 이용할 수 없습니다. 다른 날짜를 선택해 주세요.",
     ADD_DISCOUNT_CODE_TITLE: "成功添加折扣码！",
     ADD_DISCOUNT_CODE_LABEL_LEFT: "您已成功领取优惠码",
     ADD_DISCOUNT_CODE_LABEL_RIGHT: "。",
@@ -2555,6 +2559,7 @@ const messages = {
     LOGIN_MESSAGE: "登录成功!"
   },
   ru: {
+    YOUR_CHOOSEN_DATE_NOT_ALLOW: "Выбранная вами дата сейчас недоступна, пожалуйста, выберите другую дату.",
     ADD_DISCOUNT_CODE_TITLE: "Промокод успешно добавлен!",
     ADD_DISCOUNT_CODE_LABEL_LEFT: "Вы успешно получили код",
     ADD_DISCOUNT_CODE_LABEL_RIGHT: ".",

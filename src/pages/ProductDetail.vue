@@ -56,10 +56,10 @@
                                     <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
                                         <!-- Click ảnh để mở modal -->
                                         <img :src="helper.getImageCMS(image)" class="d-block w-100"
-                                            style="height: 220px; object-fit: cover; cursor: pointer"
-                                            />
+                                            style="height: 220px; object-fit: cover; cursor: pointer" />
                                     </swiper-slide>
-                                    <div class="swiper-pagination fraction-pagination" data-bs-toggle="modal" data-bs-target="#gallary-modal"></div>
+                                    <div class="swiper-pagination fraction-pagination" data-bs-toggle="modal"
+                                        data-bs-target="#gallary-modal"></div>
                                 </swiper>
 
                                 <!-- Modal hiển thị gallery chi tiết -->
@@ -119,15 +119,15 @@
                 <div class="d-flex align-items-center mt-1 dia-chi-product justify-content-between">
                     <div>
                         <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span>{{ productDetail.location }} | {{ productDetail.totalSale }}
+                        <span>{{ productDetail.location }} | {{ productDetail.fakeOrderCount }}
                             {{ $t("BOOKED") }}
                         </span>
                     </div>
-                    <div class="rating">
+                    <div class="rating" v-if="productDetail.fakeOrderCount >= 25">
                         <i class="fas fa-star"></i>
                         <span class="rating-value">{{
-                            productDetail.rateAVG?.toFixed(2)
-                            }}</span>
+                            productDetail.fakeStarCount?.toFixed(2)
+                        }}</span>
                     </div>
                 </div>
             </div>
@@ -189,15 +189,15 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid p-3 review-product border-bottom">
+            <div class="container-fluid p-3 review-product border-bottom" v-if="productDetail.fakeOrderCount >= 25">
                 <!-- Rating Header -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-start gap-4">
                         <h2 class="display-6 fw-bold mb-0 so-review">
-                            {{ productDetail.rateAVG?.toFixed(1) }}
+                            {{ productDetail.fakeStarCount?.toFixed(1) }}
                         </h2>
                         <div class="d-flex text-warning" style="padding: 3px 0;">
-                            <i v-for="n in Math.floor(productDetail.rateAVG)" :key="n" class="fas fa-star"
+                            <i v-for="n in Math.floor(productDetail.fakeStarCount)" :key="n" class="fas fa-star"
                                 style="font-size: 21px"></i>
                             <i v-if="productDetail.rateAVG % 1 >= 0.5" class="fas fa-star-half-alt"
                                 style="font-size: 21px"></i>
@@ -261,13 +261,14 @@
                                     <h3 class="tour-title">{{ product.title }}</h3>
                                     <div class="tour-location tour-price">
                                         <div>
-                                            <span class="tour-booked">{{ product.totalSale }} {{ $t("BOOKED") }}</span>
+                                            <span class="tour-booked">{{ product.fakeOrderCount }} {{ $t("BOOKED")
+                                                }}</span>
                                         </div>
-                                        <div class="rating">
+                                        <div class="rating" v-if="product.fakeOrderCount >= 25">
                                             <i class="fas fa-star"></i>
                                             <span class="rating-value">{{
-                                                product.rate.toFixed(1)
-                                                }}</span>
+                                                product.rate?.toFixed(1)
+                                            }}</span>
                                         </div>
                                     </div>
                                     <div class="tour-price">
@@ -405,13 +406,21 @@
                                                         <div class="date-card-title-booking1">
                                                             <span v-if="!p.currentSelectedDate">{{
                                                                 $t("Selected_Date")
-                                                                }}</span>
+                                                            }}: <br />
+                                                                <div class="chose-option" style="color: red; font-weight: 100;"
+                                                                    v-if="p.triggerReSelectDate && !p.currentSelectedDate">
+                                                                    {{
+                                                                        $t('YOUR_CHOOSEN_DATE_NOT_ALLOW')
+                                                                    }}
+                                                                </div>
+                                                            </span>
                                                             <span v-else>{{ $t("Selected_Date") }}: <br />
                                                                 <div class="chose-option">
                                                                     {{
                                                                         helper.formatISODate(p.currentSelectedDate)
                                                                     }}
                                                                 </div>
+
                                                             </span>
                                                         </div>
                                                     </AccordionHeader>
@@ -462,7 +471,7 @@
                                                         <div class="date-card-title-booking1">
                                                             <span v-if="!p.currentChoosenOptions">{{
                                                                 $t("Option")
-                                                                }}</span>
+                                                            }}</span>
                                                             <span v-else> {{ $t("Option") }} <br /> </span>
                                                             <div class="chose-option" v-if="p.currentChoosenOptions">
                                                                 {{
@@ -938,10 +947,31 @@ const onLoadPriceForPayItem = async (p) => {
         const response = await productComposable.getProductOptionsPriceByDate(data);
         loadingPriceOption.value = false;
         if (response) {
+
+
             p.priceSelectedOptionByDate = response.data;
 
+            console.log(p.calendar);
+            console.log(p.priceSelectedOptionByDate);
+            // let isResetDatePicker = true;
+            p.calendar.items.forEach(c => {
+                p.priceSelectedOptionByDate.forEach(pOpt => {
+                    if (!c.isPast) {
+                        const cDay = c.formattedDate.slice(0, 10);
+                        const pDay = pOpt.date.slice(0, 10);
+                        if (cDay !== pDay) {
+                            c.isPast = true;
+                            c.isActive = false;
+                            c.canClick = false;
+                        }
+                    }
+                });
+            });
+            let checkerDate = false;
             p.priceSelectedOptionByDate.forEach((r) => {
-                if (r.date == p.currentSelectedDate) {
+
+                if (r.date == p.currentSelectedDate && r.priceEachNguoiLon > 0) {
+                    checkerDate = true;
                     p.selectedPriceByDate = r;
                     p.currentAccordionStep = 2;
 
@@ -958,6 +988,11 @@ const onLoadPriceForPayItem = async (p) => {
                     });
                 }
             });
+            if (!checkerDate) {
+                p.triggerReSelectDate = true
+                p.currentAccordionStep = 0;
+                p.currentSelectedDate = ''
+            }
         }
     }
 };
@@ -978,6 +1013,7 @@ const onSelectedOptionItem = async (p, item) => {
         item.isActive = true;
         onGetOptionAvalibleInCombinationInSession(p);
         onDisableOptionNotIncludeInAvalableArray(p);
+
 
         //Kiem tra xem cai currentOptionSelected no
     }
