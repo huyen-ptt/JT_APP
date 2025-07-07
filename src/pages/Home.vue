@@ -16,7 +16,7 @@
                   <RouterLink to="/cart">
                      <img class="icon-cart" src="/images/shopping-cart-031.png" alt="Cart" />
                   </RouterLink>
-                  <RouterLink to="/notification"> 
+                  <RouterLink to="/notification">
                      <img class="icon-cart" src="/images/tbb.png" alt="Cart" />
                   </RouterLink>
                   <!-- <img class="icon-cart " src="/images/Icon.png" /> -->
@@ -88,7 +88,7 @@
 
                   <li class="nav-item" role="presentation" v-for="r in listRegions">
                      <button class="nav-link tab-sp " :class="r.isActive == true ? 'active' : ''"
-                        @click="onClickRegion(r)" type="button" role="tab">{{ r.appName ? r.appName : r.name  }}</button>
+                        @click="onClickRegion(r)" type="button" role="tab">{{ r.appName ? r.appName : r.name }}</button>
                   </li>
                </ul>
                <ul class="nav nav-tabs" id="tourTabs" role="tablist" v-if="onLoadRegions">
@@ -111,7 +111,7 @@
 
                      <!-- Nếu đã load: hiện sản phẩm -->
                      <swiper-slide v-else v-for="(p, index) in listProductInRegion" :key="index">
-                        <ProductSearch :product="p" />
+                        <ProductSearch :product="p"  :crown="true" :crownNumber="index + 1" />
                      </swiper-slide>
                   </swiper>
                </ClientOnly>
@@ -152,7 +152,7 @@
                                              (product.price / currentfCurrency.exchange)
                                                 .toFixed(1)
                                                 .toLocaleString("en-US")
-                                       }}</span></div>
+                                          }}</span></div>
                               </div>
                            </div>
                         </div>

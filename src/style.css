@@ -301,8 +301,8 @@ img {
 
 .bieu-tuong {
   position: absolute;
-  top: 0;
-  border-radius: 0px 0px 11px 11px;
+  bottom: 0;
+  border-radius:  11px 11px 0px 0px;
   background:#F1F5FF !important;
   right: 10px;
   color: #03294C;
@@ -3127,6 +3127,7 @@ img {
 
 .infomation-profile {
   padding-bottom: 60px;
+  padding-top: 15px;
 }
 
 .bo-goc {
@@ -3150,7 +3151,7 @@ img {
   border-radius: 21px;
   margin-bottom: 8px;
   cursor: pointer;
-  transition: all 0.2sease;
+  transition: all 0.2s ease;
 }
 
 .language-option:hover {

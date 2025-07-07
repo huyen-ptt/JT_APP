@@ -234,7 +234,7 @@
                             height="40" /> -->
                             <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
                             <img class="rounded-circle" width="40" height="40" v-else src="/images/icon-user.png" />
-                            <div>
+                            <div> 
                                 <p class="mb-0 name-rv">{{ r.userName }}</p>
                                 <div class="d-flex text-warning bao-sao">
                                     <i class="fas fa-star" v-for="i in r.startNumber" style="font-size: 11px"></i>
