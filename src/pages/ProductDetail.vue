@@ -996,14 +996,31 @@ const onLoadPriceForPayItem = async (p) => {
             // let isResetDatePicker = true;
             p.calendar.items.forEach(c => {
                 p.priceSelectedOptionByDate.forEach(pOpt => {
+                    
                     if (!c.isPast) {
+                        console.log(c, pOpt)
                         const cDay = c.formattedDate.slice(0, 10);
                         const pDay = pOpt.date.slice(0, 10);
-                        if (cDay !== pDay) {
-                            c.isPast = true;
-                            c.isActive = false;
-                            c.canClick = false;
+                        
+                        if(pOpt.priceEachNguoiLon > 0){
+                            if(cDay == pDay){
+                                c.isPast = false;
+                                c.isActive = false;
+                                c.canClick = true;
+                            }
+                        }else{
+                            if(cDay == pDay){
+                                c.isPast = true;
+                                c.isActive = false;
+                                c.canClick = false;
+                            }
                         }
+
+                        // if (cDay !== pDay) {
+                        //     c.isPast = true;
+                        //     c.isActive = false;
+                        //     c.canClick = false;
+                        // }
                     }
                 });
             });

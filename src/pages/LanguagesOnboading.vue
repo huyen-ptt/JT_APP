@@ -34,9 +34,9 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 onMounted(() => {
-    setTimeout(() => {
-        router.replace('/onboarding1')
-    }, 5000)
+    // setTimeout(() => {
+    //     router.replace('/onboarding1')
+    // }, 5000)
 })
 
 const languageStore = useLanguageStore();
