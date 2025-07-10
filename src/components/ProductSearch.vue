@@ -1,7 +1,20 @@
 <template>
 
     <RouterLink :to="`/detail-product/${product.productId}`" class="tour-card1" v-if="product">
-        <img :src="helper.getImageCMS(product.avatar)" class="tour-image">
+        <div v-if="crown && crownNumber" class="crown-badge">
+            <i class="fas fa-crown"></i>
+            <span class="crown-number">{{ crownNumber }}</span>
+        </div>
+        <div class="position-relative">
+            <img :src="helper.getImageCMS(product.avatar)" class="tour-image">
+            <div class="bieu-tuong" v-if="product.iconCornerTag || product.textCornerTag"
+                :style="product.colorCornerTag ? { backgroundColor: product.colorCornerTag } : '#67c7c5'">
+                <div class="flight-icon">
+                    <img :src="helper.getImageCMS(product.iconCornerTag)" v-if="product.iconCornerTag" />
+                    <span class="text-corner-tag">{{ product.textCornerTag }}</span>
+                </div>
+            </div>
+        </div>
         <div class="tour-content">
             <h3 class="tour-title">{{ product.title }}</h3>
             <div class="tour-location tour-price">
@@ -17,7 +30,7 @@
                 <div class="linee-h">
                     <span class="price-text">{{ $t('PRICE_FROM') }}</span>
                     <span class="price-value">VND {{ product.price.toLocaleString("en-US", { useGrouping: true })
-                    }}</span>
+                        }}</span>
                     <div v-if="currentfCurrency.code !== 'VND'"> <span class="me-1"></span> <span
                             class="menu-text"><span class="me-1 menu-text">~
                                 {{ currentfCurrency.code }}</span>{{
@@ -26,15 +39,6 @@
                                         .toLocaleString("en-US")
                                 }}</span></div>
                     <!-- <span class="price-as-currency"></span> -->
-                </div>
-
-            </div>
-            <div class="bieu-tuong" v-if="product.iconCornerTag || product.textCornerTag"
-                :style="product.colorCornerTag ? { backgroundColor: product.colorCornerTag } : '#67c7c5'">
-
-                <div class="flight-icon">
-                    <img :src="helper.getImageCMS(product.iconCornerTag)" v-if="product.iconCornerTag" />
-                    <span class="text-corner-tag">{{ product.textCornerTag }}</span>
                 </div>
             </div>
         </div>
@@ -58,13 +62,13 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    crownIcon: {
+    crown: {
         type: Boolean,
-        required : false
+        required: false,
     },
     crownNumber: {
         type: Number,
-        required: false
+        required: false,
     }
 });
 </script>
@@ -98,5 +102,34 @@ const props = defineProps({
 
 .card {
     margin-bottom: 0;
+}
+
+.crown-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    /* vàng cam ánh kim */
+    color: white;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 11px;
+    /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); */
+    z-index: 10;
+}
+
+.crown-badge i {
+    font-size: 25px;
+    margin-right: 4px;
+    color: #facc15;
+}
+
+.crown-number {
+    color: black;
+    line-height: 1;
+    position: absolute;
+    top: 10px;
+    left: 11px;
 }
 </style>

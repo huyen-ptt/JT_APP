@@ -287,6 +287,7 @@ const messages = {
     Yemen: 'Yemen',
     Zimbabwe: 'Zimbabwe',
     service_date: "Service date",
+    REVIEW: "Review",
     enter_promo_code: "Enter promo code",
     DELETE_ACCOUNT: "Delete account",
     CONFIRM_DELETE_ACCOUNT: "Are you sure you want to delete your account?",
@@ -858,6 +859,8 @@ const messages = {
     Uzbekistan: 'Uzbekistan',
     Yemen: 'Yemen',
     Zimbabwe: 'Zimbabwe',
+    REVIEW: "Đánh giá",
+
     Our_Vision_Paragraph_About: "Trở thành nền tảng hàng đầu dành cho du khách quốc tế, cung cấp những trải nghiệm văn hóa và du lịch độc đáo tại Việt Nam.",
     Visit_Joytime_FAQ: "Truy cập",
     EMAIL_NOT_FOUND: "Không tìm thấy địa chỉ email.",
@@ -1212,7 +1215,7 @@ const messages = {
     ALL: "Tất cả",
     use_code: "Dùng mã",
     PROMOTION: "Khuyến mãi",
-    
+
     TOP_TRENDS: "Xu hướng hàng đầu",
     RECENTLY_VIEWED: "Đã xem gần đây",
     IDEAL_DESTINATION: "Điểm đến lý tưởng",
@@ -1283,7 +1286,7 @@ const messages = {
 
   },
   ko: {
-    YOUR_CHOOSEN_DATE_NOT_ALLOW:"您选择的日期当前不可用，请选择其他日期。",
+    YOUR_CHOOSEN_DATE_NOT_ALLOW: "您选择的日期当前不可用，请选择其他日期。",
     LOGIN_MESSAGE: "로그인에 성공했습니다!",
     ADD_DISCOUNT_CODE_TITLE: "할인 코드가 성공적으로 추가되었습니다!",
     ADD_DISCOUNT_CODE_LABEL_LEFT: "할인 코드",
@@ -1593,6 +1596,8 @@ const messages = {
     Forgot_Password: "비밀번호 찾기",
     cart: "장바구니",
     EXIT_TITLE: "종료 확인",
+    REVIEW: "리뷰",
+
     EXIT_TEXT: "앱을 종료하시겠습니까?",
     EXIT_OK: "종료",
     EXIT_CANCEL: "취소",
@@ -1922,7 +1927,7 @@ const messages = {
 
   },
   zh: {
-    YOUR_CHOOSEN_DATE_NOT_ALLOW:"선택하신 날짜는 현재 이용할 수 없습니다. 다른 날짜를 선택해 주세요.",
+    YOUR_CHOOSEN_DATE_NOT_ALLOW: "선택하신 날짜는 현재 이용할 수 없습니다. 다른 날짜를 선택해 주세요.",
     ADD_DISCOUNT_CODE_TITLE: "成功添加折扣码！",
     ADD_DISCOUNT_CODE_LABEL_LEFT: "您已成功领取优惠码",
     ADD_DISCOUNT_CODE_LABEL_RIGHT: "。",
@@ -2184,7 +2189,7 @@ const messages = {
     EXIT_TEXT: "您确定要退出应用程序吗？",
     EXIT_OK: "退出",
     EXIT_CANCEL: "取消",
-    SignUp: "注册", 
+    SignUp: "注册",
     or: "或",
     service_date: "服务日期",
     enter_promo_code: "输入促销代码",
@@ -2521,6 +2526,8 @@ const messages = {
     budget: "预算",
     PRICE_FROM: "起",
     place_to_go: "想去的地方...",
+    REVIEW: "评价",
+
     Current_Password_Label_UD: "当前密码",
     Current_Password_Placeholder_UD: "当前密码",
     New_Password_Label_UD: "新密码",
@@ -3176,6 +3183,8 @@ const messages = {
     Search_Currency_CURRENCY: "Поиск валюты",
     Cancel_CURRENCY: "Отмена",
     Save_CURRENCY: "Сохранить",
+    REVIEW: "Отзыв",
+
     CHANGE_PASSWORD_SUCCESS: "Пароль успешно изменён.",
     Joytime_Account_Step_FAQ: "Шаги регистрации аккаунта Joytime",
     Register_Joytime_FAQ: "Зарегистрируйтесь в Joytime",
