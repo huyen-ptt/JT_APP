@@ -2,7 +2,7 @@
     <div class="bg-white pb-3" v-if="currentDestinationSelected">
         <HeaderTitle :title="currentDestinationSelected?.name"></HeaderTitle>
         <!-- Main Image Slider -->
-        <div class="container">
+        <div class="container pt-2">
             <div class="">
                 <img :src="helper.getImageCMS(currentDestinationSelected?.avatar)" class="d-block w-100 img-des"
                     alt="Ho Chi Minh City Night Scene">
@@ -37,7 +37,8 @@
                         delay: 5000,
                         disableOnInteraction: false
                     }" :pagination="{ clickable: true }" class="service-icons">
-                        <swiper-slide class="service-item pb-4" v-for="(s, index) in services" :key="index" style="height: 130px;">
+                        <swiper-slide class="service-item pb-4" v-for="(s, index) in services" :key="index"
+                            style="height: 130px;" @click="onChooseService(s)">
                             <div class="service-icon">
                                 <img :src="helper.getImageCMS(s.icon)" alt="Combo">
                             </div>
@@ -61,6 +62,8 @@
 </template>
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import { RouterLink, useRouter } from 'vue-router'
+
 import Footer from "@/components/Footer.vue";
 import { useHome } from "../composables/home";
 import { useHelper } from "@/composables/helper";
@@ -69,6 +72,9 @@ import axios from "axios";
 import HeaderTitle from '../components/HeaderTitle.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Autoplay, Pagination } from 'swiper/modules';
+import { useSearchStore } from "../stores/searchStore";
+import { useModalStore } from '../stores/modalStore';
+
 import "swiper/css";
 import "swiper/css/navigation";
 const helper = useHelper();
@@ -76,14 +82,28 @@ const homeComposable = useHome();
 const destinationComposable = useDestination();
 const services = ref([])
 const currentDestinationSelected = ref(null);
+const searchStore = useSearchStore();
+const modalStore = useModalStore();
+const router = useRouter()
 
 
 
 const destination = ref([])
 
 
+const onChooseService = async (s) => {
+    searchStore.onClearSearchItem();
+    searchStore.onAddSearchItem(s)
+    modalStore.close();
+    if (router.currentRoute.value.path === '/list-results') {
+        await router.replace('/blank');
+        await router.replace('/list-results');
+    } else {
+        router.push('/list-results');
+    }
+}
 const onLoadDestination = async () => {
-    const response = await destinationComposable.getZoneById();                           
+    const response = await destinationComposable.getZoneById();
     if (response) {
         currentDestinationSelected.value = response.data;
         if (currentDestinationSelected.value.googleMapCrood) {
@@ -133,15 +153,16 @@ const onLoadDestination = async () => {
     }
 }
 
-
+ 
 onBeforeMount(async () => {
     // destination.value = await homeComposable.onOpenDestinationModal();
     services.value = await homeComposable.getZonesByTypeDichVu();
+    services.value.forEach(r => {
+        r.url = r.alias
+        r.name = r.title
+    })
     await onLoadDestination();
-
-
 })
-
 
 </script>
 <style scoped>

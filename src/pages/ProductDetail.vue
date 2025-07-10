@@ -56,10 +56,10 @@
                                     <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
                                         <!-- Click ảnh để mở modal -->
                                         <img :src="helper.getImageCMS(image)" class="d-block w-100"
-                                            style="height: 220px; object-fit: cover; cursor: pointer"
-                                            />
+                                            style="height: 220px; object-fit: cover; cursor: pointer" />
                                     </swiper-slide>
-                                    <div class="swiper-pagination fraction-pagination" data-bs-toggle="modal" data-bs-target="#gallary-modal"></div>
+                                    <div class="swiper-pagination fraction-pagination" data-bs-toggle="modal"
+                                        data-bs-target="#gallary-modal"></div>
                                 </swiper>
 
                                 <!-- Modal hiển thị gallery chi tiết -->
@@ -119,19 +119,17 @@
                 <div class="d-flex align-items-center mt-1 dia-chi-product justify-content-between">
                     <div>
                         <i class="fas fa-map-marker-alt location-dot"></i>
-                        <span>{{ productDetail.location }} | {{ productDetail.totalSale }}
+                        <span>{{ productDetail.location }} | {{ productDetail.fakeOrderCount }}
                             {{ $t("BOOKED") }}
                         </span>
                     </div>
-                    <div class="rating">
+                    <div class="rating" v-if="productDetail.fakeOrderCount >= 25">
                         <i class="fas fa-star"></i>
                         <span class="rating-value">{{
-                            productDetail.rateAVG?.toFixed(2)
-                            }}</span>
+                            productDetail.fakeStarCount?.toFixed(2) }}</span>
                     </div>
                 </div>
             </div>
-
             <div className="container-fluid p-0">
                 <ul className="nav nav-tabs custom-tabs justify-content-center mr-3 ml-3" id="productTabs"
                     role="tablist">
@@ -189,22 +187,21 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid p-3 review-product border-bottom">
+            <div class="container-fluid p-3 review-product border-bottom" v-if="productDetail.fakeOrderCount >= 25">
                 <!-- Rating Header -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-start gap-4">
                         <h2 class="display-6 fw-bold mb-0 so-review">
-                            {{ productDetail.rateAVG?.toFixed(1) }}
+                            {{ productDetail.fakeStarCount?.toFixed(1) }}
                         </h2>
                         <div class="d-flex text-warning" style="padding: 3px 0;">
-                            <i v-for="n in Math.floor(productDetail.rateAVG)" :key="n" class="fas fa-star"
+                            <i v-for="n in Math.floor(productDetail.fakeStarCount)" :key="n" class="fas fa-star"
                                 style="font-size: 21px"></i>
                             <i v-if="productDetail.rateAVG % 1 >= 0.5" class="fas fa-star-half-alt"
                                 style="font-size: 21px"></i>
                         </div>
                     </div>
-
-                    <a href="#" class="text-primary text-decoration-none view-all">
+                    <a href="#" class="text-primary text-decoration-none view-all" @click="visibleDrawerReview = true">
                         {{ $t("VIEW_All") }}
                     </a>
                 </div>
@@ -234,7 +231,7 @@
                             height="40" /> -->
                             <img class="rounded-circle" width="40" height="40" v-if="r.avatar" :src="r.avatar" />
                             <img class="rounded-circle" width="40" height="40" v-else src="/images/icon-user.png" />
-                            <div> 
+                            <div>
                                 <p class="mb-0 name-rv">{{ r.userName }}</p>
                                 <div class="d-flex text-warning bao-sao">
                                     <i class="fas fa-star" v-for="i in r.startNumber" style="font-size: 11px"></i>
@@ -261,12 +258,13 @@
                                     <h3 class="tour-title">{{ product.title }}</h3>
                                     <div class="tour-location tour-price">
                                         <div>
-                                            <span class="tour-booked">{{ product.totalSale }} {{ $t("BOOKED") }}</span>
+                                            <span class="tour-booked">{{ product.fakeOrderCount }} {{ $t("BOOKED")
+                                            }}</span>
                                         </div>
-                                        <div class="rating">
+                                        <div class="rating" v-if="product.fakeOrderCount >= 25">
                                             <i class="fas fa-star"></i>
                                             <span class="rating-value">{{
-                                                product.rate.toFixed(1)
+                                                product.rate?.toFixed(1)
                                                 }}</span>
                                         </div>
                                     </div>
@@ -405,13 +403,22 @@
                                                         <div class="date-card-title-booking1">
                                                             <span v-if="!p.currentSelectedDate">{{
                                                                 $t("Selected_Date")
-                                                                }}</span>
+                                                                }}: <br />
+                                                                <div class="chose-option"
+                                                                    style="color: red; font-weight: 100;"
+                                                                    v-if="p.triggerReSelectDate && !p.currentSelectedDate">
+                                                                    {{
+                                                                        $t('YOUR_CHOOSEN_DATE_NOT_ALLOW')
+                                                                    }}
+                                                                </div>
+                                                            </span>
                                                             <span v-else>{{ $t("Selected_Date") }}: <br />
                                                                 <div class="chose-option">
                                                                     {{
                                                                         helper.formatISODate(p.currentSelectedDate)
                                                                     }}
                                                                 </div>
+
                                                             </span>
                                                         </div>
                                                     </AccordionHeader>
@@ -655,6 +662,45 @@
                                 animationDuration="0.8s" aria-label="Custom ProgressSpinner" />
                         </div>
                     </Dialog>
+                    <Dialog v-model:visible="visibleDrawerReview" modal class="modal-order1" :style="{ width: '50vw' }"
+                        style="height: 100%; max-height: 100%; border-radius: 0"
+                        :breakpoints="{ '1199px': '75vw', '575px': '100vw' }">
+                        <div class="review-modal-body max-h-[70vh] overflow-auto px-2">
+                            <!-- <h2  class="fw-bold mb-3"> {{ $t("REVIEW") }}</h2> -->
+                            <div class="top-bar-product bg-white title border-bottom p-3">
+                                <button class="back-button-product" @click="visibleDrawerReview = false">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                                <h1 class="page-title-product">{{ $t("REVIEW") }}</h1>
+                                <button class="cart-button-product">
+                                    &nbsp;
+                                    &nbsp;
+                                </button>
+                            </div>
+
+                            <div v-for="r in productDetail.reviews" :key="r" class="border-bottom p-2 mb-2">
+                                <div class="d-flex align-items-start gap-2">
+                                    <img class="rounded-circle" width="40" height="40"
+                                        :src="r.avatar || '/images/icon-user.png'" />
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-bold">{{ r.userName }}</div>
+                                                <div class="status-chat">{{ r.country }}</div>
+
+                                            </div>
+                                            <div class="text-warning bao-sao">
+                                                <i class="fas fa-star" v-for="i in r.startNumber"
+                                                    style="font-size: 11px" :key="i"></i>
+                                            </div>
+                                        </div>
+                                        <p class="text-muted small mb-1">{{ r.date || '' }}</p>
+                                        <p class="mb-0" v-html="r.content"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Dialog>
                 </div>
             </div>
         </div>
@@ -667,6 +713,7 @@ import Accordion from "primevue/accordion";
 import AccordionPanel from "primevue/accordionpanel";
 import AccordionHeader from "primevue/accordionheader";
 import AccordionContent from "primevue/accordioncontent";
+import HeaderTitle from '../components/HeaderTitle.vue';
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -777,6 +824,8 @@ const currentBook = ref({
 });
 console.log(currentBook.value, "currentBook");
 const visibleDrawerPackageList = ref(false);
+const visibleDrawerReview = ref(false);
+
 const onClickBuyNowParent = () => {
     visibleDrawerPackageList.value = true;
     payItems.value = [];
@@ -938,10 +987,31 @@ const onLoadPriceForPayItem = async (p) => {
         const response = await productComposable.getProductOptionsPriceByDate(data);
         loadingPriceOption.value = false;
         if (response) {
+
+
             p.priceSelectedOptionByDate = response.data;
 
+            console.log(p.calendar);
+            console.log(p.priceSelectedOptionByDate);
+            // let isResetDatePicker = true;
+            p.calendar.items.forEach(c => {
+                p.priceSelectedOptionByDate.forEach(pOpt => {
+                    if (!c.isPast) {
+                        const cDay = c.formattedDate.slice(0, 10);
+                        const pDay = pOpt.date.slice(0, 10);
+                        if (cDay !== pDay) {
+                            c.isPast = true;
+                            c.isActive = false;
+                            c.canClick = false;
+                        }
+                    }
+                });
+            });
+            let checkerDate = false;
             p.priceSelectedOptionByDate.forEach((r) => {
-                if (r.date == p.currentSelectedDate) {
+
+                if (r.date == p.currentSelectedDate && r.priceEachNguoiLon > 0) {
+                    checkerDate = true;
                     p.selectedPriceByDate = r;
                     p.currentAccordionStep = 2;
 
@@ -958,10 +1028,14 @@ const onLoadPriceForPayItem = async (p) => {
                     });
                 }
             });
+            if (!checkerDate) {
+                p.triggerReSelectDate = true
+                p.currentAccordionStep = 0;
+                p.currentSelectedDate = ''
+            }
         }
     }
 };
-
 //Ham xu ly an vao mot optionItem
 const onSelectedOptionItem = async (p, item) => {
     if (item.isActive == false) {
@@ -978,6 +1052,7 @@ const onSelectedOptionItem = async (p, item) => {
         item.isActive = true;
         onGetOptionAvalibleInCombinationInSession(p);
         onDisableOptionNotIncludeInAvalableArray(p);
+
 
         //Kiem tra xem cai currentOptionSelected no
     }
@@ -1111,7 +1186,9 @@ const payTemplate = ref({
 const calculatePays = () => {
     let pays = [];
     payItems.value.forEach((pay) => {
-        if (pay.totalPrice) {
+        if (pay.totalPrice) { 
+            console.log(pay)
+
             let data = JSON.parse(JSON.stringify(payTemplate.value));
             data.avatar = productDetail.value.avatar;
             data.bookingName = pay.currentPackage.title;
@@ -1121,6 +1198,10 @@ const calculatePays = () => {
             pay.combinations.forEach((com) => {
                 if (com.zoneList == pay.selectedPriceByDate.zoneList) {
                     data.combination = com;
+                    data.combination.priceEachNguoiLon = pay.selectedPriceByDate.priceEachNguoiLon;
+                    data.combination.priceEachTreEm = pay.selectedPriceByDate.priceEachTreEm;
+                    data.combination.netEachNguoiLon = pay.selectedPriceByDate.netEachNguoiLon;
+                    data.combination.netEachTreEm = pay.selectedPriceByDate.netEachTreEm;
                 }
             });
             //Tinh currentPickOption
@@ -1413,6 +1494,15 @@ const toggleReadMore = (review) => {
     font-weight: 500;
 }
 
+.review-modal-body {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.bao-sao i {
+    margin-right: 2px;
+}
+
 .nav-tabs .nav-link {
     background-color: unset;
 }
@@ -1515,13 +1605,13 @@ iframe {
 }
 
 .mySwiper2 {
-    height: 500px;
+    height: 270px;
     width: 100%;
     object-fit: cover;
 }
 
 .mySwiper2 img {
-    height: 500px;
+    height: 250px;
     width: 100%;
     object-fit: cover;
 }
@@ -1534,11 +1624,20 @@ iframe {
     object-fit: cover;
 }
 
+.mySwiper1 .swiper-slide {
+    height: 100px !important;
+}
+
 .mySwiper1 {
     margin: 0 !important;
 }
 
 .modal-content {
     padding: 10px;
+    height: 450px;
+}
+
+.recently-carousel {
+    height: 276px;
 }
 </style>

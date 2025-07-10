@@ -11,10 +11,12 @@
                     :placeholder="$t('Email_Placeholder_ForgotOp')" />
                 <div class="error-message" v-if="hasError">
                     <small>{{ $t(errorKey) }}</small>
-                </div> 
+                </div>
             </div>
 
-            <button type="submit" class="btn btn-continue" @click="onSubmit">
+            <button type="submit" class="btn btn-continue"
+                :class="{ 'btn-disabled': !isValidEmail, 'btn-active': isValidEmail }" :disabled="!isValidEmail"
+                @click="onSubmit">
                 {{ $t('Continue_Button_ForgotOp') }}
             </button>
         </div>
@@ -23,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import HeaderTitle from '../components/HeaderTitle.vue';
 import Footer from '@/components/Footer.vue';
@@ -44,7 +46,7 @@ const onSubmit = async () => {
 
     if (!email.value) {
         errorKey.value = 'EMAIL_REQUIRED';
-        hasError.value = true;  
+        hasError.value = true;
         return;
     }
 
@@ -65,6 +67,11 @@ const onSubmit = async () => {
         hasError.value = true;
     }
 };
+
+const isValidEmail = computed(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.value);
+});
 </script>
 
 
@@ -75,10 +82,12 @@ const onSubmit = async () => {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
 .btn:hover {
     background-color: #446EDE !important;
-    color: #FFFFFF !important; 
+    color: #FFFFFF !important;
 }
+
 .back-arrow {
     color: #333;
     font-size: 20px;
@@ -103,6 +112,7 @@ const onSubmit = async () => {
     border: 1px solid #ddd;
     margin-bottom: 20px;
 }
+
 .btn-continue {
     width: 100%;
     padding: 12px;
@@ -111,5 +121,28 @@ const onSubmit = async () => {
     border-radius: 8px;
     color: #B3BBC7;
     font-weight: 500;
+}
+
+.btn-continue {
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-disabled {
+    background-color: #EDF1F7 !important;
+    /* màu xám */
+    color: #B3BBC7;
+    cursor: not-allowed;
+}
+
+.btn-active {
+    background-color: #446EDE;
+    /* màu xanh */
+    color: #fff;
+    cursor: pointer;
 }
 </style>

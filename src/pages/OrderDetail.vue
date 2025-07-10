@@ -133,7 +133,7 @@
                         {{ $t("Cancel_Order_ORD") }}
                     </button>
                 </router-link>
-                <router-link to="" class="btn-search">
+                <router-link to="/contact" class="btn-search">
                     <button class="search-button btn-search" id="search">
                         {{ $t("Contact_Support_ORD") }}
                     </button>

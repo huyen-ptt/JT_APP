@@ -120,9 +120,9 @@
          <div class="recently-container mb-3" v-if="currentSeen.length > 0">
             <div class="recently-header">
                <h2 class="promo-title">{{ $t('RECENTLY_VIEWED') }}</h2>
-               <a @click="handleSearch('RECENTLY_VIEWED')" class="view-all">
+               <!-- <a @click="handleSearch('RECENTLY_VIEWED')" class="view-all">
                   {{ $t('VIEW_All') }}
-               </a>
+               </a> -->
             </div>
             <ClientOnly>
                <swiper :modules="[Autoplay, Pagination]" :slides-per-view="2" :space-between="16"

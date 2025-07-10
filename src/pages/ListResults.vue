@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="results-info-product">
+        <div class="results-info-product pt-1">
             <div class="results-count-product">{{ total }} {{ $t('Results_Count_ProductResult', { count: total }) }}
             </div>
             <div class="card flex justify-center">
