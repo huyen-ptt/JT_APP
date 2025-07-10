@@ -112,6 +112,7 @@ const toggleExpand = () => {
     isExpanded.value = !isExpanded.value
 }
 onMounted(async () => {
+    budgetRange.value = [searchStore.search.startBudget,searchStore.search.endBudget]
     onClearItemFromHome();
     searchZone.value = await searchComposable.getSearchableZone();
     if (searchZone.value) {
