@@ -374,7 +374,7 @@ import NoteRadioButtonComponent from '@/components/NoteRadioButtonComponent.vue'
 import NoteTimeComponent from '@/components/NoteTimeComponent.vue'
 import HeaderTitle from '../components/HeaderTitle.vue';
 
-import { ref, onBeforeMount, computed, onMounted } from "vue";
+import { ref, onBeforeMount, computed, onMounted,nextTick } from "vue";
 import { Capacitor } from '@capacitor/core';
 
 import { useHelper } from "../composables/helper";
@@ -728,11 +728,13 @@ const onChoosePaymentMethod = (p) => {
 }
 const onRequestPay = async () => {
     onTriggerValidate();
+    await nextTick();
     //Validate before request
     let validPayNotes = checkValidateNote();
     let validAuth = checkValidateAuth();
     let validatePayment = checkValidatePayment();
    const validStep2 =  scrollToFirstVisibleError();
+   console.log(validStep2);
     console.log("validPayNotes:", validPayNotes, "validAuth:", validAuth, "validatePayment:", validatePayment);
     if(!validPayNotes || !validAuth || !validatePayment || !validStep2){
         activeMainAccordion.value = ['0', '1']; //open accordion personal info
