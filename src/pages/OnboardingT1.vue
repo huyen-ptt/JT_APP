@@ -113,6 +113,7 @@ function skipAb() {
 }
 
 async function finish() {
+  clearTimeout(timer)
   markOnboardingSeen()
   await nextTick();
   router.replace('/')
