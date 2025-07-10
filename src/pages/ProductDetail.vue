@@ -626,7 +626,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <div class="packages-count-booking">
-                                            {{ productDetail.productChilds.length }}
+                                            {{ countPackage }}
                                             {{ $t("PACKAGES") }}
                                         </div>
                                         <div class="total-price-booking">
@@ -791,6 +791,7 @@ const currentMonth = ref(3);
 const currentYear = ref(2025);
 const firstDayOfMonth = ref(1); // Assuming March 1st, 2025 is a Saturday (6)
 const activeTicketIndex = ref(null);
+const countPackage = ref(0);
 
 // #Region Logic
 
@@ -1153,6 +1154,7 @@ const countPayItems = computed(() => {
             _c++;
         }
     });
+    countPackage.value = _c;
     return _c;
 });
 const payTemplate = ref({
