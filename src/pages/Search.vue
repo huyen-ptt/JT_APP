@@ -36,7 +36,7 @@
                 <h3 class="section-title">{{ serviceSearch.
                     zoneParentName }}</h3>
                 <div class="button-grid" id="services">
-                    <button class="filter-button" v-for="(d, key) in serviceSearch.zoneChilds" :key="index" :data-name="d
+                    <button class="filter-button" v-for="(d, index) in serviceSearch.zoneChilds" :key="index" :data-name="d
                         .name" :class="d.isActive ? 'selected' : ''" @click="onClickSearchItem(d)">{{ d.name
                         }}</button>
                 </div>
@@ -44,7 +44,7 @@
             <div class="budget-slider-container">
                 <h3 class="section-title budge">{{ $t('budget') }}</h3>
                 <div class="slider-container">
-                    <Slider v-model="budgetRange" range class="budget-slider" :min="0" :max="20000000" />
+                    <Slider v-model="budgetRange" range class="budget-slider" :min="0" :max="20000000" @change="onchangeBudget"/>
                     <div class="slider-labels">
                         <span class="min-label">{{ formatCurrency(budgetRange[0]) }}</span>
                         <span class="max-label">{{ formatCurrency(budgetRange[1]) }}</span>
@@ -81,6 +81,11 @@ const budgetRange = ref([0, 20000000]);
 
 const formatCurrency = (value) => {
     return new Intl.NumberFormat('vi-VN').format(value) + 'đ';
+};
+
+const onchangeBudget = (value) =>{
+    searchStore.search.startBudget = value[0];
+    searchStore.search.endBudget = value[1];
 };
 
 const onClickSearchItem = async (searchItem) => {
