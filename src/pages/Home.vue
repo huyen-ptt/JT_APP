@@ -134,9 +134,9 @@
                            <h3 class="tour-title">{{ product.title }}</h3>
                            <div class="tour-location tour-price">
                               <div>
-                                 <span class="tour-booked">{{ product.totalSale }} {{ $t('BOOKED') }}</span>
+                                 <span class="tour-booked">{{ product.fakeOrderCount }} {{ $t('BOOKED') }}</span>
                               </div>
-                              <div class="rating">
+                              <div class="rating" v-if="product.fakeOrderCount >= 25">
                                  <i class="fas fa-star"></i>
                                  <span class="rating-value">{{ product.rate.toFixed(1) }}</span>
                               </div>
