@@ -43,7 +43,7 @@
                                                 </div>
                                                 <div class="price-info" v-if="pay.numberOfChildrend > 0">
                                                     <span class="ad">{{ $t('Child') }} x {{ pay.numberOfChildrend
-                                                    }}</span>
+                                                        }}</span>
                                                     <span class="price-amount">VND {{ (pay.numberOfChildrend *
                                                         pay.combination.priceEachTreEm).toLocaleString() }}</span>
                                                 </div>
@@ -119,7 +119,8 @@
                                         </Dialog>
                                     </div>
                                     <!-- <FastTrack /> -->
-                                    <Accordion :value="activeSubNoteAccordion"  v-for="noteGroup in pay.productBookingNoteGroups" multiple>
+                                    <Accordion :value="activeSubNoteAccordion"
+                                        v-for="noteGroup in pay.productBookingNoteGroups" multiple>
                                         <AccordionPanel value="4">
                                             <AccordionHeader class="p-0">
                                                 <div class="service-details">
@@ -374,7 +375,7 @@ import NoteRadioButtonComponent from '@/components/NoteRadioButtonComponent.vue'
 import NoteTimeComponent from '@/components/NoteTimeComponent.vue'
 import HeaderTitle from '../components/HeaderTitle.vue';
 
-import { ref, onBeforeMount, computed, onMounted,nextTick } from "vue";
+import { ref, onBeforeMount, computed, onMounted } from "vue";
 import { Capacitor } from '@capacitor/core';
 
 import { useHelper } from "../composables/helper";
@@ -661,7 +662,10 @@ const onCheckCouponCode = async (pay) => {
             title: t('KHUYEN_MAI_THANH_CONG'),
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true
+            timerProgressBar: true,
+            customClass: {
+                title: 'swal2-small-title'
+            }
         })
         pay.totalPrice = pay.numberOfAldut * pay.combination.priceEachNguoiLon + pay.numberOfChildrend * pay.combination.priceEachTreEm
         let _discountPrice = 0;
@@ -689,7 +693,10 @@ const onCheckCouponCode = async (pay) => {
             title: t('KHUYEN_MAI_THAT_BAI'),
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true
+            timerProgressBar: true,
+            customClass: {
+                title: 'swal2-small-title'
+            }
         })
         pay.discountSelected.couponCode = '';
         pay.discountSelected.discountOption = 0;
@@ -728,15 +735,13 @@ const onChoosePaymentMethod = (p) => {
 }
 const onRequestPay = async () => {
     onTriggerValidate();
-    await nextTick();
     //Validate before request
     let validPayNotes = checkValidateNote();
     let validAuth = checkValidateAuth();
     let validatePayment = checkValidatePayment();
-   const validStep2 =  scrollToFirstVisibleError();
-   console.log(validStep2);
+    const validStep2 = scrollToFirstVisibleError();
     console.log("validPayNotes:", validPayNotes, "validAuth:", validAuth, "validatePayment:", validatePayment);
-    if(!validPayNotes || !validAuth || !validatePayment || !validStep2){
+    if (!validPayNotes || !validAuth || !validatePayment || !validStep2) {
         activeMainAccordion.value = ['0', '1']; //open accordion personal info
         activeSubNoteAccordion.value = ['4']; //open accordion booking note
         return;
@@ -755,38 +760,38 @@ const onRequestPay = async () => {
 
 
 const onRequestPayOnePay = async () => {
-  onTriggerValidate();
+    onTriggerValidate();
 
-  let validPayNotes = checkValidateNote();
-  let validAuth = checkValidateAuth();
-  let validatePayment = checkValidatePayment();
+    let validPayNotes = checkValidateNote();
+    let validAuth = checkValidateAuth();
+    let validatePayment = checkValidatePayment();
 
-//   activeMainAccordion.value = ['0', '1'];
-//   activeSubNoteAccordion.value = ['4'];
+    //   activeMainAccordion.value = ['0', '1'];
+    //   activeSubNoteAccordion.value = ['4'];
 
-  const validStep2 = scrollToFirstVisibleError();
+    const validStep2 = scrollToFirstVisibleError();
 
-  if (validPayNotes && validAuth && validatePayment && validStep2) {
-    auth.value.pcname = randomString(10);
+    if (validPayNotes && validAuth && validatePayment && validStep2) {
+        auth.value.pcname = randomString(10);
 
-    const data = {
-      pays: pays.value,
-      auth: auth.value,
-      orderCode: `APP_${randomString(8)}`,
-      i18Code: locale.value,
-      orderNotes: orderNote.value,
-      paymentMethod: 'TEST_APP',
-      sourceOrder: 'MOBILE_APP',
-      vpc: choosenVpc.value
-    };
+        const data = {
+            pays: pays.value,
+            auth: auth.value,
+            orderCode: `APP_${randomString(8)}`,
+            i18Code: locale.value,
+            orderNotes: orderNote.value,
+            paymentMethod: 'TEST_APP',
+            sourceOrder: 'MOBILE_APP',
+            vpc: choosenVpc.value
+        };
 
-    try {
-      const response = await payComposable.onRequestOnepay(data);
+        try {
+            const response = await payComposable.onRequestOnepay(data);
 
-      if (response && response.data.returnUrl) {
-        // ✅ THÊM Swal tại đây
-        await Swal.fire({
-          title: t('PAYMENT_GATEWAY_NOTICE_TITLE'),
+            if (response && response.data.returnUrl) {
+                // ✅ THÊM Swal tại đây
+                await Swal.fire({
+                    title: t('PAYMENT_GATEWAY_NOTICE_TITLE'),
                     html: `
                         <p>
                         ${t('PAYMENT_GATEWAY_NOTICE_BODY')}
@@ -802,137 +807,137 @@ const onRequestPayOnePay = async () => {
                     icon: 'info',
                     showConfirmButton: true,
                     confirmButtonText: t('PAYMENT_GATEWAY_CONTINUE'),
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            const platform = Capacitor.getPlatform();
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        const platform = Capacitor.getPlatform();
 
-            if (platform === 'web') {
-              window.location.href = response.data.returnUrl;
-            } else {
-              StatusBar.setOverlaysWebView({ overlay: false });
+                        if (platform === 'web') {
+                            window.location.href = response.data.returnUrl;
+                        } else {
+                            StatusBar.setOverlaysWebView({ overlay: false });
 
-              const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
-                location: 'no',
-                toolbar: 'yes',
-                toolbarcolor: '#ffffff',
-                closebuttoncaption: 'Đóng',
-                hideurlbar: 'yes',
-              });
+                            const browser = InAppBrowser.create(response.data.returnUrl, '_blank', {
+                                location: 'no',
+                                toolbar: 'yes',
+                                toolbarcolor: '#ffffff',
+                                closebuttoncaption: 'Đóng',
+                                hideurlbar: 'yes',
+                            });
 
-              let returnPaymentUrl = "";
+                            let returnPaymentUrl = "";
 
-              browser.on('loadstart').subscribe(async (event) => {
-                const url = event.url;
+                            browser.on('loadstart').subscribe(async (event) => {
+                                const url = event.url;
 
-                if (url.startsWith(import.meta.env.VITE_API_URI)) {
-                  returnPaymentUrl = url;
-                  browser.close();
+                                if (url.startsWith(import.meta.env.VITE_API_URI)) {
+                                    returnPaymentUrl = url;
+                                    browser.close();
 
-                  try {
-                    const res2 = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+                                    try {
+                                        const res2 = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
 
-                    if (res2 && res2.data) {
-                      if (res2.data.auth) {
-                        res2.data.auth.isNewUser = false;
-                        authStore.onChangeAuth(res2.data.auth);
-                      }
-                      if (res2.data.orderCode) {
-                        router.push('/confirm/payment/success');
-                      }
+                                        if (res2 && res2.data) {
+                                            if (res2.data.auth) {
+                                                res2.data.auth.isNewUser = false;
+                                                authStore.onChangeAuth(res2.data.auth);
+                                            }
+                                            if (res2.data.orderCode) {
+                                                router.push('/confirm/payment/success');
+                                            }
+                                        }
+                                    } catch (error) {
+                                        alert(t('PAYMENT_RESULT_FAIL'));
+                                    }
+                                }
+                            });
+                        }
                     }
-                  } catch (error) {
-                    alert(t('PAYMENT_RESULT_FAIL'));
-                  }
-                }
-              });
+                });
             }
-          }
-        });
-      }
 
-    } catch (error) {
-      alert(error);
-    } finally {
-      // StatusBar.setOverlaysWebView({ overlay: true });
+        } catch (error) {
+            alert(error);
+        } finally {
+            // StatusBar.setOverlaysWebView({ overlay: true });
+        }
     }
-  }
 };
 
 const onRequestPayPayPal = async () => {
 
-        const validStep2 = scrollToFirstVisibleError();
-        console.log("validStep2:", validStep2);
-        if (!validStep2) return;
-        else {
-            auth.value.pcname = randomString(10);
-            let data = {
-                pays: pays.value,
-                auth: auth.value,
-                orderCode: `APP_${randomString(8)}`,
-                i18Code: locale.value,
-                orderNotes: orderNote.value,
-                paymentMethod: 'PAYPAL',
-                sourceOrder: 'MOBILE_APP'
+    const validStep2 = scrollToFirstVisibleError();
+    console.log("validStep2:", validStep2);
+    if (!validStep2) return;
+    else {
+        auth.value.pcname = randomString(10);
+        let data = {
+            pays: pays.value,
+            auth: auth.value,
+            orderCode: `APP_${randomString(8)}`,
+            i18Code: locale.value,
+            orderNotes: orderNote.value,
+            paymentMethod: 'PAYPAL',
+            sourceOrder: 'MOBILE_APP'
 
-            }
+        }
 
-            try {
-                const response = await payComposable.onRequestPaypal(data);
-                if (response && response.data) {
+        try {
+            const response = await payComposable.onRequestPaypal(data);
+            if (response && response.data) {
 
-                    console.log(response.data);
-                    // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
-                    // StatusBar.setOverlaysWebView({ overlay: false });
+                console.log(response.data);
+                // Ở cái hàm này, có cách nào phân biệt đang ở trên web hay đang ở trên app không? Nếu trên Web thì có thể xử lý kiểu khác, nếu trên APP thì xử lý kiểu vào webview như này
+                // StatusBar.setOverlaysWebView({ overlay: false });
 
 
-                    let returnPaymentUrl = "";
-                    // Bắt URL trước khi load
-                    browser.on('loadstart').subscribe(async (event) => {
-                        const url = event.url;
-                        console.log('🔗 Đang chuẩn bị load:', url);
+                let returnPaymentUrl = "";
+                // Bắt URL trước khi load
+                browser.on('loadstart').subscribe(async (event) => {
+                    const url = event.url;
+                    console.log('🔗 Đang chuẩn bị load:', url);
 
-                        // 👉 Nếu phát hiện redirect về deeplink hoặc 1 URL đặc biệt, bạn có thể xử lý:
-                        if (url.startsWith(import.meta.env.VITE_API_URI)) {
-                            returnPaymentUrl = url;
-                            browser.close(); // đóng InAppBrowser
-                            // alert('✅ Phát hiện deeplink redirect:', url);
-                            // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
-                            // Thực thi url
-                            try {
-                                loadingCheckout.value = true;
-                                const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
-                                loadingCheckout.value = false;
-                                if (response && response.data) {
-                                    // console.log(response.data);
-                                    if (response.data.auth) {
-                                        response.data.auth.isNewUser = false;
-                                        authStore.onChangeAuth(response.data.auth);
-                                    }
-                                    if (response.data.orderCode) {
-                                        router.push('/confirm/payment/success');
-                                    }
+                    // 👉 Nếu phát hiện redirect về deeplink hoặc 1 URL đặc biệt, bạn có thể xử lý:
+                    if (url.startsWith(import.meta.env.VITE_API_URI)) {
+                        returnPaymentUrl = url;
+                        browser.close(); // đóng InAppBrowser
+                        // alert('✅ Phát hiện deeplink redirect:', url);
+                        // Bạn có thể parse `url` tại đây và gọi xử lý axios nếu cần
+                        // Thực thi url
+                        try {
+                            loadingCheckout.value = true;
+                            const response = await payComposable.onCreateOrderResponseOnepay(returnPaymentUrl);
+                            loadingCheckout.value = false;
+                            if (response && response.data) {
+                                // console.log(response.data);
+                                if (response.data.auth) {
+                                    response.data.auth.isNewUser = false;
+                                    authStore.onChangeAuth(response.data.auth);
                                 }
-                            } catch (error) {
-                                // alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
-                                alert(error);
+                                if (response.data.orderCode) {
+                                    router.push('/confirm/payment/success');
+                                }
                             }
-
+                        } catch (error) {
+                            // alert(t('PAYMENT_RESULT_FAIL')) // Thanh toan that bai 1
+                            alert(error);
                         }
 
-
-                        // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
-                    });
+                    }
 
 
-                }
-            } catch (error) {
-                alert(error);
-                // alert(t('PAYMENT_RESULT_FAIL'));
+                    // Hoặc chặn luôn không cho load tiếp (nâng cao – cần custom native)
+                });
+
+
             }
-            finally {
-                // StatusBar.setOverlaysWebView({ overlay: true });
-            }
+        } catch (error) {
+            alert(error);
+            // alert(t('PAYMENT_RESULT_FAIL'));
         }
+        finally {
+            // StatusBar.setOverlaysWebView({ overlay: true });
+        }
+    }
 
 }
 
@@ -1156,7 +1161,8 @@ onMounted(() => {
 
     margin-bottom: 1px;
 }
-.results-count-product{
+
+.results-count-product {
     margin-bottom: 5px;
 }
 </style>
