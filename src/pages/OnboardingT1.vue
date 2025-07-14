@@ -113,6 +113,7 @@ function skipAb() {
 }
 
 async function finish() {
+  
   markOnboardingSeen()
   await nextTick();
   router.replace('/')
@@ -134,6 +135,7 @@ watch(currentSlide, (val) => {
 })
 
 onBeforeRouteLeave(() => {
+  clearTimeout(timer)
   markOnboardingSeen()
 })
 </script>

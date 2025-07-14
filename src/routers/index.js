@@ -229,10 +229,10 @@ router.beforeEach((to, from, next) => {
     return next()
   }
 
-  // Đã xem rồi, mà vẫn vào lại onboarding => redirect về home
-  if (hasSeen && (to.path === '/languagesonboading' || to.path === '/onboarding1')) {
-    return next('/')
-  }
+//   // Đã xem rồi, mà vẫn vào lại onboarding => redirect về home
+//   if (hasSeen && (to.path === '/languagesonboading' || to.path === '/onboarding1')) {
+//     return next('/')
+//   }
 
   // Bình thường
   return next()
