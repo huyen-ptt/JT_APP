@@ -21,6 +21,7 @@ import Swal from 'sweetalert2'
 import { useHelper } from "./composables/helper";
 import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { checkAppVersion } from "@/composables/useVersion";
 
 const { t } = useI18n();
 const router = useRouter();
@@ -31,6 +32,7 @@ const langStore = useLanguageStore()
 langStore.loadDefaulLanguage()
 
 onMounted(async () => {
+  checkAppVersion();
   App.addListener('backButton', async ({ canGoBack }) => {
     if (!canGoBack) {
       const res = await Swal.fire({
