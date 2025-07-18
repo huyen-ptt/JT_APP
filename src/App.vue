@@ -21,11 +21,8 @@ import Swal from 'sweetalert2'
 import { useHelper } from "./composables/helper";
 import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
 import { SplashScreen } from '@capacitor/splash-screen';
-<<<<<<< HEAD
 import { Capacitor } from '@capacitor/core'
-=======
 import { checkAppVersion } from "@/composables/useVersion";
->>>>>>> master
 
 const { t } = useI18n();
 const router = useRouter();
@@ -121,11 +118,8 @@ const onDebug = async () => {
 }
 
 onMounted(async () => {
-<<<<<<< HEAD
   // await onDebug();
-=======
   checkAppVersion();
->>>>>>> master
   App.addListener('backButton', async ({ canGoBack }) => {
     if (!canGoBack) {
       const res = await Swal.fire({
