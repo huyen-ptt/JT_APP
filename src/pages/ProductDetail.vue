@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="page-full-overlay">
         <div v-if="!productDetail">
             <div class="p-2">
                 <Skeleton height="240px" borderRadius="12px" class="mb-4" />
@@ -44,75 +44,81 @@
         </div>
         <div class="product-containerr" v-else>
             <!-- Main image -->
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="product-slider position-relative">
-                            <div>
-                                <!-- Swiper chính hiển thị ảnh đơn giản -->
-                                <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1" :loop="true"
-                                    :autoplay="{ delay: 3000 }" :navigation="true"
-                                    :pagination="{ el: '.swiper-pagination', type: 'fraction' }" class="mySwiper">
-                                    <swiper-slide v-for="(image, index) in productDetail.gallary || []" :key="index">
-                                        <!-- Click ảnh để mở modal -->
-                                        <img :src="helper.getImageCMS(image)" class="d-block w-100"
-                                            style="height: 220px; object-fit: cover; cursor: pointer" />
-                                    </swiper-slide>
-                                    <div class="swiper-pagination fraction-pagination" data-bs-toggle="modal"
-                                        data-bs-target="#gallary-modal"></div>
-                                </swiper>
+            <div class="header-image-overlay">
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="product-slider position-relative">
+                                <div>
+                                    <!-- Swiper chính hiển thị ảnh đơn giản -->
+                                    <swiper :modules="[Autoplay, Navigation, Pagination]" :slides-per-view="1"
+                                        :loop="true" :autoplay="{ delay: 3000 }" :navigation="true"
+                                        :pagination="{ el: '.swiper-pagination', type: 'fraction' }" class="mySwiper">
+                                        <swiper-slide v-for="(image, index) in productDetail.gallary || []"
+                                            :key="index">
+                                            <!-- Click ảnh để mở modal -->
+                                            <img :src="helper.getImageCMS(image)" class="d-block w-100"
+                                                style="height: 220px; object-fit: cover; cursor: pointer" />
+                                        </swiper-slide>
+                                        <div class="swiper-pagination fraction-pagination" data-bs-toggle="modal"
+                                            data-bs-target="#gallary-modal"></div>
+                                    </swiper>
 
-                                <!-- Modal hiển thị gallery chi tiết -->
-                                <Teleport to="body">
-                                    <div class="modal fade" id="gallary-modal" tabindex="-1" aria-hidden="true"
-                                        ref="modalEl">
-                                        <div class="modal-dialog modal-xl">
-                                            <div class="modal-content">
-                                                <button type="button" class="btn-close m-2 ms-auto"
-                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <!-- Modal hiển thị gallery chi tiết -->
+                                    <Teleport to="body">
+                                        <div class="modal fade" id="gallary-modal" tabindex="-1" aria-hidden="true"
+                                            ref="modalEl">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <button type="button" class="btn-close m-2 ms-auto"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
 
-                                                <!-- Swiper chính trong modal -->
-                                                <swiper ref="mainSwiperRef"
-                                                    :modules="[Autoplay, Navigation, Pagination, Thumbs]" :loop="true"
-                                                    :slides-per-view="1" :navigation="true"
-                                                    :thumbs="{ swiper: thumbsSwiper || null }"
-                                                    v-if="productDetail.gallary?.length" class="mySwiper2">
-                                                    <swiper-slide v-for="(p, i) in productDetail.gallary"
-                                                        :key="'main-' + i">
-                                                        <img :src="helper.getImageCMS(p)" class="img-swipper-current" />
-                                                    </swiper-slide>
+                                                    <!-- Swiper chính trong modal -->
+                                                    <swiper ref="mainSwiperRef"
+                                                        :modules="[Autoplay, Navigation, Pagination, Thumbs]"
+                                                        :loop="true" :slides-per-view="1" :navigation="true"
+                                                        :thumbs="{ swiper: thumbsSwiper || null }"
+                                                        v-if="productDetail.gallary?.length" class="mySwiper2">
+                                                        <swiper-slide v-for="(p, i) in productDetail.gallary"
+                                                            :key="'main-' + i">
+                                                            <img :src="helper.getImageCMS(p)"
+                                                                class="img-swipper-current" />
+                                                        </swiper-slide>
 
-                                                </swiper>
+                                                    </swiper>
 
-                                                <!-- Thumbnail Swiper -->
-                                                <swiper :modules="[Autoplay, Navigation, Pagination, Thumbs]"
-                                                    @swiper="setThumbsSwiper" :slides-per-view="3" :spaceBetween="3"
-                                                    watchSlidesProgress class="mySwiper1 mt-3"
-                                                    v-if="productDetail.gallary?.length">
-                                                    <swiper-slide v-for="(p, i) in productDetail.gallary"
-                                                        :key="'thumb-' + i">
-                                                        <img :src="helper.getImageCMS(p)" class="img-swipper-thumb" />
-                                                    </swiper-slide>
-                                                </swiper>
+                                                    <!-- Thumbnail Swiper -->
+                                                    <swiper :modules="[Autoplay, Navigation, Pagination, Thumbs]"
+                                                        @swiper="setThumbsSwiper" :slides-per-view="3" :spaceBetween="3"
+                                                        watchSlidesProgress class="mySwiper1 mt-3"
+                                                        v-if="productDetail.gallary?.length">
+                                                        <swiper-slide v-for="(p, i) in productDetail.gallary"
+                                                            :key="'thumb-' + i">
+                                                            <img :src="helper.getImageCMS(p)"
+                                                                class="img-swipper-thumb" />
+                                                        </swiper-slide>
+                                                    </swiper>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Teleport>
+                                    </Teleport>
+                                </div>
                             </div>
-                        </div>
-                        <div class="position-absolute start-0 translate-middle-y p-3 icon">
-                            <button class="back-button-product" @click="$router.go(-1)">
-                                <i class="fas fa-arrow-left" style="color: white"></i>
-                            </button>
-                        </div>
-                        <div class="position-absolute end-0 translate-middle-y p-3 icon">
-                            <router-link :to="`/cart`">
-                                <img height="30" src="/images/shopping-cart-w.png" />
-                            </router-link>
+                            <div class="position-absolute start-0 translate-middle-y p-3 icon">
+                                <button class="back-button-product" @click="$router.go(-1)">
+                                    <i class="fas fa-arrow-left" style="color: white"></i>
+                                </button>
+                            </div>
+                            <div class="position-absolute end-0 translate-middle-y p-3 icon">
+                                <router-link :to="`/cart`">
+                                    <img height="30" src="/images/shopping-cart-w.png" />
+                                </router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Title section -->
             <div class="p-3">
                 <div class="title-detail">{{ productDetail.title }}</div>
@@ -259,13 +265,13 @@
                                     <div class="tour-location tour-price">
                                         <div>
                                             <span class="tour-booked">{{ product.fakeOrderCount }} {{ $t("BOOKED")
-                                            }}</span>
+                                                }}</span>
                                         </div>
                                         <div class="rating" v-if="product.fakeOrderCount >= 25">
                                             <i class="fas fa-star"></i>
                                             <span class="rating-value">{{
                                                 product.rate?.toFixed(1)
-                                                }}</span>
+                                            }}</span>
                                         </div>
                                     </div>
                                     <div class="tour-price">
@@ -403,7 +409,7 @@
                                                         <div class="date-card-title-booking1">
                                                             <span v-if="!p.currentSelectedDate">{{
                                                                 $t("Selected_Date")
-                                                                }}: <br />
+                                                            }}: <br />
                                                                 <div class="chose-option"
                                                                     style="color: red; font-weight: 100;"
                                                                     v-if="p.triggerReSelectDate && !p.currentSelectedDate">
@@ -469,7 +475,7 @@
                                                         <div class="date-card-title-booking1">
                                                             <span v-if="!p.currentChoosenOptions">{{
                                                                 $t("Option")
-                                                                }}</span>
+                                                            }}</span>
                                                             <span v-else> {{ $t("Option") }} <br /> </span>
                                                             <div class="chose-option" v-if="p.currentChoosenOptions">
                                                                 {{
@@ -997,20 +1003,20 @@ const onLoadPriceForPayItem = async (p) => {
             // let isResetDatePicker = true;
             p.calendar.items.forEach(c => {
                 p.priceSelectedOptionByDate.forEach(pOpt => {
-                    
+
                     if (!c.isPast) {
                         console.log(c, pOpt)
                         const cDay = c.formattedDate.slice(0, 10);
                         const pDay = pOpt.date.slice(0, 10);
-                        
-                        if(pOpt.priceEachNguoiLon > 0){
-                            if(cDay == pDay){
+
+                        if (pOpt.priceEachNguoiLon > 0) {
+                            if (cDay == pDay) {
                                 c.isPast = false;
                                 c.isActive = false;
                                 c.canClick = true;
                             }
-                        }else{
-                            if(cDay == pDay){
+                        } else {
+                            if (cDay == pDay) {
                                 c.isPast = true;
                                 c.isActive = false;
                                 c.canClick = false;
@@ -1205,7 +1211,7 @@ const payTemplate = ref({
 const calculatePays = () => {
     let pays = [];
     payItems.value.forEach((pay) => {
-        if (pay.totalPrice) { 
+        if (pay.totalPrice) {
             console.log(pay)
 
             let data = JSON.parse(JSON.stringify(payTemplate.value));
@@ -1445,7 +1451,7 @@ const setupCurrentDate = () => {
 // Lifecycle hook
 onMounted(async () => {
     setupCurrentDate();
-
+    StatusBar.setOverlaysWebView({ overlay: true });
     // StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
     // console.log(productDetail.value, "productDetail.value");
     // await onLoadPackage();
@@ -1659,4 +1665,7 @@ iframe {
 .recently-carousel {
     height: 276px;
 }
+
+
+
 </style>
