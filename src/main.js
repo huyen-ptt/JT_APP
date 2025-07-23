@@ -17,11 +17,15 @@ import './style.css'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import 'primeicons/primeicons.css'
+import { SplashScreen } from '@capacitor/splash-screen'
+
 // import 'primevue/resources/themes/saga-blue/theme.css'; // theme sáng
 
 const app = createApp(App);
 // ✨ Gắn router toàn cục
 app.config.globalProperties.$globalRouter = router
+// Ẩn splash screen ngay khi app khởi động
+SplashScreen.hide()
 app.use(router);
 app.use(i18n);
 app.use(VueSweetalert2);

@@ -265,13 +265,13 @@
                                     <div class="tour-location tour-price">
                                         <div>
                                             <span class="tour-booked">{{ product.fakeOrderCount }} {{ $t("BOOKED")
-                                                }}</span>
+                                            }}</span>
                                         </div>
                                         <div class="rating" v-if="product.fakeOrderCount >= 25">
                                             <i class="fas fa-star"></i>
                                             <span class="rating-value">{{
                                                 product.rate?.toFixed(1)
-                                            }}</span>
+                                                }}</span>
                                         </div>
                                     </div>
                                     <div class="tour-price">
@@ -409,7 +409,7 @@
                                                         <div class="date-card-title-booking1">
                                                             <span v-if="!p.currentSelectedDate">{{
                                                                 $t("Selected_Date")
-                                                            }}: <br />
+                                                                }}: <br />
                                                                 <div class="chose-option"
                                                                     style="color: red; font-weight: 100;"
                                                                     v-if="p.triggerReSelectDate && !p.currentSelectedDate">
@@ -475,7 +475,7 @@
                                                         <div class="date-card-title-booking1">
                                                             <span v-if="!p.currentChoosenOptions">{{
                                                                 $t("Option")
-                                                            }}</span>
+                                                                }}</span>
                                                             <span v-else> {{ $t("Option") }} <br /> </span>
                                                             <div class="chose-option" v-if="p.currentChoosenOptions">
                                                                 {{
@@ -1451,7 +1451,8 @@ const setupCurrentDate = () => {
 // Lifecycle hook
 onMounted(async () => {
     setupCurrentDate();
-    StatusBar.setOverlaysWebView({ overlay: true });
+    // StatusBar.setOverlaysWebView({ overlay: true });
+    // await EdgeToEdge.enable();
     // StatusBar.setOverlaysWebView({ overlay: true }); // Cho nội dung tràn lên StatusBar
     // console.log(productDetail.value, "productDetail.value");
     // await onLoadPackage();
@@ -1665,7 +1666,4 @@ iframe {
 .recently-carousel {
     height: 276px;
 }
-
-
-
 </style>

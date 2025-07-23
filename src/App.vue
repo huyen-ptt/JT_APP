@@ -1,9 +1,15 @@
 <template>
-  <div class="app-container">
-    <!-- Hiệu ứng chuyển trang slide -->
-    <transition name="slide-left" mode="out-in">
-      <router-view :key="$route.fullPath" />
-    </transition>
+  <div class="app-container" :style="{ paddingBottom: safeAreaBottom + 'px' }">
+    <!-- Loading Screen -->
+    <LoadingScreen v-if="!appReady" @finished="appReady = true" />
+
+    <!-- Main App với transition chỉ khi app ready -->
+    <div v-if="appReady" class="main-content">
+    <!-- <div class="main-content"> -->
+      <transition name="slide-left" mode="out-in">
+        <router-view :key="$route.fullPath" />
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -11,18 +17,20 @@
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { App as CapacitorApp } from '@capacitor/app';
 import { useRouter } from 'vue-router';
-import { computed, onMounted } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import { useAuthStore } from '@/stores/authStore'
 import { useLanguageStore } from './stores/languageStore'
-import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 import { App } from '@capacitor/app';
 import { useI18n } from 'vue-i18n';
 import Swal from 'sweetalert2'
 import { useHelper } from "./composables/helper";
-import { ScreenOrientation } from '@capawesome/capacitor-screen-orientation';
-import { SplashScreen } from '@capacitor/splash-screen';
 import { Capacitor } from '@capacitor/core'
 import { checkAppVersion } from "@/composables/useVersion";
+import LoadingScreen from './components/LoadingScreen.vue';
+import { useSafeArea, setCSSCustomProperties } from '@/utils/safeArea.js'
+import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
+
+
 
 const { t } = useI18n();
 const router = useRouter();
@@ -31,6 +39,27 @@ const auth = computed(() => authStore.auth)
 const helper = useHelper()
 const langStore = useLanguageStore()
 langStore.loadDefaulLanguage()
+
+// Sử dụng composable
+const {
+  safeAreaTop,
+  safeAreaBottom,
+  safeAreaLeft,
+  safeAreaRight
+} = useSafeArea()
+
+const appReady = ref(false)
+const onSetupStatusBarV1 = async () => {
+  await nextTick();
+  // await StatusBar.setOverlaysWebView({ overlay: false });
+  
+  // await StatusBar.setStyle({ style: Style.Dark }); // Icon đen trên nền trắng
+  // await StatusBar.setBackgroundColor({ color: '#ffffff' }); // Background trắng
+  const ins = await EdgeToEdge.getInsets();
+  // alert(JSON.stringify(ins));
+
+}
+
 
 const onSetupStatusBar = async () => {
   try {
@@ -43,7 +72,7 @@ const onSetupStatusBar = async () => {
 
         // Cách 2: Dùng EdgeToEdge với màu thực sự trong suốt
         try {
-          await EdgeToEdge.setBackgroundColor({ color: 'transparent' });
+          // await EdgeToEdge.setBackgroundColor({ color: 'transparent' });
         } catch (e) {
           // Fallback: không set background
           console.log('EdgeToEdge not supported or failed');
@@ -134,35 +163,12 @@ onMounted(async () => {
       window.history.back();
     }
   });
+  // Set CSS custom properties
+  setCSSCustomProperties()
 
-  // const platform = helper.getPlatformInfo();
-  // // Cấu hình StatusBar cho từng platform
-  // if (platform.isIOS) {
-  //   // iOS: Hiển thị status bar với background
-  //   await StatusBar.setOverlaysWebView({ overlay: false });
-  //   await StatusBar.setStyle({ style: Style.Light }); // hoặc Style.Dark
-  //   await StatusBar.setBackgroundColor({ color: '#ffffff' }); // màu background
-  // } else if (platform.isAndroid) {
-  //   // Android: Hiển thị status bar bình thường
-  //   await StatusBar.setOverlaysWebView({ overlay: false });
-  //   await StatusBar.setStyle({ style: Style.Light }); // hoặc Style.Dark
-  //   await StatusBar.setBackgroundColor({ color: '#ffffff' }); // màu background
 
-  //   // Nếu muốn dùng EdgeToEdge cho Android 15+
-  //   if (platform.isAndroid15Plus) {
-
-  //     try {
-  //       await EdgeToEdge.setBackgroundColor({ color: '#ffffff' });
-  //       // Với EdgeToEdge, có thể cần overlay: true
-  //       await StatusBar.setOverlaysWebView({ overlay: true });
-  //     } catch (err) {
-  //       console.warn('Lỗi set EdgeToEdge:', err);
-  //       // Fallback về cấu hình bình thường
-  //       await StatusBar.setOverlaysWebView({ overlay: false });
-  //     }
-  //   }
-  // }
-  await onSetupStatusBar();
+  // await onSetupStatusBar();
+  await onSetupStatusBarV1();
 
 
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -212,12 +218,30 @@ onMounted(async () => {
 
 
 /* Layout mặc định */
-.app-container {
+/* .app-container {
   background-color: #ffffff;
   min-height: 100vh;
-  /* padding-top: env(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
   padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right); */
+  padding-right: env(safe-area-inset-right);
+} */
+
+.app-container {
+  background-color: #ffffff;
+
+  width: 100%;
+  min-height: 100vh;
+  /* height: calc(100vh - env(safe-area-inset-bottom, 60px)); 
+  position: relative; */
+  /* overflow: hidden; */
+  /* Tránh scroll khi transition */
+}
+
+.main-content {
+  width: 100%;
+  height: 100%;
+  /* Safe area cho mobile */
+  /* padding-bottom: env(safe-area-inset-bottom, 0px); */
 }
 
 :root {
