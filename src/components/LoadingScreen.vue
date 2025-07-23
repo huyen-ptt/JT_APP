@@ -24,10 +24,32 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
+    try {
+        if (Capacitor.isNativePlatform()) {
+            if (Capacitor.getPlatform() === 'android') {
+                // Android: Cần cấu hình EdgeToEdge và StatusBar
+                // Cách 1: Không set background color, chỉ enable overlay
+                await EdgeToEdge.setBackgroundColor({ color: '#ffffff' });
+                await EdgeToEdge.enable();
+                await StatusBar.setStyle({ style: Style.Light });
+                // Cách 2: Dùng EdgeToEdge với màu thực sự trong suốt
+                try {
+                    // await EdgeToEdge.setBackgroundColor({ color: 'transparent' });
+                } catch (e) {
+                    // Fallback: không set background
+                    console.log('EdgeToEdge not supported or failed');
+                }
+            } else if (Capacitor.getPlatform() === 'ios') {
+                // iOS: Chỉ cần overlay
+                // await StatusBar.setOverlaysWebView({ overlay: true });
+                // await StatusBar.setStyle({ style: Style.Light });
+            }
+        }
+    } catch (error) {
+        console.log('Error setting status bar:', error);
+    }
     // await StatusBar.setOverlaysWebView({ overlay: true });
-    await EdgeToEdge.setBackgroundColor({ color: '#ffffff' });
-    await EdgeToEdge.enable();
-    await StatusBar.setStyle({ style: Style.Light });
+
     try {
         // Ẩn splash screen mặc định NGAY LẬP TỨC
 

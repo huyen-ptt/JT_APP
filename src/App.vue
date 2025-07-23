@@ -49,6 +49,27 @@ const {
 } = useSafeArea()
 
 const appReady = ref(false)
+const shouldShowLoading = ref(false)
+// const safeAreaBottom = ref(0)
+
+// Composable để xử lý platform
+const usePlatform = () => {
+  const platform = Capacitor.getPlatform()
+  const isNative = Capacitor.isNativePlatform()
+  const isAndroid = platform === 'android'
+  const isIOS = platform === 'ios'
+  const isWeb = platform === 'web'
+  
+  return {
+    platform,
+    isNative,
+    isAndroid,
+    isIOS,
+    isWeb
+  }
+}
+
+
 const onSetupStatusBarV1 = async () => {
   await nextTick();
   // await StatusBar.setOverlaysWebView({ overlay: false });
@@ -148,7 +169,37 @@ const onDebug = async () => {
 
 onMounted(async () => {
   // await onDebug();
-  checkAppVersion();
+  await checkAppVersion();
+  const { isAndroid, isIOS, isNative } = usePlatform()
+
+  try {
+    if (isAndroid) {
+      // Android: hiển thị loading screen
+      shouldShowLoading.value = true
+      
+      // Optional: Xử lý status bar cho Android
+      if (isNative) {
+        // await StatusBar.setBackgroundColor({ color: '#ffffff' })
+      }
+    } else {
+      // iOS hoặc web: không hiển thị loading screen
+      shouldShowLoading.value = false
+      appReady.value = true
+      
+      // Optional: Xử lý status bar cho iOS
+      if (isIOS && isNative) {
+        await StatusBar.setOverlaysWebView({ overlay: false })
+        await StatusBar.setBackgroundColor({ color: '#ffffff' })
+        await StatusBar.setStyle({ style: Style.Light }) // Icon trắng trên nền trắng
+      }
+    }
+  } catch (error) {
+    console.warn('Platform setup error:', error)
+    // Fallback: không hiển thị loading screen nếu có lỗi
+    shouldShowLoading.value = false
+    appReady.value = true
+  }
+
   App.addListener('backButton', async ({ canGoBack }) => {
     if (!canGoBack) {
       const res = await Swal.fire({
