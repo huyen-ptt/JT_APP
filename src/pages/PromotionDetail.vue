@@ -126,7 +126,7 @@ const buttonText = computed(() => {
 .prodcut-sp {
     /* padding: 30px 10px; */
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
 }
 
 .tour-card {

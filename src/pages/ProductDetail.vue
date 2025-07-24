@@ -387,7 +387,7 @@
                                                 }}
                                             </div>
 
-                                        </div>
+                                        </div> 
                                         <button class="book-btn-booking" @click="onClickBookPackage(p)">
                                             {{ p.isActive ? $t("CLOSE") : $t("BOOK") }}
                                         </button>

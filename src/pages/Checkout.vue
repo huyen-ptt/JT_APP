@@ -12,11 +12,11 @@
                     <AccordionHeader>
                         <div class="promo-title">{{ $t('payment_summary') }}
                         </div>
-                    </AccordionHeader>
+                     </AccordionHeader>
                     <AccordionContent>
                         <div class="container py-2">
-                            <div class="bao-tourr" v-for="pay in pays">
-                                <div class="p-3 ">
+                            <div class="bao-tourr mb-2" v-for="pay in pays">
+                                <div class="p-3">
                                     <!-- Header -->
                                     <div class="d-flex gap-3 mb-4">
                                         <img :src="helper.getImageCMS(pay.avatar)" alt="Tour food" class="tour-image">

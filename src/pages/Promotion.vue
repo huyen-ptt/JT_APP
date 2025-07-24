@@ -2,7 +2,7 @@
     <div class="promotion-bao">
         <HeaderTitle :title="$t('Promotion')" :uri="`/`"></HeaderTitle>
 
-        <div class="container">
+        <div class="container pt-2">
             <div class="promotion-container">
                 <!-- Swiper -->
                 <swiper :modules="[Autoplay, Pagination]" :slides-per-view="1" :space-between="16"
@@ -80,7 +80,7 @@ onBeforeMount(async () => {
 .prodcut-sp {
     /* padding: 30px 10px; */
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
 }
 
 .tour-card {
