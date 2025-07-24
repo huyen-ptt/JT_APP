@@ -11,5 +11,15 @@
   "server": {
     "url": "http://192.168.9.108:8080/",
     "cleartext": true
-  }
+  },
+    "SplashScreen": {
+      "launchShowDuration": 3000,
+      "launchAutoHide": true,
+      "backgroundColor": "#ffffff",
+      "androidSplashResourceName": "splash",
+      "iosSplashResourceName": "Splash",
+      "showSpinner": false,
+      "androidScaleType": "CENTER_CROP",
+      "iosSpinnerStyle": "small"
+    }
 }

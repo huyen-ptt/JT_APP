@@ -1,0 +1,6 @@
+{
+  "splash": {
+    "backgroundColor": "#ffffff",
+    "source": "src/assets/splash.png"
+  }
+}

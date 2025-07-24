@@ -135,6 +135,7 @@ watch(currentSlide, (val) => {
 })
 
 onBeforeRouteLeave(() => {
+  clearTimeout(timer)
   markOnboardingSeen()
 })
 </script>
