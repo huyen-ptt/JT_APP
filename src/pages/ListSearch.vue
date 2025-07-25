@@ -35,8 +35,8 @@
                                 <div class="icon-success text-center title-sl">{{ $t('NO_RESULTS') }}</div>
                                 <div class=" icon-success text-center dia-chi-product  pb-4">{{ $t('NO_ITEMS') }}<br> {{
                                     $t('TRY_ANOTHER_PAGE') }}</div>
-                                <RouterLink to="/list-results" type="submit" class="w-100 btn btn-lg btn-login">{{
-                                    $t('EXPLORE') }}</RouterLink>
+                                <button type="button" class="w-100 btn btn-lg btn-login" @click="onExplore">{{
+                                    $t('EXPLORE') }}</button>
                             </div>
                         </div>
                     </div>
@@ -85,6 +85,10 @@ const onSearch = async () => {
         }
     }, 300); // Chờ 300ms sau khi dừng gõ
 };
+const onExplore = ()=>{
+    searchStore.onClearSearchItem();
+    router.push("list-results")
+}
 
 const onRedirectProductDetail = (p) => {
     router.push(`/detail-product/${p.productId}`)
