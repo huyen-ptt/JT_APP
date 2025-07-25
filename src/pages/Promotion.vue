@@ -29,7 +29,7 @@
                              2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 
                              2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
                                             </svg>
-                                            <span class="title-con">{{ $t('ends_on') }} {{ p.endingTime }}</span>
+                                            <span class="title-con" v-if="p.startTime && p.endingTime">{{ p.startTime  }} - {{ p.endingTime }}</span>
                                         </div>
                                         <RouterLink :to="`/promotion-detail/${p.id}`" class="btn btn-primary collect-btn">
                                             {{ $t('Button_Collect_Promotion') }}
