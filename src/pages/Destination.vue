@@ -88,12 +88,20 @@ const router = useRouter()
 
 
 
-const destination = ref([])
+const destination = ref({})
 
 
 const onChooseService = async (s) => {
+    var onDestination = {
+        id : destination.value.id,
+        type:5,
+        title:destination.value.name,
+        name:destination.value.name,
+    }
+    
     searchStore.onClearSearchItem();
-    searchStore.onAddSearchItem(s)
+    searchStore.onAddSearchItem(s);//service
+    searchStore.onAddSearchItem(onDestination);//destination
     modalStore.close();
     if (router.currentRoute.value.path === '/list-results') {
         await router.replace('/blank');
@@ -104,6 +112,8 @@ const onChooseService = async (s) => {
 }
 const onLoadDestination = async () => {
     const response = await destinationComposable.getZoneById();
+    destination.value = response.data;
+    
     if (response) {
         currentDestinationSelected.value = response.data;
         if (currentDestinationSelected.value.googleMapCrood) {
@@ -160,7 +170,7 @@ onBeforeMount(async () => {
     services.value.forEach(r => {
         r.url = r.alias
         r.name = r.title
-    })
+    });
     await onLoadDestination();
 })
 
