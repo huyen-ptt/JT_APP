@@ -116,7 +116,7 @@ watch(props.info?.triggerValid, () => {
 })
 const validate = () => {
 
-    if (selectedHour.value == "" || selectedMinute.value == "") {
+    if (selectedHour.value === "" || selectedMinute.value === "") {
         props.info.isValidNoteItem = false;
     }
     else {
